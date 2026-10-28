@@ -1,0 +1,184 @@
+{
+  "section": 4,
+  "title": {
+    "en": "Control flow: conditional execution and loops",
+    "es": "Control de flujo: ejecución condicional y bucles"
+  },
+  "readingMinutes": 5,
+  "intro": {
+    "en": "The key ideas of this section. Press “Run this code” on any example to try it.",
+    "es": "Las ideas clave de esta sección. Pulsa «Ejecutar este código» en cualquier ejemplo para probarlo."
+  },
+  "blocks": [
+    {
+      "heading": {
+        "en": "`if`, `else if` and `else`",
+        "es": "`if`, `else if` y `else`"
+      },
+      "body": {
+        "en": "The condition goes in parentheses and doesn't need to be a boolean: it's converted to `true` or `false`, so `0`, `\"\"`, `null`, `undefined` and `NaN` count as false and everything else (even `\"0\"` and `[]`) as true.\nIn an `if...else if...else` chain only the first true branch runs, so put the most specific condition first. Without `{ }`, an `if` only controls the next statement, and an `else` goes with the nearest `if`.",
+        "es": "La condición va entre paréntesis y no tiene por qué ser un booleano: se convierte en `true` o `false`, así que `0`, `\"\"`, `null`, `undefined` y `NaN` cuentan como falso, y todo lo demás (incluso `\"0\"` y `[]`), como verdadero.\nEn una cadena `if...else if...else` solo se ejecuta la primera rama verdadera, así que pon primero la condición más concreta. Sin `{ }`, un `if` solo controla la instrucción siguiente, y un `else` va con el `if` más cercano."
+      },
+      "example": {
+        "code": "let score = 95;\nif (score >= 90) console.log(\"Excellent\");\nelse if (score >= 50) console.log(\"Pass\");\nelse console.log(\"Fail\");",
+        "output": "Excellent"
+      }
+    },
+    {
+      "heading": {
+        "en": "`switch`",
+        "es": "`switch`"
+      },
+      "body": {
+        "en": "`switch` compares a value with each `case` using `===` and jumps to the first one that matches (or to `default`, if nothing matches). From there it runs everything below until it finds a `break` or the end of the `switch`. Several empty cases in a row share the same code. `default` is optional and can go anywhere.",
+        "es": "`switch` compara un valor con cada `case` usando `===` y salta al primero que coincide (o a `default`, si no coincide ninguno). Desde ahí ejecuta todo lo que hay debajo hasta encontrar un `break` o el final del `switch`. Varios casos vacíos seguidos comparten el mismo código. `default` es opcional y puede ir en cualquier sitio."
+      },
+      "example": {
+        "code": "switch (\"sun\") {\n  case \"sat\":\n  case \"sun\": console.log(\"weekend\"); break;\n  default: console.log(\"weekday\");\n}",
+        "output": "weekend"
+      }
+    },
+    {
+      "heading": {
+        "en": "`while` and `do...while`",
+        "es": "`while` y `do...while`"
+      },
+      "body": {
+        "en": "`while` checks the condition before each round, so it may not run at all. `do...while` checks it at the end, so its block always runs at least once. Use them when you don't know in advance how many rounds you need, and make sure something in the block changes the condition, or the loop never ends.",
+        "es": "`while` comprueba la condición antes de cada vuelta, así que puede no ejecutarse ninguna vez. `do...while` la comprueba al final, así que su bloque se ejecuta siempre al menos una vez. Úsalos cuando no sepas de antemano cuántas vueltas harán falta, y asegúrate de que algo del bloque cambia la condición, o el bucle no terminará nunca."
+      },
+      "example": {
+        "code": "let n = 10;\nwhile (n < 5) { n++; }\ndo { n++; } while (n < 5);\nconsole.log(n);",
+        "output": "11"
+      }
+    },
+    {
+      "heading": {
+        "en": "`for`",
+        "es": "`for`"
+      },
+      "body": {
+        "en": "A `for` has three parts separated by `;`: the start runs once; then, while the condition is true, the block runs, followed by the update. It's the usual loop for counting or for going through an array by position: `i` from `0` while `i < array.length`. The three parts are optional, but the two `;` aren't. A `let` declared in the `for` only exists inside the loop.",
+        "es": "Un `for` tiene tres partes separadas por `;`: el inicio se ejecuta una vez; después, mientras la condición sea verdadera, se ejecuta el bloque y luego la actualización. Es el bucle habitual para contar o para recorrer un array por posiciones: `i` desde `0` mientras `i < array.length`. Las tres partes son opcionales, pero los dos `;` no. Una `let` declarada en el `for` solo existe dentro del bucle."
+      },
+      "example": {
+        "code": "let colors = [\"red\", \"green\"];\nfor (let i = 0; i < colors.length; i++) {\n  console.log(i, colors[i]);\n}",
+        "output": "0 red\n1 green"
+      }
+    },
+    {
+      "heading": {
+        "en": "`break` and `continue`",
+        "es": "`break` y `continue`"
+      },
+      "body": {
+        "en": "`break` ends the loop at once. `continue` skips the rest of the current round and goes on with the next one (in a `for`, the update still runs). In nested loops, both only affect the loop they're written in, and a `break` inside a `switch` only leaves the `switch`.",
+        "es": "`break` termina el bucle en el acto. `continue` se salta el resto de la vuelta actual y sigue con la siguiente (en un `for`, la actualización se ejecuta igualmente). En bucles anidados, los dos afectan solo al bucle en el que están escritos, y un `break` dentro de un `switch` solo sale del `switch`."
+      },
+      "example": {
+        "code": "for (let i = 1; i <= 6; i++) {\n  if (i === 2) continue;\n  if (i === 5) break;\n  console.log(i);\n}",
+        "output": "1\n3\n4"
+      }
+    },
+    {
+      "heading": {
+        "en": "`for...in` and `for...of`",
+        "es": "`for...in` y `for...of`"
+      },
+      "body": {
+        "en": "`for...in` goes through the keys of an object; read each value with brackets, `obj[key]`. `for...of` goes through the values of an iterable: arrays and strings. Plain objects aren't iterable. Changing the loop variable doesn't change the array. Here `const` is allowed for the loop variable, because each round gets a new one.",
+        "es": "`for...in` recorre las claves de un objeto; cada valor se lee con corchetes, `obj[key]`. `for...of` recorre los valores de un iterable: arrays y strings. Los objetos normales no son iterables. Cambiar la variable del bucle no cambia el array. Aquí se puede usar `const` para la variable del bucle, porque cada vuelta recibe una nueva."
+      },
+      "example": {
+        "code": "const pet = { name: \"Rex\", age: 4 };\nfor (const key in pet) console.log(key, pet[key]);\nfor (const ch of \"hi\") console.log(ch);",
+        "output": "name Rex\nage 4\nh\ni"
+      }
+    }
+  ],
+  "traps": [
+    {
+      "title": {
+        "en": "A `case` without `break` falls through",
+        "es": "Un `case` sin `break` sigue en el siguiente"
+      },
+      "body": {
+        "en": "Execution continues into the next `case` (and into `default`) until it finds a `break`.",
+        "es": "La ejecución continúa en el `case` siguiente (y en `default`) hasta encontrar un `break`."
+      },
+      "example": {
+        "code": "switch (2) {\n  case 2: console.log(\"normal\");\n  case 3: console.log(\"hard\");\n}",
+        "output": "normal\nhard"
+      }
+    },
+    {
+      "title": {
+        "en": "`switch` compares with `===`",
+        "es": "`switch` compara con `===`"
+      },
+      "body": {
+        "en": "The string `\"1\"` doesn't match `case 1`. And `case \"a\" || \"b\":` is really `case \"a\":`.",
+        "es": "El string `\"1\"` no coincide con `case 1`. Y `case \"a\" || \"b\":` es en realidad `case \"a\":`."
+      },
+      "example": {
+        "code": "switch (\"1\") {\n  case 1: console.log(\"one\"); break;\n  default: console.log(\"no match\");\n}",
+        "output": "no match"
+      }
+    },
+    {
+      "title": {
+        "en": "`<=` with `length` goes one step too far",
+        "es": "`<=` con `length` da una vuelta de más"
+      },
+      "body": {
+        "en": "The last position of an array is `length - 1`. With `i <= arr.length` the last round reads `undefined`: an off-by-one error.",
+        "es": "La última posición de un array es `length - 1`. Con `i <= arr.length`, la última vuelta lee `undefined`: un error por uno."
+      },
+      "example": {
+        "code": "let arr = [\"a\", \"b\"];\nfor (let i = 0; i <= arr.length; i++) {\n  console.log(arr[i]);\n}",
+        "output": "a\nb\nundefined"
+      }
+    },
+    {
+      "title": {
+        "en": "`for...in` gives array indexes as strings",
+        "es": "`for...in` da los índices de un array como strings"
+      },
+      "body": {
+        "en": "You get `\"0\"`, `\"1\"`… and not the values, and `+` joins them instead of adding them. For arrays, use `for...of`.",
+        "es": "Obtienes `\"0\"`, `\"1\"`… y no los valores, y `+` los une en vez de sumarlos. Para arrays, usa `for...of`."
+      },
+      "example": {
+        "code": "let total = 0;\nfor (let i in [10, 20]) total += i;\nconsole.log(total);",
+        "output": "001"
+      }
+    },
+    {
+      "title": {
+        "en": "`for...of` doesn't work with plain objects",
+        "es": "`for...of` no funciona con objetos normales"
+      },
+      "body": {
+        "en": "A plain object isn't iterable: `for...of` throws a `TypeError`. Use `for...in` for its keys.",
+        "es": "Un objeto normal no es iterable: `for...of` lanza un `TypeError`. Usa `for...in` para sus claves."
+      },
+      "example": {
+        "code": "for (let value of { brand: \"Seat\" }) console.log(value);",
+        "errorType": "TypeError"
+      }
+    },
+    {
+      "title": {
+        "en": "`=` in a condition assigns",
+        "es": "`=` en una condición asigna"
+      },
+      "body": {
+        "en": "`if (x = 0)` stores `0` in `x` and the condition is falsy. To compare, use `===`. And a `;` right after `if (…)` or `for (…)` leaves the block outside.",
+        "es": "`if (x = 0)` guarda `0` en `x` y la condición es falsy. Para comparar, usa `===`. Y un `;` justo después de `if (…)` o de `for (…)` deja el bloque fuera."
+      },
+      "example": {
+        "code": "let lives = 3;\nif (lives = 0) console.log(\"Game over\");\nconsole.log(lives);",
+        "output": "0"
+      }
+    }
+  ]
+}

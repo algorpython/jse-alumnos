@@ -1,0 +1,267 @@
+[
+  {
+    "id": "s3-e001", "section": 3, "difficulty": 1, "tags": ["remainder", "arithmetic"], "courseRef": "01_Variables",
+    "title": { "en": "Is it a multiple?", "es": "¿Es múltiplo?" },
+    "statement": {
+      "en": "Write a function `isMultiple(n, d)` that returns `true` if `n` is a multiple of `d` (the division has no remainder) and `false` if it isn't.\nExample: `isMultiple(10, 5)` returns `true` and `isMultiple(7, 2)` returns `false`.",
+      "es": "Escribe una función `isMultiple(n, d)` que devuelva `true` si `n` es múltiplo de `d` (la división no tiene resto) y `false` si no lo es.\nEjemplo: `isMultiple(10, 5)` devuelve `true` e `isMultiple(7, 2)` devuelve `false`."
+    },
+    "starter": "function isMultiple(n, d) {\n  // your code here\n}\n\nconsole.log(isMultiple(10, 5));\n",
+    "solution": "function isMultiple(n, d) {\n  // % gives the remainder of n / d.\n  // If nothing is left over, n is a multiple of d.\n  return n % d === 0;\n}\n\nconsole.log(isMultiple(10, 5));\n",
+    "alternatives": [
+      "const isMultiple = (n, d) => n % d === 0;\n\nconsole.log(isMultiple(10, 5));\n"
+    ],
+    "tests": [
+      { "call": "isMultiple(10, 5)", "expected": true },
+      { "call": "isMultiple(7, 2)", "expected": false },
+      { "call": "isMultiple(21, 7)", "expected": true },
+      { "call": "isMultiple(0, 3)", "expected": true },
+      { "output": "true" }
+    ],
+    "hints": [
+      { "en": "The remainder operator `%` tells you what is left over after dividing: `7 % 2` is `1`.", "es": "El operador de resto `%` te dice lo que sobra al dividir: `7 % 2` da `1`." },
+      { "en": "A comparison already gives `true` or `false`, so you can return it directly: `return n % d === 0;`.", "es": "Una comparación ya da `true` o `false`, así que puedes devolverla directamente: `return n % d === 0;`." }
+    ],
+    "solutionExplanation": {
+      "en": "`n % d` is the remainder of dividing `n` by `d`. If it's `0`, the division is exact and `n` is a multiple of `d`. The comparison `=== 0` already gives a boolean, so there's no need for an `if` that returns `true` or `false`.",
+      "es": "`n % d` es el resto de dividir `n` entre `d`. Si es `0`, la división es exacta y `n` es múltiplo de `d`. La comparación `=== 0` ya da un booleano, así que no hace falta un `if` que devuelva `true` o `false`."
+    },
+    "commonMistakes": [
+      { "en": "Using `/` instead of `%`: `10 / 5` is `2`, not the remainder, so `10 / 5 === 0` is `false`.", "es": "Usar `/` en vez de `%`: `10 / 5` da `2`, no el resto, así que `10 / 5 === 0` da `false`." },
+      { "en": "Writing `n % d = 0`: a single `=` assigns instead of comparing, and the code doesn't even run.", "es": "Escribir `n % d = 0`: un solo `=` asigna en vez de comparar, y el código ni siquiera se ejecuta." },
+      { "en": "Returning `n % d`: you get the remainder (a number), not `true` or `false`.", "es": "Devolver `n % d`: se obtiene el resto (un número), no `true` o `false`." }
+    ]
+  },
+  {
+    "id": "s3-e002", "section": 3, "difficulty": 1, "tags": ["trap", "precedence", "arithmetic"], "courseRef": "01_Variables",
+    "title": { "en": "Average of three marks", "es": "Media de tres notas" },
+    "statement": {
+      "en": "Write a function `average(a, b, c)` that returns the average of three numbers: their sum divided by 3.\nExample: `average(4, 5, 6)` returns `5`.",
+      "es": "Escribe una función `average(a, b, c)` que devuelva la media de tres números: su suma dividida entre 3.\nEjemplo: `average(4, 5, 6)` devuelve `5`."
+    },
+    "starter": "function average(a, b, c) {\n  // your code here\n}\n\nconsole.log(average(4, 5, 6));\n",
+    "solution": "function average(a, b, c) {\n  // The parentheses make the sum happen before the division.\n  // Without them, only c would be divided by 3.\n  return (a + b + c) / 3;\n}\n\nconsole.log(average(4, 5, 6));\n",
+    "alternatives": [
+      "function average(a, b, c) {\n  let sum = a + b + c;\n  return sum / 3;\n}\n\nconsole.log(average(4, 5, 6));\n"
+    ],
+    "tests": [
+      { "call": "average(4, 5, 6)", "expected": 5 },
+      { "call": "average(1, 2, 3)", "expected": 2 },
+      { "call": "average(10, 0, 5)", "expected": 5 },
+      { "call": "average(7, 8, 8)", "expected": 7.666666666666667 },
+      { "output": "5" }
+    ],
+    "hints": [
+      { "en": "`/` has higher precedence than `+`: in `a + b + c / 3` only `c` is divided.", "es": "`/` tiene más precedencia que `+`: en `a + b + c / 3` solo se divide `c`." },
+      { "en": "Put the sum in parentheses, or save it first in a variable, and then divide by 3.", "es": "Pon la suma entre paréntesis, o guárdala antes en una variable, y después divide entre 3." }
+    ],
+    "solutionExplanation": {
+      "en": "Parentheses have the highest precedence, so `(a + b + c)` is added first and then the result is divided by 3. Saving the sum in a variable and dividing it afterwards is equally correct and sometimes easier to read.",
+      "es": "Los paréntesis tienen la máxima precedencia, así que primero se suma `(a + b + c)` y después el resultado se divide entre 3. Guardar la suma en una variable y dividirla después es igual de correcto y a veces se lee mejor."
+    },
+    "commonMistakes": [
+      { "en": "Writing `a + b + c / 3` without parentheses: with 4, 5 and 6 you get `11`, because only the 6 is divided.", "es": "Escribir `a + b + c / 3` sin paréntesis: con 4, 5 y 6 sale `11`, porque solo se divide el 6." },
+      { "en": "Dividing by 2 or by the wrong number: there are three values, so you divide by 3.", "es": "Dividir entre 2 o entre otro número: hay tres valores, así que se divide entre 3." }
+    ]
+  },
+  {
+    "id": "s3-e003", "section": 3, "difficulty": 1, "tags": ["logical", "comparison"], "courseRef": "04_Condicionales",
+    "title": { "en": "Teenager", "es": "Adolescente" },
+    "statement": {
+      "en": "Write a function `isTeenager(age)` that returns `true` if `age` is between 13 and 19, both included, and `false` otherwise.\nExample: `isTeenager(13)` returns `true` and `isTeenager(20)` returns `false`.",
+      "es": "Escribe una función `isTeenager(age)` que devuelva `true` si `age` está entre 13 y 19, ambos incluidos, y `false` en otro caso.\nEjemplo: `isTeenager(13)` devuelve `true` e `isTeenager(20)` devuelve `false`."
+    },
+    "starter": "function isTeenager(age) {\n  // your code here\n}\n\nconsole.log(isTeenager(13));\n",
+    "solution": "function isTeenager(age) {\n  // Both conditions must be true at the same time, so we join them with &&.\n  return age >= 13 && age <= 19;\n}\n\nconsole.log(isTeenager(13));\n",
+    "alternatives": [
+      "function isTeenager(age) {\n  return age > 12 && age < 20;\n}\n\nconsole.log(isTeenager(13));\n"
+    ],
+    "tests": [
+      { "call": "isTeenager(13)", "expected": true },
+      { "call": "isTeenager(19)", "expected": true },
+      { "call": "isTeenager(16)", "expected": true },
+      { "call": "isTeenager(12)", "expected": false },
+      { "call": "isTeenager(20)", "expected": false },
+      { "output": "true" }
+    ],
+    "hints": [
+      { "en": "You need two comparisons: one for the lower limit and one for the upper limit.", "es": "Necesitas dos comparaciones: una para el límite de abajo y otra para el de arriba." },
+      { "en": "“Both included” means `>=` and `<=`. Join the two comparisons with `&&`.", "es": "«Ambos incluidos» significa `>=` y `<=`. Une las dos comparaciones con `&&`." }
+    ],
+    "solutionExplanation": {
+      "en": "A range needs two comparisons joined with `&&`, which is only `true` if both are. Comparison operators go before `&&`, so `age >= 13 && age <= 19` needs no parentheses. Since the result is already a boolean, it can be returned directly.",
+      "es": "Un intervalo necesita dos comparaciones unidas con `&&`, que solo da `true` si las dos lo son. Los operadores de comparación van antes que `&&`, así que `age >= 13 && age <= 19` no necesita paréntesis. Como el resultado ya es un booleano, se puede devolver directamente."
+    },
+    "commonMistakes": [
+      { "en": "Writing `13 <= age <= 19`: JavaScript compares from left to right, turns the first result into 0 or 1 and the result is always `true`.", "es": "Escribir `13 <= age <= 19`: JavaScript compara de izquierda a derecha, convierte el primer resultado en 0 o 1 y el resultado siempre es `true`." },
+      { "en": "Using `||` instead of `&&`: any age is at least 13 or at most 19, so it would always return `true`.", "es": "Usar `||` en vez de `&&`: cualquier edad es mayor o igual que 13 o menor o igual que 19, así que siempre devolvería `true`." },
+      { "en": "Using `>` and `<` with 13 and 19: then 13 and 19 are left out.", "es": "Usar `>` y `<` con 13 y 19: entonces se quedan fuera el 13 y el 19." }
+    ]
+  },
+  {
+    "id": "s3-e004", "section": 3, "difficulty": 1, "tags": ["trap", "logical", "equality"], "courseRef": "04_Condicionales",
+    "title": { "en": "Weekend", "es": "Fin de semana" },
+    "statement": {
+      "en": "Write a function `isWeekend(day)` that receives the name of a day in English and returns `true` if it's `\"Saturday\"` or `\"Sunday\"`, and `false` for any other day.\nExample: `isWeekend(\"Sunday\")` returns `true` and `isWeekend(\"Monday\")` returns `false`.",
+      "es": "Escribe una función `isWeekend(day)` que reciba el nombre de un día en inglés y devuelva `true` si es `\"Saturday\"` o `\"Sunday\"`, y `false` con cualquier otro día.\nEjemplo: `isWeekend(\"Sunday\")` devuelve `true` e `isWeekend(\"Monday\")` devuelve `false`."
+    },
+    "starter": "function isWeekend(day) {\n  // your code here\n}\n\nconsole.log(isWeekend(\"Sunday\"));\n",
+    "solution": "function isWeekend(day) {\n  // Each side of || must be a full comparison with day.\n  return day === \"Saturday\" || day === \"Sunday\";\n}\n\nconsole.log(isWeekend(\"Sunday\"));\n",
+    "tests": [
+      { "call": "isWeekend(\"Saturday\")", "expected": true },
+      { "call": "isWeekend(\"Sunday\")", "expected": true },
+      { "call": "isWeekend(\"Monday\")", "expected": false },
+      { "call": "isWeekend(\"Friday\")", "expected": false },
+      { "output": "true" }
+    ],
+    "hints": [
+      { "en": "The day can be one value or the other: that's the `||` operator.", "es": "El día puede ser un valor o el otro: eso es el operador `||`." },
+      { "en": "Repeat `day` in each comparison: `day === \"Saturday\" || day === …`.", "es": "Repite `day` en cada comparación: `day === \"Saturday\" || day === …`." }
+    ],
+    "solutionExplanation": {
+      "en": "`||` joins two complete comparisons and is `true` if at least one of them is. Each side must compare `day` with a text. `===` is used so that only those exact strings count.",
+      "es": "`||` une dos comparaciones completas y da `true` si al menos una lo es. Cada lado tiene que comparar `day` con un texto. Se usa `===` para que solo cuenten esos strings exactos."
+    },
+    "commonMistakes": [
+      { "en": "Writing `day === \"Saturday\" || \"Sunday\"`: the right side is just the text `\"Sunday\"`, which is truthy, so with `\"Monday\"` it returns `\"Sunday\"` instead of `false`.", "es": "Escribir `day === \"Saturday\" || \"Sunday\"`: la parte derecha es solo el texto `\"Sunday\"`, que es truthy, así que con `\"Monday\"` devuelve `\"Sunday\"` en vez de `false`." },
+      { "en": "Using `&&`: a day can't be Saturday and Sunday at the same time, so it would always return `false`.", "es": "Usar `&&`: un día no puede ser sábado y domingo a la vez, así que siempre devolvería `false`." },
+      { "en": "Writing `day = \"Saturday\"`: a single `=` assigns the value instead of comparing.", "es": "Escribir `day = \"Saturday\"`: un solo `=` asigna el valor en vez de comparar." }
+    ]
+  },
+  {
+    "id": "s3-e005", "section": 3, "difficulty": 2, "tags": ["ternary"], "courseRef": "04_Condicionales",
+    "title": { "en": "Positive, negative or zero", "es": "Positivo, negativo o cero" },
+    "statement": {
+      "en": "Write a function `sign(n)` that returns `\"positive\"` if `n` is greater than 0, `\"negative\"` if it's less than 0 and `\"zero\"` if it's 0. Try to do it with the ternary operator.\nExample: `sign(-3)` returns `\"negative\"`.",
+      "es": "Escribe una función `sign(n)` que devuelva `\"positive\"` si `n` es mayor que 0, `\"negative\"` si es menor que 0 y `\"zero\"` si es 0. Intenta hacerlo con el operador ternario.\nEjemplo: `sign(-3)` devuelve `\"negative\"`."
+    },
+    "starter": "function sign(n) {\n  // your code here\n}\n\nconsole.log(sign(-3));\n",
+    "solution": "function sign(n) {\n  // If the first condition is false, a second ternary decides\n  // between \"negative\" and \"zero\".\n  return n > 0 ? \"positive\" : n < 0 ? \"negative\" : \"zero\";\n}\n\nconsole.log(sign(-3));\n",
+    "alternatives": [
+      "function sign(n) {\n  if (n > 0) {\n    return \"positive\";\n  } else if (n < 0) {\n    return \"negative\";\n  }\n  return \"zero\";\n}\n\nconsole.log(sign(-3));\n"
+    ],
+    "tests": [
+      { "call": "sign(5)", "expected": "positive" },
+      { "call": "sign(-3)", "expected": "negative" },
+      { "call": "sign(0)", "expected": "zero" },
+      { "call": "sign(0.5)", "expected": "positive" },
+      { "output": "negative" }
+    ],
+    "hints": [
+      { "en": "A ternary is written `condition ? valueIfTrue : valueIfFalse`.", "es": "Un ternario se escribe `condition ? valueIfTrue : valueIfFalse`." },
+      { "en": "There are three possible results, so the “false” part can be another ternary: `n > 0 ? \"positive\" : (n < 0 ? … : …)`.", "es": "Hay tres resultados posibles, así que la parte «falsa» puede ser otro ternario: `n > 0 ? \"positive\" : (n < 0 ? … : …)`." }
+    ],
+    "solutionExplanation": {
+      "en": "The first ternary checks `n > 0`. If it's false, the second ternary checks `n < 0`, and if that's false too, the only option left is `\"zero\"`. Nesting more than two ternaries gets hard to read; in that case an `if…else if…else` is clearer.",
+      "es": "El primer ternario comprueba `n > 0`. Si es falso, el segundo ternario comprueba `n < 0`, y si también es falso, solo queda `\"zero\"`. Anidar más de dos ternarios se vuelve difícil de leer; en ese caso es más claro un `if…else if…else`."
+    },
+    "commonMistakes": [
+      { "en": "Writing only one ternary, `n > 0 ? \"positive\" : \"negative\"`: then 0 is reported as `\"negative\"`.", "es": "Escribir un solo ternario, `n > 0 ? \"positive\" : \"negative\"`: entonces el 0 sale como `\"negative\"`." },
+      { "en": "Swapping `?` and `:`: the `?` goes after the condition and the `:` separates the two values.", "es": "Intercambiar `?` y `:`: el `?` va después de la condición y los `:` separan los dos valores." },
+      { "en": "Forgetting `return`: the ternary calculates the text, but the function has to return it.", "es": "Olvidar el `return`: el ternario calcula el texto, pero la función tiene que devolverlo." }
+    ]
+  },
+  {
+    "id": "s3-e006", "section": 3, "difficulty": 2, "tags": ["typeof", "ternary"], "courseRef": "03_Casting",
+    "title": { "en": "Add only numbers", "es": "Sumar solo números" },
+    "statement": {
+      "en": "Write a function `addIfNumbers(a, b)` that returns `a + b` if both values are of type `number`, and the text `\"Invalid\"` if any of them isn't.\nExample: `addIfNumbers(2, 3)` returns `5` and `addIfNumbers(\"2\", 3)` returns `\"Invalid\"`.",
+      "es": "Escribe una función `addIfNumbers(a, b)` que devuelva `a + b` si los dos valores son de tipo `number`, y el texto `\"Invalid\"` si alguno no lo es.\nEjemplo: `addIfNumbers(2, 3)` devuelve `5` y `addIfNumbers(\"2\", 3)` devuelve `\"Invalid\"`."
+    },
+    "starter": "function addIfNumbers(a, b) {\n  // your code here\n}\n\nconsole.log(addIfNumbers(2, 3));\n",
+    "solution": "function addIfNumbers(a, b) {\n  // typeof returns the type as a string, so we compare it with \"number\".\n  if (typeof a === \"number\" && typeof b === \"number\") {\n    return a + b;\n  }\n  return \"Invalid\";\n}\n\nconsole.log(addIfNumbers(2, 3));\n",
+    "alternatives": [
+      "function addIfNumbers(a, b) {\n  return typeof a === \"number\" && typeof b === \"number\" ? a + b : \"Invalid\";\n}\n\nconsole.log(addIfNumbers(2, 3));\n"
+    ],
+    "tests": [
+      { "call": "addIfNumbers(2, 3)", "expected": 5 },
+      { "call": "addIfNumbers(1.5, 1)", "expected": 2.5 },
+      { "call": "addIfNumbers(\"2\", 3)", "expected": "Invalid" },
+      { "call": "addIfNumbers(2, \"3\")", "expected": "Invalid" },
+      { "call": "addIfNumbers(true, 1)", "expected": "Invalid" },
+      { "output": "5" }
+    ],
+    "hints": [
+      { "en": "`typeof 2` is the string `\"number\"`, and `typeof \"2\"` is `\"string\"`.", "es": "`typeof 2` es el string `\"number\"`, y `typeof \"2\"` es `\"string\"`." },
+      { "en": "Check both values in one condition with `&&`: `typeof a === \"number\" && typeof b === \"number\"`.", "es": "Comprueba los dos valores en una sola condición con `&&`: `typeof a === \"number\" && typeof b === \"number\"`." }
+    ],
+    "solutionExplanation": {
+      "en": "`typeof` returns the type as a string, so it's compared with the text `\"number\"`. Both values must be numbers, so the two checks are joined with `&&`. Without this check, `\"2\" + 3` would give `\"23\"` and `true + 1` would give `2`.",
+      "es": "`typeof` devuelve el tipo como string, así que se compara con el texto `\"number\"`. Los dos valores tienen que ser números, así que las dos comprobaciones se unen con `&&`. Sin esta comprobación, `\"2\" + 3` daría `\"23\"` y `true + 1` daría `2`."
+    },
+    "commonMistakes": [
+      { "en": "Comparing with the type without quotes, as in `typeof a === number`: `number` isn't a variable, so you get a `ReferenceError`.", "es": "Comparar con el tipo sin comillas, como en `typeof a === number`: `number` no es una variable, así que sale un `ReferenceError`." },
+      { "en": "Writing `typeof a && b === \"number\"`: the second part only compares `b` itself with the text, not its type.", "es": "Escribir `typeof a && b === \"number\"`: la segunda parte solo compara el propio `b` con el texto, no su tipo." },
+      { "en": "Using `||`: then it's enough for one of the two to be a number, and `\"2\" + 3` would return `\"23\"`.", "es": "Usar `||`: entonces basta con que uno de los dos sea un número, y `\"2\" + 3` devolvería `\"23\"`." }
+    ]
+  },
+  {
+    "id": "s3-e007", "section": 3, "difficulty": 2, "tags": ["trap", "prompt", "coercion"], "courseRef": "01_Variables",
+    "title": { "en": "Answer from a prompt", "es": "Respuesta de un prompt" },
+    "statement": {
+      "en": "In a web page you would ask `let answer = prompt(\"How old are you?\");`. Write a function `nextYear(answer)` that receives that answer (a string, or `null` if the user clicked Cancel) and returns:\n- `\"Cancelled\"` if `answer` is `null`;\n- `\"Please type your age\"` if it's an empty string;\n- otherwise, `\"Next year you will be X\"`, where X is the age plus 1.\nExample: `nextYear(\"20\")` returns `\"Next year you will be 21\"`.",
+      "es": "En una página web preguntarías `let answer = prompt(\"How old are you?\");`. Escribe una función `nextYear(answer)` que reciba esa respuesta (un string, o `null` si el usuario pulsó Cancelar) y devuelva:\n- `\"Cancelled\"` si `answer` es `null`;\n- `\"Please type your age\"` si es un string vacío;\n- en otro caso, `\"Next year you will be X\"`, donde X es la edad más 1.\nEjemplo: `nextYear(\"20\")` devuelve `\"Next year you will be 21\"`."
+    },
+    "starter": "function nextYear(answer) {\n  // your code here\n}\n\nconsole.log(nextYear(\"20\"));\n",
+    "solution": "function nextYear(answer) {\n  // Cancel gives null: check it before using the text.\n  if (answer === null) {\n    return \"Cancelled\";\n  }\n  // OK with an empty box gives \"\".\n  if (answer === \"\") {\n    return \"Please type your age\";\n  }\n  // prompt always returns text: convert it before adding,\n  // or \"20\" + 1 would be \"201\".\n  return \"Next year you will be \" + (Number(answer) + 1);\n}\n\nconsole.log(nextYear(\"20\"));\n",
+    "alternatives": [
+      "function nextYear(answer) {\n  if (answer === null) return \"Cancelled\";\n  if (answer === \"\") return \"Please type your age\";\n  let age = Number(answer);\n  return `Next year you will be ${age + 1}`;\n}\n\nconsole.log(nextYear(\"20\"));\n"
+    ],
+    "tests": [
+      { "call": "nextYear(\"20\")", "expected": "Next year you will be 21" },
+      { "call": "nextYear(\"30\")", "expected": "Next year you will be 31" },
+      { "call": "nextYear(null)", "expected": "Cancelled" },
+      { "call": "nextYear(\"\")", "expected": "Please type your age" },
+      { "output": "Next year you will be 21" }
+    ],
+    "hints": [
+      { "en": "Check the special cases first: `answer === null` and `answer === \"\"`.", "es": "Comprueba primero los casos especiales: `answer === null` y `answer === \"\"`." },
+      { "en": "`\"20\" + 1` is `\"201\"`. Convert with `Number(answer)` before adding 1.", "es": "`\"20\" + 1` da `\"201\"`. Convierte con `Number(answer)` antes de sumar 1." },
+      { "en": "Put the sum in parentheses when you join it to the text: `\"… be \" + (Number(answer) + 1)`.", "es": "Pon la suma entre paréntesis al unirla al texto: `\"… be \" + (Number(answer) + 1)`." }
+    ],
+    "solutionExplanation": {
+      "en": "`prompt` returns `null` on Cancel and a string on OK (`\"\"` if the box is empty), so those cases are handled first. Then the text is converted with `Number()` and 1 is added. The parentheses matter: without them, `\"… be \" + Number(answer) + 1` would join the text with 20 and then with 1, giving `\"… be 201\"`.",
+      "es": "`prompt` devuelve `null` al cancelar y un string al aceptar (`\"\"` si la caja está vacía), así que esos casos se tratan primero. Después se convierte el texto con `Number()` y se suma 1. Los paréntesis importan: sin ellos, `\"… be \" + Number(answer) + 1` uniría el texto con 20 y después con 1, y saldría `\"… be 201\"`."
+    },
+    "commonMistakes": [
+      { "en": "Adding without converting: `answer + 1` with `\"20\"` gives `\"201\"`.", "es": "Sumar sin convertir: `answer + 1` con `\"20\"` da `\"201\"`." },
+      { "en": "Converting but leaving out the parentheses: `\"Next year you will be \" + Number(answer) + 1` also ends in `201`.", "es": "Convertir pero sin paréntesis: `\"Next year you will be \" + Number(answer) + 1` también acaba en `201`." },
+      { "en": "Not checking `null`: with `null`, `Number(null) + 1` is `1`, and the message would be wrong.", "es": "No comprobar `null`: con `null`, `Number(null) + 1` da `1`, y el mensaje saldría mal." }
+    ]
+  },
+  {
+    "id": "s3-e008", "section": 3, "difficulty": 2, "tags": ["logical", "precedence"], "courseRef": "04_Condicionales",
+    "title": { "en": "Cinema ticket price", "es": "Precio de la entrada de cine" },
+    "statement": {
+      "en": "Write a function `ticketPrice(age, isStudent)` that returns the price of a cinema ticket:\n- children under 4 don't pay: `0`;\n- people under 18 or students pay `5`;\n- everyone else pays `9`.\nExample: `ticketPrice(25, true)` returns `5` and `ticketPrice(25, false)` returns `9`.",
+      "es": "Escribe una función `ticketPrice(age, isStudent)` que devuelva el precio de una entrada de cine:\n- los menores de 4 años no pagan: `0`;\n- los menores de 18 o los estudiantes pagan `5`;\n- el resto paga `9`.\nEjemplo: `ticketPrice(25, true)` devuelve `5` y `ticketPrice(25, false)` devuelve `9`."
+    },
+    "starter": "function ticketPrice(age, isStudent) {\n  // your code here\n}\n\nconsole.log(ticketPrice(25, true));\n",
+    "solution": "function ticketPrice(age, isStudent) {\n  // The free case goes first: a 3-year-old is also under 18.\n  if (age < 4) {\n    return 0;\n  }\n  // One of the two conditions is enough, so we use ||.\n  if (age < 18 || isStudent) {\n    return 5;\n  }\n  return 9;\n}\n\nconsole.log(ticketPrice(25, true));\n",
+    "alternatives": [
+      "function ticketPrice(age, isStudent) {\n  return age < 4 ? 0 : age < 18 || isStudent ? 5 : 9;\n}\n\nconsole.log(ticketPrice(25, true));\n"
+    ],
+    "tests": [
+      { "call": "ticketPrice(3, false)", "expected": 0 },
+      { "call": "ticketPrice(4, false)", "expected": 5 },
+      { "call": "ticketPrice(17, false)", "expected": 5 },
+      { "call": "ticketPrice(25, true)", "expected": 5 },
+      { "call": "ticketPrice(25, false)", "expected": 9 },
+      { "call": "ticketPrice(2, true)", "expected": 0 },
+      { "output": "5" }
+    ],
+    "hints": [
+      { "en": "Order matters: check the free case (`age < 4`) before the others.", "es": "El orden importa: comprueba el caso gratis (`age < 4`) antes que los demás." },
+      { "en": "“Under 18 or student” is `age < 18 || isStudent`. `isStudent` is already a boolean, so it doesn't need `=== true`.", "es": "«Menor de 18 o estudiante» es `age < 18 || isStudent`. `isStudent` ya es un booleano, así que no necesita `=== true`." }
+    ],
+    "solutionExplanation": {
+      "en": "The conditions are checked from the most specific to the most general. Children under 4 are also under 18, so they must be checked first. In `age < 18 || isStudent`, `<` goes before `||`, so no parentheses are needed, and one of the two conditions is enough for the reduced price.",
+      "es": "Las condiciones se comprueban de la más concreta a la más general. Los menores de 4 años también son menores de 18, así que hay que comprobarlos primero. En `age < 18 || isStudent`, `<` va antes que `||`, así que no hacen falta paréntesis, y basta con una de las dos condiciones para el precio reducido."
+    },
+    "commonMistakes": [
+      { "en": "Checking `age < 18 || isStudent` first: a 3-year-old would pay `5` instead of `0`.", "es": "Comprobar primero `age < 18 || isStudent`: un niño de 3 años pagaría `5` en vez de `0`." },
+      { "en": "Using `&&` instead of `||`: only students under 18 would get the reduced price.", "es": "Usar `&&` en vez de `||`: solo tendrían el precio reducido los estudiantes menores de 18." },
+      { "en": "Writing `age <= 4`: then a 4-year-old wouldn't pay, and the statement says “under 4”.", "es": "Escribir `age <= 4`: entonces un niño de 4 años no pagaría, y el enunciado dice «menores de 4»." }
+    ]
+  }
+]

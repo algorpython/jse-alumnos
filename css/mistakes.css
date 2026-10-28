@@ -1,0 +1,62 @@
+/* Pantalla «My mistakes»: repaso espaciado. No hay maqueta propia: sigue las cifras, tarjetas y
+   la tarjeta morada de ../maquetas/01_inicio.png. El repaso usa la pantalla de practice.css. */
+
+.m-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.m-stats strong.ok { color: var(--green); }
+
+.m-cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.m-side { display: flex; flex-direction: column; gap: 20px; }
+
+/* Tarjeta morada con el mensaje y el botón del repaso (como «Mock exam» en 01_inicio) */
+.m-cta { background: var(--purple-dark); border-color: var(--purple-dark); color: #fff; display: flex; flex-direction: column; gap: 10px; }
+.m-cta .m-kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--lime); font-weight: 600; }
+.m-cta h2 { font-size: 20px; margin: 0; line-height: 1.3; }
+.m-cta .m-cta-text { font-size: 14px; color: #E2D9EA; line-height: 1.5; }
+.m-cta .btn { align-self: flex-start; margin-top: 4px; }
+
+/* Lista de repaso */
+.m-group { display: flex; align-items: center; gap: 8px; font-size: 14px; margin: 18px 0 8px; }
+.m-review h2 + .m-group { margin-top: 4px; }
+.m-count { font: 600 12px var(--body); color: var(--muted); background: var(--track); border-radius: 999px; padding: 2px 8px; }
+.m-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.m-item { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); }
+.m-list .m-item:first-child { border-top: 0; }
+.m-text { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.m-prompt { font-size: 14.5px; font-weight: 600; line-height: 1.4; }
+.m-prompt code { font-family: var(--mono); font-size: .95em; }
+.m-code { align-self: flex-start; max-width: 100%; font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-state { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.m-when { font-size: 13px; font-weight: 600; color: var(--muted); }
+.m-when.due { color: var(--purple); }
+.m-when.mastered { color: var(--green); }
+
+/* ●●○: aciertos seguidos hacia «dominada» */
+.m-dots { display: inline-flex; gap: 4px; }
+.m-dots i { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--purple); }
+.m-dots i.on { background: var(--purple); }
+
+/* Cómo funciona */
+.m-steps { margin: 0; padding: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 12px; }
+.m-steps li { counter-increment: step; display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; font-size: 14px; line-height: 1.45; }
+.m-steps li::before { content: counter(step); grid-row: span 2; width: 26px; height: 26px; border-radius: 50%; background: var(--purple-soft); color: var(--purple); font: 700 13px var(--head); display: flex; align-items: center; justify-content: center; }
+.m-steps span { color: var(--muted); }
+
+/* Aviso del repaso tras corregir una pregunta (también en «Practice by topic») */
+.srs-note a { color: inherit; font-weight: 600; }
+
+@media (max-width: 1100px) {
+  .m-cols { grid-template-columns: 1fr; }
+  /* En pantallas estrechas, el mensaje y el botón del repaso van antes que la lista */
+  .m-side { flex-direction: row; order: -1; }
+  .m-side > * { flex: 1; }
+}
+@media (max-width: 760px) {
+  .m-stats { grid-template-columns: 1fr; }
+  .m-side { flex-direction: column; }
+}
+
+/* Sin errores todavía: mensaje y «cómo funciona» uno al lado del otro */
+.m-empty { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; max-width: 960px; }
+@media (max-width: 760px) {
+  .m-empty { grid-template-columns: 1fr; }
+}

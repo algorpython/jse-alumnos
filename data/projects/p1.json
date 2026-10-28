@@ -1,0 +1,804 @@
+{
+  "id": "p1",
+  "number": 1,
+  "level": "beginner",
+  "minutes": 60,
+  "folder": "profile-card",
+  "title": {
+    "en": "Profile card",
+    "es": "Tarjeta de perfil"
+  },
+  "summary": {
+    "en": "A personal card with photo, bio and social links. JS adds a light/dark theme switch.",
+    "es": "Una tarjeta personal con foto, biografía y enlaces a redes. El JS añade un botón para cambiar entre tema claro y oscuro."
+  },
+  "basedOn": [
+    "HTML 001-007",
+    "CSS 04_border/margin/padding"
+  ],
+  "goal": {
+    "title": {
+      "en": "Build your own profile card with a light/dark theme button",
+      "es": "Crea tu propia tarjeta de perfil con un botón de tema claro/oscuro"
+    },
+    "body": {
+      "en": "You will create a one-page website with a card about you: your photo, your name, a short bio and links to your social networks. Then you'll style it with borders, padding and margins, and finish with a button that switches the page between a light and a dark theme.",
+      "es": "Vas a crear una web de una sola página con una tarjeta sobre ti: tu foto, tu nombre, una biografía corta y enlaces a tus redes sociales. Después le darás estilo con bordes, padding y márgenes, y terminarás con un botón que cambia la página entre un tema claro y uno oscuro."
+    }
+  },
+  "result": {
+    "en": "Your card, centred on the page. Clicking “Dark mode” turns the background dark purple and the button changes to “Light mode”.",
+    "es": "Tu tarjeta, centrada en la página. Al pulsar «Dark mode», el fondo se vuelve morado oscuro y el botón pasa a decir «Light mode»."
+  },
+  "starter": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My profile card</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Steps 1 to 3: your profile card goes here -->\n\n\n\n  <!--\n    Photo for step 2: copy this address into the src of your <img>\n    data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%20viewBox='0%200%20120%20120'%3E%3Crect%20width='120'%20height='120'%20fill='%23D4DE00'/%3E%3Ccircle%20cx='60'%20cy='47'%20r='22'%20fill='%23602B7A'/%3E%3Cpath%20d='M20%20120a40%2040%200%200%201%2080%200z'%20fill='%23602B7A'/%3E%3C/svg%3E\n  -->\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Profile card · style.css */\n\n/* Steps 4 to 7: your styles go here */\n\n\n\n/* Dark theme (step 9): JavaScript adds the class \"dark\" to <body> */\nbody.dark {\n  background-color: #1e1527;\n}\n",
+    "js": "// Profile card · script.js\n\n// Steps 8 and 9: your JavaScript goes here\n"
+  },
+  "solution": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My profile card</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <div class=\"card\">\n    <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%20viewBox='0%200%20120%20120'%3E%3Crect%20width='120'%20height='120'%20fill='%23D4DE00'/%3E%3Ccircle%20cx='60'%20cy='47'%20r='22'%20fill='%23602B7A'/%3E%3Cpath%20d='M20%20120a40%2040%200%200%201%2080%200z'%20fill='%23602B7A'/%3E%3C/svg%3E\" alt=\"Portrait of Alex\">\n    <h1>Alex García</h1>\n    <p class=\"role\">Future web developer</p>\n    <p>Hi! I'm learning HTML, CSS and JavaScript at Algorithmics. I love music, video games and building my own websites.</p>\n\n    <ul class=\"links\">\n      <li><a href=\"https://github.com/\" target=\"_blank\">GitHub</a></li>\n      <li><a href=\"https://www.instagram.com/\" target=\"_blank\">Instagram</a></li>\n      <li><a href=\"https://www.linkedin.com/\" target=\"_blank\">LinkedIn</a></li>\n    </ul>\n\n    <button id=\"theme-btn\">Dark mode</button>\n  </div>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Profile card · style.css */\n\n/* Step 4: the whole page */\nbody {\n  font-family: Arial, sans-serif;\n  background-color: #f1e9f6;\n  color: #222222;\n}\n\n/* Steps 5 and 6: the card box, centred */\n.card {\n  max-width: 360px;\n  margin: 40px auto;\n  padding: 24px;\n  background-color: #ffffff;\n  border: 3px solid #602b7a;\n  border-radius: 16px;\n  text-align: center;\n}\n\n/* Step 7: round photo and button */\n.card img {\n  width: 120px;\n  border: 4px solid #d4de00;\n  border-radius: 50%;\n}\n\n.role {\n  color: #602b7a;\n  font-weight: bold;\n}\n\n.links {\n  list-style: none;\n  padding: 0;\n}\n\n.links li {\n  margin: 8px 0;\n}\n\n.links a {\n  color: #602b7a;\n}\n\nbutton {\n  padding: 10px 20px;\n  border: none;\n  border-radius: 8px;\n  background-color: #602b7a;\n  color: #ffffff;\n  font-size: 16px;\n  cursor: pointer;\n}\n\n/* Dark theme (step 9): JavaScript adds the class \"dark\" to <body> */\nbody.dark {\n  background-color: #1e1527;\n}\n",
+    "js": "// Profile card · script.js\n\n// Step 8: select the button and listen to clicks\nconst themeBtn = document.querySelector(\"#theme-btn\");\n\nthemeBtn.addEventListener(\"click\", () => {\n  console.log(\"Theme changed\");\n\n  // Step 9: switch the theme and update the button text\n  document.body.classList.toggle(\"dark\");\n\n  if (document.body.classList.contains(\"dark\")) {\n    themeBtn.textContent = \"Light mode\";\n  } else {\n    themeBtn.textContent = \"Dark mode\";\n  }\n});\n"
+  },
+  "steps": [
+    {
+      "id": "html-1",
+      "lang": "html",
+      "title": {
+        "en": "Your card: name and bio",
+        "es": "Tu tarjeta: nombre y biografía"
+      },
+      "requirement": {
+        "en": "A card (`class=\"card\"`) with your name in an `<h1>` and a short bio in a `<p>`",
+        "es": "Una tarjeta (`class=\"card\"`) con tu nombre en un `<h1>` y una biografía corta en un `<p>`"
+      },
+      "task": {
+        "en": "Inside `<body>`, before the `<script>`, add a `<div class=\"card\">`. Inside it, write your name in an `<h1>` and a short bio about you in a `<p>`. If you like, add another `<p>` with what you do, for example “Future web developer”.",
+        "es": "Dentro de `<body>`, antes del `<script>`, añade un `<div class=\"card\">`. Dentro, escribe tu nombre en un `<h1>` y una biografía corta sobre ti en un `<p>`. Si quieres, añade otro `<p>` con a qué te dedicas, por ejemplo, «Estudiante de desarrollo web»."
+      },
+      "hint": {
+        "en": "A `<div>` is a box that groups other elements. Remember to close every tag: `<div class=\"card\"> … </div>`, `<h1> … </h1>`, `<p> … </p>`.",
+        "es": "Un `<div>` es una caja que agrupa otros elementos. Acuérdate de cerrar cada etiqueta: `<div class=\"card\"> … </div>`, `<h1> … </h1>`, `<p> … </p>`."
+      },
+      "note": {
+        "en": "Your card has no style yet: it will look plain until the CSS steps.",
+        "es": "Tu tarjeta todavía no tiene estilo: se verá sencilla hasta los pasos de CSS."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".card",
+          "count": 1,
+          "label": {
+            "en": "One element with the class `card`",
+            "es": "Un elemento con la clase `card`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".card h1",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h1>` with your name inside the card",
+            "es": "Un `<h1>` con tu nombre dentro de la tarjeta"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".card p",
+          "text": "\\S",
+          "label": {
+            "en": "A `<p>` with your bio inside the card",
+            "es": "Un `<p>` con tu biografía dentro de la tarjeta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-2",
+      "lang": "html",
+      "title": {
+        "en": "Add your photo",
+        "es": "Añade tu foto"
+      },
+      "requirement": {
+        "en": "A photo (`<img>`) with `alt` text in the card",
+        "es": "Una foto (`<img>`) con texto `alt` en la tarjeta"
+      },
+      "task": {
+        "en": "At the top of the card, before the `<h1>`, add an `<img>`. In `src`, paste the photo address from the comment at the end of `index.html` (it starts with `data:image/svg+xml`). In `alt`, describe the image, for example “Portrait of Alex”.",
+        "es": "Arriba del todo en la tarjeta, antes del `<h1>`, añade una `<img>`. En `src`, pega la dirección de la foto que está en el comentario del final de `index.html` (empieza por `data:image/svg+xml`). En `alt`, describe la imagen, por ejemplo, «Retrato de Alex»."
+      },
+      "hint": {
+        "en": "`<img src=\"…\" alt=\"…\">` has no closing tag. You can also use a photo from the internet: its address must start with `https://`.",
+        "es": "`<img src=\"…\" alt=\"…\">` no lleva etiqueta de cierre. También puedes usar una foto de internet: su dirección tiene que empezar por `https://`."
+      },
+      "note": {
+        "en": "The photo looks big for now: in step 7 you'll make it small and round.",
+        "es": "De momento, la foto se ve grande: en el paso 7 la harás pequeña y redonda."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".card img",
+          "label": {
+            "en": "An `<img>` inside the card",
+            "es": "Una `<img>` dentro de la tarjeta"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".card img",
+          "attr": "src",
+          "pattern": "^\\s*(data:image/|https://)\\S",
+          "label": {
+            "en": "A `src` with the photo address (`data:image/…` or `https://…`)",
+            "es": "Un `src` con la dirección de la foto (`data:image/…` o `https://…`)"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".card img",
+          "attr": "alt",
+          "label": {
+            "en": "An `alt` text that describes the photo",
+            "es": "Un texto `alt` que describe la foto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-3",
+      "lang": "html",
+      "title": {
+        "en": "Social links and theme button",
+        "es": "Enlaces a redes y botón de tema"
+      },
+      "requirement": {
+        "en": "A list of social links and a `Dark mode` button",
+        "es": "Una lista de enlaces a redes y un botón `Dark mode`"
+      },
+      "task": {
+        "en": "Under your bio, add a `<ul>` with at least two `<li>`, and put a link `<a href=\"…\">` in each one (GitHub, Instagram, LinkedIn…). Finally, at the end of the card, add `<button id=\"theme-btn\">Dark mode</button>`.",
+        "es": "Debajo de tu biografía, añade una `<ul>` con al menos dos `<li>` y pon un enlace `<a href=\"…\">` en cada uno (GitHub, Instagram, LinkedIn…). Por último, al final de la tarjeta, añade `<button id=\"theme-btn\">Dark mode</button>`."
+      },
+      "hint": {
+        "en": "`<li><a href=\"https://github.com/\" target=\"_blank\">GitHub</a></li>`: the text between `<a>` and `</a>` is what you click, and `target=\"_blank\"` opens the link in a new tab.",
+        "es": "`<li><a href=\"https://github.com/\" target=\"_blank\">GitHub</a></li>`: el texto entre `<a>` y `</a>` es lo que se pulsa, y `target=\"_blank\"` abre el enlace en otra pestaña."
+      },
+      "note": {
+        "en": "Links don't open in the preview (you'll see a message in the console). They will work in the website you download.",
+        "es": "Los enlaces no se abren en la vista previa (verás un aviso en la consola). Funcionarán en la web que descargues."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".card ul li a",
+          "min": 2,
+          "label": {
+            "en": "At least 2 links (`<a>`) in the `<li>` of a `<ul>`",
+            "es": "Al menos 2 enlaces (`<a>`) en los `<li>` de una `<ul>`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".card a",
+          "attr": "href",
+          "label": {
+            "en": "Every link has an `href`",
+            "es": "Todos los enlaces tienen `href`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "button#theme-btn",
+          "count": 1,
+          "text": "dark|oscuro",
+          "label": {
+            "en": "A `<button id=\"theme-btn\">` with the text `Dark mode`",
+            "es": "Un `<button id=\"theme-btn\">` con el texto `Dark mode`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-1",
+      "lang": "css",
+      "title": {
+        "en": "Page font and background",
+        "es": "Fuente y fondo de la página"
+      },
+      "requirement": {
+        "en": "A font and a background colour for the whole page",
+        "es": "Una fuente y un color de fondo para toda la página"
+      },
+      "task": {
+        "en": "In `style.css`, add a rule for `body` with a `font-family` (for example `Arial, sans-serif`) and a light `background-color` (for example `#f1e9f6`).",
+        "es": "En `style.css`, añade una regla para `body` con un `font-family` (por ejemplo, `Arial, sans-serif`) y un `background-color` claro (por ejemplo, `#f1e9f6`)."
+      },
+      "hint": {
+        "en": "A rule is a selector plus its properties between braces: `body { font-family: Arial, sans-serif; }`. Every property ends with `;`.",
+        "es": "Una regla es un selector con sus propiedades entre llaves: `body { font-family: Arial, sans-serif; }`. Cada propiedad termina en `;`."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "rule": "^body$",
+          "prop": "font-family",
+          "label": {
+            "en": "A `font-family` on `body`",
+            "es": "Un `font-family` en `body`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on `body`",
+            "es": "Un `background-color` en `body`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-2",
+      "lang": "css",
+      "title": {
+        "en": "Card box: padding, border and rounded corners",
+        "es": "La caja de la tarjeta: padding, borde y esquinas redondeadas"
+      },
+      "requirement": {
+        "en": "A white card with `padding`, a `border` and `border-radius`",
+        "es": "Una tarjeta blanca con `padding`, `border` y `border-radius`"
+      },
+      "task": {
+        "en": "Add a `.card` rule with a white `background-color`, `padding: 24px` (the space inside the card), a `border` such as `3px solid #602b7a` and `border-radius: 16px`.",
+        "es": "Añade una regla `.card` con un `background-color` blanco, `padding: 24px` (el espacio dentro de la tarjeta), un `border` como `3px solid #602b7a` y `border-radius: 16px`."
+      },
+      "hint": {
+        "en": "`border` takes three values: thickness, style and colour. Without the style (`solid`, `dashed`, `dotted`…) the border doesn't show.",
+        "es": "`border` lleva tres valores: grosor, estilo y color. Sin el estilo (`solid`, `dashed`, `dotted`…), el borde no se ve."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on `.card`",
+            "es": "Un `background-color` en `.card`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "padding-top",
+          "min": 1,
+          "label": {
+            "en": "`padding` inside the card",
+            "es": "`padding` dentro de la tarjeta"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "border-top-width",
+          "min": 1,
+          "label": {
+            "en": "A visible `border` (thickness, style and colour)",
+            "es": "Un `border` visible (grosor, estilo y color)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "border-top-left-radius",
+          "min": 1,
+          "label": {
+            "en": "Rounded corners (`border-radius`)",
+            "es": "Esquinas redondeadas (`border-radius`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-3",
+      "lang": "css",
+      "title": {
+        "en": "Centre the card with margin",
+        "es": "Centra la tarjeta con margin"
+      },
+      "requirement": {
+        "en": "A card with a limited width, centred with `margin: … auto`",
+        "es": "Una tarjeta de ancho limitado y centrada con `margin: … auto`"
+      },
+      "task": {
+        "en": "In the `.card` rule, limit its width with `max-width: 360px` and centre it with `margin: 40px auto` (40px above and below, automatic on the sides). Add `text-align: center` to centre the text as well.",
+        "es": "En la regla `.card`, limita su ancho con `max-width: 360px` y céntrala con `margin: 40px auto` (40 px arriba y abajo, y automático a los lados). Añade también `text-align: center` para centrar el texto."
+      },
+      "hint": {
+        "en": "`margin` is the space outside the box and `padding` is the space inside. With `auto` on both sides, the browser shares out the free space equally, so the card ends up in the middle.",
+        "es": "`margin` es el espacio de fuera de la caja, y `padding`, el de dentro. Con `auto` a los dos lados, el navegador reparte por igual el espacio libre y la tarjeta queda en el centro."
+      },
+      "note": {
+        "en": "The preview is narrow, so the card fills it. Open “View my website” to see it centred.",
+        "es": "La vista previa es estrecha y la tarjeta la ocupa entera. Abre «Ver mi web» para verla centrada."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "width",
+          "max": 600,
+          "label": {
+            "en": "A limited width (`max-width`)",
+            "es": "Un ancho limitado (`max-width`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "margin-left",
+          "min": 100,
+          "label": {
+            "en": "Centred on the page (`auto` side margins)",
+            "es": "Centrada en la página (márgenes laterales `auto`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "margin-top",
+          "min": 1,
+          "label": {
+            "en": "Space above the card (`margin`)",
+            "es": "Espacio encima de la tarjeta (`margin`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "text-align",
+          "value": "center",
+          "label": {
+            "en": "Centred text (`text-align: center`)",
+            "es": "Texto centrado (`text-align: center`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-4",
+      "lang": "css",
+      "title": {
+        "en": "Round photo and button style",
+        "es": "Foto redonda y estilo del botón"
+      },
+      "requirement": {
+        "en": "A small round photo and a styled button",
+        "es": "Una foto pequeña y redonda, y un botón con estilo"
+      },
+      "task": {
+        "en": "Make the photo round: give `.card img` a `width` of `120px` and `border-radius: 50%`. Then style the `button`: a `background-color`, a text `color`, some `padding` and `border-radius`.",
+        "es": "Haz la foto redonda: pon a `.card img` un `width` de `120px` y `border-radius: 50%`. Después, da estilo al `button`: un `background-color`, un `color` para el texto, algo de `padding` y `border-radius`."
+      },
+      "hint": {
+        "en": "`border-radius: 50%` turns a square image into a circle. `padding: 10px 20px` means 10px above and below, and 20px on the sides.",
+        "es": "`border-radius: 50%` convierte una imagen cuadrada en un círculo. `padding: 10px 20px` son 10 px arriba y abajo, y 20 px a los lados."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".card img",
+          "prop": "width",
+          "max": 200,
+          "label": {
+            "en": "A small photo (`width` of 200px at most)",
+            "es": "Una foto pequeña (`width` de 200 px como mucho)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".card img",
+          "prop": "border-top-left-radius",
+          "min": 1,
+          "label": {
+            "en": "A round photo (`border-radius`)",
+            "es": "Una foto redonda (`border-radius`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "button|theme-btn|btn",
+          "prop": "background-color",
+          "label": {
+            "en": "A `background-color` for the button",
+            "es": "Un `background-color` para el botón"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#theme-btn",
+          "prop": "padding-top",
+          "min": 4,
+          "label": {
+            "en": "`padding` in the button",
+            "es": "`padding` en el botón"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-1",
+      "lang": "js",
+      "title": {
+        "en": "Listen to clicks on the button",
+        "es": "Escucha los clics del botón"
+      },
+      "requirement": {
+        "en": "The button reacts to a `click`",
+        "es": "El botón reacciona a un `click`"
+      },
+      "task": {
+        "en": "In `script.js`, select the button with `document.querySelector(\"#theme-btn\")` and save it in a `const` called `themeBtn`. Then add a `click` listener with `addEventListener` that prints `Theme changed` in the console.",
+        "es": "En `script.js`, selecciona el botón con `document.querySelector(\"#theme-btn\")` y guárdalo en una `const` llamada `themeBtn`. Después, añade un listener de `click` con `addEventListener` que muestre `Theme changed` en la consola."
+      },
+      "hint": {
+        "en": "`themeBtn.addEventListener(\"click\", () => { console.log(\"Theme changed\"); });` The arrow function runs every time someone clicks the button.",
+        "es": "`themeBtn.addEventListener(\"click\", () => { console.log(\"Theme changed\"); });` La función flecha se ejecuta cada vez que alguien pulsa el botón."
+      },
+      "note": {
+        "en": "Click the button in the preview and watch the console. The theme switch arrives in the next step.",
+        "es": "Pulsa el botón de la vista previa y mira la consola. El cambio de tema llega en el siguiente paso."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "querySelector\\s*\\(|getElementById\\s*\\(",
+          "label": {
+            "en": "Select the button (`querySelector`)",
+            "es": "Seleccionar el botón (`querySelector`)"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "addEventListener\\s*\\(\\s*[\"'`]click[\"'`]",
+          "label": {
+            "en": "`addEventListener(\"click\", …)`",
+            "es": "`addEventListener(\"click\", …)`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "console",
+              "text": "Theme changed"
+            }
+          ],
+          "label": {
+            "en": "Clicking prints `Theme changed`",
+            "es": "Al pulsar, se muestra `Theme changed`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-2",
+      "lang": "js",
+      "title": {
+        "en": "Switch between light and dark",
+        "es": "Cambia entre tema claro y oscuro"
+      },
+      "requirement": {
+        "en": "The button switches the `dark` class on `body` and changes its text",
+        "es": "El botón pone y quita la clase `dark` en `body` y cambia su texto"
+      },
+      "task": {
+        "en": "Inside the listener, add `document.body.classList.toggle(\"dark\")` (the `body.dark` rule is already in `style.css`). Then update the button text: if `body` has the `dark` class (`classList.contains`), put `Light mode` in `themeBtn.textContent`; if not, put `Dark mode`.",
+        "es": "Dentro del listener, añade `document.body.classList.toggle(\"dark\")` (la regla `body.dark` ya está en `style.css`). Después, cambia el texto del botón: si `body` tiene la clase `dark` (`classList.contains`), pon `Light mode` en `themeBtn.textContent`; si no, pon `Dark mode`."
+      },
+      "hint": {
+        "en": "`toggle` adds the class if it isn't there and removes it if it is. For the text: `if (document.body.classList.contains(\"dark\")) { … } else { … }`.",
+        "es": "`toggle` añade la clase si no está y la quita si está. Para el texto: `if (document.body.classList.contains(\"dark\")) { … } else { … }`."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "classList\\s*\\.\\s*(toggle|add|remove)\\s*\\(",
+          "label": {
+            "en": "Use `classList.toggle`",
+            "es": "Usar `classList.toggle`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "body.dark",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "One click adds `dark` to `body`",
+            "es": "Un clic añade `dark` a `body`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            },
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "body.dark",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "A second click removes it",
+            "es": "Un segundo clic la quita"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#theme-btn",
+              "text": "light|claro",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "After one click, the button says `Light mode`",
+            "es": "Tras un clic, el botón dice `Light mode`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            },
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#theme-btn",
+              "text": "dark|oscuro",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "After a second click, it says `Dark mode` again",
+            "es": "Tras un segundo clic, vuelve a decir `Dark mode`"
+          }
+        }
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "lang": "html",
+      "label": {
+        "en": "Card with your name, bio and photo",
+        "es": "Tarjeta con tu nombre, tu biografía y tu foto"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".card h1",
+          "text": "\\S"
+        },
+        {
+          "kind": "selector",
+          "selector": ".card p",
+          "text": "\\S"
+        },
+        {
+          "kind": "selector",
+          "selector": ".card img"
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "All images have alt text",
+        "es": "Todas las imágenes tienen texto alt"
+      },
+      "checks": [
+        {
+          "kind": "attr",
+          "selector": "img",
+          "attr": "alt"
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "At least 2 social links in a list",
+        "es": "Al menos 2 enlaces a redes en una lista"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "ul li a",
+          "min": 2
+        },
+        {
+          "kind": "attr",
+          "selector": "a",
+          "attr": "href"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Card with padding, border and rounded corners",
+        "es": "Tarjeta con padding, borde y esquinas redondeadas"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "padding-top",
+          "min": 1
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "border-top-width",
+          "min": 1
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "border-top-left-radius",
+          "min": 1
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Card centred on the page",
+        "es": "Tarjeta centrada en la página"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "width",
+          "max": 600
+        },
+        {
+          "kind": "css",
+          "selector": ".card",
+          "prop": "margin-left",
+          "min": 100
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Small round photo",
+        "es": "Foto pequeña y redonda"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".card img",
+          "prop": "width",
+          "max": 200
+        },
+        {
+          "kind": "css",
+          "selector": ".card img",
+          "prop": "border-top-left-radius",
+          "min": 1
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "The button switches between light and dark",
+        "es": "El botón cambia entre tema claro y oscuro"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "body.dark",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            },
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "body.dark",
+              "count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "The button text shows the other theme",
+        "es": "El texto del botón indica el otro tema"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#theme-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#theme-btn",
+              "text": "light|claro",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "section": 3,
+  "title": { "en": "Operators and user interaction", "es": "Operadores e interacción con el usuario" },
+  "readingMinutes": 5,
+  "intro": {
+    "en": "The key ideas of this section. Press “Run this code” on any example to try it.",
+    "es": "Las ideas clave de esta sección. Pulsa «Ejecutar este código» en cualquier ejemplo para probarlo."
+  },
+  "blocks": [
+    {
+      "heading": { "en": "Arithmetic and assignment", "es": "Aritméticos y asignación" },
+      "body": {
+        "en": "The arithmetic operators are `+`, `-`, `*`, `/`, `%` (remainder) and `**` (power). `/` keeps the decimals, and the result of `%` has the sign of the left number.\n`++` and `--` add or subtract 1. Written after the variable (`n++`) they give the old value; written before (`++n`), the new one.\n`=` assigns, and compound assignments do the operation and store the result: `score += 5` is `score = score + 5` (there are also `-=`, `*=`, `/=`, `%=` and `**=`).",
+        "es": "Los operadores aritméticos son `+`, `-`, `*`, `/`, `%` (resto) y `**` (potencia). `/` conserva los decimales, y el resultado de `%` lleva el signo del número de la izquierda.\n`++` y `--` suman o restan 1. Escritos detrás de la variable (`n++`) dan el valor antiguo; delante (`++n`), el nuevo.\n`=` asigna, y las asignaciones compuestas hacen la operación y guardan el resultado: `score += 5` es `score = score + 5` (también existen `-=`, `*=`, `/=`, `%=` y `**=`)."
+      },
+      "example": { "code": "let n = 7;\nconsole.log(n % 3, n ** 2, n / 2);\nconsole.log(n++, n, ++n);\nn *= 2;\nconsole.log(n);", "output": "1 49 3.5\n7 8 9\n18" }
+    },
+    {
+      "heading": { "en": "Strings and `+`", "es": "Los strings y `+`" },
+      "body": {
+        "en": "`+` adds numbers, but if one side is a string it joins (concatenates) both values as text. `+=` adds text to the end of a string.\nThe other arithmetic operators only work with numbers, so they convert strings: `\"5\" - 2` is `3`. A `+` in front of a single value (unary plus) converts it to a number, like `Number()`.",
+        "es": "`+` suma números, pero si uno de los lados es un string une (concatena) los dos valores como texto. `+=` añade texto al final de un string.\nEl resto de operadores aritméticos solo trabajan con números, así que convierten los strings: `\"5\" - 2` da `3`. Un `+` delante de un solo valor (más unario) lo convierte en número, como `Number()`."
+      },
+      "example": { "code": "let msg = \"Hi\";\nmsg += \", Ana\";\nconsole.log(msg);\nconsole.log(\"5\" + 2, \"5\" - 2, +\"5\" + 2);", "output": "Hi, Ana\n52 3 7" }
+    },
+    {
+      "heading": { "en": "Comparison operators", "es": "Operadores de comparación" },
+      "body": {
+        "en": "`<`, `>`, `<=`, `>=`, `==`, `!=`, `===` and `!==` always give `true` or `false`.\n`===` (strict equality) requires the same type and value. `==` (loose equality) converts the values first, so `7 == \"7\"` is `true`. Use `===` and `!==`.\nTwo strings are compared character by character, by code: capital letters come before lowercase ones. If one side is a number, the string is converted to a number.",
+        "es": "`<`, `>`, `<=`, `>=`, `==`, `!=`, `===` y `!==` siempre dan `true` o `false`.\n`===` (igualdad estricta) exige el mismo tipo y el mismo valor. `==` (igualdad débil) convierte antes los valores, así que `7 == \"7\"` da `true`. Usa `===` y `!==`.\nDos strings se comparan carácter a carácter, por su código: las mayúsculas van antes que las minúsculas. Si uno de los lados es un número, el string se convierte en número."
+      },
+      "example": { "code": "console.log(7 == \"7\", 7 === \"7\");\nconsole.log(\"b\" > \"a\", \"B\" > \"a\", \"10\" > 9);", "output": "true false\ntrue false true" }
+    },
+    {
+      "heading": { "en": "Logical operators", "es": "Operadores lógicos" },
+      "body": {
+        "en": "`&&` (and) needs both sides to be truthy, `||` (or) needs at least one, and `!` (not) flips a value into the opposite boolean.\n`&&` and `||` return one of their values, not always a boolean: `a || b` gives `a` if it's truthy and `b` if not; `a && b` gives `a` if it's falsy and `b` if not.\nShort-circuit evaluation: if the left side already decides the result, the right side doesn't even run.",
+        "es": "`&&` (y) necesita que los dos lados sean truthy, `||` (o) necesita al menos uno, y `!` (no) convierte un valor en el booleano contrario.\n`&&` y `||` devuelven uno de sus valores, no siempre un booleano: `a || b` da `a` si es truthy y `b` si no; `a && b` da `a` si es falsy y `b` si no.\nEvaluación en cortocircuito: si la parte izquierda ya decide el resultado, la derecha ni siquiera se ejecuta."
+      },
+      "example": { "code": "let nick = \"\";\nconsole.log(nick || \"Guest\", !nick);\nconsole.log(5 > 3 && \"yes\", 5 > 9 && \"yes\");", "output": "Guest true\nyes false" }
+    },
+    {
+      "heading": { "en": "Ternary, `typeof`, `instanceof` and `delete`", "es": "Ternario, `typeof`, `instanceof` y `delete`" },
+      "body": {
+        "en": "The ternary operator `condition ? valueIfTrue : valueIfFalse` is a short `if…else` that returns a value.\n`typeof value` returns the type as a string (`\"number\"`, `\"string\"`…); with an undeclared variable it gives `\"undefined\"` without an error.\n`value instanceof Type` checks if an object was created from a type, such as `Array` or `Date`; with primitives it gives `false`.\n`delete obj.prop` removes a property and returns `true`.",
+        "es": "El operador ternario `condition ? valueIfTrue : valueIfFalse` es un `if…else` abreviado que devuelve un valor.\n`typeof value` devuelve el tipo como string (`\"number\"`, `\"string\"`…); con una variable sin declarar da `\"undefined\"` sin error.\n`value instanceof Type` comprueba si un objeto se creó a partir de un tipo, como `Array` o `Date`; con los primitivos da `false`.\n`delete obj.prop` borra una propiedad y devuelve `true`."
+      },
+      "example": { "code": "let n = 4;\nconsole.log(n % 2 === 0 ? \"even\" : \"odd\");\nconsole.log(typeof n, [1, 2] instanceof Array);\nlet user = { name: \"Ana\", age: 30 };\ndelete user.age;\nconsole.log(user.age);", "output": "even\nnumber true\nundefined" }
+    },
+    {
+      "heading": { "en": "Precedence and associativity", "es": "Precedencia y asociatividad" },
+      "body": {
+        "en": "Precedence decides which operator goes first. From highest to lowest: parentheses; `!`, `typeof` and unary `+`/`-`; `**`; `*`, `/` and `%`; `+` and `-`; `<`, `>`, `<=` and `>=`; `==` and `===`; `&&`; `||`; the ternary; and the assignments.\nWith the same precedence, associativity decides: most operators go from left to right, but `**` and `=` go from right to left. When in doubt, use parentheses.",
+        "es": "La precedencia decide qué operador va primero. De más a menos: paréntesis; `!`, `typeof` y `+`/`-` unarios; `**`; `*`, `/` y `%`; `+` y `-`; `<`, `>`, `<=` y `>=`; `==` y `===`; `&&`; `||`; el ternario; y las asignaciones.\nCon la misma precedencia decide la asociatividad: la mayoría de operadores van de izquierda a derecha, pero `**` y `=` van de derecha a izquierda. Si dudas, usa paréntesis."
+      },
+      "example": { "code": "console.log(2 + 3 * 4, (2 + 3) * 4);\nconsole.log(20 - 5 - 5, 2 ** 3 ** 2);\nconsole.log(true || false && false);", "output": "14 20\n10 512\ntrue" }
+    },
+    {
+      "heading": { "en": "`alert`, `confirm` and `prompt`", "es": "`alert`, `confirm` y `prompt`" },
+      "body": {
+        "en": "The three open a window in the browser and stop the code until the user closes it.\n`alert(message)` only shows a message and returns `undefined`.\n`confirm(message)` returns `true` if the user clicks OK and `false` on Cancel.\n`prompt(message, defaultValue)` returns what the user typed as a string, even if it's a number, or `null` on Cancel. Convert it with `Number()` before doing maths. In “Run this code” no window opens: `prompt` returns `null` (as if you clicked Cancel) and `confirm`, `true` (as if you clicked OK).",
+        "es": "Las tres abren una ventana en el navegador y detienen el código hasta que el usuario la cierra.\n`alert(message)` solo muestra un mensaje y devuelve `undefined`.\n`confirm(message)` devuelve `true` si el usuario pulsa Aceptar y `false` si pulsa Cancelar.\n`prompt(message, defaultValue)` devuelve lo que ha escrito el usuario como string, aunque sea un número, o `null` si pulsa Cancelar. Conviértelo con `Number()` antes de hacer cuentas. En «Ejecutar este código» no se abre ninguna ventana: `prompt` devuelve `null` (como si pulsaras Cancelar) y `confirm`, `true` (como si pulsaras Aceptar)."
+      },
+      "example": { "code": "let typed = \"20\"; // as if the user typed 20\nconsole.log(typed + 1, Number(typed) + 1);\nconsole.log(alert(\"Hi!\"));", "output": "201 21\nundefined" }
+    }
+  ],
+  "traps": [
+    {
+      "title": { "en": "`+` joins as soon as there is a string", "es": "`+` une en cuanto hay un string" },
+      "body": {
+        "en": "It works from left to right: once the result is text, every `+` after it joins. Use parentheses to add first.",
+        "es": "Va de izquierda a derecha: en cuanto el resultado es texto, todos los `+` siguientes unen. Usa paréntesis para sumar antes."
+      },
+      "example": { "code": "console.log(\"Total: \" + 2 + 3);\nconsole.log(\"Total: \" + (2 + 3));", "output": "Total: 23\nTotal: 5" }
+    },
+    {
+      "title": { "en": "`==` converts types", "es": "`==` convierte los tipos" },
+      "body": {
+        "en": "`0 == \"\"` and `0 == \"0\"` are `true`, but `\"\" == \"0\"` is `false`. With `===` there are no surprises.",
+        "es": "`0 == \"\"` y `0 == \"0\"` dan `true`, pero `\"\" == \"0\"` da `false`. Con `===` no hay sorpresas."
+      },
+      "example": { "code": "console.log(0 == \"\", 0 == \"0\", \"\" == \"0\");\nconsole.log(0 === \"\");", "output": "true true false\nfalse" }
+    },
+    {
+      "title": { "en": "`&&` and `||` return values", "es": "`&&` y `||` devuelven valores" },
+      "body": {
+        "en": "They don't always give `true` or `false`, and the right side may never run (short-circuit).",
+        "es": "No siempre dan `true` o `false`, y puede que la parte derecha no llegue a ejecutarse (cortocircuito)."
+      },
+      "example": { "code": "let count = 0;\nconsole.log(0 || 10, \"a\" && \"b\");\nfalse && count++;\nconsole.log(count);", "output": "10 b\n0" }
+    },
+    {
+      "title": { "en": "`1 < x < 10` doesn't check a range", "es": "`1 < x < 10` no comprueba un intervalo" },
+      "body": {
+        "en": "Comparisons go two by two: the first one gives `true` or `false`, which then counts as 1 or 0. Write `x > 1 && x < 10`.",
+        "es": "Las comparaciones van de dos en dos: la primera da `true` o `false`, que después cuenta como 1 o 0. Escribe `x > 1 && x < 10`."
+      },
+      "example": { "code": "console.log(3 > 2 > 1);\nlet x = 50;\nconsole.log(1 < x < 10, x > 1 && x < 10);", "output": "false\ntrue false" }
+    },
+    {
+      "title": { "en": "`prompt` always returns a string (or `null`)", "es": "`prompt` siempre devuelve un string (o `null`)" },
+      "body": {
+        "en": "If the user types 20, you get `\"20\"`, and `\"20\" + 1` is `\"201\"`. On Cancel you get `null`, which has no methods.",
+        "es": "Si el usuario escribe 20, obtienes `\"20\"`, y `\"20\" + 1` da `\"201\"`. Al cancelar obtienes `null`, que no tiene métodos."
+      },
+      "example": { "code": "let city = prompt(\"City?\"); // null here\nconsole.log(city);\nconsole.log(city.toUpperCase());", "output": "null", "errorType": "TypeError" }
+    },
+    {
+      "title": { "en": "A unary minus before `**`", "es": "Un menos unario antes de `**`" },
+      "body": {
+        "en": "`-2 ** 2` is a `SyntaxError`: JavaScript asks you to write `(-2) ** 2` or `-(2 ** 2)`.",
+        "es": "`-2 ** 2` es un `SyntaxError`: JavaScript te pide que escribas `(-2) ** 2` o `-(2 ** 2)`."
+      },
+      "example": { "code": "let result = -2 ** 2;\nconsole.log(result);", "errorType": "SyntaxError" }
+    }
+  ]
+}

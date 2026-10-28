@@ -1,0 +1,900 @@
+[
+  {
+    "id": "s2-q001", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["variables", "scope"], "courseRef": "01_Variables",
+    "code": "let x = 1;\n{\n  let x = 2;\n  console.log(x);\n}\nconsole.log(x);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "2\n2", "es": "2\n2" }, "why": { "en": "The inner `let x` is a new variable that only lives inside the `{ }`. It doesn't change the outer `x`.", "es": "El `let x` de dentro es una variable nueva que solo existe dentro de las `{ }`. No cambia la `x` de fuera." } },
+      { "id": "B", "text": { "en": "2\n1", "es": "2\n1" } },
+      { "id": "C", "text": { "en": "1\n1", "es": "1\n1" }, "why": { "en": "Inside the block, the nearest `x` is the inner one, which is `2`. That one hides the outer `x`.", "es": "Dentro del bloque, la `x` más cercana es la de dentro, que vale `2`. Esa tapa a la `x` de fuera." } },
+      { "id": "D", "text": { "en": "SyntaxError", "es": "SyntaxError" }, "why": { "en": "Declaring `x` again is allowed here because it's in a different block. It's only an error in the same block.", "es": "Volver a declarar `x` aquí está permitido porque es otro bloque. Solo da error si es en el mismo bloque." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`let` is block-scoped. The `let x = 2` inside `{ }` creates a second variable that shadows (hides) the outer one only inside the block. Inside it prints `2`; after the block, the outer `x` is still `1`.", "es": "`let` tiene ámbito de bloque. El `let x = 2` dentro de `{ }` crea una segunda variable que sombrea (tapa) a la de fuera solo dentro del bloque. Dentro se muestra `2`; al salir del bloque, la `x` de fuera sigue valiendo `1`." },
+    "verify": { "kind": "output", "expected": "2\n1" }
+  },
+  {
+    "id": "s2-q002", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap", "hoisting", "variables"], "courseRef": "01_Variables",
+    "code": "console.log(count);\nlet count = 5;",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "A `ReferenceError` is thrown on line 1", "es": "Se lanza un `ReferenceError` en la línea 1" } },
+      { "id": "B", "text": { "en": "It prints `undefined`", "es": "Muestra `undefined`" }, "why": { "en": "That's what happens with `var`. A `let` variable can't be used before its line.", "es": "Eso es lo que pasa con `var`. Una variable `let` no se puede usar antes de su línea." } },
+      { "id": "C", "text": { "en": "It prints `5`", "es": "Muestra `5`" }, "why": { "en": "The value `5` is only assigned on line 2, after the `console.log`.", "es": "El valor `5` se asigna en la línea 2, después del `console.log`." } },
+      { "id": "D", "text": { "en": "A `SyntaxError` is thrown before anything runs", "es": "Se lanza un `SyntaxError` antes de ejecutar nada" }, "why": { "en": "The code is written correctly, so it starts running. The problem only appears when line 1 runs.", "es": "El código está bien escrito, así que empieza a ejecutarse. El problema aparece al ejecutar la línea 1." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`let` and `const` declarations are hoisted, but they can't be used until their line has run. Reading `count` before `let count = 5;` throws `ReferenceError: Cannot access 'count' before initialization`.", "es": "Las declaraciones `let` y `const` se elevan (hoisting), pero no se pueden usar hasta que se ejecuta su línea. Leer `count` antes de `let count = 5;` lanza `ReferenceError: Cannot access 'count' before initialization`." },
+    "verify": { "kind": "error", "errorType": "ReferenceError", "line": 1 }
+  },
+  {
+    "id": "s2-q003", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "hoisting", "variables"], "courseRef": "01_Variables",
+    "code": "console.log(total);\nvar total = 10;\nconsole.log(total);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "10\n10", "es": "10\n10" }, "why": { "en": "Only the declaration `var total` is moved up, not the value. The `10` is assigned on line 2.", "es": "Solo se eleva la declaración `var total`, no el valor. El `10` se asigna en la línea 2." } },
+      { "id": "B", "text": { "en": "ReferenceError", "es": "ReferenceError" }, "why": { "en": "That would happen with `let` or `const`. A `var` variable exists from the start of the code with the value `undefined`.", "es": "Eso pasaría con `let` o `const`. Una variable `var` existe desde el principio del código con el valor `undefined`." } },
+      { "id": "C", "text": { "en": "undefined\n10", "es": "undefined\n10" } },
+      { "id": "D", "text": { "en": "null\n10", "es": "null\n10" }, "why": { "en": "A declared variable without a value is `undefined`, not `null`. JavaScript never puts `null` there by itself.", "es": "Una variable declarada sin valor vale `undefined`, no `null`. JavaScript nunca pone `null` por su cuenta." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "With `var`, JavaScript hoists the declaration: it acts as if `var total;` were written at the top. So on line 1 the variable exists but has no value yet (`undefined`). After line 2 it's `10`.", "es": "Con `var`, JavaScript eleva la declaración: es como si `var total;` estuviera escrito arriba del todo. Por eso en la línea 1 la variable existe pero aún no tiene valor (`undefined`). Después de la línea 2 vale `10`." },
+    "verify": { "kind": "output", "expected": "undefined\n10" }
+  },
+  {
+    "id": "s2-q004", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["variables", "names"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which of these are valid variable names? (Choose three.)", "es": "¿Cuáles de estos nombres de variable son válidos? (Elige tres.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`_score`", "es": "`_score`" } },
+      { "id": "B", "text": { "en": "`$price`", "es": "`$price`" } },
+      { "id": "C", "text": { "en": "`2ndPlace`", "es": "`2ndPlace`" }, "why": { "en": "A name can contain digits, but it can't start with one.", "es": "Un nombre puede llevar dígitos, pero no puede empezar por uno." } },
+      { "id": "D", "text": { "en": "`player2`", "es": "`player2`" } },
+      { "id": "E", "text": { "en": "`user-name`", "es": "`user-name`" }, "why": { "en": "`-` is the minus operator, so JavaScript would read `user - name`. Use `userName` or `user_name`.", "es": "`-` es el operador de resta, así que JavaScript leería `user - name`. Usa `userName` o `user_name`." } }
+    ],
+    "answer": ["A", "B", "D"],
+    "explanation": { "en": "A variable name can use letters, digits, `_` and `$`, but it can't start with a digit, can't contain spaces or `-`, and can't be a reserved word such as `let` or `class`. `_score`, `$price` and `player2` follow these rules.", "es": "Un nombre de variable puede llevar letras, dígitos, `_` y `$`, pero no puede empezar por un dígito, no puede tener espacios ni `-` y no puede ser una palabra reservada como `let` o `class`. `_score`, `$price` y `player2` cumplen estas reglas." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q005", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap", "const", "arrays"], "courseRef": "01_Variables",
+    "code": "const items = [];\nitems.push(\"pen\");\nitems = [\"book\"];\nconsole.log(items);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "A `TypeError` is thrown on line 2", "es": "Se lanza un `TypeError` en la línea 2" }, "why": { "en": "`push` changes the array's content, which is allowed with `const`. Only giving the variable a new value is forbidden.", "es": "`push` cambia el contenido del array, y eso se permite con `const`. Lo prohibido es darle a la variable un valor nuevo." } },
+      { "id": "B", "text": { "en": "It prints `[ 'book' ]`", "es": "Muestra `[ 'book' ]`" }, "why": { "en": "A `const` variable can't point to a new array. Line 3 stops the program before the `console.log`.", "es": "Una variable `const` no puede apuntar a un array nuevo. La línea 3 detiene el programa antes del `console.log`." } },
+      { "id": "C", "text": { "en": "It prints `[ 'pen' ]`", "es": "Muestra `[ 'pen' ]`" }, "why": { "en": "JavaScript doesn't skip line 3 quietly: reassigning a `const` throws an error.", "es": "JavaScript no se salta la línea 3 sin más: reasignar una `const` lanza un error." } },
+      { "id": "D", "text": { "en": "A `TypeError` is thrown on line 3", "es": "Se lanza un `TypeError` en la línea 3" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`const` means the variable can't be reassigned, not that its value is frozen. Adding an element with `push` (line 2) is fine. Line 3 tries to put a new array in `items`, and that throws `TypeError: Assignment to constant variable`.", "es": "`const` significa que la variable no se puede reasignar, no que su valor quede congelado. Añadir un elemento con `push` (línea 2) está bien. La línea 3 intenta meter un array nuevo en `items`, y eso lanza `TypeError: Assignment to constant variable`." },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 3, "match": "both" }
+  },
+  {
+    "id": "s2-q006", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["const", "variables"], "courseRef": "01_Variables",
+    "code": "const limit;\nlimit = 10;\nconsole.log(limit);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `10`", "es": "Muestra `10`" }, "why": { "en": "A `const` must get its value on the same line where it's declared. You can't give it a value later.", "es": "Una `const` tiene que recibir su valor en la misma línea en la que se declara. No se le puede dar después." } },
+      { "id": "B", "text": { "en": "It prints `undefined`", "es": "Muestra `undefined`" }, "why": { "en": "The code never runs: the mistake is detected while JavaScript reads the code.", "es": "El código no llega a ejecutarse: el fallo se detecta mientras JavaScript lee el código." } },
+      { "id": "C", "text": { "en": "A `TypeError` is thrown on line 2", "es": "Se lanza un `TypeError` en la línea 2" }, "why": { "en": "Line 2 never runs. The problem is already on line 1, and it's a syntax problem.", "es": "La línea 2 nunca se ejecuta. El problema ya está en la línea 1 y es de sintaxis." } },
+      { "id": "D", "text": { "en": "A `SyntaxError` is thrown on line 1", "es": "Se lanza un `SyntaxError` en la línea 1" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "A `const` declaration without a value is invalid code: `SyntaxError: Missing initializer in const declaration`. Because it's a syntax error, nothing runs at all. Write `const limit = 10;` instead.", "es": "Declarar una `const` sin valor es código no válido: `SyntaxError: Missing initializer in const declaration`. Al ser un error de sintaxis, no se ejecuta nada. Lo correcto es `const limit = 10;`." },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 1 }
+  },
+  {
+    "id": "s2-q007", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "scope", "typeof"], "courseRef": "01_Variables",
+    "code": "if (true) {\n  var color = \"red\";\n  let size = 2;\n}\nconsole.log(color);\nconsole.log(typeof size);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "red\nundefined", "es": "red\nundefined" } },
+      { "id": "B", "text": { "en": "red\nnumber", "es": "red\nnumber" }, "why": { "en": "`size` is declared with `let`, so it only exists inside the `if` block. Outside, it isn't defined.", "es": "`size` se declara con `let`, así que solo existe dentro del bloque del `if`. Fuera no está definida." } },
+      { "id": "C", "text": { "en": "undefined\nundefined", "es": "undefined\nundefined" }, "why": { "en": "`var` ignores the block: `color` is still available after the `}` with its value `\"red\"`.", "es": "`var` no respeta el bloque: `color` sigue disponible después de la `}` con su valor `\"red\"`." } },
+      { "id": "D", "text": { "en": "ReferenceError", "es": "ReferenceError" }, "why": { "en": "Reading `color` works because `var` isn't block-scoped. And `typeof` on a name that doesn't exist returns `\"undefined\"` instead of throwing.", "es": "Leer `color` funciona porque `var` no tiene ámbito de bloque. Y `typeof` con un nombre que no existe devuelve `\"undefined\"` en vez de lanzar un error." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`var` doesn't respect block scope, so `color` is still `\"red\"` after the `if`. `let size` only exists inside the block. Outside, `size` isn't declared, and `typeof` on an undeclared name gives `\"undefined\"` without an error (`console.log(size)` would throw a `ReferenceError`).", "es": "`var` no respeta el ámbito de bloque, así que `color` sigue valiendo `\"red\"` después del `if`. `let size` solo existe dentro del bloque. Fuera, `size` no está declarada, y `typeof` con un nombre no declarado da `\"undefined\"` sin error (`console.log(size)` sí lanzaría un `ReferenceError`)." },
+    "verify": { "kind": "output", "expected": "red\nundefined" }
+  },
+  {
+    "id": "s2-q008", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 1, "tags": ["variables"], "courseRef": "01_Variables",
+    "code": "let age = 20;\nconsole.log(age);\nlet age = 21;\nconsole.log(age);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "Nothing is printed: a `SyntaxError` is thrown on line 3", "es": "No se muestra nada: se lanza un `SyntaxError` en la línea 3" } },
+      { "id": "B", "text": { "en": "It prints `20` and then `21`", "es": "Muestra `20` y después `21`" }, "why": { "en": "That would work with `var`, or with `age = 21;` without `let`. Declaring the same `let` twice isn't allowed.", "es": "Eso funcionaría con `var`, o con `age = 21;` sin `let`. Declarar dos veces la misma `let` no está permitido." } },
+      { "id": "C", "text": { "en": "It prints `20` and then a `SyntaxError` is thrown", "es": "Muestra `20` y después se lanza un `SyntaxError`" }, "why": { "en": "Syntax errors are detected before the code runs, so not even line 2 prints anything.", "es": "Los errores de sintaxis se detectan antes de ejecutar el código, así que ni siquiera la línea 2 llega a mostrar nada." } },
+      { "id": "D", "text": { "en": "It prints `21` twice", "es": "Muestra `21` dos veces" }, "why": { "en": "Even if it ran, line 2 would still read `20`. But the code doesn't run at all.", "es": "Aunque se ejecutara, la línea 2 leería `20`. Pero el código no llega a ejecutarse." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "You can't declare a `let` variable twice in the same scope: `SyntaxError: Identifier 'age' has already been declared`. JavaScript checks the syntax of the whole script before running it, so nothing is printed. To change the value, write `age = 21;`.", "es": "No se puede declarar dos veces una variable `let` en el mismo ámbito: `SyntaxError: Identifier 'age' has already been declared`. JavaScript revisa la sintaxis de todo el script antes de ejecutarlo, así que no se muestra nada. Para cambiar el valor, escribe `age = 21;`." },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 3, "match": "both" }
+  },
+  {
+    "id": "s2-q009", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["comments"], "courseRef": "01_Variables",
+    "code": "let a = 1; // a = 2;\n/* a = 3;\na = 4; */\n// a = 5;\nconsole.log(a);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "2", "es": "2" }, "why": { "en": "`// a = 2;` comes after `//`, so the rest of that line is a comment and never runs.", "es": "`// a = 2;` va después de `//`, así que el resto de esa línea es un comentario y no se ejecuta." } },
+      { "id": "B", "text": { "en": "1", "es": "1" } },
+      { "id": "C", "text": { "en": "4", "es": "4" }, "why": { "en": "Everything between `/*` and `*/` is a comment, even across several lines. `a = 4;` is inside it.", "es": "Todo lo que hay entre `/*` y `*/` es un comentario, aunque ocupe varias líneas. `a = 4;` está dentro." } },
+      { "id": "D", "text": { "en": "5", "es": "5" }, "why": { "en": "Line 4 starts with `//`, so the whole line is a comment.", "es": "La línea 4 empieza por `//`, así que toda la línea es un comentario." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`//` turns the rest of the line into a comment, and `/* … */` turns everything between them into a comment, even several lines. The only code that runs is `let a = 1;` and the `console.log`, so it prints `1`.", "es": "`//` convierte en comentario el resto de la línea, y `/* … */` convierte en comentario todo lo que hay entre los dos, aunque sean varias líneas. Solo se ejecutan `let a = 1;` y el `console.log`, así que se muestra `1`." },
+    "verify": { "kind": "output", "expected": "1" }
+  },
+  {
+    "id": "s2-q010", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["const", "variables"], "courseRef": "01_Variables",
+    "code": "___ lives = 3;\nlives = lives - 1;\nconsole.log(lives);",
+    "prompt": { "en": "Which keyword fills the gap so that the code prints `2`?", "es": "¿Qué palabra clave completa el hueco para que el código muestre `2`?" },
+    "options": [
+      { "id": "A", "text": { "en": "let", "es": "let" } },
+      { "id": "B", "text": { "en": "const", "es": "const" }, "why": { "en": "A `const` variable can't get a new value, so line 2 throws a `TypeError`.", "es": "A una variable `const` no se le puede dar un valor nuevo, así que la línea 2 lanza un `TypeError`." } },
+      { "id": "C", "text": { "en": "int", "es": "int" }, "why": { "en": "Some languages put the type in the declaration, but JavaScript doesn't: `int` isn't a keyword, so the code has a `SyntaxError`.", "es": "Algunos lenguajes ponen el tipo al declarar, pero JavaScript no: `int` no es una palabra clave, así que el código tiene un `SyntaxError`." } },
+      { "id": "D", "text": { "en": "constant", "es": "constant" }, "why": { "en": "`constant` isn't a JavaScript keyword (the keyword is `const`), so the code has a `SyntaxError`. And even `const` wouldn't let you change the value.", "es": "`constant` no es una palabra clave de JavaScript (la palabra clave es `const`), así que el código tiene un `SyntaxError`. Y ni siquiera `const` dejaría cambiar el valor." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The variable changes value on line 2, so it must be declared with `let` (or the older `var`). `const` is for values that never get reassigned. In JavaScript you never write the type when you declare a variable: the type depends on the value it holds.", "es": "La variable cambia de valor en la línea 2, así que hay que declararla con `let` (o con el antiguo `var`). `const` es para valores que no se reasignan nunca. En JavaScript nunca se escribe el tipo al declarar una variable: el tipo depende del valor que guarda." },
+    "verify": { "kind": "output", "expected": "2" }
+  },
+  {
+    "id": "s2-q011", "section": 2, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["variables"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which of these programs runs without an error?", "es": "¿Cuál de estos programas se ejecuta sin errores?" },
+    "options": [
+      { "id": "A", "text": { "en": "`let a = 1; let a = 2;`", "es": "`let a = 1; let a = 2;`" }, "why": { "en": "A `let` variable can't be declared twice in the same scope: `SyntaxError`.", "es": "Una variable `let` no se puede declarar dos veces en el mismo ámbito: `SyntaxError`." } },
+      { "id": "B", "text": { "en": "`const a = 1; a = 2;`", "es": "`const a = 1; a = 2;`" }, "why": { "en": "A `const` can't be reassigned: `TypeError`.", "es": "Una `const` no se puede reasignar: `TypeError`." } },
+      { "id": "C", "text": { "en": "`let a = 1; var a = 2;`", "es": "`let a = 1; var a = 2;`" }, "why": { "en": "Once a name is declared with `let`, it can't be declared again in the same scope, not even with `var`: `SyntaxError`.", "es": "Cuando un nombre ya está declarado con `let`, no se puede volver a declarar en el mismo ámbito, ni siquiera con `var`: `SyntaxError`." } },
+      { "id": "D", "text": { "en": "`var a = 1; var a = 2;`", "es": "`var a = 1; var a = 2;`" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`var` is the old, permissive way: you can declare the same variable again and it simply gets the new value. `let` and `const` forbid declaring a name twice in the same scope, and `const` also forbids reassigning.", "es": "`var` es la forma antigua y permisiva: puedes volver a declarar la misma variable y simplemente recibe el valor nuevo. `let` y `const` prohíben declarar dos veces un nombre en el mismo ámbito, y `const` además prohíbe reasignarlo." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q012", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "typeof", "null"], "courseRef": "03_Casting",
+    "code": "let a = null;\nlet b;\nconsole.log(typeof a);\nconsole.log(typeof b);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "null\nundefined", "es": "null\nundefined" }, "why": { "en": "It looks logical, but `typeof null` returns `\"object\"`. It's an old bug in JavaScript that was never fixed.", "es": "Parece lógico, pero `typeof null` devuelve `\"object\"`. Es un fallo antiguo de JavaScript que nunca se corrigió." } },
+      { "id": "B", "text": { "en": "object\nobject", "es": "object\nobject" }, "why": { "en": "`b` has no value, so it's `undefined`, and `typeof undefined` is `\"undefined\"`.", "es": "`b` no tiene valor, así que vale `undefined`, y `typeof undefined` es `\"undefined\"`." } },
+      { "id": "C", "text": { "en": "object\nundefined", "es": "object\nundefined" } },
+      { "id": "D", "text": { "en": "null\nnull", "es": "null\nnull" }, "why": { "en": "`b` was never given `null`: a declared variable without a value is `undefined`.", "es": "A `b` nunca se le da `null`: una variable declarada sin valor vale `undefined`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`typeof null` is `\"object\"`. It's a famous historical bug, but `null` is still a primitive value. `b` was declared without a value, so it's `undefined`, and `typeof` gives `\"undefined\"`. To check for `null`, use `a === null`.", "es": "`typeof null` es `\"object\"`. Es un fallo histórico muy conocido, pero `null` sigue siendo un valor primitivo. `b` se declaró sin valor, así que vale `undefined`, y `typeof` da `\"undefined\"`. Para comprobar si algo es `null`, usa `a === null`." },
+    "verify": { "kind": "output", "expected": "object\nundefined" }
+  },
+  {
+    "id": "s2-q013", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["types"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which of these are primitive types in JavaScript? (Choose three.)", "es": "¿Cuáles de estos son tipos primitivos en JavaScript? (Elige tres.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`array`", "es": "`array`" }, "why": { "en": "Arrays are objects. `typeof [1, 2]` returns `\"object\"`; there is no `array` type.", "es": "Los arrays son objetos. `typeof [1, 2]` devuelve `\"object\"`; no existe un tipo `array`." } },
+      { "id": "B", "text": { "en": "`bigint`", "es": "`bigint`" } },
+      { "id": "C", "text": { "en": "`boolean`", "es": "`boolean`" } },
+      { "id": "D", "text": { "en": "`object`", "es": "`object`" }, "why": { "en": "Objects are the complex type, the opposite of a primitive: they group several values.", "es": "Los objetos son el tipo complejo, lo contrario de un primitivo: agrupan varios valores." } },
+      { "id": "E", "text": { "en": "`undefined`", "es": "`undefined`" } }
+    ],
+    "answer": ["B", "C", "E"],
+    "explanation": { "en": "The seven primitive types are `string`, `number`, `bigint`, `boolean`, `undefined`, `null` and `symbol`. A primitive holds a single value. Objects and arrays are complex types.", "es": "Los siete tipos primitivos son `string`, `number`, `bigint`, `boolean`, `undefined`, `null` y `symbol`. Un primitivo guarda un único valor. Los objetos y los arrays son tipos complejos." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q014", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "number"], "courseRef": "01_Variables",
+    "code": "let sum = 0.1 + 0.2;\nconsole.log(sum === 0.3);\nconsole.log(sum > 0.3);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "false\ntrue", "es": "false\ntrue" } },
+      { "id": "B", "text": { "en": "true\nfalse", "es": "true\nfalse" }, "why": { "en": "Decimal numbers are stored in binary and lose a tiny bit of precision, so `0.1 + 0.2` is `0.30000000000000004`, not exactly `0.3`.", "es": "Los números decimales se guardan en binario y pierden un poco de precisión, así que `0.1 + 0.2` vale `0.30000000000000004`, no `0.3` exacto." } },
+      { "id": "C", "text": { "en": "false\nfalse", "es": "false\nfalse" }, "why": { "en": "If the sum isn't exactly `0.3`, it must be a bit above or below it. Here it's a tiny bit above: `0.30000000000000004`.", "es": "Si la suma no es exactamente `0.3`, tiene que quedar un poco por encima o por debajo. Aquí queda un pelín por encima: `0.30000000000000004`." } },
+      { "id": "D", "text": { "en": "true\ntrue", "es": "true\ntrue" }, "why": { "en": "A number can't be equal to `0.3` and greater than `0.3` at the same time.", "es": "Un número no puede ser igual a `0.3` y mayor que `0.3` a la vez." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "Numbers in JavaScript are stored in binary, and some decimals like `0.1` can't be stored exactly. `0.1 + 0.2` gives `0.30000000000000004`: a tiny bit more than `0.3`. So `sum === 0.3` is `false` and `sum > 0.3` is `true`.", "es": "Los números en JavaScript se guardan en binario y algunos decimales, como `0.1`, no se pueden guardar exactos. `0.1 + 0.2` da `0.30000000000000004`: un pelín más que `0.3`. Por eso `sum === 0.3` da `false` y `sum > 0.3` da `true`." },
+    "verify": { "kind": "output", "expected": "false\ntrue" }
+  },
+  {
+    "id": "s2-q015", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "number", "typeof"], "courseRef": "03_Casting",
+    "code": "console.log(10 / 0);\nconsole.log(typeof NaN);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Error\nNaN", "es": "Error\nNaN" }, "why": { "en": "Dividing by zero isn't an error in JavaScript: it gives the special number `Infinity`.", "es": "Dividir entre cero no es un error en JavaScript: da el número especial `Infinity`." } },
+      { "id": "B", "text": { "en": "Infinity\nnumber", "es": "Infinity\nnumber" } },
+      { "id": "C", "text": { "en": "NaN\nNaN", "es": "NaN\nNaN" }, "why": { "en": "`10 / 0` is `Infinity`, not `NaN` (`0 / 0` would be `NaN`). And `typeof` always returns a type name, never `NaN`.", "es": "`10 / 0` es `Infinity`, no `NaN` (`0 / 0` sí daría `NaN`). Y `typeof` siempre devuelve el nombre de un tipo, nunca `NaN`." } },
+      { "id": "D", "text": { "en": "Infinity\nundefined", "es": "Infinity\nundefined" }, "why": { "en": "Although its name means «Not a Number», `NaN` is a value of type `number`.", "es": "Aunque su nombre signifique «Not a Number» (no es un número), `NaN` es un valor de tipo `number`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Dividing a positive number by `0` gives `Infinity`, a special value of the `number` type. `NaN` («Not a Number») is the result of an impossible numeric operation, but its type is still `number`, so `typeof NaN` is `\"number\"`.", "es": "Dividir un número positivo entre `0` da `Infinity`, un valor especial del tipo `number`. `NaN` («Not a Number») es el resultado de una operación numérica imposible, pero su tipo sigue siendo `number`, así que `typeof NaN` es `\"number\"`." },
+    "verify": { "kind": "output", "expected": "Infinity\nnumber" }
+  },
+  {
+    "id": "s2-q016", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "bigint"], "courseRef": "03_Casting",
+    "code": "let big = 10n;\nconsole.log(big == 10);\nconsole.log(big === 10);\nconsole.log(big > 5);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\nfalse\ntrue", "es": "true\nfalse\ntrue" } },
+      { "id": "B", "text": { "en": "TypeError", "es": "TypeError" }, "why": { "en": "Only arithmetic (`+`, `-`, `*`…) can't mix `bigint` and `number`. Comparisons between them are allowed.", "es": "Solo las operaciones aritméticas (`+`, `-`, `*`…) no pueden mezclar `bigint` y `number`. Las comparaciones entre ellos sí se permiten." } },
+      { "id": "C", "text": { "en": "false\nfalse\ntrue", "es": "false\nfalse\ntrue" }, "why": { "en": "`==` compares the numeric value, and `10n` and `10` are the same amount, so it's `true`.", "es": "`==` compara el valor numérico, y `10n` y `10` son la misma cantidad, así que da `true`." } },
+      { "id": "D", "text": { "en": "true\ntrue\ntrue", "es": "true\ntrue\ntrue" }, "why": { "en": "`===` also checks the type: `bigint` isn't `number`, so it's `false`.", "es": "`===` también comprueba el tipo: `bigint` no es `number`, así que da `false`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "You can't add a `bigint` and a `number`, but you can compare them. `10n == 10` is `true` because they're the same amount; `10n === 10` is `false` because the types are different (`bigint` and `number`); and `10n > 5` is `true`.", "es": "Un `bigint` y un `number` no se pueden sumar, pero sí comparar. `10n == 10` da `true` porque son la misma cantidad; `10n === 10` da `false` porque los tipos son distintos (`bigint` y `number`), y `10n > 5` da `true`." },
+    "verify": { "kind": "output", "expected": "true\nfalse\ntrue" }
+  },
+  {
+    "id": "s2-q017", "section": 2, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap", "bigint"], "courseRef": "03_Casting",
+    "code": "let result = 7n / 2n;",
+    "prompt": { "en": "What is the value of `result`?", "es": "¿Qué valor tiene `result`?" },
+    "options": [
+      { "id": "A", "text": { "en": "`3n`", "es": "`3n`" } },
+      { "id": "B", "text": { "en": "`3.5n`", "es": "`3.5n`" }, "why": { "en": "A `bigint` can only hold whole numbers, so `3.5n` doesn't exist.", "es": "Un `bigint` solo puede guardar números enteros, así que `3.5n` no existe." } },
+      { "id": "C", "text": { "en": "`3.5`", "es": "`3.5`" }, "why": { "en": "Dividing two `bigint` values gives a `bigint`, never a decimal `number`.", "es": "Dividir dos valores `bigint` da un `bigint`, nunca un `number` con decimales." } },
+      { "id": "D", "text": { "en": "`4n`", "es": "`4n`" }, "why": { "en": "BigInt division doesn't round to the nearest number: it simply drops the decimal part.", "es": "La división de BigInt no redondea al más cercano: simplemente quita la parte decimal." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`bigint` values are always whole numbers. When you divide them, the decimal part is dropped (truncated): `7n / 2n` is `3n`, not `3.5`. If you need decimals, use normal numbers: `7 / 2` is `3.5`.", "es": "Los valores `bigint` siempre son enteros. Al dividirlos se quita la parte decimal (se trunca): `7n / 2n` es `3n`, no `3.5`. Si necesitas decimales, usa números normales: `7 / 2` es `3.5`." },
+    "verify": { "kind": "value", "expr": "result", "expected": "3n" }
+  },
+  {
+    "id": "s2-q018", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["bigint"], "courseRef": "03_Casting",
+    "prompt": { "en": "Which expressions create the BigInt value `42n` without an error? (Choose two.)", "es": "¿Qué expresiones crean el valor BigInt `42n` sin dar error? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`new BigInt(42)`", "es": "`new BigInt(42)`" }, "why": { "en": "`BigInt` isn't a constructor: with `new` it throws a `TypeError`.", "es": "`BigInt` no es un constructor: con `new` lanza un `TypeError`." } },
+      { "id": "B", "text": { "en": "`BigInt(42.5)`", "es": "`BigInt(42.5)`" }, "why": { "en": "A number with decimals can't become a `bigint`: it throws a `RangeError`.", "es": "Un número con decimales no se puede convertir en `bigint`: lanza un `RangeError`." } },
+      { "id": "C", "text": { "en": "`42n`", "es": "`42n`" } },
+      { "id": "D", "text": { "en": "`BigInt(\"42\")`", "es": "`BigInt(\"42\")`" } },
+      { "id": "E", "text": { "en": "`Number(\"42n\")`", "es": "`Number(\"42n\")`" }, "why": { "en": "`Number()` returns a normal number, and the text `\"42n\"` isn't a valid number, so it gives `NaN`.", "es": "`Number()` devuelve un número normal, y el texto `\"42n\"` no es un número válido, así que da `NaN`." } }
+    ],
+    "answer": ["C", "D"],
+    "explanation": { "en": "There are two ways to get a `bigint`: write the literal with `n` at the end (`42n`) or call `BigInt()` without `new`, passing a whole number or a text with a whole number (`BigInt(42)`, `BigInt(\"42\")`).", "es": "Hay dos formas de obtener un `bigint`: escribir el literal con `n` al final (`42n`) o llamar a `BigInt()` sin `new`, pasándole un número entero o un texto con un número entero (`BigInt(42)`, `BigInt(\"42\")`)." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q019", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "null"], "courseRef": "03_Casting",
+    "code": "let a;\nlet b = null;\nconsole.log(a == b);\nconsole.log(a === b);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue", "es": "true\ntrue" }, "why": { "en": "`===` also compares the type: `undefined` and `null` are different types, so it's `false`.", "es": "`===` también compara el tipo: `undefined` y `null` son tipos distintos, así que da `false`." } },
+      { "id": "B", "text": { "en": "false\nfalse", "es": "false\nfalse" }, "why": { "en": "`==` has a special rule: `null` and `undefined` are loosely equal to each other (and to nothing else).", "es": "`==` tiene una regla especial: `null` y `undefined` son iguales entre sí con la comparación flexible (y con nada más)." } },
+      { "id": "C", "text": { "en": "true\nfalse", "es": "true\nfalse" } },
+      { "id": "D", "text": { "en": "false\ntrue", "es": "false\ntrue" }, "why": { "en": "If `===` is `true`, `==` is always `true` too. Here it's the other way round.", "es": "Si `===` da `true`, `==` siempre da `true` también. Aquí pasa al revés." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`a` is `undefined` (declared without a value) and `b` is `null`. Both mean «no value», and `==` treats them as equal. `===` also checks the type, and `undefined` and `null` are different types, so it's `false`.", "es": "`a` vale `undefined` (declarada sin valor) y `b` vale `null`. Los dos significan «sin valor», y `==` los considera iguales. `===` comprueba también el tipo, y `undefined` y `null` son tipos distintos, así que da `false`." },
+    "verify": { "kind": "output", "expected": "true\nfalse" }
+  },
+  {
+    "id": "s2-q020", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "null", "casting"], "courseRef": "03_Casting",
+    "code": "let price;\nlet discount = null;\nconsole.log(price + 1);\nconsole.log(discount + 1);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "NaN\n1", "es": "NaN\n1" } },
+      { "id": "B", "text": { "en": "1\n1", "es": "1\n1" }, "why": { "en": "`null` turns into `0`, but `undefined` turns into `NaN`, and any sum with `NaN` is `NaN`.", "es": "`null` se convierte en `0`, pero `undefined` se convierte en `NaN`, y cualquier suma con `NaN` da `NaN`." } },
+      { "id": "C", "text": { "en": "NaN\nNaN", "es": "NaN\nNaN" }, "why": { "en": "`undefined` gives `NaN`, but `null` becomes `0` in arithmetic, so `null + 1` is `1`.", "es": "`undefined` da `NaN`, pero `null` se convierte en `0` al operar, así que `null + 1` es `1`." } },
+      { "id": "D", "text": { "en": "undefined1\nnull1", "es": "undefined1\nnull1" }, "why": { "en": "`+` only joins text when one side is a string. `undefined`, `null` and `1` aren't strings, so they're added as numbers.", "es": "`+` solo une textos cuando uno de los lados es un string. `undefined`, `null` y `1` no lo son, así que se suman como números." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "In arithmetic, JavaScript converts both values to numbers. `Number(undefined)` is `NaN`, so `price + 1` is `NaN`. `Number(null)` is `0`, so `discount + 1` is `1`. A good reason to always give your variables a starting value.", "es": "Al operar, JavaScript convierte los dos valores en números. `Number(undefined)` es `NaN`, así que `price + 1` da `NaN`. `Number(null)` es `0`, así que `discount + 1` da `1`. Buen motivo para dar siempre un valor inicial a tus variables." },
+    "verify": { "kind": "output", "expected": "NaN\n1" }
+  },
+  {
+    "id": "s2-q021", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["bigint", "typeof"], "courseRef": "03_Casting",
+    "code": "let id = ___;\nconsole.log(typeof id);",
+    "prompt": { "en": "Which value fills the gap so that the code prints `bigint`?", "es": "¿Qué valor completa el hueco para que el código muestre `bigint`?" },
+    "options": [
+      { "id": "A", "text": { "en": "100", "es": "100" }, "why": { "en": "A whole number without `n` is still a normal `number`.", "es": "Un número entero sin `n` sigue siendo un `number` normal." } },
+      { "id": "B", "text": { "en": "100n", "es": "100n" } },
+      { "id": "C", "text": { "en": "\"100n\"", "es": "\"100n\"" }, "why": { "en": "With quotes it's a string, so `typeof` gives `\"string\"`.", "es": "Con comillas es un string, así que `typeof` da `\"string\"`." } },
+      { "id": "D", "text": { "en": "BigInt", "es": "BigInt" }, "why": { "en": "`BigInt` without parentheses is the conversion function itself, so `typeof` gives `\"function\"`. You would need to call it: `BigInt(100)`.", "es": "`BigInt` sin paréntesis es la propia función de conversión, así que `typeof` da `\"function\"`. Habría que llamarla: `BigInt(100)`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "An `n` at the end of a whole number creates a `bigint` literal, a type for whole numbers of any size. `typeof 100n` is `\"bigint\"`. You can also get one by calling `BigInt(100)`.", "es": "Una `n` al final de un número entero crea un literal `bigint`, un tipo para números enteros de cualquier tamaño. `typeof 100n` es `\"bigint\"`. También se obtiene llamando a `BigInt(100)`." },
+    "verify": { "kind": "output", "expected": "bigint" }
+  },
+  {
+    "id": "s2-q022", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["strings", "escapes"], "courseRef": "02_Strings",
+    "code": "let s = \"a\\tb\\nc\";\nconsole.log(s.length);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "7", "es": "7" }, "why": { "en": "`\\t` and `\\n` are written with two characters, but each one is a single character inside the string (a tab and a line break).", "es": "`\\t` y `\\n` se escriben con dos caracteres, pero cada uno es un solo carácter dentro del string (un tabulador y un salto de línea)." } },
+      { "id": "B", "text": { "en": "3", "es": "3" }, "why": { "en": "The tab and the line break are characters too, so they count in `length`.", "es": "El tabulador y el salto de línea también son caracteres, así que cuentan en `length`." } },
+      { "id": "C", "text": { "en": "5", "es": "5" } },
+      { "id": "D", "text": { "en": "9", "es": "9" }, "why": { "en": "`length` counts the characters of the value, not the quotes you write around it.", "es": "`length` cuenta los caracteres del valor, no las comillas que escribes alrededor." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "An escape sequence is a backslash plus a letter that stands for one special character: `\\t` is a tab and `\\n` is a line break. The string holds `a`, tab, `b`, line break and `c`: 5 characters.", "es": "Una secuencia de escape es una barra invertida más una letra que representa un carácter especial: `\\t` es un tabulador y `\\n` es un salto de línea. El string guarda `a`, tabulador, `b`, salto de línea y `c`: 5 caracteres." },
+    "verify": { "kind": "output", "expected": "5" }
+  },
+  {
+    "id": "s2-q023", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["strings", "template"], "courseRef": "02_Strings",
+    "code": "let item = \"pen\";\nlet qty = 3;\nconsole.log(`${qty} x ${item}: ${qty * 2} €`);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "3 x pen: 6 €", "es": "3 x pen: 6 €" } },
+      { "id": "B", "text": { "en": "${qty} x ${item}: ${qty * 2} €", "es": "${qty} x ${item}: ${qty * 2} €" }, "why": { "en": "That would happen with normal quotes. Inside backticks, every `${ }` is replaced by its value.", "es": "Eso pasaría con comillas normales. Dentro de las comillas invertidas, cada `${ }` se sustituye por su valor." } },
+      { "id": "C", "text": { "en": "3 x pen: 3 * 2 €", "es": "3 x pen: 3 * 2 €" }, "why": { "en": "What goes inside `${ }` is an expression, and JavaScript calculates it before inserting it: `qty * 2` is `6`.", "es": "Lo que va dentro de `${ }` es una expresión, y JavaScript la calcula antes de insertarla: `qty * 2` es `6`." } },
+      { "id": "D", "text": { "en": "qty x item: qty * 2 €", "es": "qty x item: qty * 2 €" }, "why": { "en": "Inside `${ }` JavaScript uses the value of the variable, not its name.", "es": "Dentro de `${ }` JavaScript usa el valor de la variable, no su nombre." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "A template literal is a string written between backticks. Each `${ }` inside it is evaluated and its result is inserted into the text: `${qty}` → `3`, `${item}` → `pen` and `${qty * 2}` → `6`.", "es": "Una plantilla literal es un string escrito entre comillas invertidas. Cada `${ }` que contiene se evalúa y su resultado se inserta en el texto: `${qty}` → `3`, `${item}` → `pen` y `${qty * 2}` → `6`." },
+    "verify": { "kind": "output", "expected": "3 x pen: 6 €" }
+  },
+  {
+    "id": "s2-q024", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "strings"], "courseRef": "02_Strings",
+    "code": "let word = \"code\";\nconsole.log(word.charAt(10) === \"\");\nconsole.log(word[10]);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "false\nundefined", "es": "false\nundefined" }, "why": { "en": "`charAt` with a position that doesn't exist returns an empty string `\"\"`, so the comparison is `true`.", "es": "`charAt` con una posición que no existe devuelve un string vacío `\"\"`, así que la comparación da `true`." } },
+      { "id": "B", "text": { "en": "RangeError", "es": "RangeError" }, "why": { "en": "Strings never throw errors for a position that doesn't exist; they just return an empty or missing value.", "es": "Los strings nunca lanzan un error por una posición que no existe; simplemente devuelven un valor vacío o inexistente." } },
+      { "id": "C", "text": { "en": "true\ne", "es": "true\ne" }, "why": { "en": "Positions don't wrap around: there is nothing at position 10 of a 4-letter word.", "es": "Las posiciones no vuelven a empezar: en la posición 10 de una palabra de 4 letras no hay nada." } },
+      { "id": "D", "text": { "en": "true\nundefined", "es": "true\nundefined" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "Both read a character by its position, but they behave differently when the position doesn't exist: `charAt(10)` returns an empty string `\"\"`, while `word[10]` returns `undefined`.", "es": "Las dos formas leen un carácter por su posición, pero se comportan distinto cuando la posición no existe: `charAt(10)` devuelve un string vacío `\"\"`, mientras que `word[10]` devuelve `undefined`." },
+    "verify": { "kind": "output", "expected": "true\nundefined" }
+  },
+  {
+    "id": "s2-q025", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 2, "tags": ["strings", "slice"], "courseRef": "02_Strings",
+    "code": "let file = \"photo.png\";\nlet ext = file.slice(___);\nconsole.log(ext);",
+    "prompt": { "en": "Which argument fills the gap so that the code prints `png`?", "es": "¿Qué argumento completa el hueco para que el código muestre `png`?" },
+    "options": [
+      { "id": "A", "text": { "en": "3", "es": "3" }, "why": { "en": "`slice(3)` starts at position 3 (the second `o`) and goes to the end: `to.png`.", "es": "`slice(3)` empieza en la posición 3 (la segunda `o`) y llega hasta el final: `to.png`." } },
+      { "id": "B", "text": { "en": "-4", "es": "-4" }, "why": { "en": "`-4` starts four characters from the end, so the dot is included: `.png`.", "es": "`-4` empieza cuatro caracteres antes del final, así que incluye el punto: `.png`." } },
+      { "id": "C", "text": { "en": "6, 3", "es": "6, 3" }, "why": { "en": "When the end is smaller than the start, `slice` returns an empty string.", "es": "Cuando el final es menor que el principio, `slice` devuelve un string vacío." } },
+      { "id": "D", "text": { "en": "-3", "es": "-3" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`slice(start, end)` copies part of a string; the `end` position isn't included and, if you leave it out, it goes to the end. A negative start counts from the end: `slice(-3)` takes the last three characters, `png`.", "es": "`slice(start, end)` copia una parte de un string; la posición final, `end`, no se incluye y, si no la pones, llega hasta el final. Un inicio negativo cuenta desde el final: `slice(-3)` toma los tres últimos caracteres, `png`." },
+    "verify": { "kind": "output", "expected": "png" }
+  },
+  {
+    "id": "s2-q026", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["strings", "split"], "courseRef": "02_Strings",
+    "code": "let csv = \"red,green,,blue\";\nlet parts = csv.split(\",\");\nconsole.log(parts.length);\nconsole.log(parts[2] === \"\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "3\nfalse", "es": "3\nfalse" }, "why": { "en": "`split` doesn't skip empty pieces: between the two commas there is an empty string.", "es": "`split` no se salta los trozos vacíos: entre las dos comas hay un string vacío." } },
+      { "id": "B", "text": { "en": "15\nfalse", "es": "15\nfalse" }, "why": { "en": "`parts` is the array returned by `split`, so `length` counts its pieces, not the characters of the text.", "es": "`parts` es el array que devuelve `split`, así que `length` cuenta sus trozos, no los caracteres del texto." } },
+      { "id": "C", "text": { "en": "4\ntrue", "es": "4\ntrue" } },
+      { "id": "D", "text": { "en": "4\nfalse", "es": "4\nfalse" }, "why": { "en": "The third piece (position 2) is the empty string `\"\"`, so the comparison is `true`.", "es": "El tercer trozo (posición 2) es el string vacío `\"\"`, así que la comparación da `true`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`split(\",\")` cuts the text at every comma and returns an array of strings. With two commas in a row, the piece between them is an empty string: the result is `red`, `green`, `\"\"` and `blue`, so 4 elements.", "es": "`split(\",\")` corta el texto en cada coma y devuelve un array de strings. Si hay dos comas seguidas, el trozo entre ellas es un string vacío: el resultado es `red`, `green`, `\"\"` y `blue`, es decir, 4 elementos." },
+    "verify": { "kind": "output", "expected": "4\ntrue" }
+  },
+  {
+    "id": "s2-q027", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "strings"], "courseRef": "02_Strings",
+    "code": "let word = \"cat\";\nword[0] = \"b\";\nconsole.log(word);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "bat", "es": "bat" }, "why": { "en": "Strings are immutable: you can read a character with `[0]`, but you can't change it.", "es": "Los strings son inmutables: puedes leer un carácter con `[0]`, pero no cambiarlo." } },
+      { "id": "B", "text": { "en": "cat", "es": "cat" } },
+      { "id": "C", "text": { "en": "b", "es": "b" }, "why": { "en": "`word[0] = \"b\"` doesn't replace the variable. And in fact it doesn't change anything at all.", "es": "`word[0] = \"b\"` no sustituye la variable. De hecho, no cambia nada." } },
+      { "id": "D", "text": { "en": "TypeError", "es": "TypeError" }, "why": { "en": "In a normal script JavaScript ignores the assignment silently, without an error (only strict mode would complain).", "es": "En un script normal JavaScript ignora la asignación en silencio, sin error (solo el modo estricto se quejaría)." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Strings are immutable: their characters can't be changed. `word[0] = \"b\"` is simply ignored, so `word` is still `cat`. To get `bat`, build a new string and assign it: `word = \"b\" + word.slice(1);`.", "es": "Los strings son inmutables: sus caracteres no se pueden cambiar. `word[0] = \"b\"` se ignora sin más, así que `word` sigue siendo `cat`. Para conseguir `bat`, crea un string nuevo y asígnalo: `word = \"b\" + word.slice(1);`." },
+    "verify": { "kind": "output", "expected": "cat" }
+  },
+  {
+    "id": "s2-q028", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["strings"], "courseRef": "02_Strings",
+    "code": "let msg = \"Hi there\";\nlet n = msg.length();\nconsole.log(n);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `8`", "es": "Muestra `8`" }, "why": { "en": "`length` is a property, not a method. With `()` JavaScript tries to call the number `8` as if it were a function.", "es": "`length` es una propiedad, no un método. Con `()` JavaScript intenta llamar al número `8` como si fuera una función." } },
+      { "id": "B", "text": { "en": "It prints `undefined`", "es": "Muestra `undefined`" }, "why": { "en": "The program stops on line 2, so the `console.log` never runs.", "es": "El programa se para en la línea 2, así que el `console.log` no llega a ejecutarse." } },
+      { "id": "C", "text": { "en": "A `SyntaxError` is thrown on line 2", "es": "Se lanza un `SyntaxError` en la línea 2" }, "why": { "en": "`msg.length()` is valid syntax. The problem appears when it runs, because a number can't be called.", "es": "`msg.length()` tiene una sintaxis válida. El problema aparece al ejecutarlo, porque un número no se puede llamar." } },
+      { "id": "D", "text": { "en": "A `TypeError` is thrown on line 2", "es": "Se lanza un `TypeError` en la línea 2" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`length` is a property of strings (and arrays), so it's written without parentheses: `msg.length` is `8`. `msg.length()` tries to call `8` as a function and throws `TypeError: msg.length is not a function`.", "es": "`length` es una propiedad de los strings (y de los arrays), así que se escribe sin paréntesis: `msg.length` vale `8`. `msg.length()` intenta llamar a `8` como si fuera una función y lanza `TypeError: msg.length is not a function`." },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 2 }
+  },
+  {
+    "id": "s2-q029", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 2, "tags": ["strings", "slice"], "courseRef": "02_Strings",
+    "code": "let email = \"ana@mail.com\";\nlet user = email.___;\nconsole.log(user);",
+    "prompt": { "en": "Which option fills the gap so that the code prints `ana`?", "es": "¿Qué opción completa el hueco para que el código muestre `ana`?" },
+    "options": [
+      { "id": "A", "text": { "en": "slice(1, 3)", "es": "slice(1, 3)" }, "why": { "en": "Positions start at 0, so position 1 is the `n`: you get `na`.", "es": "Las posiciones empiezan en 0, así que la posición 1 es la `n`: sale `na`." } },
+      { "id": "B", "text": { "en": "slice(0, 4)", "es": "slice(0, 4)" }, "why": { "en": "The end position isn't included, but 4 is one too many: you get `ana@`.", "es": "La posición final no se incluye, pero 4 es una de más: sale `ana@`." } },
+      { "id": "C", "text": { "en": "charAt(3)", "es": "charAt(3)" }, "why": { "en": "`charAt` returns a single character: the one at position 3, which is `@`.", "es": "`charAt` devuelve un solo carácter: el de la posición 3, que es `@`." } },
+      { "id": "D", "text": { "en": "slice(0, 3)", "es": "slice(0, 3)" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "Positions in a string start at 0. `slice(0, 3)` copies from position 0 up to position 3 without including it, that is positions 0, 1 and 2: `ana`.", "es": "Las posiciones de un string empiezan en 0. `slice(0, 3)` copia desde la posición 0 hasta la 3 sin incluirla, es decir, las posiciones 0, 1 y 2: `ana`." },
+    "verify": { "kind": "output", "expected": "ana" }
+  },
+  {
+    "id": "s2-q030", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["strings", "escapes"], "courseRef": "02_Strings",
+    "code": "let a = \"It's fine\";\nlet b = 'It's fine';\nconsole.log(a, b);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `It's fine It's fine`", "es": "Muestra `It's fine It's fine`" }, "why": { "en": "Line 2 isn't valid: the apostrophe closes the string that started with `'`.", "es": "La línea 2 no es válida: el apóstrofo cierra el string que empezó con `'`." } },
+      { "id": "B", "text": { "en": "A `SyntaxError` is thrown on line 1", "es": "Se lanza un `SyntaxError` en la línea 1" }, "why": { "en": "Line 1 is fine: a single quote inside double quotes is just a normal character.", "es": "La línea 1 está bien: una comilla simple dentro de comillas dobles es un carácter normal." } },
+      { "id": "C", "text": { "en": "A `SyntaxError` is thrown on line 2", "es": "Se lanza un `SyntaxError` en la línea 2" } },
+      { "id": "D", "text": { "en": "A `ReferenceError` is thrown on line 2", "es": "Se lanza un `ReferenceError` en la línea 2" }, "why": { "en": "The code never runs: JavaScript can't even read line 2, so it's a syntax error.", "es": "El código no llega a ejecutarse: JavaScript ni siquiera puede leer la línea 2, así que es un error de sintaxis." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "In line 2 the string starts with `'`, so the apostrophe in `It's` closes it, and the rest (`s fine'`) is not valid code: `SyntaxError`. Fix it with double quotes (line 1), backticks, or an escape: `'It\\'s fine'`.", "es": "En la línea 2 el string empieza con `'`, así que el apóstrofo de `It's` lo cierra y el resto (`s fine'`) no es código válido: `SyntaxError`. Se arregla con comillas dobles (línea 1), con comillas invertidas o con un escape: `'It\\'s fine'`." },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 2, "match": "both" }
+  },
+  {
+    "id": "s2-q031", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["strings"], "courseRef": "02_Strings",
+    "code": "let lang = \"JS\";",
+    "prompt": { "en": "Which expressions return the string `\"J\"`? (Choose two.)", "es": "¿Qué expresiones devuelven el string `\"J\"`? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`lang[0]`", "es": "`lang[0]`" } },
+      { "id": "B", "text": { "en": "`lang.charAt(1)`", "es": "`lang.charAt(1)`" }, "why": { "en": "Positions start at 0, so position 1 is the second character: `\"S\"`.", "es": "Las posiciones empiezan en 0, así que la posición 1 es el segundo carácter: `\"S\"`." } },
+      { "id": "C", "text": { "en": "`lang.slice(1)`", "es": "`lang.slice(1)`" }, "why": { "en": "`slice(1)` copies from position 1 to the end: `\"S\"`.", "es": "`slice(1)` copia desde la posición 1 hasta el final: `\"S\"`." } },
+      { "id": "D", "text": { "en": "`lang.split(\"\")`", "es": "`lang.split(\"\")`" }, "why": { "en": "`split` always returns an array (here with two elements, `\"J\"` and `\"S\"`), not a string.", "es": "`split` siempre devuelve un array (aquí con dos elementos, `\"J\"` y `\"S\"`), no un string." } },
+      { "id": "E", "text": { "en": "`lang.charAt(0)`", "es": "`lang.charAt(0)`" } }
+    ],
+    "answer": ["A", "E"],
+    "explanation": { "en": "The first character of a string is at position 0. You can read it with square brackets, `lang[0]`, or with the `charAt` method, `lang.charAt(0)`. Both return `\"J\"`.", "es": "El primer carácter de un string está en la posición 0. Se puede leer con corchetes, `lang[0]`, o con el método `charAt`, `lang.charAt(0)`. Los dos devuelven `\"J\"`." },
+    "verify": { "kind": "value", "expr": "lang.charAt(0)", "expected": "J" }
+  },
+  {
+    "id": "s2-q032", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "casting"], "courseRef": "03_Casting",
+    "code": "let size = \"12px\";\nconsole.log(Number(size));\nconsole.log(parseInt(size));",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "12\n12", "es": "12\n12" }, "why": { "en": "`Number()` needs the whole text to be a number. `\"px\"` isn't, so it gives `NaN`.", "es": "`Number()` necesita que todo el texto sea un número. `\"px\"` no lo es, así que da `NaN`." } },
+      { "id": "B", "text": { "en": "NaN\n12", "es": "NaN\n12" } },
+      { "id": "C", "text": { "en": "NaN\nNaN", "es": "NaN\nNaN" }, "why": { "en": "`parseInt` reads the digits at the start (`12`) and stops at the first letter, so it does get a number.", "es": "`parseInt` lee los dígitos del principio (`12`) y se detiene en la primera letra, así que sí obtiene un número." } },
+      { "id": "D", "text": { "en": "12\nNaN", "es": "12\nNaN" }, "why": { "en": "It's the other way round: `Number()` is the strict one and `parseInt()` the forgiving one.", "es": "Es al revés: `Number()` es el estricto y `parseInt()` el que perdona." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`Number()` converts the text as a whole: if any part isn't numeric, the result is `NaN`. `parseInt()` reads digits from the start and stops at the first character that can't be part of a whole number, so `\"12px\"` gives `12`.", "es": "`Number()` convierte el texto entero: si alguna parte no es numérica, el resultado es `NaN`. `parseInt()` lee dígitos desde el principio y se detiene en el primer carácter que no puede formar parte de un número entero, así que `\"12px\"` da `12`." },
+    "verify": { "kind": "output", "expected": "NaN\n12" }
+  },
+  {
+    "id": "s2-q033", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "casting"], "courseRef": "03_Casting",
+    "code": "console.log(Number(true), Number(\"3.5\"), Number(\"1,5\"), Number(\" 42 \"));",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "1 3.5 1.5 42", "es": "1 3.5 1.5 42" }, "why": { "en": "In JavaScript the decimal separator is the dot. A comma makes the text invalid, so `\"1,5\"` gives `NaN`.", "es": "En JavaScript el separador decimal es el punto. Una coma hace que el texto no sea válido, así que `\"1,5\"` da `NaN`." } },
+      { "id": "B", "text": { "en": "NaN 3.5 NaN 42", "es": "NaN 3.5 NaN 42" }, "why": { "en": "Booleans do convert to numbers: `true` is `1` and `false` is `0`.", "es": "Los booleanos sí se convierten en números: `true` es `1` y `false`, `0`." } },
+      { "id": "C", "text": { "en": "1 3.5 NaN NaN", "es": "1 3.5 NaN NaN" }, "why": { "en": "`Number()` ignores the spaces at the start and the end, so `\" 42 \"` gives `42`.", "es": "`Number()` ignora los espacios del principio y del final, así que `\" 42 \"` da `42`." } },
+      { "id": "D", "text": { "en": "1 3.5 NaN 42", "es": "1 3.5 NaN 42" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`Number(true)` is `1`. `\"3.5\"` is a valid number with a decimal point. `\"1,5\"` isn't: JavaScript always uses the dot as decimal separator, so the comma gives `NaN`. Spaces around a number are ignored, so `\" 42 \"` is `42`.", "es": "`Number(true)` es `1`. `\"3.5\"` es un número válido con punto decimal. `\"1,5\"` no lo es: JavaScript siempre usa el punto como separador decimal, así que la coma da `NaN`. Los espacios alrededor de un número se ignoran, así que `\" 42 \"` es `42`." },
+    "verify": { "kind": "output", "expected": "1 3.5 NaN 42" }
+  },
+  {
+    "id": "s2-q034", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["trap", "casting", "boolean"], "courseRef": "03_Casting",
+    "prompt": { "en": "Which of these calls return `true`? (Choose three.)", "es": "¿Cuáles de estas llamadas devuelven `true`? (Elige tres.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`Boolean(0)`", "es": "`Boolean(0)`" }, "why": { "en": "`0` is one of the falsy values, so it gives `false`.", "es": "`0` es uno de los valores falsy, así que da `false`." } },
+      { "id": "B", "text": { "en": "`Boolean(\"false\")`", "es": "`Boolean(\"false\")`" } },
+      { "id": "C", "text": { "en": "`Boolean(\" \")`", "es": "`Boolean(\" \")`" } },
+      { "id": "D", "text": { "en": "`Boolean([])`", "es": "`Boolean([])`" } },
+      { "id": "E", "text": { "en": "`Boolean(\"\")`", "es": "`Boolean(\"\")`" }, "why": { "en": "The empty string is falsy, so it gives `false`.", "es": "El string vacío es falsy, así que da `false`." } },
+      { "id": "F", "text": { "en": "`Boolean(NaN)`", "es": "`Boolean(NaN)`" }, "why": { "en": "`NaN` is falsy, so it gives `false`.", "es": "`NaN` es falsy, así que da `false`." } }
+    ],
+    "answer": ["B", "C", "D"],
+    "explanation": { "en": "`Boolean()` only returns `false` for the falsy values: `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined` and `NaN`. The text `\"false\"` and a string with a space aren't empty, so they're truthy, and an empty array is an object, which is always truthy.", "es": "`Boolean()` solo devuelve `false` con los valores falsy: `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined` y `NaN`. El texto `\"false\"` y un string con un espacio no están vacíos, así que son truthy, y un array vacío es un objeto, que siempre es truthy." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q035", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "casting", "concatenation"], "courseRef": "03_Casting",
+    "code": "console.log(\"3\" + 4 + 5);\nconsole.log(3 + 4 + \"5\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "12\n12", "es": "12\n12" }, "why": { "en": "As soon as a string takes part, `+` joins text instead of adding.", "es": "En cuanto interviene un string, `+` une texto en vez de sumar." } },
+      { "id": "B", "text": { "en": "345\n75", "es": "345\n75" } },
+      { "id": "C", "text": { "en": "39\n75", "es": "39\n75" }, "why": { "en": "`+` works from left to right: `\"3\" + 4` is already the string `\"34\"`, and then `5` is joined to it.", "es": "`+` se evalúa de izquierda a derecha: `\"3\" + 4` ya es el string `\"34\"`, y después se le une el `5`." } },
+      { "id": "D", "text": { "en": "345\n345", "es": "345\n345" }, "why": { "en": "In the second line, `3 + 4` are two numbers, so they're added first (`7`) before meeting the string.", "es": "En la segunda línea, `3 + 4` son dos números, así que primero se suman (`7`) antes de encontrarse con el string." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`+` is evaluated from left to right. Line 1: `\"3\" + 4` → `\"34\"`, then `\"34\" + 5` → `\"345\"`. Line 2: `3 + 4` → `7` (two numbers), then `7 + \"5\"` → `\"75\"`. Once a string appears, the rest is joined as text.", "es": "`+` se evalúa de izquierda a derecha. Línea 1: `\"3\" + 4` → `\"34\"` y después `\"34\" + 5` → `\"345\"`. Línea 2: `3 + 4` → `7` (dos números) y después `7 + \"5\"` → `\"75\"`. En cuanto aparece un string, lo que sigue se une como texto." },
+    "verify": { "kind": "output", "expected": "345\n75" }
+  },
+  {
+    "id": "s2-q036", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["bigint", "casting"], "courseRef": "03_Casting",
+    "code": "console.log(BigInt(\"15\") + 5n);\nconsole.log(Number(15n) + 5);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "20\n20", "es": "20\n20" }, "why": { "en": "The first sum is between two `bigint` values, so the result is a `bigint` and the console shows it with `n`.", "es": "La primera suma es entre dos valores `bigint`, así que el resultado es un `bigint` y la consola lo muestra con `n`." } },
+      { "id": "B", "text": { "en": "155n\n155", "es": "155n\n155" }, "why": { "en": "`BigInt(\"15\")` is a number, not a string, so `+` adds instead of joining.", "es": "`BigInt(\"15\")` es un número, no un string, así que `+` suma en vez de unir." } },
+      { "id": "C", "text": { "en": "TypeError", "es": "TypeError" }, "why": { "en": "Here the types aren't mixed: each line converts first and then adds two values of the same type.", "es": "Aquí no se mezclan tipos: cada línea convierte primero y luego suma dos valores del mismo tipo." } },
+      { "id": "D", "text": { "en": "20n\n20", "es": "20n\n20" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`BigInt(\"15\")` converts the text into the `bigint` `15n`, and `15n + 5n` is `20n` (the console shows the `n`). `Number(15n)` converts the `bigint` into the normal number `15`, and `15 + 5` is `20`. Converting first is the way to combine both types.", "es": "`BigInt(\"15\")` convierte el texto en el `bigint` `15n`, y `15n + 5n` es `20n` (la consola muestra la `n`). `Number(15n)` convierte el `bigint` en el número normal `15`, y `15 + 5` es `20`. Convertir primero es la forma de combinar los dos tipos." },
+    "verify": { "kind": "output", "expected": "20n\n20" }
+  },
+  {
+    "id": "s2-q037", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 3, "tags": ["bigint", "casting"], "courseRef": "03_Casting",
+    "code": "let price = 1.5;\nlet big = BigInt(price);\nconsole.log(big);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `1n`", "es": "Muestra `1n`" }, "why": { "en": "`BigInt()` doesn't cut off the decimals of a number (only division between `bigint` values does).", "es": "`BigInt()` no corta los decimales de un número (eso solo lo hace la división entre valores `bigint`)." } },
+      { "id": "B", "text": { "en": "It prints `2n`", "es": "Muestra `2n`" }, "why": { "en": "`BigInt()` doesn't round either: it refuses numbers with decimals.", "es": "`BigInt()` tampoco redondea: rechaza los números con decimales." } },
+      { "id": "C", "text": { "en": "A `RangeError` is thrown on line 2", "es": "Se lanza un `RangeError` en la línea 2" } },
+      { "id": "D", "text": { "en": "A `TypeError` is thrown on line 2", "es": "Se lanza un `TypeError` en la línea 2" }, "why": { "en": "The type is fine (it's a number). What's wrong is the value: `1.5` isn't a whole number, and that's a `RangeError`.", "es": "El tipo es correcto (es un número). Lo que falla es el valor: `1.5` no es un número entero, y eso es un `RangeError`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "A `bigint` can only hold whole numbers. `BigInt(1.5)` throws `RangeError: The number 1.5 cannot be converted to a BigInt because it is not an integer`. Round it first if that's what you want: `BigInt(Math.round(price))`.", "es": "Un `bigint` solo puede guardar números enteros. `BigInt(1.5)` lanza `RangeError: The number 1.5 cannot be converted to a BigInt because it is not an integer`. Si es lo que quieres, redondea antes: `BigInt(Math.round(price))`." },
+    "verify": { "kind": "error", "errorType": "RangeError", "line": 2 }
+  },
+  {
+    "id": "s2-q038", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["casting"], "courseRef": "03_Casting",
+    "code": "let input = \"25\";\nlet age = ___;\nconsole.log(age + 5);",
+    "prompt": { "en": "Which option fills the gap so that the code prints `30`?", "es": "¿Qué opción completa el hueco para que el código muestre `30`?" },
+    "options": [
+      { "id": "A", "text": { "en": "String(input)", "es": "String(input)" }, "why": { "en": "`input` is already a string, so `+ 5` joins it as text: `255`.", "es": "`input` ya es un string, así que `+ 5` lo une como texto: `255`." } },
+      { "id": "B", "text": { "en": "Boolean(input)", "es": "Boolean(input)" }, "why": { "en": "`Boolean(\"25\")` is `true`, and `true + 5` counts `true` as `1`: you get `6`.", "es": "`Boolean(\"25\")` es `true`, y `true + 5` cuenta `true` como `1`: sale `6`." } },
+      { "id": "C", "text": { "en": "input + 0", "es": "input + 0" }, "why": { "en": "`+` with a string joins: `\"25\" + 0` is `\"250\"`, and then `+ 5` gives `2505`.", "es": "`+` con un string une: `\"25\" + 0` es `\"250\"`, y después `+ 5` da `2505`." } },
+      { "id": "D", "text": { "en": "Number(input)", "es": "Number(input)" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`input` is the text `\"25\"` (for example, what `prompt()` returns). To add with it, convert it first: `Number(input)` gives the number `25`, and `25 + 5` is `30`. Without converting, `+` would join the texts.", "es": "`input` es el texto `\"25\"` (por ejemplo, lo que devuelve `prompt()`). Para sumar con él, primero hay que convertirlo: `Number(input)` da el número `25`, y `25 + 5` es `30`. Sin convertirlo, `+` uniría los textos." },
+    "verify": { "kind": "output", "expected": "30" }
+  },
+  {
+    "id": "s2-q039", "section": 2, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["casting"], "courseRef": "03_Casting",
+    "prompt": { "en": "Which line converts the string `\"7\"` into a number explicitly?", "es": "¿Qué línea convierte el string `\"7\"` en un número de forma explícita?" },
+    "options": [
+      { "id": "A", "text": { "en": "`let n = Number(\"7\");`", "es": "`let n = Number(\"7\");`" } },
+      { "id": "B", "text": { "en": "`let n = \"7\" * 1;`", "es": "`let n = \"7\" * 1;`" }, "why": { "en": "It does give the number `7`, but the conversion is implicit: `*` converts the string without you asking for it.", "es": "Sí da el número `7`, pero la conversión es implícita: `*` convierte el string sin que tú lo pidas." } },
+      { "id": "C", "text": { "en": "`let n = \"7\" - 0;`", "es": "`let n = \"7\" - 0;`" }, "why": { "en": "It gives `7`, but again thanks to an implicit conversion done by `-`.", "es": "Da `7`, pero también gracias a una conversión implícita que hace `-`." } },
+      { "id": "D", "text": { "en": "`let n = \"7\" + 0;`", "es": "`let n = \"7\" + 0;`" }, "why": { "en": "This doesn't even give a number: `+` with a string joins and gives `\"70\"`.", "es": "Esto ni siquiera da un número: `+` con un string une y da `\"70\"`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "An explicit conversion is one you write on purpose with a conversion function: `Number()`, `String()`, `BigInt()` or `Boolean()`. An implicit conversion happens on its own when an operator needs another type, as with `*` and `-`.", "es": "Una conversión explícita es la que escribes a propósito con una función de conversión: `Number()`, `String()`, `BigInt()` o `Boolean()`. Una conversión implícita ocurre sola cuando un operador necesita otro tipo, como con `*` y `-`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q040", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "casting", "boolean"], "courseRef": "03_Casting",
+    "code": "console.log(true + true);\nconsole.log(true + \"1\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "truetrue\ntrue1", "es": "truetrue\ntrue1" }, "why": { "en": "`true + true` has no strings, so the booleans are converted into numbers (`1 + 1`).", "es": "`true + true` no tiene strings, así que los booleanos se convierten en números (`1 + 1`)." } },
+      { "id": "B", "text": { "en": "2\ntrue1", "es": "2\ntrue1" } },
+      { "id": "C", "text": { "en": "2\n2", "es": "2\n2" }, "why": { "en": "In the second line there is a string, so `+` joins: `true` becomes the text `\"true\"`.", "es": "En la segunda línea hay un string, así que `+` une: `true` se convierte en el texto `\"true\"`." } },
+      { "id": "D", "text": { "en": "NaN\ntrue1", "es": "NaN\ntrue1" }, "why": { "en": "`true` converts to `1`, not to `NaN`, so the sum is `2`.", "es": "`true` se convierte en `1`, no en `NaN`, así que la suma da `2`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Without strings, `+` adds numbers, and the booleans are converted: `true` is `1` and `false` is `0`, so `true + true` is `2`. With a string, `+` joins text, and `true` becomes `\"true\"`: the result is `\"true1\"`.", "es": "Sin strings, `+` suma números y los booleanos se convierten: `true` vale `1` y `false`, `0`, así que `true + true` da `2`. Con un string, `+` une texto y `true` se convierte en `\"true\"`: el resultado es `\"true1\"`." },
+    "verify": { "kind": "output", "expected": "2\ntrue1" }
+  },
+  {
+    "id": "s2-q041", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["casting", "null"], "courseRef": "03_Casting",
+    "code": "console.log(String(null) + \"!\");\nconsole.log(String([1, 2, 3]));",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "!\n1,2,3", "es": "!\n1,2,3" }, "why": { "en": "`String(null)` doesn't give an empty text: it gives the word `\"null\"`.", "es": "`String(null)` no da un texto vacío: da la palabra `\"null\"`." } },
+      { "id": "B", "text": { "en": "null!\n123", "es": "null!\n123" }, "why": { "en": "When an array becomes a string, its elements are separated with commas.", "es": "Cuando un array se convierte en string, sus elementos se separan con comas." } },
+      { "id": "C", "text": { "en": "null!\n1,2,3", "es": "null!\n1,2,3" } },
+      { "id": "D", "text": { "en": "TypeError", "es": "TypeError" }, "why": { "en": "`String(null)` works fine. The one that fails is `null.toString()`, because `null` has no methods.", "es": "`String(null)` funciona bien. El que falla es `null.toString()`, porque `null` no tiene métodos." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`String()` converts any value into text: `null` becomes `\"null\"` and an array becomes its elements separated by commas, `\"1,2,3\"`. Unlike `value.toString()`, `String(value)` also works with `null` and `undefined`.", "es": "`String()` convierte cualquier valor en texto: `null` se convierte en `\"null\"` y un array, en sus elementos separados por comas, `\"1,2,3\"`. A diferencia de `value.toString()`, `String(value)` funciona también con `null` y `undefined`." },
+    "verify": { "kind": "output", "expected": "null!\n1,2,3" }
+  },
+  {
+    "id": "s2-q042", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["objects"], "courseRef": "10_Objetos",
+    "code": "let car = { brand: \"Seat\", \"max speed\": 190 };\nconsole.log(car.brand);\nconsole.log(car[\"max speed\"]);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Seat\nundefined", "es": "Seat\nundefined" }, "why": { "en": "A key with a space can't be read with a dot, but it can with square brackets and the key in quotes.", "es": "Una clave con un espacio no se puede leer con punto, pero sí con corchetes y la clave entre comillas." } },
+      { "id": "B", "text": { "en": "Seat\n190", "es": "Seat\n190" } },
+      { "id": "C", "text": { "en": "brand\nmax speed", "es": "brand\nmax speed" }, "why": { "en": "Reading a property gives its value, not its name.", "es": "Leer una propiedad da su valor, no su nombre." } },
+      { "id": "D", "text": { "en": "SyntaxError", "es": "SyntaxError" }, "why": { "en": "A key with spaces is valid as long as you write it in quotes when creating the object.", "es": "Una clave con espacios es válida siempre que la escribas entre comillas al crear el objeto." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "There are two ways to read a property: dot notation (`car.brand`) and square brackets with the key as a string (`car[\"max speed\"]`). Brackets are needed when the key isn't a valid name, for example when it has a space.", "es": "Hay dos formas de leer una propiedad: con punto (`car.brand`) y con corchetes y la clave como string (`car[\"max speed\"]`). Los corchetes hacen falta cuando la clave no es un nombre válido, por ejemplo, si tiene un espacio." },
+    "verify": { "kind": "output", "expected": "Seat\n190" }
+  },
+  {
+    "id": "s2-q043", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["objects", "delete"], "courseRef": "10_Objetos",
+    "code": "let user = { nick: \"leo\", age: 30 };\ndelete user.age;\nconsole.log(user.age);\nconsole.log(\"age\" in user);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "undefined\nfalse", "es": "undefined\nfalse" } },
+      { "id": "B", "text": { "en": "30\ntrue", "es": "30\ntrue" }, "why": { "en": "`delete user.age` really removes the property from the object.", "es": "`delete user.age` elimina de verdad la propiedad del objeto." } },
+      { "id": "C", "text": { "en": "null\ntrue", "es": "null\ntrue" }, "why": { "en": "`delete` doesn't set the value to `null`: it removes the key, so reading it gives `undefined`.", "es": "`delete` no pone el valor a `null`: quita la clave, así que al leerla sale `undefined`." } },
+      { "id": "D", "text": { "en": "undefined\ntrue", "es": "undefined\ntrue" }, "why": { "en": "After `delete` the key no longer exists, so `\"age\" in user` is `false`.", "es": "Después de `delete` la clave ya no existe, así que `\"age\" in user` da `false`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The `delete` operator removes a property from an object. Reading a property that doesn't exist gives `undefined`, and the `in` operator, which checks whether a key exists, gives `false`.", "es": "El operador `delete` elimina una propiedad de un objeto. Leer una propiedad que no existe da `undefined`, y el operador `in`, que comprueba si existe una clave, da `false`." },
+    "verify": { "kind": "output", "expected": "undefined\nfalse" }
+  },
+  {
+    "id": "s2-q044", "section": 2, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap", "arrays", "objects"], "courseRef": "06_Arrays",
+    "code": "let original = [\"x\", \"y\"];\nlet same = original;\nlet copy = original.slice();\nsame.push(\"z\");\ncopy.push(\"w\");",
+    "prompt": { "en": "After this code runs, how many elements does `original` have?", "es": "Después de ejecutar este código, ¿cuántos elementos tiene `original`?" },
+    "options": [
+      { "id": "A", "text": { "en": "`2`", "es": "`2`" }, "why": { "en": "`same` isn't a copy: it's another name for the same array, so `same.push(\"z\")` also adds to `original`.", "es": "`same` no es una copia: es otro nombre para el mismo array, así que `same.push(\"z\")` también añade a `original`." } },
+      { "id": "B", "text": { "en": "`4`", "es": "`4`" }, "why": { "en": "`slice()` without arguments makes a real copy, so `copy.push(\"w\")` only changes the copy.", "es": "`slice()` sin argumentos hace una copia de verdad, así que `copy.push(\"w\")` solo cambia la copia." } },
+      { "id": "C", "text": { "en": "`3`", "es": "`3`" } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "Arrays and objects are stored by reference. `let same = original` copies the reference, so both names point to the same array and `\"z\"` is added to it. `original.slice()` returns a new array, so `\"w\"` goes only into `copy`. `original` ends up as `[\"x\", \"y\", \"z\"]`.", "es": "Los arrays y los objetos se guardan por referencia. `let same = original` copia la referencia, así que los dos nombres apuntan al mismo array y `\"z\"` se añade a él. `original.slice()` devuelve un array nuevo, así que `\"w\"` solo va a `copy`. `original` acaba siendo `[\"x\", \"y\", \"z\"]`." },
+    "verify": { "kind": "value", "expr": "original.length", "expected": "3" }
+  },
+  {
+    "id": "s2-q045", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "const", "objects"], "courseRef": "10_Objetos",
+    "code": "const pet = { kind: \"dog\" };\npet.kind = \"cat\";\npet.age = 3;\nconsole.log(pet.kind, pet.age);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "dog undefined", "es": "dog undefined" }, "why": { "en": "`const` doesn't freeze the object: its properties can be changed and new ones added.", "es": "`const` no congela el objeto: se pueden cambiar sus propiedades y añadir otras nuevas." } },
+      { "id": "B", "text": { "en": "TypeError", "es": "TypeError" }, "why": { "en": "There's no reassignment of `pet` here (no `pet = …`), only changes to its properties, which are allowed.", "es": "Aquí no se reasigna `pet` (no hay `pet = …`), solo se cambian sus propiedades, y eso está permitido." } },
+      { "id": "C", "text": { "en": "cat 3", "es": "cat 3" } },
+      { "id": "D", "text": { "en": "dog 3", "es": "dog 3" }, "why": { "en": "If adding `age` works, changing `kind` works too: `const` doesn't protect any property.", "es": "Si añadir `age` funciona, cambiar `kind` también: `const` no protege ninguna propiedad." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`const` only stops the variable from pointing to another value (`pet = {}` would be a `TypeError`). The object it points to can still change: you can modify `kind` and add `age`.", "es": "`const` solo impide que la variable apunte a otro valor (`pet = {}` daría un `TypeError`). El objeto al que apunta puede seguir cambiando: se puede modificar `kind` y añadir `age`." },
+    "verify": { "kind": "output", "expected": "cat 3" }
+  },
+  {
+    "id": "s2-q046", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "objects"], "courseRef": "10_Objetos",
+    "code": "let key = \"color\";\nlet shirt = { color: \"blue\", key: \"XL\" };\nconsole.log(shirt[key]);\nconsole.log(shirt.key);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "XL\nblue", "es": "XL\nblue" }, "why": { "en": "It's the other way round: brackets use the value of the variable `key` (`\"color\"`), and the dot looks for a property literally called `key`.", "es": "Es al revés: los corchetes usan el valor de la variable `key` (`\"color\"`), y el punto busca una propiedad que se llama literalmente `key`." } },
+      { "id": "B", "text": { "en": "blue\nblue", "es": "blue\nblue" }, "why": { "en": "`shirt.key` doesn't use the variable `key`: it looks for the property named `key`, which is `\"XL\"`.", "es": "`shirt.key` no usa la variable `key`: busca la propiedad que se llama `key`, que vale `\"XL\"`." } },
+      { "id": "C", "text": { "en": "blue\nXL", "es": "blue\nXL" } },
+      { "id": "D", "text": { "en": "undefined\nXL", "es": "undefined\nXL" }, "why": { "en": "Inside brackets without quotes, `key` is a variable, and its value `\"color\"` is a key that exists.", "es": "Dentro de los corchetes y sin comillas, `key` es una variable, y su valor `\"color\"` es una clave que existe." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "With brackets, JavaScript evaluates what's inside: `shirt[key]` is `shirt[\"color\"]`, which is `\"blue\"`. With a dot, the name is taken literally: `shirt.key` looks for a property called `key`, which is `\"XL\"`.", "es": "Con corchetes, JavaScript evalúa lo que hay dentro: `shirt[key]` es `shirt[\"color\"]`, que vale `\"blue\"`. Con punto, el nombre se toma tal cual: `shirt.key` busca una propiedad llamada `key`, que vale `\"XL\"`." },
+    "verify": { "kind": "output", "expected": "blue\nXL" }
+  },
+  {
+    "id": "s2-q047", "section": 2, "bank": "practice", "type": "single",
+    "difficulty": 3, "tags": ["trap", "objects"], "courseRef": "10_Objetos",
+    "code": "let first = { size: 2 };\nlet second = { size: 2 };\nconsole.log(first === second);",
+    "prompt": { "en": "This code prints `false`. Why?", "es": "Este código muestra `false`. ¿Por qué?" },
+    "options": [
+      { "id": "A", "text": { "en": "Because `===` also compares types, and the types are different.", "es": "Porque `===` también compara los tipos, y los tipos son distintos." }, "why": { "en": "Both values are objects, so the type is the same.", "es": "Los dos valores son objetos, así que el tipo es el mismo." } },
+      { "id": "B", "text": { "en": "Because `===` checks whether they are the same object, and these are two different objects.", "es": "Porque `===` comprueba si son el mismo objeto, y estos son dos objetos distintos." } },
+      { "id": "C", "text": { "en": "Because objects can only be compared with `==`.", "es": "Porque los objetos solo se pueden comparar con `==`." }, "why": { "en": "`first == second` is also `false`: with two objects, `==` and `===` both compare references.", "es": "`first == second` también da `false`: con dos objetos, `==` y `===` comparan referencias." } },
+      { "id": "D", "text": { "en": "Because the variables are declared with `let`.", "es": "Porque las variables se declaran con `let`." }, "why": { "en": "The keyword doesn't matter: with `const` or `var` the result would be the same.", "es": "La palabra clave no influye: con `const` o con `var` el resultado sería el mismo." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Each `{ }` creates a new object. When you compare objects, JavaScript compares references (whether they are the same object), not their content. `first` and `second` look the same but are two separate objects, so the result is `false`.", "es": "Cada `{ }` crea un objeto nuevo. Al comparar objetos, JavaScript compara referencias (si son el mismo objeto), no su contenido. `first` y `second` parecen iguales, pero son dos objetos distintos, así que el resultado es `false`." },
+    "verify": { "kind": "output", "expected": "false" }
+  },
+  {
+    "id": "s2-q048", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["objects"], "courseRef": "10_Objetos",
+    "code": "let book = { title: \"Dune\", pages: 412 };\nconsole.log(___);",
+    "prompt": { "en": "Which option fills the gap so that the code prints `412`?", "es": "¿Qué opción completa el hueco para que el código muestre `412`?" },
+    "options": [
+      { "id": "A", "text": { "en": "book[pages]", "es": "book[pages]" }, "why": { "en": "Without quotes, `pages` inside the brackets is a variable, and no variable called `pages` exists: `ReferenceError`.", "es": "Sin comillas, `pages` dentro de los corchetes es una variable, y no existe ninguna variable `pages`: `ReferenceError`." } },
+      { "id": "B", "text": { "en": "book.pages", "es": "book.pages" } },
+      { "id": "C", "text": { "en": "book[1]", "es": "book[1]" }, "why": { "en": "Objects aren't read by position like arrays. There's no key `\"1\"`, so you get `undefined`.", "es": "Los objetos no se leen por posición como los arrays. No hay ninguna clave `\"1\"`, así que sale `undefined`." } },
+      { "id": "D", "text": { "en": "book[\"Pages\"]", "es": "book[\"Pages\"]" }, "why": { "en": "Keys are case-sensitive: `\"Pages\"` isn't `\"pages\"`, so you get `undefined`.", "es": "Las claves distinguen mayúsculas de minúsculas: `\"Pages\"` no es `\"pages\"`, así que sale `undefined`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`book.pages` reads the property `pages`, whose value is `412`. The bracket version also works if the key is a string with the exact name: `book[\"pages\"]`.", "es": "`book.pages` lee la propiedad `pages`, que vale `412`. Con corchetes también funciona si la clave es un string con el nombre exacto: `book[\"pages\"]`." },
+    "verify": { "kind": "output", "expected": "412" }
+  },
+  {
+    "id": "s2-q049", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["objects", "delete"], "courseRef": "10_Objetos",
+    "prompt": { "en": "Which statements about objects are true? (Choose two.)", "es": "¿Qué afirmaciones sobre los objetos son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "You can add a property to an existing object by assigning it, as in `obj.color = \"red\"`.", "es": "Se puede añadir una propiedad a un objeto que ya existe asignándola, como en `obj.color = \"red\"`." } },
+      { "id": "B", "text": { "en": "The properties of an object declared with `const` can't be changed.", "es": "Las propiedades de un objeto declarado con `const` no se pueden cambiar." }, "why": { "en": "`const` only blocks reassigning the variable; the object's properties can still change.", "es": "`const` solo impide reasignar la variable; las propiedades del objeto pueden seguir cambiando." } },
+      { "id": "C", "text": { "en": "The properties of an object are read by position, as in `obj[0]`.", "es": "Las propiedades de un objeto se leen por su posición, como en `obj[0]`." }, "why": { "en": "Properties are read by their key (`obj.color` or `obj[\"color\"]`). Positions are for arrays.", "es": "Las propiedades se leen por su clave (`obj.color` u `obj[\"color\"]`). Las posiciones son cosa de los arrays." } },
+      { "id": "D", "text": { "en": "The `delete` operator removes a property from an object.", "es": "El operador `delete` elimina una propiedad de un objeto." } }
+    ],
+    "answer": ["A", "D"],
+    "explanation": { "en": "An object stores key–value pairs. You can add a property at any moment by assigning it (`obj.color = \"red\"`), change it the same way, and remove it with `delete obj.color`.", "es": "Un objeto guarda pares clave-valor. Puedes añadir una propiedad en cualquier momento asignándola (`obj.color = \"red\"`), cambiarla de la misma forma y eliminarla con `delete obj.color`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q050", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "arrays", "typeof", "instanceof"], "courseRef": "06_Arrays",
+    "code": "let list = [1, 2];\nconsole.log(typeof list);\nconsole.log(list instanceof Array);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "array\ntrue", "es": "array\ntrue" }, "why": { "en": "`typeof` never returns `\"array\"`: arrays are objects, so it gives `\"object\"`.", "es": "`typeof` nunca devuelve `\"array\"`: los arrays son objetos, así que da `\"object\"`." } },
+      { "id": "B", "text": { "en": "object\nfalse", "es": "object\nfalse" }, "why": { "en": "`instanceof Array` checks whether the value is an array, and `list` is one, so it's `true`.", "es": "`instanceof Array` comprueba si el valor es un array, y `list` lo es, así que da `true`." } },
+      { "id": "C", "text": { "en": "array\nfalse", "es": "array\nfalse" }, "why": { "en": "Both lines are wrong: `typeof` gives `\"object\"` and `instanceof Array` gives `true`.", "es": "Las dos líneas fallan: `typeof` da `\"object\"` e `instanceof Array` da `true`." } },
+      { "id": "D", "text": { "en": "object\ntrue", "es": "object\ntrue" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "Arrays are a special kind of object, so `typeof` returns `\"object\"`. To know whether a value is an array, use `value instanceof Array` (or `Array.isArray(value)`), which here is `true`.", "es": "Los arrays son un tipo especial de objeto, así que `typeof` devuelve `\"object\"`. Para saber si un valor es un array, usa `value instanceof Array` (o `Array.isArray(value)`), que aquí da `true`." },
+    "verify": { "kind": "output", "expected": "object\ntrue" }
+  },
+  {
+    "id": "s2-q051", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "arrays"], "courseRef": "06_Arrays",
+    "code": "let stack = [1, 2];\nlet a = stack.push(9);\nlet b = stack.pop();\nconsole.log(a, b, stack.length);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "9 9 2", "es": "9 9 2" }, "why": { "en": "`push` doesn't return the element you add: it returns the new length of the array (`3`).", "es": "`push` no devuelve el elemento que añades: devuelve la nueva longitud del array (`3`)." } },
+      { "id": "B", "text": { "en": "3 9 2", "es": "3 9 2" } },
+      { "id": "C", "text": { "en": "3 2 2", "es": "3 2 2" }, "why": { "en": "`pop` removes the last element, which is the `9` that was just added, and returns it.", "es": "`pop` quita el último elemento, que es el `9` que se acaba de añadir, y lo devuelve." } },
+      { "id": "D", "text": { "en": "3 9 3", "es": "3 9 3" }, "why": { "en": "After `pop`, the array is back to two elements, so `length` is `2`.", "es": "Después de `pop`, el array vuelve a tener dos elementos, así que `length` es `2`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`push` adds elements at the end and returns the new length: `3`. `pop` removes the last element and returns it: `9`. After both, the array is `[1, 2]` again, with length `2`.", "es": "`push` añade elementos al final y devuelve la nueva longitud: `3`. `pop` quita el último elemento y lo devuelve: `9`. Después de las dos, el array vuelve a ser `[1, 2]`, con longitud `2`." },
+    "verify": { "kind": "output", "expected": "3 9 2" }
+  },
+  {
+    "id": "s2-q052", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "code": "let fruits = [\"apple\", \"pear\", \"kiwi\"];\nlet pos = fruits.___;\nconsole.log(pos);",
+    "prompt": { "en": "Which option fills the gap so that the code prints `1`?", "es": "¿Qué opción completa el hueco para que el código muestre `1`?" },
+    "options": [
+      { "id": "A", "text": { "en": "indexOf(\"Pear\")", "es": "indexOf(\"Pear\")" }, "why": { "en": "`indexOf` distinguishes upper and lower case. `\"Pear\"` isn't in the array, so it returns `-1`.", "es": "`indexOf` distingue mayúsculas de minúsculas. `\"Pear\"` no está en el array, así que devuelve `-1`." } },
+      { "id": "B", "text": { "en": "indexOf(1)", "es": "indexOf(1)" }, "why": { "en": "`indexOf` looks for a value, not a position. There's no element equal to `1`, so it returns `-1`.", "es": "`indexOf` busca un valor, no una posición. No hay ningún elemento igual a `1`, así que devuelve `-1`." } },
+      { "id": "C", "text": { "en": "indexOf(\"pear\")", "es": "indexOf(\"pear\")" } },
+      { "id": "D", "text": { "en": "indexOf(\"kiwi\")", "es": "indexOf(\"kiwi\")" }, "why": { "en": "`\"kiwi\"` is the third element, at position `2`.", "es": "`\"kiwi\"` es el tercer elemento, en la posición `2`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`indexOf(value)` returns the position of the first element equal to `value`, counting from 0, or `-1` if it isn't there. `\"pear\"` is the second element, so its position is `1`.", "es": "`indexOf(value)` devuelve la posición del primer elemento igual a `value`, contando desde 0, o `-1` si no está. `\"pear\"` es el segundo elemento, así que su posición es `1`." },
+    "verify": { "kind": "output", "expected": "1" }
+  },
+  {
+    "id": "s2-q053", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "arrays"], "courseRef": "06_Arrays",
+    "code": "let nums = [1, 2, 3];\nlet rev = nums.reverse();\nconsole.log(nums[0]);\nconsole.log(rev === nums);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "1\nfalse", "es": "1\nfalse" }, "why": { "en": "`reverse` doesn't make a copy: it turns the original array around and returns that same array.", "es": "`reverse` no hace una copia: le da la vuelta al array original y devuelve ese mismo array." } },
+      { "id": "B", "text": { "en": "3\nfalse", "es": "3\nfalse" }, "why": { "en": "`reverse` returns the same array it reversed, so `rev` and `nums` point to the same array: `true`.", "es": "`reverse` devuelve el mismo array al que ha dado la vuelta, así que `rev` y `nums` apuntan al mismo array: `true`." } },
+      { "id": "C", "text": { "en": "3\ntrue", "es": "3\ntrue" } },
+      { "id": "D", "text": { "en": "1\ntrue", "es": "1\ntrue" }, "why": { "en": "If `rev` and `nums` are the same array, and `rev` is reversed, `nums[0]` must be `3`.", "es": "Si `rev` y `nums` son el mismo array y `rev` está al revés, `nums[0]` tiene que ser `3`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`reverse` changes (mutates) the original array and returns a reference to it. After the call, `nums` is `[3, 2, 1]`, and `rev` is not a copy but the same array, so `rev === nums` is `true`.", "es": "`reverse` cambia (muta) el array original y devuelve una referencia a él. Tras la llamada, `nums` es `[3, 2, 1]`, y `rev` no es una copia, sino el mismo array, así que `rev === nums` da `true`." },
+    "verify": { "kind": "output", "expected": "3\ntrue" }
+  },
+  {
+    "id": "s2-q054", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["arrays", "slice"], "courseRef": "06_Arrays",
+    "code": "let letters = [\"a\", \"b\", \"c\", \"d\"];\nlet part = letters.slice(1, 3);\nconsole.log(part.length, part[0]);\nconsole.log(letters.length);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "2 b\n4", "es": "2 b\n4" } },
+      { "id": "B", "text": { "en": "3 b\n4", "es": "3 b\n4" }, "why": { "en": "The end position (3) isn't included: you get positions 1 and 2 only.", "es": "La posición final (3) no se incluye: solo salen las posiciones 1 y 2." } },
+      { "id": "C", "text": { "en": "2 b\n2", "es": "2 b\n2" }, "why": { "en": "`slice` doesn't change the original array: it returns a new one, so `letters` still has 4 elements.", "es": "`slice` no cambia el array original: devuelve uno nuevo, así que `letters` sigue teniendo 4 elementos." } },
+      { "id": "D", "text": { "en": "2 a\n4", "es": "2 a\n4" }, "why": { "en": "Positions start at 0, so position 1 is `\"b\"`.", "es": "Las posiciones empiezan en 0, así que la posición 1 es `\"b\"`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`slice(1, 3)` returns a new array with the elements from position 1 up to position 3, not included: `[\"b\", \"c\"]`. It works like `slice` on strings and doesn't change the original array, which still has 4 elements.", "es": "`slice(1, 3)` devuelve un array nuevo con los elementos desde la posición 1 hasta la 3, sin incluirla: `[\"b\", \"c\"]`. Funciona como `slice` en los strings y no cambia el array original, que sigue teniendo 4 elementos." },
+    "verify": { "kind": "output", "expected": "2 b\n4" }
+  },
+  {
+    "id": "s2-q055", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "code": "let a = [1, 2];\nlet b = a.concat([3, 4], 5);\nconsole.log(a.length);\nconsole.log(b.length);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "5\n5", "es": "5\n5" }, "why": { "en": "`concat` doesn't change `a`: it creates a new array, so `a` still has 2 elements.", "es": "`concat` no cambia `a`: crea un array nuevo, así que `a` sigue teniendo 2 elementos." } },
+      { "id": "B", "text": { "en": "2\n4", "es": "2\n4" }, "why": { "en": "Count again: `1`, `2`, `3`, `4` and `5` are five elements.", "es": "Vuelve a contar: `1`, `2`, `3`, `4` y `5` son cinco elementos." } },
+      { "id": "C", "text": { "en": "2\n3", "es": "2\n3" }, "why": { "en": "`concat` unpacks the arrays you pass it: `[3, 4]` adds two elements, not one.", "es": "`concat` desempaqueta los arrays que le pasas: `[3, 4]` añade dos elementos, no uno." } },
+      { "id": "D", "text": { "en": "2\n5", "es": "2\n5" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`concat` returns a new array with the elements of the original followed by the ones you pass. Arrays passed as arguments are unpacked, so `b` is `[1, 2, 3, 4, 5]`. The original `a` doesn't change.", "es": "`concat` devuelve un array nuevo con los elementos del original seguidos de los que le pasas. Los arrays que van como argumento se desempaquetan, así que `b` es `[1, 2, 3, 4, 5]`. El array `a` original no cambia." },
+    "verify": { "kind": "output", "expected": "2\n5" }
+  },
+  {
+    "id": "s2-q056", "section": 2, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "code": "let colors = [\"red\", \"green\"];\nlet total = colors.length;\ntotal.push(\"blue\");\nconsole.log(total);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `3`", "es": "Muestra `3`" }, "why": { "en": "`total` is a copy of the number `2`, not the array. Numbers don't have a `push` method.", "es": "`total` es una copia del número `2`, no el array. Los números no tienen un método `push`." } },
+      { "id": "B", "text": { "en": "A `ReferenceError` is thrown on line 3", "es": "Se lanza un `ReferenceError` en la línea 3" }, "why": { "en": "`total` exists (it's declared on line 2). The problem is what it holds, not its name.", "es": "`total` existe (se declara en la línea 2). El problema es lo que contiene, no su nombre." } },
+      { "id": "C", "text": { "en": "A `TypeError` is thrown on line 3", "es": "Se lanza un `TypeError` en la línea 3" } },
+      { "id": "D", "text": { "en": "It prints `2`", "es": "Muestra `2`" }, "why": { "en": "Line 3 stops the program, so the `console.log` never runs.", "es": "La línea 3 detiene el programa, así que el `console.log` no llega a ejecutarse." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`colors.length` is the number `2`, so `total` holds a number. Calling `total.push(…)` tries to use a method that numbers don't have: `TypeError: total.push is not a function`. The correct line is `colors.push(\"blue\");`.", "es": "`colors.length` es el número `2`, así que `total` guarda un número. Llamar a `total.push(…)` intenta usar un método que los números no tienen: `TypeError: total.push is not a function`. La línea correcta es `colors.push(\"blue\");`." },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 3 }
+  },
+  {
+    "id": "s2-q057", "section": 2, "bank": "practice", "type": "gap",
+    "difficulty": 2, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "code": "let cart = [\"milk\"];\nlet size = cart.___(\"eggs\", \"bread\");\nconsole.log(size, cart[0]);",
+    "prompt": { "en": "Which method fills the gap so that the code prints `3 eggs`?", "es": "¿Qué método completa el hueco para que el código muestre `3 eggs`?" },
+    "options": [
+      { "id": "A", "text": { "en": "unshift", "es": "unshift" } },
+      { "id": "B", "text": { "en": "push", "es": "push" }, "why": { "en": "`push` also returns the new length (`3`), but it adds at the end, so `cart[0]` is still `\"milk\"`.", "es": "`push` también devuelve la nueva longitud (`3`), pero añade al final, así que `cart[0]` sigue siendo `\"milk\"`." } },
+      { "id": "C", "text": { "en": "concat", "es": "concat" }, "why": { "en": "`concat` returns a new array, not a number, and leaves `cart` as it was.", "es": "`concat` devuelve un array nuevo, no un número, y deja `cart` como estaba." } },
+      { "id": "D", "text": { "en": "indexOf", "es": "indexOf" }, "why": { "en": "`indexOf` searches for `\"eggs\"`, doesn't find it and returns `-1`. It doesn't add anything.", "es": "`indexOf` busca `\"eggs\"`, no lo encuentra y devuelve `-1`. No añade nada." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`unshift` adds one or more elements at the beginning of the array, in the order you write them, and returns the new length. After the call, `cart` is `[\"eggs\", \"bread\", \"milk\"]` and `size` is `3`. `push` does the same at the end.", "es": "`unshift` añade uno o varios elementos al principio del array, en el orden en que los escribes, y devuelve la nueva longitud. Tras la llamada, `cart` es `[\"eggs\", \"bread\", \"milk\"]` y `size` vale `3`. `push` hace lo mismo, pero al final." },
+    "verify": { "kind": "output", "expected": "3 eggs" }
+  },
+  {
+    "id": "s2-q058", "section": 2, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "prompt": { "en": "Which of these methods change the original array? (Choose three.)", "es": "¿Cuáles de estos métodos cambian el array original? (Elige tres.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`push`", "es": "`push`" } },
+      { "id": "B", "text": { "en": "`reverse`", "es": "`reverse`" } },
+      { "id": "C", "text": { "en": "`slice`", "es": "`slice`" }, "why": { "en": "`slice` returns a new array with a copy of part of the original, which stays the same.", "es": "`slice` devuelve un array nuevo con una copia de una parte del original, que no cambia." } },
+      { "id": "D", "text": { "en": "`concat`", "es": "`concat`" }, "why": { "en": "`concat` builds a new array; the original keeps its elements.", "es": "`concat` crea un array nuevo; el original conserva sus elementos." } },
+      { "id": "E", "text": { "en": "`shift`", "es": "`shift`" } },
+      { "id": "F", "text": { "en": "`indexOf`", "es": "`indexOf`" }, "why": { "en": "`indexOf` only searches and returns a position; it doesn't touch the array.", "es": "`indexOf` solo busca y devuelve una posición; no toca el array." } }
+    ],
+    "answer": ["A", "B", "E"],
+    "explanation": { "en": "`push`, `pop`, `shift`, `unshift` and `reverse` modify (mutate) the array they're called on. `slice` and `concat` return a new array and leave the original as it was, and `indexOf` only reads.", "es": "`push`, `pop`, `shift`, `unshift` y `reverse` modifican (mutan) el array sobre el que se llaman. `slice` y `concat` devuelven un array nuevo y dejan el original como estaba, e `indexOf` solo lee." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q059", "section": 2, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["arrays", "typeof"], "courseRef": "06_Arrays",
+    "prompt": { "en": "Which expression is `true` when `value` is an array and `false` for anything else?", "es": "¿Qué expresión da `true` cuando `value` es un array y `false` con cualquier otra cosa?" },
+    "options": [
+      { "id": "A", "text": { "en": "`typeof value === \"array\"`", "es": "`typeof value === \"array\"`" }, "why": { "en": "`typeof` never returns `\"array\"`, so this is always `false`.", "es": "`typeof` nunca devuelve `\"array\"`, así que esto siempre da `false`." } },
+      { "id": "B", "text": { "en": "`Array.isArray(value)`", "es": "`Array.isArray(value)`" } },
+      { "id": "C", "text": { "en": "`typeof value === \"object\"`", "es": "`typeof value === \"object\"`" }, "why": { "en": "It's also `true` for normal objects and for `null`.", "es": "También da `true` con los objetos normales y con `null`." } },
+      { "id": "D", "text": { "en": "`value.length >= 0`", "es": "`value.length >= 0`" }, "why": { "en": "Strings have `length` too, so `\"hi\"` would pass. And with `null` it throws an error.", "es": "Los strings también tienen `length`, así que `\"hi\"` pasaría. Y con `null` lanza un error." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Because arrays are objects, `typeof` can't tell them apart. `Array.isArray(value)` returns `true` only for arrays. `value instanceof Array` is another valid way.", "es": "Como los arrays son objetos, `typeof` no los distingue. `Array.isArray(value)` devuelve `true` solo con los arrays. `value instanceof Array` es otra forma válida." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s2-q060", "section": 2, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "code": "let scores = [7, 9, 4];\nconsole.log(scores[scores.length]);\nconsole.log(scores[scores.length - 1]);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "4\n9", "es": "4\n9" }, "why": { "en": "`scores.length` is `3`, and there's no element at position 3: positions go from 0 to 2.", "es": "`scores.length` es `3`, y no hay ningún elemento en la posición 3: las posiciones van de 0 a 2." } },
+      { "id": "B", "text": { "en": "RangeError", "es": "RangeError" }, "why": { "en": "Reading a position that doesn't exist isn't an error in an array: it just gives `undefined`.", "es": "Leer una posición que no existe no es un error en un array: simplemente da `undefined`." } },
+      { "id": "C", "text": { "en": "3\n2", "es": "3\n2" }, "why": { "en": "The brackets return the element at that position, not the position itself.", "es": "Los corchetes devuelven el elemento de esa posición, no la posición." } },
+      { "id": "D", "text": { "en": "undefined\n4", "es": "undefined\n4" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "Positions start at 0, so the last element is at `length - 1`. Here `length` is `3`: `scores[3]` doesn't exist (`undefined`) and `scores[2]` is the last one, `4`.", "es": "Las posiciones empiezan en 0, así que el último elemento está en `length - 1`. Aquí `length` es `3`: `scores[3]` no existe (`undefined`) y `scores[2]` es el último, `4`." },
+    "verify": { "kind": "output", "expected": "undefined\n4" }
+  }
+]

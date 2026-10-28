@@ -1,0 +1,1615 @@
+{
+  "id": "p4",
+  "number": 4,
+  "level": "intermediate",
+  "minutes": 90,
+  "folder": "signup-form",
+  "title": {
+    "en": "Sign-up form with validation",
+    "es": "Formulario de registro con validación"
+  },
+  "summary": {
+    "en": "Animated form with labels and error messages. JS validates every field before sending.",
+    "es": "Formulario animado con labels y mensajes de error. El JS valida cada campo antes de enviarlo."
+  },
+  "basedOn": [
+    "010 formularios",
+    "Formulario animado",
+    "13_Eventos"
+  ],
+  "goal": {
+    "title": {
+      "en": "Build a sign-up form that checks every field before sending it",
+      "es": "Crea un formulario de registro que revise cada campo antes de enviarlo"
+    },
+    "body": {
+      "en": "You will create a sign-up page with the form inside a white card: username, email, password, password confirmation and a box to accept the terms. The labels float up with an animation when you write. When you click “Create account”, JavaScript checks every field, shows a clear message under each one that is wrong and, if everything is right, shows a welcome message, without reloading the page.",
+      "es": "Vas a crear una página de registro con el formulario dentro de una tarjeta blanca: nombre de usuario, email, contraseña, confirmación de la contraseña y una casilla para aceptar las condiciones. Los labels suben con una animación al escribir. Al pulsar «Create account», JavaScript revisa cada campo, muestra un mensaje claro debajo de cada uno que esté mal y, si todo está bien, muestra un mensaje de bienvenida, sin recargar la página."
+    }
+  },
+  "result": {
+    "en": "The form in a white card. Wrong fields get a red border and a message below; when everything is right, a green welcome message appears.",
+    "es": "El formulario en una tarjeta blanca. Los campos incorrectos se marcan en rojo, con un mensaje debajo; si todo está bien, aparece una bienvenida en verde."
+  },
+  "starter": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Sign up</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Steps 1 to 3: your sign-up form goes here -->\n\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Sign-up form · style.css */\n\n/* Steps 4 to 7: your styles go here */\n",
+    "js": "// Sign-up form · script.js\n\n// Steps 8 to 12: your JavaScript goes here\n"
+  },
+  "solution": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Sign up</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <main class=\"form-box\">\n    <h1>Create your account</h1>\n\n    <form id=\"signup-form\" novalidate>\n      <div class=\"field\">\n        <input type=\"text\" id=\"username\" name=\"username\" placeholder=\" \" autocomplete=\"username\" aria-describedby=\"username-error\">\n        <label for=\"username\">Username</label>\n        <p class=\"error\" id=\"username-error\"></p>\n      </div>\n\n      <div class=\"field\">\n        <input type=\"email\" id=\"email\" name=\"email\" placeholder=\" \" autocomplete=\"email\" aria-describedby=\"email-error\">\n        <label for=\"email\">Email</label>\n        <p class=\"error\" id=\"email-error\"></p>\n      </div>\n\n      <div class=\"field\">\n        <input type=\"password\" id=\"password\" name=\"password\" placeholder=\" \" autocomplete=\"new-password\" aria-describedby=\"password-error\">\n        <label for=\"password\">Password</label>\n        <p class=\"error\" id=\"password-error\"></p>\n      </div>\n\n      <div class=\"field\">\n        <input type=\"password\" id=\"confirm\" name=\"confirm\" placeholder=\" \" autocomplete=\"new-password\" aria-describedby=\"confirm-error\">\n        <label for=\"confirm\">Confirm password</label>\n        <p class=\"error\" id=\"confirm-error\"></p>\n      </div>\n\n      <div class=\"terms\">\n        <input type=\"checkbox\" id=\"terms\" name=\"terms\" aria-describedby=\"terms-error\">\n        <label for=\"terms\">I accept the terms and conditions</label>\n        <p class=\"error\" id=\"terms-error\"></p>\n      </div>\n\n      <button type=\"submit\">Create account</button>\n    </form>\n\n    <p id=\"success\" class=\"success\" aria-live=\"polite\"></p>\n  </main>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Sign-up form · style.css */\n\n/* Step 4: the page and the card */\n* {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n  min-height: 100vh;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 24px 16px;\n  font-family: Arial, sans-serif;\n  color: #1e1527;\n  background: linear-gradient(135deg, #602b7a, #2b1640);\n}\n\n.form-box {\n  width: 100%;\n  max-width: 400px;\n  padding: 32px 28px;\n  border-radius: 16px;\n  background-color: #ffffff;\n  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);\n}\n\nh1 {\n  margin: 0 0 24px;\n  color: #43235f;\n  font-size: 26px;\n  text-align: center;\n}\n\n/* Step 5: the fields and the button */\n.field input {\n  width: 100%;\n  padding: 14px 12px;\n  border: 2px solid #cfc8d8;\n  border-radius: 8px;\n  font-size: 16px;\n}\n\n.field input:focus {\n  border-color: #602b7a;\n  outline: 3px solid #e3d3ee;\n}\n\n.terms {\n  margin: 8px 0 16px;\n  font-size: 14px;\n}\n\n.terms input {\n  width: 18px;\n  height: 18px;\n  margin: 0 6px 0 0;\n  vertical-align: middle;\n}\n\nbutton {\n  width: 100%;\n  padding: 14px;\n  border: none;\n  border-radius: 999px;\n  background-color: #602b7a;\n  color: #ffffff;\n  font-size: 16px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #43235f;\n}\n\n/* Step 6: labels that float up (the animation) */\n.field {\n  position: relative;\n  margin-bottom: 14px;\n}\n\n.field label {\n  position: absolute;\n  top: 15px;\n  left: 10px;\n  padding: 0 4px;\n  background-color: #ffffff;\n  color: #6b6177;\n  transition: 0.3s;\n}\n\n.field input:focus ~ label,\n.field input:not(:placeholder-shown) ~ label {\n  top: -9px;\n  font-size: 12px;\n  color: #602b7a;\n}\n\n/* Step 7: error messages and the success message */\n.error {\n  min-height: 18px;\n  margin: 4px 0 0;\n  color: #c62828;\n  font-size: 13px;\n}\n\n.field input[aria-invalid=\"true\"] {\n  border-color: #c62828;\n}\n\n.success {\n  margin: 16px 0 0;\n  color: #2e7d32;\n  font-weight: bold;\n  text-align: center;\n}\n",
+    "js": "// Sign-up form · script.js\n\n// Step 8: select the form and its fields\nconst form = document.querySelector(\"#signup-form\");\nconst usernameInput = document.querySelector(\"#username\");\nconst emailInput = document.querySelector(\"#email\");\nconst passwordInput = document.querySelector(\"#password\");\nconst confirmInput = document.querySelector(\"#confirm\");\nconst termsInput = document.querySelector(\"#terms\");\nconst success = document.querySelector(\"#success\");\n\n// Step 9: show or clear the error of a field\nfunction showError(input, message) {\n  const error = document.querySelector(\"#\" + input.id + \"-error\");\n  error.textContent = message;\n  input.setAttribute(\"aria-invalid\", \"true\");\n}\n\nfunction clearError(input) {\n  const error = document.querySelector(\"#\" + input.id + \"-error\");\n  error.textContent = \"\";\n  input.removeAttribute(\"aria-invalid\");\n}\n\nfunction checkUsername() {\n  const username = usernameInput.value.trim();\n  if (username.length < 3) {\n    showError(usernameInput, \"Your username needs at least 3 characters.\");\n    return false;\n  }\n  clearError(usernameInput);\n  return true;\n}\n\n// Step 10: the email needs an @ and a dot\nfunction checkEmail() {\n  const email = emailInput.value.trim();\n  if (!email.includes(\"@\") || !email.includes(\".\")) {\n    showError(emailInput, \"Write a valid email, like ana@mail.com.\");\n    return false;\n  }\n  clearError(emailInput);\n  return true;\n}\n\n// Step 11: a safe password, written twice\nfunction hasNumber(text) {\n  for (const char of text) {\n    if (char >= \"0\" && char <= \"9\") {\n      return true;\n    }\n  }\n  return false;\n}\n\nfunction checkPassword() {\n  const password = passwordInput.value;\n  if (password.length < 8 || !hasNumber(password)) {\n    showError(passwordInput, \"Use at least 8 characters and 1 number.\");\n    return false;\n  }\n  clearError(passwordInput);\n  return true;\n}\n\nfunction checkConfirm() {\n  if (confirmInput.value === \"\") {\n    showError(confirmInput, \"Write your password again.\");\n    return false;\n  }\n  if (confirmInput.value !== passwordInput.value) {\n    showError(confirmInput, \"The passwords don't match.\");\n    return false;\n  }\n  clearError(confirmInput);\n  return true;\n}\n\n// Step 12: the terms box and the success message\nfunction checkTerms() {\n  if (!termsInput.checked) {\n    showError(termsInput, \"Accept the terms to continue.\");\n    return false;\n  }\n  clearError(termsInput);\n  return true;\n}\n\n// Step 8: check the form when it's sent, without reloading the page\nform.addEventListener(\"submit\", (event) => {\n  event.preventDefault();\n  console.log(\"Checking the form...\");\n\n  // Step 12: call every check first, so all the errors appear at once\n  const usernameOk = checkUsername();\n  const emailOk = checkEmail();\n  const passwordOk = checkPassword();\n  const confirmOk = checkConfirm();\n  const termsOk = checkTerms();\n\n  if (usernameOk && emailOk && passwordOk && confirmOk && termsOk) {\n    success.textContent = `Welcome, ${usernameInput.value.trim()}! Your account is ready.`;\n    form.reset();\n  } else {\n    success.textContent = \"\";\n  }\n});\n"
+  },
+  "steps": [
+    {
+      "id": "html-1",
+      "lang": "html",
+      "title": {
+        "en": "The card, the title and the form",
+        "es": "La tarjeta, el título y el formulario"
+      },
+      "requirement": {
+        "en": "A `.form-box` with an `<h1>` and a `<form>` with its button",
+        "es": "Un `.form-box` con un `<h1>` y un `<form>` con su botón"
+      },
+      "task": {
+        "en": "Inside `<body>`, before the `<script>`, add a `<main class=\"form-box\">`: it will be the white card. Inside it, write the title `Create your account` in an `<h1>` and, below, a `<form id=\"signup-form\" novalidate>` with a button `<button type=\"submit\">Create account</button>`. The fields will go inside the form, before the button, in the next step.",
+        "es": "Dentro de `<body>`, antes del `<script>`, añade un `<main class=\"form-box\">`: será la tarjeta blanca. Dentro, escribe el título `Create your account` en un `<h1>` y, debajo, un `<form id=\"signup-form\" novalidate>` con un botón `<button type=\"submit\">Create account</button>`. Los campos irán dentro del formulario, antes del botón, en el paso siguiente."
+      },
+      "hint": {
+        "en": "A `<button type=\"submit\">` inside a `<form>` sends the form when you click it. `novalidate` turns off the browser’s own error bubbles: in this project, your JavaScript will check the fields and write the messages.",
+        "es": "Un `<button type=\"submit\">` dentro de un `<form>` envía el formulario al pulsarlo. `novalidate` desactiva los avisos de error del propio navegador: en este proyecto, será tu JavaScript el que revise los campos y escriba los mensajes."
+      },
+      "note": {
+        "en": "The preview never really sends a form: if you click the button, the console just says so. From step 8, your JavaScript will take control.",
+        "es": "La vista previa nunca envía un formulario de verdad: si pulsas el botón, la consola solo lo avisa. A partir del paso 8, tu JavaScript tomará el control."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".form-box",
+          "count": 1,
+          "label": {
+            "en": "An element with the class `form-box`",
+            "es": "Un elemento con la clase `form-box`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".form-box h1",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h1>` with the title inside `.form-box`",
+            "es": "Un `<h1>` con el título dentro de `.form-box`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".form-box form#signup-form",
+          "count": 1,
+          "label": {
+            "en": "A `<form id=\"signup-form\">` inside `.form-box`",
+            "es": "Un `<form id=\"signup-form\">` dentro de `.form-box`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#signup-form[novalidate]",
+          "count": 1,
+          "label": {
+            "en": "The form has the attribute `novalidate`",
+            "es": "El formulario tiene el atributo `novalidate`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#signup-form button[type=\"submit\"], #signup-form button:not([type])",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `<button type=\"submit\">` with a text inside the form",
+            "es": "Un `<button type=\"submit\">` con texto dentro del formulario"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-2",
+      "lang": "html",
+      "title": {
+        "en": "Four fields, each with its label",
+        "es": "Cuatro campos, cada uno con su label"
+      },
+      "requirement": {
+        "en": "4 fields with a `<label for>` each",
+        "es": "4 campos con un `<label for>` cada uno"
+      },
+      "task": {
+        "en": "Inside the form, before the button, add 4 fields. Each one is a `<div class=\"field\">` with an `<input>` and, after it, its `<label>`. The inputs are: `username` (`type=\"text\"`, label `Username`), `email` (`type=\"email\"`, label `Email`), `password` (`type=\"password\"`, label `Password`) and `confirm` (`type=\"password\"`, label `Confirm password`). Give each input that `id` and the same `name`, and connect each label to its input with `for`. Also add `placeholder=\" \"` (a single space) to every input: the animation of step 6 needs it.",
+        "es": "Dentro del formulario, antes del botón, añade 4 campos. Cada uno es un `<div class=\"field\">` con un `<input>` y, después, su `<label>`. Los inputs son: `username` (`type=\"text\"`, label `Username`), `email` (`type=\"email\"`, label `Email`), `password` (`type=\"password\"`, label `Password`) y `confirm` (`type=\"password\"`, label `Confirm password`). Pon a cada input ese `id` y el mismo `name`, y une cada label con su input mediante `for`. Añade también `placeholder=\" \"` (un solo espacio) a todos los inputs: la animación del paso 6 lo necesita."
+      },
+      "hint": {
+        "en": "One field: `<div class=\"field\"><input type=\"text\" id=\"username\" name=\"username\" placeholder=\" \"><label for=\"username\">Username</label></div>`. The `for` of the label is the `id` of its input: clicking the label puts the cursor in the field, and screen readers read the label aloud. With `type=\"password\"` the browser hides what you type.",
+        "es": "Un campo: `<div class=\"field\"><input type=\"text\" id=\"username\" name=\"username\" placeholder=\" \"><label for=\"username\">Username</label></div>`. El `for` del label es el `id` de su input: al pulsar el label, el cursor va al campo, y los lectores de pantalla leen el label en voz alta. Con `type=\"password\"`, el navegador oculta lo que escribes."
+      },
+      "note": {
+        "en": "For now each label appears after its field. In step 6 it will float inside the field.",
+        "es": "De momento, cada label sale después de su campo. En el paso 6 flotará dentro del campo."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#signup-form .field",
+          "count": 4,
+          "label": {
+            "en": "4 `<div class=\"field\">` inside the form",
+            "es": "4 `<div class=\"field\">` dentro del formulario"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".field input#username[type=\"text\"], .field input#email[type=\"email\"], .field input#password[type=\"password\"], .field input#confirm[type=\"password\"]",
+          "count": 4,
+          "label": {
+            "en": "The inputs `username`, `email`, `password` and `confirm`, each with its `type`",
+            "es": "Los inputs `username`, `email`, `password` y `confirm`, cada uno con su `type`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"username\"], label[for=\"email\"], label[for=\"password\"], label[for=\"confirm\"]",
+          "text": "\\S",
+          "count": 4,
+          "label": {
+            "en": "A `<label>` with text for each input (`for` = the `id` of the input)",
+            "es": "Un `<label>` con texto para cada input (`for` = el `id` del input)"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".field input",
+          "attr": "name",
+          "label": {
+            "en": "Every input has a `name`",
+            "es": "Cada input tiene un `name`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".field input",
+          "attr": "placeholder",
+          "pattern": "^\\s+$",
+          "label": {
+            "en": "Every input has `placeholder=\" \"` (a space)",
+            "es": "Cada input tiene `placeholder=\" \"` (un espacio)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-3",
+      "lang": "html",
+      "title": {
+        "en": "Terms box, error spaces and success message",
+        "es": "Casilla de condiciones, huecos de error y mensaje de éxito"
+      },
+      "requirement": {
+        "en": "A terms checkbox, an empty `.error` for each field and a `#success` with `aria-live`",
+        "es": "Una casilla de condiciones, un `.error` vacío por campo y un `#success` con `aria-live`"
+      },
+      "task": {
+        "en": "After the 4 fields, add a `<div class=\"terms\">` with a checkbox (`<input type=\"checkbox\" id=\"terms\" name=\"terms\">`) and its label: `I accept the terms and conditions`. Then prepare the space for the error messages: at the end of each `.field` and of `.terms`, add an empty `<p class=\"error\">` whose `id` is the id of its input plus `-error` (`username-error`, `email-error`, `password-error`, `confirm-error` and `terms-error`), and connect each input to it with `aria-describedby=\"username-error\"` (and so on). Finally, after the form (still inside `.form-box`), add an empty `<p id=\"success\" class=\"success\" aria-live=\"polite\"></p>` for the welcome message.",
+        "es": "Después de los 4 campos, añade un `<div class=\"terms\">` con una casilla (`<input type=\"checkbox\" id=\"terms\" name=\"terms\">`) y su label: `I accept the terms and conditions`. Después, prepara el sitio de los mensajes de error: al final de cada `.field` y de `.terms`, añade un `<p class=\"error\">` vacío cuyo `id` sea el id de su input más `-error` (`username-error`, `email-error`, `password-error`, `confirm-error` y `terms-error`), y une cada input con su error mediante `aria-describedby=\"username-error\"` (y así con todos). Por último, después del formulario (pero dentro de `.form-box`), añade un `<p id=\"success\" class=\"success\" aria-live=\"polite\"></p>` vacío para el mensaje de bienvenida."
+      },
+      "hint": {
+        "en": "A field ends up like this: `<div class=\"field\"><input … id=\"email\" aria-describedby=\"email-error\"><label for=\"email\">Email</label><p class=\"error\" id=\"email-error\"></p></div>`. The `<p>` elements are empty now: JavaScript will write the messages. `aria-describedby` makes screen readers read the error when the field gets focus, and `aria-live=\"polite\"` makes them read the success message as soon as it appears.",
+        "es": "Un campo queda así: `<div class=\"field\"><input … id=\"email\" aria-describedby=\"email-error\"><label for=\"email\">Email</label><p class=\"error\" id=\"email-error\"></p></div>`. Los `<p>` están vacíos de momento: JavaScript escribirá los mensajes. Con `aria-describedby`, los lectores de pantalla leen el error cuando el campo recibe el foco, y con `aria-live=\"polite\"` leen el mensaje de éxito en cuanto aparece."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#signup-form input#terms[type=\"checkbox\"]",
+          "count": 1,
+          "label": {
+            "en": "A checkbox with `id=\"terms\"` inside the form",
+            "es": "Una casilla con `id=\"terms\"` dentro del formulario"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"terms\"]",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `<label for=\"terms\">` with text",
+            "es": "Un `<label for=\"terms\">` con texto"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".field .error, .terms .error",
+          "count": 5,
+          "label": {
+            "en": "5 elements with the class `error`: one in each `.field` and one in `.terms`",
+            "es": "5 elementos con la clase `error`: uno en cada `.field` y otro en `.terms`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#username-error.error, #email-error.error, #password-error.error, #confirm-error.error, #terms-error.error",
+          "count": 5,
+          "label": {
+            "en": "Their ids: `username-error`, `email-error`, `password-error`, `confirm-error` and `terms-error`",
+            "es": "Sus ids: `username-error`, `email-error`, `password-error`, `confirm-error` y `terms-error`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": "#username, #email, #password, #confirm, #terms",
+          "attr": "aria-describedby",
+          "pattern": "^\\s*(username|email|password|confirm|terms)-error\\s*$",
+          "label": {
+            "en": "Every input has `aria-describedby` with the id of its error",
+            "es": "Cada input tiene `aria-describedby` con el id de su error"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".form-box #success[aria-live], .form-box #success[role=\"status\"]",
+          "count": 1,
+          "label": {
+            "en": "A `#success` element with `aria-live=\"polite\"`",
+            "es": "Un elemento `#success` con `aria-live=\"polite\"`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".error, #success",
+          "text": "\\S",
+          "count": 0,
+          "label": {
+            "en": "The errors and `#success` start empty",
+            "es": "Los errores y `#success` empiezan vacíos"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-1",
+      "lang": "css",
+      "title": {
+        "en": "The page and the white card",
+        "es": "La página y la tarjeta blanca"
+      },
+      "requirement": {
+        "en": "A coloured page and the form in a centred white card",
+        "es": "Una página de color y el formulario en una tarjeta blanca centrada"
+      },
+      "task": {
+        "en": "In `style.css`, start with `* { box-sizing: border-box; }`. Give `body` `margin: 0`, a `font-family`, a coloured background (for example `background: linear-gradient(135deg, #602b7a, #2b1640);`) and centre the card with flexbox: `display: flex`, `justify-content: center`, `align-items: center` and `min-height: 100vh`. Then turn `.form-box` into a white card: `width: 100%`, `max-width: 400px`, some `padding`, `border-radius: 16px`, `background-color: #ffffff` and a soft `box-shadow`. Centre the `h1` and give it a colour.",
+        "es": "En `style.css`, empieza con `* { box-sizing: border-box; }`. Pon a `body` `margin: 0`, un `font-family`, un fondo de color (por ejemplo, `background: linear-gradient(135deg, #602b7a, #2b1640);`) y centra la tarjeta con flexbox: `display: flex`, `justify-content: center`, `align-items: center` y `min-height: 100vh`. Después, convierte `.form-box` en una tarjeta blanca: `width: 100%`, `max-width: 400px`, algo de `padding`, `border-radius: 16px`, `background-color: #ffffff` y una `box-shadow` suave. Centra el `h1` y dale un color."
+      },
+      "hint": {
+        "en": "`width: 100%` with `max-width: 400px` means “as wide as possible, but never more than 400px”: the card fills a phone screen and stays narrow on a computer. `min-height: 100vh` makes the body at least as tall as the window, so `align-items: center` can centre the card vertically.",
+        "es": "`width: 100%` con `max-width: 400px` significa «todo lo ancha que se pueda, pero nunca más de 400 px»: la tarjeta ocupa la pantalla de un móvil y se queda estrecha en un ordenador. `min-height: 100vh` hace que el body mida al menos lo mismo que la ventana, y así `align-items: center` puede centrar la tarjeta en vertical."
+      },
+      "note": {
+        "en": "The preview is narrow, so the card fills it. Open “View my website” to see it centred on a big screen.",
+        "es": "La vista previa es estrecha y la tarjeta la ocupa entera. Abre «Ver mi web» para verla centrada en una pantalla grande."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "margin-top",
+          "value": "0px",
+          "label": {
+            "en": "No margin on `body` (`margin: 0`)",
+            "es": "Sin margen en `body` (`margin: 0`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "^(\\*|html|body)$",
+          "prop": "font-family",
+          "label": {
+            "en": "A `font-family` for the page",
+            "es": "Un `font-family` para la página"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".form-box",
+          "prop": "width",
+          "min": 280,
+          "max": 480,
+          "label": {
+            "en": "A card between 280 and 480px wide (`max-width: 400px`)",
+            "es": "Una tarjeta de entre 280 y 480 px de ancho (`max-width: 400px`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".form-box",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "The card has a `background-color`",
+            "es": "La tarjeta tiene un `background-color`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".form-box",
+          "prop": "border-top-left-radius",
+          "min": 8,
+          "label": {
+            "en": "Rounded corners on the card (`border-radius`)",
+            "es": "Esquinas redondeadas en la tarjeta (`border-radius`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-2",
+      "lang": "css",
+      "title": {
+        "en": "Style the fields and the button",
+        "es": "Da estilo a los campos y al botón"
+      },
+      "requirement": {
+        "en": "Full-width fields with a border, a focus style and a big button",
+        "es": "Campos a todo el ancho con borde, un estilo de foco y un botón grande"
+      },
+      "task": {
+        "en": "Make the inputs comfortable to use: `.field input` with `width: 100%`, `padding: 14px 12px`, `border: 2px solid #cfc8d8`, `border-radius: 8px` and `font-size: 16px`. Add a rule `.field input:focus` that changes the `border-color` (for example to `#602b7a`) and adds a soft `outline`, so you always see which field you are in. Then style the `button`: `width: 100%`, `padding`, no border, `border-radius: 999px`, a `background-color`, white text, `font-weight: bold` and `cursor: pointer`, plus a darker colour on `button:hover`. If you like, give the checkbox a little space with `.terms`.",
+        "es": "Haz que los inputs sean cómodos de usar: `.field input` con `width: 100%`, `padding: 14px 12px`, `border: 2px solid #cfc8d8`, `border-radius: 8px` y `font-size: 16px`. Añade una regla `.field input:focus` que cambie el `border-color` (por ejemplo, a `#602b7a`) y ponga un `outline` suave, para ver siempre en qué campo estás. Después, da estilo al `button`: `width: 100%`, `padding`, sin borde, `border-radius: 999px`, un `background-color`, texto blanco, `font-weight: bold` y `cursor: pointer`, y un color más oscuro en `button:hover`. Si quieres, separa un poco la casilla con `.terms`."
+      },
+      "hint": {
+        "en": "`:focus` is the state of the field where the cursor is. Don’t remove the outline without putting another clear sign instead: people who use the keyboard need it to know where they are. `font-size: 16px` also stops phones from zooming in when you touch a field.",
+        "es": "`:focus` es el estado del campo en el que está el cursor. No quites el contorno sin poner otra señal clara en su lugar: quien usa el teclado la necesita para saber dónde está. Con `font-size: 16px`, además, los móviles no hacen zoom al tocar un campo."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".field input",
+          "prop": "width",
+          "min": 250,
+          "label": {
+            "en": "Inputs as wide as the card (`width: 100%`)",
+            "es": "Inputs tan anchos como la tarjeta (`width: 100%`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".field input",
+          "prop": "border-top-left-radius",
+          "min": 4,
+          "label": {
+            "en": "Rounded inputs (`border-radius`)",
+            "es": "Inputs redondeados (`border-radius`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "input:focus(-visible)?$",
+          "label": {
+            "en": "A rule for the field with focus (`.field input:focus`)",
+            "es": "Una regla para el campo con el foco (`.field input:focus`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#signup-form button",
+          "prop": "width",
+          "min": 250,
+          "label": {
+            "en": "A full-width button (`width: 100%`)",
+            "es": "Un botón a todo el ancho (`width: 100%`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "button|\\[type=.?submit",
+          "prop": "background-color",
+          "label": {
+            "en": "The button has a `background-color`",
+            "es": "El botón tiene un `background-color`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#signup-form button",
+          "prop": "cursor",
+          "value": "pointer",
+          "label": {
+            "en": "`cursor: pointer` on the button",
+            "es": "`cursor: pointer` en el botón"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-3",
+      "lang": "css",
+      "title": {
+        "en": "Animated floating labels",
+        "es": "Labels flotantes con animación"
+      },
+      "requirement": {
+        "en": "Labels inside the fields that float up with a `transition`",
+        "es": "Labels dentro de los campos que suben con una `transition`"
+      },
+      "task": {
+        "en": "Now the animation of the form. Give `.field` `position: relative`, so it becomes the reference for its label, and `margin-bottom: 14px`, so the label has room when it floats up. Put the label on top of the input: `.field label` with `position: absolute`, `top: 15px`, `left: 10px`, a little `padding: 0 4px`, `background-color: #ffffff`, a grey `color` and `transition: 0.3s`. Then write one rule for two cases, when the field has focus and when it has text: `.field input:focus ~ label, .field input:not(:placeholder-shown) ~ label`, with `top: -9px`, `font-size: 12px` and the purple colour. Click a field in the preview and watch the label float up.",
+        "es": "Ahora, la animación del formulario. Pon a `.field` `position: relative`, para que sea la referencia de su label, y `margin-bottom: 14px`, para que el label tenga sitio cuando suba. Coloca el label encima del input: `.field label` con `position: absolute`, `top: 15px`, `left: 10px`, un poco de `padding: 0 4px`, `background-color: #ffffff`, un `color` gris y `transition: 0.3s`. Después, escribe una regla para dos casos, cuando el campo tiene el foco y cuando tiene texto: `.field input:focus ~ label, .field input:not(:placeholder-shown) ~ label`, con `top: -9px`, `font-size: 12px` y el color morado. Pulsa un campo en la vista previa y mira cómo sube el label."
+      },
+      "hint": {
+        "en": "`~` selects the siblings that come after an element: `input:focus ~ label` is “the label after the input that has focus”. That’s why the label goes after the input in the HTML. `:placeholder-shown` is true while the placeholder (the space) is visible, that is, while the field is empty, so `:not(:placeholder-shown)` means “the field has text”. `transition` makes the change smooth instead of a jump.",
+        "es": "`~` selecciona los hermanos que van después de un elemento: `input:focus ~ label` es «el label que va después del input que tiene el foco». Por eso el label va después del input en el HTML. `:placeholder-shown` se cumple mientras se ve el placeholder (el espacio), es decir, mientras el campo está vacío, así que `:not(:placeholder-shown)` significa «el campo tiene texto». `transition` hace que el cambio sea suave en lugar de un salto."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".field",
+          "prop": "position",
+          "value": "relative",
+          "label": {
+            "en": "`.field` with `position: relative`",
+            "es": "`.field` con `position: relative`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".field label",
+          "prop": "position",
+          "value": "absolute",
+          "label": {
+            "en": "The labels on top of the inputs (`position: absolute`)",
+            "es": "Los labels encima de los inputs (`position: absolute`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "label$",
+          "prop": "transition-duration",
+          "not": "0s",
+          "label": {
+            "en": "A `transition` on the labels",
+            "es": "Una `transition` en los labels"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": ":focus(-visible|-within)?\\)?(\\s*[~+]\\s*|\\s+)label$",
+          "label": {
+            "en": "A rule for the label when its field has focus (`input:focus ~ label`)",
+            "es": "Una regla para el label cuando su campo tiene el foco (`input:focus ~ label`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "(:not\\(:placeholder-shown\\)|:valid)\\s*[~+]\\s*label$",
+          "label": {
+            "en": "A rule for the label when its field has text (`input:not(:placeholder-shown) ~ label`)",
+            "es": "Una regla para el label cuando su campo tiene texto (`input:not(:placeholder-shown) ~ label`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-4",
+      "lang": "css",
+      "title": {
+        "en": "Error and success styles",
+        "es": "Estilos de error y de éxito"
+      },
+      "requirement": {
+        "en": "Red error messages and borders, and a green success message",
+        "es": "Mensajes y bordes de error en rojo y un mensaje de éxito en verde"
+      },
+      "task": {
+        "en": "Prepare the look of the messages that JavaScript will write. `.error`: a red `color` (for example `#c62828`), `font-size: 13px`, `margin: 4px 0 0` and `min-height: 18px` (so the form doesn’t jump when a message appears). A field with an error will have `aria-invalid=\"true\"`, so give `.field input[aria-invalid=\"true\"]` a red `border-color`. Finally, `.success`: a green `color` (for example `#2e7d32`), `font-weight: bold` and `text-align: center`.",
+        "es": "Prepara el aspecto de los mensajes que escribirá JavaScript. `.error`: un `color` rojo (por ejemplo, `#c62828`), `font-size: 13px`, `margin: 4px 0 0` y `min-height: 18px` (así el formulario no da saltos cuando aparece un mensaje). Un campo con error tendrá `aria-invalid=\"true\"`, así que pon a `.field input[aria-invalid=\"true\"]` un `border-color` rojo. Por último, `.success`: un `color` verde (por ejemplo, `#2e7d32`), `font-weight: bold` y `text-align: center`."
+      },
+      "hint": {
+        "en": "Square brackets select by attribute: `input[aria-invalid=\"true\"]` is “an input whose `aria-invalid` is `true`”. The same attribute tells screen readers that the field is wrong and gives it the red border: one change, two uses. Write this rule after `:focus`, so the red border wins even when the field has focus.",
+        "es": "Los corchetes seleccionan por atributo: `input[aria-invalid=\"true\"]` es «un input cuyo `aria-invalid` es `true`». El mismo atributo avisa a los lectores de pantalla de que el campo está mal y le pone el borde rojo: un solo cambio, dos usos. Escribe esta regla después de la de `:focus`, para que el borde rojo gane aunque el campo tenga el foco."
+      },
+      "note": {
+        "en": "You won’t see these styles yet: the messages are empty until JavaScript writes them in steps 9 to 12.",
+        "es": "Todavía no verás estos estilos: los mensajes están vacíos hasta que JavaScript los escriba en los pasos 9 a 12."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".error",
+          "prop": "color",
+          "pattern": "^rgb\\((1[5-9]\\d|2[0-5]\\d), (\\d{1,2}|1[0-2]\\d), (\\d{1,2}|1[0-2]\\d)\\)$",
+          "label": {
+            "en": "Red error messages (`.error` with a red `color`)",
+            "es": "Mensajes de error en rojo (`.error` con un `color` rojo)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "aria-invalid",
+          "prop": "border-color",
+          "label": {
+            "en": "A red border for `input[aria-invalid=\"true\"]`",
+            "es": "Un borde rojo para `input[aria-invalid=\"true\"]`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#success",
+          "prop": "color",
+          "pattern": "^rgb\\((\\d{1,2}), ([89]\\d|1\\d\\d|2[0-5]\\d), (\\d{1,2})\\)$",
+          "label": {
+            "en": "A green success message (`.success` with a green `color`)",
+            "es": "Un mensaje de éxito en verde (`.success` con un `color` verde)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-1",
+      "lang": "js",
+      "title": {
+        "en": "Take control of the form",
+        "es": "Toma el control del formulario"
+      },
+      "requirement": {
+        "en": "Listen to `submit` and stop the page from reloading with `preventDefault()`",
+        "es": "Escuchar `submit` y evitar que la página se recargue con `preventDefault()`"
+      },
+      "task": {
+        "en": "In `script.js`, select the form and the elements you will use with `document.querySelector`: `form` (`#signup-form`), `usernameInput` (`#username`), `emailInput` (`#email`), `passwordInput` (`#password`), `confirmInput` (`#confirm`), `termsInput` (`#terms`) and `success` (`#success`). Then listen to the form’s `submit` event: `form.addEventListener(\"submit\", (event) => { … });`. Inside, the first line is `event.preventDefault();`, so the page doesn’t reload, and the second, `console.log(\"Checking the form...\");`.",
+        "es": "En `script.js`, selecciona con `document.querySelector` el formulario y los elementos que vas a usar: `form` (`#signup-form`), `usernameInput` (`#username`), `emailInput` (`#email`), `passwordInput` (`#password`), `confirmInput` (`#confirm`), `termsInput` (`#terms`) y `success` (`#success`). Después, escucha el evento `submit` del formulario: `form.addEventListener(\"submit\", (event) => { … });`. Dentro, la primera línea es `event.preventDefault();`, para que la página no se recargue, y la segunda, `console.log(\"Checking the form...\");`."
+      },
+      "hint": {
+        "en": "Listen to `submit` on the form, not to `click` on the button: `submit` also happens when you press Enter in a field. By default, sending a form loads another page (or the same one again). `event.preventDefault()` cancels that, so your code decides what happens.",
+        "es": "Escucha `submit` en el formulario, no `click` en el botón: `submit` también ocurre al pulsar Intro en un campo. Por defecto, enviar un formulario carga otra página (o la misma otra vez). `event.preventDefault()` lo cancela, y así es tu código el que decide qué pasa."
+      },
+      "note": {
+        "en": "Click “Create account” in the preview and look at the console.",
+        "es": "Pulsa «Create account» en la vista previa y mira la consola."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "querySelector|getElementById",
+          "label": {
+            "en": "You select the elements with `querySelector`",
+            "es": "Seleccionas los elementos con `querySelector`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "[\"'`]submit[\"'`]|\\.onsubmit",
+          "label": {
+            "en": "A listener for the `submit` event of the form",
+            "es": "Un listener del evento `submit` del formulario"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\.preventDefault\\s*\\(\\s*\\)",
+          "label": {
+            "en": "`event.preventDefault()` so the page doesn’t reload",
+            "es": "`event.preventDefault()` para que la página no se recargue"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "console",
+              "pattern": "\\S"
+            }
+          ],
+          "label": {
+            "en": "Clicking the button writes a message in the console",
+            "es": "Al pulsar el botón, se escribe un mensaje en la consola"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-2",
+      "lang": "js",
+      "title": {
+        "en": "Show errors and check the username",
+        "es": "Muestra errores y revisa el nombre de usuario"
+      },
+      "requirement": {
+        "en": "`showError` and `clearError` functions, and a username with at least 3 characters",
+        "es": "Funciones `showError` y `clearError`, y un nombre de usuario de 3 caracteres como mínimo"
+      },
+      "task": {
+        "en": "Before the listener, write two functions that you will use for every field. `showError(input, message)` finds the error of that input (`document.querySelector(\"#\" + input.id + \"-error\")`), writes `message` in its `textContent` and adds `aria-invalid=\"true\"` to the input with `setAttribute`. `clearError(input)` empties that `textContent` and removes the attribute with `removeAttribute`. Then write `checkUsername()`: it reads `usernameInput.value.trim()`; if it has fewer than 3 characters, it calls `showError` with a clear message and returns `false`; if not, it calls `clearError` and returns `true`. Call `checkUsername();` inside the listener, after the `console.log`.",
+        "es": "Antes del listener, escribe dos funciones que usarás con todos los campos. `showError(input, message)` busca el error de ese input (`document.querySelector(\"#\" + input.id + \"-error\")`), escribe `message` en su `textContent` y pone `aria-invalid=\"true\"` al input con `setAttribute`. `clearError(input)` vacía ese `textContent` y quita el atributo con `removeAttribute`. Después, escribe `checkUsername()`: lee `usernameInput.value.trim()`; si tiene menos de 3 caracteres, llama a `showError` con un mensaje claro y devuelve `false`; si no, llama a `clearError` y devuelve `true`. Llama a `checkUsername();` dentro del listener, después del `console.log`."
+      },
+      "hint": {
+        "en": "`trim()` removes the spaces at the start and at the end, so `\"   \"` becomes `\"\"` and doesn’t count as a username. Use the error messages to help, not to scold: “Your username needs at least 3 characters.” says what to do. The `return` values will be used in step 12.",
+        "es": "`trim()` quita los espacios del principio y del final, así que `\"   \"` se queda en `\"\"` y no cuenta como nombre de usuario. Usa los mensajes de error para ayudar, no para regañar: «Your username needs at least 3 characters» dice qué hay que hacer. Los valores de `return` se usarán en el paso 12."
+      },
+      "note": {
+        "en": "Try it in the preview: click “Create account” with the field empty, then write a username and click again.",
+        "es": "Pruébalo en la vista previa: pulsa «Create account» con el campo vacío, escribe después un nombre de usuario y vuelve a pulsar."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#username-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Empty username: its error message appears in `#username-error`",
+            "es": "Nombre de usuario vacío: aparece su mensaje de error en `#username-error`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#username[aria-invalid=\"true\"]",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "…and the input gets `aria-invalid=\"true\"`",
+            "es": "…y el input recibe `aria-invalid=\"true\"`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "Al"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#username-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`Al` (2 characters) shows the error",
+            "es": "`Al` (2 caracteres) muestra el error"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "     "
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#username-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Only spaces shows the error (use `trim()`)",
+            "es": "Solo espacios muestra el error (usa `trim()`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            },
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#username-error",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#username-error",
+              "text": "\\S",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#username[aria-invalid=\"true\"]",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Writing `ana_dev` and sending again clears the error and `aria-invalid`",
+            "es": "Al escribir `ana_dev` y volver a enviar, se borran el error y `aria-invalid`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-3",
+      "lang": "js",
+      "title": {
+        "en": "Check the email",
+        "es": "Revisa el email"
+      },
+      "requirement": {
+        "en": "An email with an `@` and a dot",
+        "es": "Un email con `@` y con punto"
+      },
+      "task": {
+        "en": "Write `checkEmail()`, like `checkUsername()`. Read `emailInput.value.trim()`. If it doesn’t include an `@` or doesn’t include a `.`, show an error such as “Write a valid email, like ana@mail.com.” and return `false`; if not, clear the error and return `true`. Call `checkEmail();` in the listener, after `checkUsername();`.",
+        "es": "Escribe `checkEmail()`, como `checkUsername()`. Lee `emailInput.value.trim()`. Si no incluye una `@` o no incluye un `.`, muestra un error como «Write a valid email, like ana@mail.com» y devuelve `false`; si no, borra el error y devuelve `true`. Llama a `checkEmail();` en el listener, después de `checkUsername();`."
+      },
+      "hint": {
+        "en": "`text.includes(\"@\")` returns `true` or `false`. The condition is `!email.includes(\"@\") || !email.includes(\".\")`: with `||`, one missing piece is enough to show the error. It’s a simple check: the real check of an email is sending it a message, which a server does.",
+        "es": "`text.includes(\"@\")` devuelve `true` o `false`. La condición es `!email.includes(\"@\") || !email.includes(\".\")`: con `||`, basta con que falte una de las dos cosas para mostrar el error. Es una comprobación sencilla: la de verdad es enviar un mensaje a ese email, y eso lo hace un servidor."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#email-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Empty email: its error appears in `#email-error`",
+            "es": "Email vacío: aparece su error en `#email-error`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#email",
+              "value": "ana.garcia.com"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#email-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`ana.garcia.com` (no `@`) shows the error",
+            "es": "`ana.garcia.com` (sin `@`) muestra el error"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#email",
+              "value": "ana@mail"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#email-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`ana@mail` (no dot) shows the error",
+            "es": "`ana@mail` (sin punto) muestra el error"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#email-error",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#email-error",
+              "text": "\\S",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#email[aria-invalid=\"true\"]",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "`ana@mail.com` clears the error and `aria-invalid`",
+            "es": "`ana@mail.com` borra el error y `aria-invalid`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-4",
+      "lang": "js",
+      "title": {
+        "en": "A safe password, written twice",
+        "es": "Una contraseña segura, escrita dos veces"
+      },
+      "requirement": {
+        "en": "A password with 8 characters and a number, and the same password in `confirm`",
+        "es": "Una contraseña de 8 caracteres con un número, y la misma contraseña en `confirm`"
+      },
+      "task": {
+        "en": "First write `hasNumber(text)`: go through the text with `for (const char of text)` and return `true` as soon as a character is between `\"0\"` and `\"9\"` (`char >= \"0\" && char <= \"9\"`); after the loop, return `false`. Then `checkPassword()`: if the password has fewer than 8 characters or `!hasNumber(password)`, show the error “Use at least 8 characters and 1 number.” And `checkConfirm()`: if `confirmInput` is empty, ask to write the password again; if it’s different from `passwordInput.value`, show “The passwords don’t match.” Both return `true` or `false` and clear the error when everything is right. Call them in the listener.",
+        "es": "Primero, escribe `hasNumber(text)`: recorre el texto con `for (const char of text)` y devuelve `true` en cuanto un carácter esté entre `\"0\"` y `\"9\"` (`char >= \"0\" && char <= \"9\"`); después del bucle, devuelve `false`. Después, `checkPassword()`: si la contraseña tiene menos de 8 caracteres o `!hasNumber(password)`, muestra el error «Use at least 8 characters and 1 number». Y `checkConfirm()`: si `confirmInput` está vacío, pide que se escriba otra vez la contraseña; si es distinta de `passwordInput.value`, muestra «The passwords don’t match». Las dos devuelven `true` o `false` y borran el error cuando todo está bien. Llámalas en el listener."
+      },
+      "hint": {
+        "en": "Strings are compared character by character, in the order of the character table, where the digits go together from `\"0\"` to `\"9\"`. That’s why `\"7\" >= \"0\" && \"7\" <= \"9\"` is `true` and `\"a\" <= \"9\"` is `false`. Don’t use `trim()` here: a space can be part of a password.",
+        "es": "Los strings se comparan carácter a carácter, según el orden de la tabla de caracteres, en la que las cifras van seguidas de `\"0\"` a `\"9\"`. Por eso `\"7\" >= \"0\" && \"7\" <= \"9\"` es `true` y `\"a\" <= \"9\"` es `false`. Aquí no uses `trim()`: un espacio puede formar parte de una contraseña."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#password",
+              "value": "abc12"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#password-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`abc12` (too short) shows the error in `#password-error`",
+            "es": "`abc12` (demasiado corta) muestra el error en `#password-error`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#password",
+              "value": "abcdefgh"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#password-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`abcdefgh` (no number) shows the error",
+            "es": "`abcdefgh` (sin número) muestra el error"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#password-error",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#password-error",
+              "text": "\\S",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#password[aria-invalid=\"true\"]",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "`secret123` clears the password error",
+            "es": "`secret123` borra el error de la contraseña"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret124"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#confirm-error",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Different passwords show the error in `#confirm-error`",
+            "es": "Si las contraseñas son distintas, sale el error en `#confirm-error`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret123"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#confirm-error",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#confirm-error",
+              "text": "\\S",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#confirm[aria-invalid=\"true\"]",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "The same password twice clears that error",
+            "es": "La misma contraseña dos veces borra ese error"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-5",
+      "lang": "js",
+      "title": {
+        "en": "Accept the terms and welcome the new user",
+        "es": "Acepta las condiciones y da la bienvenida"
+      },
+      "requirement": {
+        "en": "All the errors at once, and a success message only when everything is right",
+        "es": "Todos los errores a la vez, y un mensaje de éxito solo si todo está bien"
+      },
+      "task": {
+        "en": "Write `checkTerms()`: if `termsInput.checked` is `false`, show “Accept the terms to continue.” Then change the listener: save the result of every check in a constant (`const usernameOk = checkUsername();`, and the same with the other four). If all of them are `true` (`usernameOk && emailOk && …`), write a welcome message with the username in `success.textContent` (for example “Welcome, ana_dev! Your account is ready.”) and empty the form with `form.reset()`. If not, empty `success.textContent`, so an old welcome doesn’t stay next to new errors.",
+        "es": "Escribe `checkTerms()`: si `termsInput.checked` es `false`, muestra «Accept the terms to continue». Después, cambia el listener: guarda el resultado de cada comprobación en una constante (`const usernameOk = checkUsername();`, y lo mismo con las otras cuatro). Si todas son `true` (`usernameOk && emailOk && …`), escribe en `success.textContent` un mensaje de bienvenida con el nombre de usuario (por ejemplo, «Welcome, ana_dev! Your account is ready.») y vacía el formulario con `form.reset()`. Si no, vacía `success.textContent`, para que no se quede una bienvenida antigua junto a errores nuevos."
+      },
+      "hint": {
+        "en": "Why the constants? `checkUsername() && checkEmail() && …` stops at the first `false`: the other checks would never run and only one error would appear. Calling them all first shows every problem at once. Read the username before `form.reset()`, because `reset()` empties the fields.",
+        "es": "¿Por qué las constantes? `checkUsername() && checkEmail() && …` se para en el primer `false`: las demás comprobaciones no llegarían a ejecutarse y solo aparecería un error. Si las llamas todas antes, se ven todos los problemas a la vez. Lee el nombre de usuario antes de `form.reset()`, porque `reset()` vacía los campos."
+      },
+      "note": {
+        "en": "Fill in the whole form correctly in the preview, tick the box and click “Create account” to see the welcome message.",
+        "es": "Rellena bien todo el formulario en la vista previa, marca la casilla y pulsa «Create account» para ver el mensaje de bienvenida."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".error",
+              "text": "\\S",
+              "count": 5
+            }
+          ],
+          "label": {
+            "en": "Sending it empty shows the 5 errors at once",
+            "es": "Al enviarlo vacío, salen los 5 errores a la vez"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret123"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#terms-error",
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Without ticking the box: error in `#terms-error` and no welcome",
+            "es": "Sin marcar la casilla: error en `#terms-error` y sin bienvenida"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret123"
+            },
+            {
+              "click": "#terms"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".error",
+              "text": "\\S",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "With everything right: a visible message in `#success` and no errors",
+            "es": "Con todo bien: un mensaje visible en `#success` y ningún error"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret123"
+            },
+            {
+              "click": "#terms"
+            },
+            {
+              "click": "#signup-form button"
+            },
+            {
+              "input": "#username",
+              "value": ""
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "If you send it again with an error, the welcome disappears",
+            "es": "Si se vuelve a enviar con un error, la bienvenida desaparece"
+          }
+        }
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "lang": "html",
+      "label": {
+        "en": "Every field has a label",
+        "es": "Cada campo tiene su label"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#username, #email, #password, #confirm, #terms",
+          "count": 5
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"username\"], label[for=\"email\"], label[for=\"password\"], label[for=\"confirm\"], label[for=\"terms\"]",
+          "text": "\\S",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "Errors and success are accessible",
+        "es": "Errores y éxito accesibles"
+      },
+      "checks": [
+        {
+          "kind": "attr",
+          "selector": "#username, #email, #password, #confirm, #terms",
+          "attr": "aria-describedby",
+          "pattern": "-error"
+        },
+        {
+          "kind": "selector",
+          "selector": "#success[aria-live], #success[role=\"status\"]",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "The form inside a white card",
+        "es": "El formulario en una tarjeta blanca"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".form-box",
+          "prop": "width",
+          "min": 280,
+          "max": 480
+        },
+        {
+          "kind": "css",
+          "selector": ".form-box",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Animated floating labels",
+        "es": "Labels flotantes con animación"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".field label",
+          "prop": "position",
+          "value": "absolute"
+        },
+        {
+          "kind": "css",
+          "rule": "label$",
+          "prop": "transition-duration",
+          "not": "0s"
+        },
+        {
+          "kind": "css",
+          "rule": ":focus(-visible|-within)?\\)?(\\s*[~+]\\s*|\\s+)label$"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Errors in red",
+        "es": "Errores en rojo"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".error",
+          "prop": "color",
+          "pattern": "^rgb\\((1[5-9]\\d|2[0-5]\\d), (\\d{1,2}|1[0-2]\\d), (\\d{1,2}|1[0-2]\\d)\\)$"
+        },
+        {
+          "kind": "css",
+          "rule": "aria-invalid",
+          "prop": "border-color"
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Every field is checked",
+        "es": "Se revisan todos los campos"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".error",
+              "text": "\\S",
+              "count": 5
+            },
+            {
+              "kind": "selector",
+              "selector": "[aria-invalid=\"true\"]",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Wrong data is rejected",
+        "es": "Los datos incorrectos no pasan"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana.garcia.com"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret123"
+            },
+            {
+              "click": "#terms"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#email-error",
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "input": "#password",
+              "value": "abcdefgh"
+            },
+            {
+              "input": "#confirm",
+              "value": "abcdefgh"
+            },
+            {
+              "click": "#terms"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#password-error",
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret124"
+            },
+            {
+              "click": "#terms"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#confirm-error",
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Success message without reloading",
+        "es": "Mensaje de éxito sin recargar"
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "\\.preventDefault\\s*\\(\\s*\\)"
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#username",
+              "value": "ana_dev"
+            },
+            {
+              "input": "#email",
+              "value": "ana@mail.com"
+            },
+            {
+              "input": "#password",
+              "value": "secret123"
+            },
+            {
+              "input": "#confirm",
+              "value": "secret123"
+            },
+            {
+              "click": "#terms"
+            },
+            {
+              "click": "#signup-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#success",
+              "visible": true,
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".error",
+              "text": "\\S",
+              "count": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

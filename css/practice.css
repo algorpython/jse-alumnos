@@ -1,0 +1,65 @@
+/* Pantalla «Practice by topic»: lista de secciones y pregunta con su explicación
+   (como ../maquetas/02_pregunta.png). Usa las opciones, notas y bloque de código de base.css. */
+
+/* ---------- Lista de secciones ---------- */
+.topics { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.topic { display: flex; flex-direction: column; gap: 8px; }
+.topic h2 { margin: 0; font-size: 16px; line-height: 1.35; }
+.topic .bar { margin-top: 4px; }
+.topic-action { margin-top: auto; padding-top: 8px; display: flex; align-items: center; min-height: var(--touch); }
+
+/* ---------- Pregunta ---------- */
+.top .q-title { font-size: 22px; margin-top: 4px; }
+.q-title .chip { margin-left: 8px; }
+.q-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+.q-layout { display: flex; gap: 22px; flex: 1; align-items: stretch; }
+.q-main { flex: 1.15; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.q-side { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.q-prompt { font-size: 17px; font-weight: 600; line-height: 1.45; }
+
+/* Salida de consola o código del hueco: varias líneas tal cual */
+.opt .opt-code { white-space: pre-wrap; font-size: 15px; }
+.opt .opt-text { line-height: 1.45; }
+/* Tras corregir: debajo de cada opción incorrecta, por qué no lo es */
+.opt .opt-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.opt .opt-why { font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+.opt .opt-why code { font-size: .92em; background: rgba(30, 21, 39, 0.07); padding: 1px 5px; border-radius: 4px; }
+.opt .opt-text code { font-family: var(--mono); font-size: .95em; background: rgba(30, 21, 39, 0.07); padding: 1px 5px; border-radius: 4px; }
+.opt:disabled { color: var(--ink); opacity: 1; }
+
+/* Hueco de «Fill the gap» dentro del bloque de código */
+pre.code .gap { display: inline-block; min-width: 3ch; padding: 0 4px; border: 1px dashed var(--lime); border-radius: 4px; color: var(--lime); line-height: 1.35; }
+pre.code .gap.filled { border-style: solid; background: rgba(212, 222, 0, .14); }
+
+.q-hint { margin: 0; }
+.q-result-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.q-result { font: 700 15px var(--head); padding: 2px 0; }
+.q-result-row .mini { flex: none; }
+.q-result.ok { color: var(--green); }
+.q-result.ko { color: var(--purple); }
+.q-result:focus-visible { box-shadow: none; }
+
+.q-course { padding: 16px; }
+.q-course .small { margin-bottom: 6px; }
+.q-course p:last-child { font-size: 14px; }
+
+.q-peek ul { margin: 6px 0 0; padding-left: 18px; }
+.q-peek p { margin-top: 6px; }
+
+.q-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
+.q-nav-end { display: flex; gap: 10px; margin-left: auto; }
+.q-nav .btn { white-space: nowrap; }
+.q-tools .btn[aria-pressed="true"] { background: var(--purple-soft); border-color: var(--purple); color: var(--purple); }
+
+/* ---------- Final de la ronda ---------- */
+.done-card { max-width: 640px; display: flex; flex-direction: column; gap: 18px; font-size: 15px; line-height: 1.55; }
+.done-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 1180px) {
+  .topics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .q-layout { flex-direction: column; }
+  .topics { grid-template-columns: 1fr; }
+}

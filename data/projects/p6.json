@@ -1,0 +1,2133 @@
+{
+  "id": "p6",
+  "number": 6,
+  "level": "advanced",
+  "minutes": 120,
+  "folder": "quiz-game",
+  "title": {
+    "en": "Quiz game",
+    "es": "Juego de preguntas"
+  },
+  "summary": {
+    "en": "Multiple-choice quiz with score and timer, built with objects and classes.",
+    "es": "Juego de preguntas tipo test con puntuación y temporizador, hecho con objetos y clases."
+  },
+  "basedOn": [
+    "10_Objetos",
+    "07_Funciones",
+    "16_POO"
+  ],
+  "goal": {
+    "title": {
+      "en": "Build a quiz game with a score and a countdown",
+      "es": "Crea un juego de preguntas con puntuación y cuenta atrás"
+    },
+    "body": {
+      "en": "You will create a multiple-choice quiz about JavaScript. The player chooses how many seconds each question lasts and starts the game. Each question has 4 answers and a countdown: a right answer turns green and adds a point, a wrong one turns red, and if time runs out the right answer is shown. At the end, a screen shows the score, the percentage and an encouraging message, with a button to play again. The questions are an array of objects, and the game is a class with methods.",
+      "es": "Vas a crear un juego de preguntas tipo test sobre JavaScript. El jugador elige cuántos segundos dura cada pregunta y empieza la partida. Cada pregunta tiene 4 respuestas y una cuenta atrás: si aciertas, la respuesta se pone en verde y sumas un punto; si fallas, se pone en rojo, y si se acaba el tiempo, se muestra la correcta. Al final, una pantalla enseña la puntuación, el porcentaje y un mensaje de ánimo, con un botón para volver a jugar. Las preguntas son un array de objetos, y el juego, una clase con métodos."
+    }
+  },
+  "result": {
+    "en": "The quiz in a white card: choose the seconds per question and start. Each question has a countdown and 4 answers in a grid; right answers turn green and wrong ones red, and the end screen shows your score and “Play again”.",
+    "es": "El juego en una tarjeta blanca: eliges los segundos por pregunta y empiezas. Cada pregunta tiene una cuenta atrás y 4 respuestas en cuadrícula; los aciertos se ponen en verde y los fallos en rojo, y la pantalla final muestra tu puntuación y «Play again»."
+  },
+  "starter": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>JS Quiz</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Steps 1 and 2: your quiz goes here -->\n\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Quiz game · style.css */\n\n/* Steps 3 to 5: your styles go here */\n",
+    "js": "// Quiz game · script.js\n\n// The questions of your quiz (step 6). The right answer is marked with (✔).\n// 1. Which keyword declares a constant?                 var · let · const (✔) · static\n// 2. What does typeof 42 return?                        number (✔) · string · integer · decimal\n// 3. Which method adds an item to the end of an array?  pop() · push() (✔) · shift() · join()\n// 4. What is 3 + '3' in JavaScript?                     6 · NaN · undefined · '33' (✔)\n// 5. Which operator checks the value and the type?      == · === (✔) · = · =>\n\n// Steps 6 to 12: your JavaScript goes here\n"
+  },
+  "solution": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>JS Quiz</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <main class=\"quiz\">\n    <h1>JS Quiz</h1>\n\n    <!-- Screen 1: start -->\n    <section id=\"start-screen\">\n      <p>5 questions about JavaScript. Choose the right answer before the time runs out!</p>\n      <label for=\"seconds\">Seconds per question</label>\n      <input type=\"number\" id=\"seconds\" name=\"seconds\" min=\"1\" max=\"60\" value=\"15\">\n      <button id=\"start-btn\" class=\"btn\">Start quiz</button>\n    </section>\n\n    <!-- Screen 2: the questions -->\n    <section id=\"quiz-screen\">\n      <div class=\"status\">\n        <p id=\"progress\">Question 1 of 5</p>\n        <p class=\"timer\">Time: <span id=\"timer\">15</span> s</p>\n        <p id=\"score\">Score: 0</p>\n      </div>\n\n      <h2 id=\"question\">The question goes here</h2>\n\n      <div id=\"answers\">\n        <button class=\"answer\">Answer 1</button>\n        <button class=\"answer\">Answer 2</button>\n        <button class=\"answer\">Answer 3</button>\n        <button class=\"answer\">Answer 4</button>\n      </div>\n\n      <p id=\"feedback\" aria-live=\"polite\"></p>\n      <button id=\"next-btn\" class=\"btn\">Next question</button>\n    </section>\n\n    <!-- Screen 3: the end -->\n    <section id=\"end-screen\">\n      <h2>Quiz finished!</h2>\n      <p id=\"final-score\" class=\"final-score\">You got 0 of 5 right</p>\n      <p id=\"final-message\"></p>\n      <button id=\"restart-btn\" class=\"btn\">Play again</button>\n    </section>\n  </main>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Quiz game · style.css */\n\n/* Step 3: the page, the card and the start screen */\n* {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n  min-height: 100vh;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 24px 16px;\n  font-family: Arial, sans-serif;\n  color: #1e1527;\n  background: linear-gradient(135deg, #602b7a, #2b1640);\n}\n\n.quiz {\n  width: 100%;\n  max-width: 520px;\n  padding: 28px;\n  border-radius: 16px;\n  background-color: #ffffff;\n  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);\n}\n\nh1 {\n  margin: 0 0 16px;\n  color: #43235f;\n  text-align: center;\n}\n\n#start-screen {\n  text-align: center;\n}\n\n#start-screen label {\n  display: block;\n  margin: 16px 0 6px;\n  font-weight: bold;\n}\n\n#seconds {\n  width: 90px;\n  padding: 8px;\n  border: 2px solid #cfc8d8;\n  border-radius: 8px;\n  font-size: 16px;\n  text-align: center;\n}\n\n/* Step 4: the buttons, the status bar and the answers */\n.btn {\n  margin-top: 16px;\n  padding: 12px 28px;\n  border: none;\n  border-radius: 999px;\n  background-color: #602b7a;\n  color: #ffffff;\n  font-size: 16px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.btn:hover {\n  background-color: #43235f;\n}\n\n.status {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 8px;\n  color: #6b6177;\n  font-size: 14px;\n}\n\n.status p {\n  margin: 0;\n}\n\n.timer {\n  padding: 4px 12px;\n  border-radius: 999px;\n  background-color: #f1e9f6;\n  color: #602b7a;\n  font-weight: bold;\n}\n\n#question {\n  margin: 20px 0 16px;\n  font-size: 20px;\n}\n\n#answers {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 12px;\n}\n\n.answer {\n  width: 100%;\n  padding: 14px;\n  border: 2px solid #cfc8d8;\n  border-radius: 10px;\n  background-color: #ffffff;\n  color: #1e1527;\n  font-size: 16px;\n  cursor: pointer;\n}\n\n.answer:not(:disabled):hover {\n  border-color: #602b7a;\n  background-color: #f1e9f6;\n}\n\n/* Step 5: right, wrong and small screens */\n.answer:disabled {\n  cursor: default;\n  opacity: 0.7;\n}\n\n.answer.correct {\n  border-color: #2e7d32;\n  background-color: #2e7d32;\n  color: #ffffff;\n  opacity: 1;\n}\n\n.answer.wrong {\n  border-color: #c62828;\n  background-color: #c62828;\n  color: #ffffff;\n  opacity: 1;\n}\n\n#feedback {\n  min-height: 24px;\n  margin: 16px 0 0;\n  font-weight: bold;\n  text-align: center;\n}\n\n#quiz-screen {\n  text-align: center;\n}\n\n#end-screen {\n  text-align: center;\n}\n\n.final-score {\n  color: #602b7a;\n  font-size: 24px;\n  font-weight: bold;\n}\n\n@media (max-width: 480px) {\n  #answers {\n    grid-template-columns: 1fr;\n  }\n}\n",
+    "js": "// Quiz game · script.js\n\n// Step 6: the questions, as an array of objects\nconst questions = [\n  {\n    text: \"Which keyword declares a constant?\",\n    options: [\"var\", \"let\", \"const\", \"static\"],\n    answer: 2\n  },\n  {\n    text: \"What does typeof 42 return?\",\n    options: [\"number\", \"string\", \"integer\", \"decimal\"],\n    answer: 0\n  },\n  {\n    text: \"Which method adds an item to the end of an array?\",\n    options: [\"pop()\", \"push()\", \"shift()\", \"join()\"],\n    answer: 1\n  },\n  {\n    text: \"What is 3 + '3' in JavaScript?\",\n    options: [\"6\", \"NaN\", \"undefined\", \"'33'\"],\n    answer: 3\n  },\n  {\n    text: \"Which operator checks the value and the type?\",\n    options: [\"==\", \"===\", \"=\", \"=>\"],\n    answer: 1\n  }\n];\n\nconsole.log(questions.length);\nconsole.log(questions[0].text);\n\n// Step 7: the Quiz class keeps the questions, the position and the score\nclass Quiz {\n  constructor(questions) {\n    this.questions = questions;\n    this.index = 0;\n    this.score = 0;\n  }\n\n  currentQuestion() {\n    return this.questions[this.index];\n  }\n\n  checkAnswer(choice) {\n    const isRight = choice === this.currentQuestion().answer;\n    if (isRight) {\n      this.score++;\n    }\n    return isRight;\n  }\n\n  nextQuestion() {\n    this.index++;\n  }\n\n  isFinished() {\n    return this.index >= this.questions.length;\n  }\n\n  // Step 12: the score as a percentage\n  percentage() {\n    return Math.round((this.score / this.questions.length) * 100);\n  }\n}\n\n// Step 7: try the class with a quiz just for testing\nconst test = new Quiz(questions);\nconsole.log(test.checkAnswer(2), test.score);\ntest.nextQuestion();\nconsole.log(test.index, test.isFinished());\n\n// Step 8: the elements of the page\nconst startScreen = document.querySelector(\"#start-screen\");\nconst quizScreen = document.querySelector(\"#quiz-screen\");\nconst endScreen = document.querySelector(\"#end-screen\");\nconst secondsInput = document.querySelector(\"#seconds\");\nconst startBtn = document.querySelector(\"#start-btn\");\nconst progressText = document.querySelector(\"#progress\");\nconst timerText = document.querySelector(\"#timer\");\nconst scoreText = document.querySelector(\"#score\");\nconst questionText = document.querySelector(\"#question\");\nconst answerButtons = document.querySelectorAll(\".answer\");\nconst feedback = document.querySelector(\"#feedback\");\nconst nextBtn = document.querySelector(\"#next-btn\");\nconst finalScore = document.querySelector(\"#final-score\");\nconst finalMessage = document.querySelector(\"#final-message\");\nconst restartBtn = document.querySelector(\"#restart-btn\");\n\nlet quiz;\n\n// Show one screen and hide the other two\nfunction showScreen(screen) {\n  startScreen.hidden = screen !== startScreen;\n  quizScreen.hidden = screen !== quizScreen;\n  endScreen.hidden = screen !== endScreen;\n}\n\nfunction showQuestion() {\n  const question = quiz.currentQuestion();\n  progressText.textContent = `Question ${quiz.index + 1} of ${quiz.questions.length}`;\n  questionText.textContent = question.text;\n  answerButtons.forEach((button, i) => {\n    button.textContent = question.options[i];\n    button.disabled = false;\n    button.classList.remove(\"correct\", \"wrong\");\n  });\n  feedback.textContent = \"\";\n  nextBtn.hidden = true;\n  startTimer();\n}\n\nfunction startQuiz() {\n  quiz = new Quiz(questions);\n  seconds = parseInt(secondsInput.value);\n  if (isNaN(seconds) || seconds < 1) {\n    seconds = 15;\n  }\n  scoreText.textContent = \"Score: 0\";\n  showScreen(quizScreen);\n  showQuestion();\n}\n\nstartBtn.addEventListener(\"click\", startQuiz);\nshowScreen(startScreen);\n\n// Step 9: right or wrong?\nfunction showRightAnswer() {\n  const question = quiz.currentQuestion();\n  answerButtons.forEach((button) => {\n    button.disabled = true;\n  });\n  answerButtons[question.answer].classList.add(\"correct\");\n  nextBtn.hidden = false;\n}\n\nfunction answer(choice) {\n  clearInterval(timerId);\n  const question = quiz.currentQuestion();\n  const isRight = quiz.checkAnswer(choice);\n  showRightAnswer();\n  if (isRight) {\n    feedback.textContent = \"Correct! Well done.\";\n  } else {\n    answerButtons[choice].classList.add(\"wrong\");\n    feedback.textContent = `Not quite! The right answer is ${question.options[question.answer]}.`;\n  }\n  scoreText.textContent = `Score: ${quiz.score}`;\n}\n\nanswerButtons.forEach((button, i) => {\n  button.addEventListener(\"click\", () => answer(i));\n});\n\n// Step 10: the next question, or the end of the quiz\nfunction showResults() {\n  const percent = quiz.percentage();\n  finalScore.textContent = `You got ${quiz.score} of ${quiz.questions.length} right (${percent}%)`;\n  finalMessage.textContent = getMessage(percent);\n  showScreen(endScreen);\n}\n\nnextBtn.addEventListener(\"click\", () => {\n  quiz.nextQuestion();\n  if (quiz.isFinished()) {\n    showResults();\n  } else {\n    showQuestion();\n  }\n});\n\n// Step 11: the countdown\nlet seconds = 15;\nlet timeLeft = 0;\nlet timerId = null;\n\nfunction startTimer() {\n  clearInterval(timerId);\n  timeLeft = seconds;\n  timerText.textContent = timeLeft;\n  timerId = setInterval(() => {\n    timeLeft--;\n    timerText.textContent = timeLeft;\n    if (timeLeft <= 0) {\n      clearInterval(timerId);\n      timeUp();\n    }\n  }, 1000);\n}\n\nfunction timeUp() {\n  const question = quiz.currentQuestion();\n  showRightAnswer();\n  feedback.textContent = `Time's up! The right answer is ${question.options[question.answer]}.`;\n}\n\n// Step 12: an encouraging message and «Play again»\nfunction getMessage(percent) {\n  if (percent >= 80) {\n    return \"Excellent! You really know your JavaScript.\";\n  }\n  if (percent >= 50) {\n    return \"Good job! A bit more practice and you'll ace it.\";\n  }\n  return \"Nice try! Play again and beat your score.\";\n}\n\nrestartBtn.addEventListener(\"click\", startQuiz);\n"
+  },
+  "steps": [
+    {
+      "id": "html-1",
+      "lang": "html",
+      "title": {
+        "en": "The card and the start screen",
+        "es": "La tarjeta y la pantalla de inicio"
+      },
+      "requirement": {
+        "en": "A `.quiz` card with the title, the three screens and a start screen where you choose the seconds per question",
+        "es": "Una tarjeta `.quiz` con el título, las tres pantallas y una pantalla de inicio para elegir los segundos por pregunta"
+      },
+      "task": {
+        "en": "Inside `<body>`, before the `<script>`, add a `<main class=\"quiz\">`: it will be the white card of the game. Inside it, write the title `JS Quiz` in an `<h1>` and, below, the three screens of the game, one after the other: `<section id=\"start-screen\">`, `<section id=\"quiz-screen\">` and `<section id=\"end-screen\">`. Leave the last two empty for now. In the start screen, add a `<p>` that explains the game, a `<label for=\"seconds\">Seconds per question</label>`, an `<input type=\"number\" id=\"seconds\" min=\"1\" max=\"60\" value=\"15\">` and the button `<button id=\"start-btn\" class=\"btn\">Start quiz</button>`.",
+        "es": "Dentro de `<body>`, antes del `<script>`, añade un `<main class=\"quiz\">`: será la tarjeta blanca del juego. Dentro, escribe el título `JS Quiz` en un `<h1>` y, debajo, las tres pantallas del juego, una detrás de otra: `<section id=\"start-screen\">`, `<section id=\"quiz-screen\">` y `<section id=\"end-screen\">`. Deja las dos últimas vacías de momento. En la pantalla de inicio, añade un `<p>` que explique el juego, un `<label for=\"seconds\">Seconds per question</label>`, un `<input type=\"number\" id=\"seconds\" min=\"1\" max=\"60\" value=\"15\">` y el botón `<button id=\"start-btn\" class=\"btn\">Start quiz</button>`."
+      },
+      "hint": {
+        "en": "The game has three moments (the start, the questions and the end), so it has three screens. In step 8, JavaScript will show only one at a time. `type=\"number\"` makes a box for numbers with small arrows, and `value=\"15\"` is the number it starts with. The `for` of the label is the `id` of the input: clicking the label puts the cursor in the box.",
+        "es": "El juego tiene tres momentos (el inicio, las preguntas y el final), así que tiene tres pantallas. En el paso 8, JavaScript mostrará solo una cada vez. `type=\"number\"` crea una casilla para números con flechitas, y `value=\"15\"` es el número con el que empieza. El `for` del label es el `id` del input: al pulsar el label, el cursor va a la casilla."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".quiz h1",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h1>` with the title inside `.quiz`",
+            "es": "Un `<h1>` con el título dentro de `.quiz`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".quiz #start-screen, .quiz #quiz-screen, .quiz #end-screen",
+          "count": 3,
+          "label": {
+            "en": "The three screens inside `.quiz`: `#start-screen`, `#quiz-screen` and `#end-screen`",
+            "es": "Las tres pantallas dentro de `.quiz`: `#start-screen`, `#quiz-screen` y `#end-screen`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#start-screen input#seconds[type=\"number\"]",
+          "count": 1,
+          "label": {
+            "en": "An `<input type=\"number\" id=\"seconds\">` in the start screen",
+            "es": "Un `<input type=\"number\" id=\"seconds\">` en la pantalla de inicio"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"seconds\"]",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `<label for=\"seconds\">` with text",
+            "es": "Un `<label for=\"seconds\">` con texto"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": "#seconds",
+          "attr": "value",
+          "pattern": "^\\s*[1-9]\\d*\\s*$",
+          "label": {
+            "en": "The box starts with a number of seconds (`value=\"15\"`)",
+            "es": "La casilla empieza con un número de segundos (`value=\"15\"`)"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#start-screen button#start-btn",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A button `#start-btn` with text in the start screen",
+            "es": "Un botón `#start-btn` con texto en la pantalla de inicio"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-2",
+      "lang": "html",
+      "title": {
+        "en": "The question screen and the end screen",
+        "es": "La pantalla de preguntas y la pantalla final"
+      },
+      "requirement": {
+        "en": "A status bar, the question, 4 answer buttons, a message and the end screen with “Play again”",
+        "es": "Una barra de estado, la pregunta, 4 botones de respuesta, un mensaje y la pantalla final con «Play again»"
+      },
+      "task": {
+        "en": "Fill in `#quiz-screen`. First, a `<div class=\"status\">` with three `<p>`: `<p id=\"progress\">Question 1 of 5</p>`, `<p class=\"timer\">Time: <span id=\"timer\">15</span> s</p>` and `<p id=\"score\">Score: 0</p>`. Below it, the question in an `<h2 id=\"question\">` (any text for now), a `<div id=\"answers\">` with 4 `<button class=\"answer\">` (`Answer 1` to `Answer 4`), an empty `<p id=\"feedback\" aria-live=\"polite\"></p>` and the button `<button id=\"next-btn\" class=\"btn\">Next question</button>`. Then fill in `#end-screen`: an `<h2>` with `Quiz finished!`, a `<p id=\"final-score\" class=\"final-score\">` with `You got 0 of 5 right`, an empty `<p id=\"final-message\"></p>` and the button `<button id=\"restart-btn\" class=\"btn\">Play again</button>`.",
+        "es": "Rellena `#quiz-screen`. Primero, un `<div class=\"status\">` con tres `<p>`: `<p id=\"progress\">Question 1 of 5</p>`, `<p class=\"timer\">Time: <span id=\"timer\">15</span> s</p>` y `<p id=\"score\">Score: 0</p>`. Debajo, la pregunta en un `<h2 id=\"question\">` (con cualquier texto de momento), un `<div id=\"answers\">` con 4 `<button class=\"answer\">` (de `Answer 1` a `Answer 4`), un `<p id=\"feedback\" aria-live=\"polite\"></p>` vacío y el botón `<button id=\"next-btn\" class=\"btn\">Next question</button>`. Después, rellena `#end-screen`: un `<h2>` con `Quiz finished!`, un `<p id=\"final-score\" class=\"final-score\">` con `You got 0 of 5 right`, un `<p id=\"final-message\"></p>` vacío y el botón `<button id=\"restart-btn\" class=\"btn\">Play again</button>`."
+      },
+      "hint": {
+        "en": "The texts you write now are placeholders: JavaScript will change them for the real question, answers and score. The answers are `<button>` elements because you click them: that way they also work with the keyboard (Tab and Enter). `aria-live=\"polite\"` makes screen readers read the message (“Correct!”) as soon as it appears.",
+        "es": "Los textos que escribes ahora son provisionales: JavaScript los cambiará por la pregunta, las respuestas y la puntuación de verdad. Las respuestas son `<button>` porque se pulsan: así también funcionan con el teclado (Tab e Intro). Con `aria-live=\"polite\"`, los lectores de pantalla leen el mensaje («Correct!») en cuanto aparece."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#quiz-screen #progress, #quiz-screen #timer, #quiz-screen #score",
+          "count": 3,
+          "label": {
+            "en": "A status bar with `#progress`, `#timer` and `#score`",
+            "es": "Una barra de estado con `#progress`, `#timer` y `#score`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#quiz-screen h2#question",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h2 id=\"question\">` with text",
+            "es": "Un `<h2 id=\"question\">` con texto"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#quiz-screen #answers button.answer",
+          "count": 4,
+          "label": {
+            "en": "4 `<button class=\"answer\">` inside `#answers`",
+            "es": "4 `<button class=\"answer\">` dentro de `#answers`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#quiz-screen #feedback[aria-live]",
+          "count": 1,
+          "label": {
+            "en": "A `#feedback` with `aria-live=\"polite\"`",
+            "es": "Un `#feedback` con `aria-live=\"polite\"`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#quiz-screen button#next-btn",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A button `#next-btn` with text",
+            "es": "Un botón `#next-btn` con texto"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#end-screen #final-score, #end-screen #final-message",
+          "count": 2,
+          "label": {
+            "en": "`#final-score` and `#final-message` in the end screen",
+            "es": "`#final-score` y `#final-message` en la pantalla final"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#end-screen button#restart-btn",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A button `#restart-btn` with text in the end screen",
+            "es": "Un botón `#restart-btn` con texto en la pantalla final"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-1",
+      "lang": "css",
+      "title": {
+        "en": "The page, the card and the start screen",
+        "es": "La página, la tarjeta y la pantalla de inicio"
+      },
+      "requirement": {
+        "en": "A coloured page with the quiz in a centred white card",
+        "es": "Una página de color con el juego en una tarjeta blanca centrada"
+      },
+      "task": {
+        "en": "In `style.css`, start with `* { box-sizing: border-box; }`. Give `body` `margin: 0`, a `font-family`, a coloured background (for example `background: linear-gradient(135deg, #602b7a, #2b1640);`) and `padding: 24px 16px`, and centre the card with flexbox: `display: flex`, `justify-content: center`, `align-items: center` and `min-height: 100vh`. Turn `.quiz` into a white card: `width: 100%`, `max-width: 520px`, `padding: 28px`, `border-radius: 16px`, `background-color: #ffffff` and a soft `box-shadow`. Centre the `h1` and give it a colour. Finally, centre the start screen (`#start-screen { text-align: center; }`), put its label on its own line (`display: block`) and give `#seconds` a width, a border and rounded corners.",
+        "es": "En `style.css`, empieza con `* { box-sizing: border-box; }`. Pon a `body` `margin: 0`, un `font-family`, un fondo de color (por ejemplo, `background: linear-gradient(135deg, #602b7a, #2b1640);`) y `padding: 24px 16px`, y centra la tarjeta con flexbox: `display: flex`, `justify-content: center`, `align-items: center` y `min-height: 100vh`. Convierte `.quiz` en una tarjeta blanca: `width: 100%`, `max-width: 520px`, `padding: 28px`, `border-radius: 16px`, `background-color: #ffffff` y una `box-shadow` suave. Centra el `h1` y dale un color. Por último, centra la pantalla de inicio (`#start-screen { text-align: center; }`), pon su label en una línea aparte (`display: block`) y dale a `#seconds` un ancho, un borde y esquinas redondeadas."
+      },
+      "hint": {
+        "en": "`width: 100%` with `max-width: 520px` means “as wide as possible, but never more than 520px”. Don’t give the screens (the `section` elements) a `display`: in step 8, JavaScript will hide them with the `hidden` attribute, and a `display` in your CSS would win and keep them on the page.",
+        "es": "`width: 100%` con `max-width: 520px` significa «todo lo ancha que se pueda, pero nunca más de 520 px». No pongas `display` a las pantallas (los `section`): en el paso 8, JavaScript las ocultará con el atributo `hidden`, y un `display` en tu CSS ganaría y las dejaría a la vista."
+      },
+      "note": {
+        "en": "For now the three screens appear one below the other, so you can style them all. From step 8, JavaScript will show only one at a time.",
+        "es": "De momento, las tres pantallas salen una debajo de otra, así puedes darles estilo a todas. A partir del paso 8, JavaScript mostrará solo una cada vez."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "margin-top",
+          "value": "0px",
+          "label": {
+            "en": "No margin on `body` (`margin: 0`)",
+            "es": "Sin margen en `body` (`margin: 0`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "^(\\*|html|body)$",
+          "prop": "font-family",
+          "label": {
+            "en": "A `font-family` for the page",
+            "es": "Un `font-family` para la página"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".quiz",
+          "prop": "width",
+          "min": 280,
+          "max": 600,
+          "label": {
+            "en": "A card between 280 and 600px wide (`max-width: 520px`)",
+            "es": "Una tarjeta de entre 280 y 600 px de ancho (`max-width: 520px`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".quiz",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "The card has a `background-color`",
+            "es": "La tarjeta tiene un `background-color`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".quiz",
+          "prop": "border-top-left-radius",
+          "min": 8,
+          "label": {
+            "en": "Rounded corners on the card (`border-radius`)",
+            "es": "Esquinas redondeadas en la tarjeta (`border-radius`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#start-screen",
+          "prop": "text-align",
+          "value": "center",
+          "label": {
+            "en": "A centred start screen (`text-align: center`)",
+            "es": "Una pantalla de inicio centrada (`text-align: center`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-2",
+      "lang": "css",
+      "title": {
+        "en": "Buttons, status bar and answers",
+        "es": "Botones, barra de estado y respuestas"
+      },
+      "requirement": {
+        "en": "Round buttons, the status bar in a row and the answers in a 2-column grid",
+        "es": "Botones redondeados, la barra de estado en una fila y las respuestas en una cuadrícula de 2 columnas"
+      },
+      "task": {
+        "en": "Style the three buttons with the class `.btn`: `margin-top: 16px`, `padding: 12px 28px`, no border, `border-radius: 999px`, a `background-color`, white text, `font-size: 16px`, `font-weight: bold` and `cursor: pointer`, plus a darker colour on `.btn:hover`. Put the status bar in a row: `.status` with `display: flex`, `justify-content: space-between`, `align-items: center`, `flex-wrap: wrap` and `gap: 8px`, and `.status p { margin: 0; }`. Make `.timer` look like a label: a light background, `border-radius: 999px`, `padding: 4px 12px` and bold text. Then the answers: `#answers` with `display: grid`, `grid-template-columns: 1fr 1fr` and `gap: 12px`, and every `.answer` with `width: 100%`, `padding: 14px`, `border: 2px solid #cfc8d8`, `border-radius: 10px`, a white `background-color`, a dark `color`, `font-size: 16px` and `cursor: pointer`. Finish with `.answer:not(:disabled):hover`, which changes the border and the background.",
+        "es": "Da estilo a los tres botones con la clase `.btn`: `margin-top: 16px`, `padding: 12px 28px`, sin borde, `border-radius: 999px`, un `background-color`, texto blanco, `font-size: 16px`, `font-weight: bold` y `cursor: pointer`, y un color más oscuro en `.btn:hover`. Pon la barra de estado en una fila: `.status` con `display: flex`, `justify-content: space-between`, `align-items: center`, `flex-wrap: wrap` y `gap: 8px`, y `.status p { margin: 0; }`. Haz que `.timer` parezca una etiqueta: un fondo claro, `border-radius: 999px`, `padding: 4px 12px` y texto en negrita. Después, las respuestas: `#answers` con `display: grid`, `grid-template-columns: 1fr 1fr` y `gap: 12px`, y cada `.answer` con `width: 100%`, `padding: 14px`, `border: 2px solid #cfc8d8`, `border-radius: 10px`, un `background-color` blanco, un `color` oscuro, `font-size: 16px` y `cursor: pointer`. Termina con `.answer:not(:disabled):hover`, que cambia el borde y el fondo."
+      },
+      "hint": {
+        "en": "`1fr 1fr` makes two columns that share the space equally. `:not(:disabled)` means “while the button is still active”: in step 9, the answers will be disabled once you choose one, and then they shouldn’t react to the mouse. Don’t give `.btn` a `display` either: the “Next question” button will also be hidden with `hidden`.",
+        "es": "`1fr 1fr` crea dos columnas que se reparten el espacio a partes iguales. `:not(:disabled)` significa «mientras el botón siga activo»: en el paso 9, las respuestas se desactivarán en cuanto elijas una, y entonces ya no deben reaccionar al ratón. Tampoco pongas `display` a `.btn`: el botón «Next question» también se ocultará con `hidden`."
+      },
+      "note": {
+        "en": "The preview is narrow, so the 2 columns are narrow too. Open “View my website” to see them on a big screen.",
+        "es": "La vista previa es estrecha, así que las 2 columnas también. Abre «Ver mi web» para verlas en una pantalla grande."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "#start-btn",
+          "prop": "cursor",
+          "value": "pointer",
+          "label": {
+            "en": "`cursor: pointer` on the buttons (`.btn`)",
+            "es": "`cursor: pointer` en los botones (`.btn`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "btn|button",
+          "prop": "background-color",
+          "label": {
+            "en": "The buttons have a `background-color`",
+            "es": "Los botones tienen un `background-color`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": ".status",
+              "prop": "display",
+              "pattern": "flex|grid"
+            }
+          ],
+          "label": {
+            "en": "The status bar in a row (`display: flex`)",
+            "es": "La barra de estado en una fila (`display: flex`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": ".answer",
+              "prop": "width",
+              "min": 150,
+              "max": 300
+            }
+          ],
+          "label": {
+            "en": "2 answers per row on a big screen (`display: grid`)",
+            "es": "2 respuestas por fila en una pantalla grande (`display: grid`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": ".answer",
+              "prop": "border-top-left-radius",
+              "min": 4
+            },
+            {
+              "kind": "css",
+              "selector": ".answer",
+              "prop": "cursor",
+              "value": "pointer"
+            }
+          ],
+          "label": {
+            "en": "Answers with rounded corners and `cursor: pointer`",
+            "es": "Respuestas con esquinas redondeadas y `cursor: pointer`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "answer.*:hover",
+          "label": {
+            "en": "A `:hover` style for the answers",
+            "es": "Un estilo `:hover` para las respuestas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-3",
+      "lang": "css",
+      "title": {
+        "en": "Right, wrong and small screens",
+        "es": "Acierto, fallo y pantallas pequeñas"
+      },
+      "requirement": {
+        "en": "Green and red answers, the styles of the end screen and one column on small screens",
+        "es": "Respuestas en verde y en rojo, los estilos de la pantalla final y una sola columna en pantallas pequeñas"
+      },
+      "task": {
+        "en": "Prepare the classes that JavaScript will use in step 9. First `.answer:disabled`, with `cursor: default` and `opacity: 0.7` (the answers you can’t choose any more look faded). Then `.answer.correct`, with a green border and background (for example `#2e7d32`), white text and `opacity: 1`, and `.answer.wrong`, the same in red (for example `#c62828`). Give `#feedback` `min-height: 24px`, `margin: 16px 0 0`, bold text and `text-align: center`, and centre `#quiz-screen` and `#end-screen`. Make `.final-score` big (`font-size: 24px`), bold and purple. Finally, a media query: inside `@media (max-width: 480px)`, `#answers` has only one column (`grid-template-columns: 1fr`).",
+        "es": "Prepara las clases que usará JavaScript en el paso 9. Primero, `.answer:disabled`, con `cursor: default` y `opacity: 0.7` (las respuestas que ya no se pueden elegir se ven más apagadas). Después, `.answer.correct`, con el borde y el fondo verdes (por ejemplo, `#2e7d32`), texto blanco y `opacity: 1`, y `.answer.wrong`, igual pero en rojo (por ejemplo, `#c62828`). Pon a `#feedback` `min-height: 24px`, `margin: 16px 0 0`, texto en negrita y `text-align: center`, y centra `#quiz-screen` y `#end-screen`. Haz que `.final-score` sea grande (`font-size: 24px`), en negrita y morado. Por último, una media query: dentro de `@media (max-width: 480px)`, `#answers` tiene una sola columna (`grid-template-columns: 1fr`)."
+      },
+      "hint": {
+        "en": "Write `.answer:disabled` before `.answer.correct` and `.answer.wrong`: they have the same specificity, so the last rule wins and the right and wrong answers keep `opacity: 1`. `min-height` saves a space for the message, so the page doesn’t jump when it appears.",
+        "es": "Escribe `.answer:disabled` antes que `.answer.correct` y `.answer.wrong`: tienen la misma especificidad, así que gana la última y las respuestas acertadas y falladas se quedan con `opacity: 1`. `min-height` reserva sitio para el mensaje, así la página no da un salto cuando aparece."
+      },
+      "note": {
+        "en": "You won’t see the colours until JavaScript adds the classes in step 9. The preview is narrower than 480px, so now the answers go in one column.",
+        "es": "No verás los colores hasta que JavaScript añada las clases en el paso 9. La vista previa mide menos de 480 px, así que ahora las respuestas van en una sola columna."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "rule": "\\.correct$",
+          "prop": "background-color",
+          "label": {
+            "en": "A background colour for `.answer.correct`",
+            "es": "Un color de fondo para `.answer.correct`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "\\.wrong$",
+          "prop": "background-color",
+          "label": {
+            "en": "A background colour for `.answer.wrong`",
+            "es": "Un color de fondo para `.answer.wrong`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "(:disabled|\\[disabled\\])$",
+          "prop": "cursor",
+          "label": {
+            "en": "`.answer:disabled` with `cursor: default`",
+            "es": "`.answer:disabled` con `cursor: default`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "final-score$",
+          "prop": "font-size",
+          "label": {
+            "en": "A big `.final-score` (`font-size`)",
+            "es": "Un `.final-score` grande (`font-size`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": ".answer",
+              "prop": "width",
+              "min": 240
+            }
+          ],
+          "width": 400,
+          "label": {
+            "en": "One answer per row on a small screen (`@media (max-width: 480px)`)",
+            "es": "Una respuesta por fila en una pantalla pequeña (`@media (max-width: 480px)`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-1",
+      "lang": "js",
+      "title": {
+        "en": "The questions: an array of objects",
+        "es": "Las preguntas: un array de objetos"
+      },
+      "requirement": {
+        "en": "The 5 questions in an array of objects with `text`, `options` and `answer`",
+        "es": "Las 5 preguntas en un array de objetos con `text`, `options` y `answer`"
+      },
+      "task": {
+        "en": "At the top of `script.js` you have the 5 questions of the quiz in a comment. Turn them into an array of objects called `questions`. Each question is an object with three properties: `text` (the question, a string), `options` (an array with the 4 answers, as strings) and `answer` (the position of the right answer in `options`: `0` for the first one, `1` for the second…). The first one is `{ text: \"Which keyword declares a constant?\", options: [\"var\", \"let\", \"const\", \"static\"], answer: 2 }`. Separate the objects with commas. Then check it in the console with `console.log(questions.length);` and `console.log(questions[0].text);`.",
+        "es": "Al principio de `script.js` tienes las 5 preguntas del juego en un comentario. Conviértelas en un array de objetos llamado `questions`. Cada pregunta es un objeto con tres propiedades: `text` (la pregunta, un string), `options` (un array con las 4 respuestas, como strings) y `answer` (la posición de la respuesta correcta en `options`: `0` para la primera, `1` para la segunda…). La primera es `{ text: \"Which keyword declares a constant?\", options: [\"var\", \"let\", \"const\", \"static\"], answer: 2 }`. Separa los objetos con comas. Después, compruébalo en la consola con `console.log(questions.length);` y `console.log(questions[0].text);`."
+      },
+      "hint": {
+        "en": "Positions in an array start at 0, so in `[\"var\", \"let\", \"const\", \"static\"]` the right answer, `const`, is at position 2. The texts of the quiz stay in English, as in the comment. For the option `'33'`, write the single quotes inside double ones: `\"'33'\"`.",
+        "es": "Las posiciones de un array empiezan en 0, así que en `[\"var\", \"let\", \"const\", \"static\"]` la respuesta correcta, `const`, está en la posición 2. Los textos del juego se quedan en inglés, como en el comentario. Para la opción `'33'`, escribe las comillas simples dentro de unas dobles: `\"'33'\"`."
+      },
+      "note": {
+        "en": "Look at the console under the preview: you should see `5` and the first question.",
+        "es": "Mira la consola debajo de la vista previa: tienes que ver `5` y la primera pregunta."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "(const|let|var)\\s+questions\\s*=\\s*\\[\\s*\\{",
+          "label": {
+            "en": "An array `questions` of objects (`const questions = [{ …`)",
+            "es": "Un array `questions` de objetos (`const questions = [{ …`)"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\{[^{}]*:\\s*\\[[^\\]]*\\][^{}]*\\}",
+          "min": 5,
+          "label": {
+            "en": "5 objects, each with its options in an array",
+            "es": "5 objetos, cada uno con sus opciones en un array"
+          }
+        },
+        {
+          "kind": "console",
+          "text": "5",
+          "label": {
+            "en": "`console.log(questions.length)` shows `5`",
+            "es": "`console.log(questions.length)` muestra `5`"
+          }
+        },
+        {
+          "kind": "console",
+          "pattern": "constant\\?\\s*$",
+          "label": {
+            "en": "`console.log(questions[0].text)` shows the first question",
+            "es": "`console.log(questions[0].text)` muestra la primera pregunta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-2",
+      "lang": "js",
+      "title": {
+        "en": "The `Quiz` class",
+        "es": "La clase `Quiz`"
+      },
+      "requirement": {
+        "en": "A `Quiz` class that keeps the questions, the position and the score, with methods to use them",
+        "es": "Una clase `Quiz` que guarda las preguntas, la posición y la puntuación, con métodos para usarlas"
+      },
+      "task": {
+        "en": "Write a class `Quiz`. Its `constructor(questions)` saves three properties: `this.questions = questions`, `this.index = 0` (the question you are on) and `this.score = 0`. Add four methods: `currentQuestion()` returns `this.questions[this.index]`; `checkAnswer(choice)` compares `choice` with the `answer` of the current question, adds 1 to `this.score` if it’s right and returns `true` or `false`; `nextQuestion()` adds 1 to `this.index`; and `isFinished()` returns `true` when `this.index` reaches the number of questions. Try it with a quiz just for testing: `const test = new Quiz(questions);` and `console.log(test.checkAnswer(2), test.score);` (it should show `true 1`); then `test.nextQuestion();` and `console.log(test.index, test.isFinished());` (it should show `1 false`).",
+        "es": "Escribe una clase `Quiz`. Su `constructor(questions)` guarda tres propiedades: `this.questions = questions`, `this.index = 0` (la pregunta en la que vas) y `this.score = 0`. Añade cuatro métodos: `currentQuestion()` devuelve `this.questions[this.index]`; `checkAnswer(choice)` compara `choice` con el `answer` de la pregunta actual, suma 1 a `this.score` si acierta y devuelve `true` o `false`; `nextQuestion()` suma 1 a `this.index`; e `isFinished()` devuelve `true` cuando `this.index` llega al número de preguntas. Pruébala con un quiz de prueba: `const test = new Quiz(questions);` y `console.log(test.checkAnswer(2), test.score);` (tiene que salir `true 1`); después, `test.nextQuestion();` y `console.log(test.index, test.isFinished());` (tiene que salir `1 false`)."
+      },
+      "hint": {
+        "en": "A class is a mould for objects: `new Quiz(questions)` creates a quiz with its own questions, position and score. Inside the methods, `this` is the object that calls them, so `test.checkAnswer(2)` changes `test.score`. Leave the test lines in your code: the real game will use another object, so they don’t affect it.",
+        "es": "Una clase es un molde para crear objetos: `new Quiz(questions)` crea un quiz con sus propias preguntas, posición y puntuación. Dentro de los métodos, `this` es el objeto que los llama, así que `test.checkAnswer(2)` cambia `test.score`. Deja las líneas de prueba en tu código: el juego de verdad usará otro objeto, así que no le afectan."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "class\\s+\\w+[\\s\\S]*constructor\\s*\\(|(const|let)\\s+\\w+\\s*=\\s*\\{[\\s\\S]*\\bthis\\.",
+          "label": {
+            "en": "A class `Quiz` with a `constructor`",
+            "es": "Una clase `Quiz` con un `constructor`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\bthis\\.\\w+",
+          "min": 4,
+          "label": {
+            "en": "Methods that use `this` (`this.index`, `this.score`…)",
+            "es": "Métodos que usan `this` (`this.index`, `this.score`…)"
+          }
+        },
+        {
+          "kind": "console",
+          "text": "true 1",
+          "label": {
+            "en": "`checkAnswer(2)` on the first question returns `true` and the score goes up: `true 1`",
+            "es": "`checkAnswer(2)` en la primera pregunta devuelve `true` y la puntuación sube: `true 1`"
+          }
+        },
+        {
+          "kind": "console",
+          "text": "1 false",
+          "label": {
+            "en": "After `nextQuestion()`: `1 false`",
+            "es": "Después de `nextQuestion()`: `1 false`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-3",
+      "lang": "js",
+      "title": {
+        "en": "Start the game and show the first question",
+        "es": "Empieza la partida y muestra la primera pregunta"
+      },
+      "requirement": {
+        "en": "Only the start screen at first, and “Start quiz” shows the first question with its 4 answers",
+        "es": "Al principio, solo la pantalla de inicio, y «Start quiz» muestra la primera pregunta con sus 4 respuestas"
+      },
+      "task": {
+        "en": "Select the elements you will use with `document.querySelector`: the three screens (`startScreen`, `quizScreen` and `endScreen`), `secondsInput`, `startBtn`, `progressText` (`#progress`), `timerText` (`#timer`), `scoreText` (`#score`), `questionText` (`#question`), `feedback`, `nextBtn`, `finalScore`, `finalMessage` and `restartBtn`, and the 4 answers with `const answerButtons = document.querySelectorAll(\".answer\");`. Create `let quiz;` for the game. Write `showScreen(screen)`, which shows that screen and hides the other two (`startScreen.hidden = screen !== startScreen;`, and the same with the other two), and call `showScreen(startScreen);`. Write `showQuestion()`: it takes `quiz.currentQuestion()`, writes its `text` in `questionText`, writes `Question 1 of 5` in `progressText` (with `quiz.index + 1` and `quiz.questions.length`) and, with `answerButtons.forEach((button, i) => { … })`, puts option `i` in each button. Finally, `startQuiz()` creates the game (`quiz = new Quiz(questions);`), writes `Score: 0` in `scoreText`, shows `quizScreen` and calls `showQuestion()`. Call it when `startBtn` is clicked.",
+        "es": "Selecciona con `document.querySelector` los elementos que vas a usar: las tres pantallas (`startScreen`, `quizScreen` y `endScreen`), `secondsInput`, `startBtn`, `progressText` (`#progress`), `timerText` (`#timer`), `scoreText` (`#score`), `questionText` (`#question`), `feedback`, `nextBtn`, `finalScore`, `finalMessage` y `restartBtn`, y las 4 respuestas con `const answerButtons = document.querySelectorAll(\".answer\");`. Crea `let quiz;` para la partida. Escribe `showScreen(screen)`, que muestra esa pantalla y oculta las otras dos (`startScreen.hidden = screen !== startScreen;`, y lo mismo con las otras dos), y llama a `showScreen(startScreen);`. Escribe `showQuestion()`: coge `quiz.currentQuestion()`, escribe su `text` en `questionText`, escribe `Question 1 of 5` en `progressText` (con `quiz.index + 1` y `quiz.questions.length`) y, con `answerButtons.forEach((button, i) => { … })`, pone la opción `i` en cada botón. Por último, `startQuiz()` crea la partida (`quiz = new Quiz(questions);`), escribe `Score: 0` en `scoreText`, muestra `quizScreen` y llama a `showQuestion()`. Llámala al pulsar `startBtn`."
+      },
+      "hint": {
+        "en": "`screen !== startScreen` is `true` for every screen except the start screen, so `hidden` hides all the others. `forEach` gives you each button and its position `i`, and the position of a button is the position of its option: `button.textContent = question.options[i];`. The game is created inside `startQuiz()`, not at the beginning, so that “Play again” can create a new one later.",
+        "es": "`screen !== startScreen` es `true` para todas las pantallas menos la de inicio, así que `hidden` oculta las demás. `forEach` te da cada botón y su posición `i`, y la posición del botón es la de su opción: `button.textContent = question.options[i];`. La partida se crea dentro de `startQuiz()`, y no al principio, para que «Play again» pueda crear otra nueva más adelante."
+      },
+      "note": {
+        "en": "Click “Start quiz” in the preview: the first question appears.",
+        "es": "Pulsa «Start quiz» en la vista previa: aparece la primera pregunta."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#start-screen",
+          "visible": true,
+          "count": 1,
+          "label": {
+            "en": "At first, the start screen is visible…",
+            "es": "Al principio se ve la pantalla de inicio…"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#quiz-screen, #end-screen",
+          "visible": true,
+          "count": 0,
+          "label": {
+            "en": "…and `#quiz-screen` and `#end-screen` are hidden",
+            "es": "…y `#quiz-screen` y `#end-screen` están ocultas"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#start-screen",
+              "visible": true,
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#quiz-screen",
+              "visible": true,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Clicking `#start-btn` hides the start screen and shows `#quiz-screen`",
+            "es": "Al pulsar `#start-btn`, se oculta la pantalla de inicio y aparece `#quiz-screen`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#question",
+              "text": "constant\\?",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "…with the first question in `#question`",
+            "es": "…con la primera pregunta en `#question`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer",
+              "text": "^(var|let|const|static)$",
+              "count": 4
+            }
+          ],
+          "label": {
+            "en": "…and its 4 options in the buttons",
+            "es": "…y sus 4 opciones en los botones"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#progress",
+              "text": "\\b1\\D+5\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`#progress` says `Question 1 of 5`",
+            "es": "`#progress` dice `Question 1 of 5`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-4",
+      "lang": "js",
+      "title": {
+        "en": "Right or wrong?",
+        "es": "¿Acierto o fallo?"
+      },
+      "requirement": {
+        "en": "Clicking an answer marks it in green or red, disables the buttons and updates the score",
+        "es": "Al pulsar una respuesta, se marca en verde o en rojo, se desactivan los botones y se actualiza la puntuación"
+      },
+      "task": {
+        "en": "Write `showRightAnswer()`: it disables the 4 buttons (`button.disabled = true` in a `forEach`), adds the class `correct` to the button of the right answer (`answerButtons[question.answer]`, where `question` is `quiz.currentQuestion()`) and shows `nextBtn` with `nextBtn.hidden = false`. Then write `answer(choice)`: it saves `quiz.checkAnswer(choice)` in a constant and calls `showRightAnswer()`. If the answer was right, `feedback` says `Correct! Well done.`; if not, add the class `wrong` to the button that was clicked (`answerButtons[choice]`) and write in `feedback` which answer was the right one. In both cases, write the new score in `scoreText` (`Score: 1`). Connect each button: `answerButtons.forEach((button, i) => { button.addEventListener(\"click\", () => answer(i)); });`. Last, hide `nextBtn` in `showQuestion()` (`nextBtn.hidden = true`): it should only appear after answering.",
+        "es": "Escribe `showRightAnswer()`: desactiva los 4 botones (`button.disabled = true` en un `forEach`), añade la clase `correct` al botón de la respuesta correcta (`answerButtons[question.answer]`, donde `question` es `quiz.currentQuestion()`) y muestra `nextBtn` con `nextBtn.hidden = false`. Después, escribe `answer(choice)`: guarda `quiz.checkAnswer(choice)` en una constante y llama a `showRightAnswer()`. Si ha acertado, `feedback` dice `Correct! Well done.`; si no, añade la clase `wrong` al botón pulsado (`answerButtons[choice]`) y escribe en `feedback` cuál era la respuesta correcta. En los dos casos, escribe la nueva puntuación en `scoreText` (`Score: 1`). Conecta cada botón: `answerButtons.forEach((button, i) => { button.addEventListener(\"click\", () => answer(i)); });`. Por último, oculta `nextBtn` en `showQuestion()` (`nextBtn.hidden = true`): solo debe aparecer después de responder."
+      },
+      "hint": {
+        "en": "`() => answer(i)` is a small function that remembers the position of its button: clicking the third button calls `answer(2)`. A disabled button can’t be clicked again, so nobody can score twice with the same question. The message says the right answer in words too, because colour alone doesn’t reach everyone (some people can’t tell red from green).",
+        "es": "`() => answer(i)` es una pequeña función que recuerda la posición de su botón: al pulsar el tercer botón, se llama a `answer(2)`. Un botón desactivado no se puede volver a pulsar, así que nadie puede puntuar dos veces con la misma pregunta. El mensaje dice también con palabras cuál es la respuesta correcta, porque el color solo no llega a todo el mundo (hay personas que no distinguen el rojo del verde)."
+      },
+      "note": {
+        "en": "Start the quiz in the preview and choose an answer. “Next question” doesn’t work yet: that comes in step 10.",
+        "es": "Empieza la partida en la vista previa y elige una respuesta. «Next question» todavía no funciona: eso llega en el paso 10."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.correct",
+              "text": "^const$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer.wrong",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Right answer (`const`): it gets the class `correct`",
+            "es": "Respuesta correcta (`const`): recibe la clase `correct`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b1\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "…and `#score` goes up to 1",
+            "es": "…y `#score` sube a 1"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.wrong",
+              "text": "^var$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer.correct",
+              "text": "^const$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b0\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Wrong answer (`var`): it gets `wrong`, `const` gets `correct` and the score stays at 0",
+            "es": "Respuesta incorrecta (`var`): recibe `wrong`, `const` recibe `correct` y la puntuación se queda en 0"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer:disabled",
+              "count": 4
+            }
+          ],
+          "label": {
+            "en": "After answering, the 4 buttons are disabled",
+            "es": "Después de responder, los 4 botones están desactivados"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#feedback",
+              "text": "\\S",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#next-btn",
+              "visible": true,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "A message in `#feedback`, and `#next-btn` appears",
+            "es": "Un mensaje en `#feedback`, y aparece `#next-btn`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#next-btn",
+              "visible": true,
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Before answering, `#next-btn` is hidden",
+            "es": "Antes de responder, `#next-btn` está oculto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-5",
+      "lang": "js",
+      "title": {
+        "en": "Next question and final score",
+        "es": "Siguiente pregunta y puntuación final"
+      },
+      "requirement": {
+        "en": "“Next question” moves on and, after the last one, the end screen shows the score",
+        "es": "«Next question» pasa a la siguiente y, después de la última, la pantalla final muestra la puntuación"
+      },
+      "task": {
+        "en": "Write `showResults()`: it writes `You got 3 of 5 right` in `finalScore` (with `quiz.score` and `quiz.questions.length`) and shows `endScreen` with `showScreen`. Then make `nextBtn` work: when it’s clicked, call `quiz.nextQuestion()`; then, if `quiz.isFinished()`, call `showResults()`, and if not, `showQuestion()`. Now `showQuestion()` has to clean up the previous answer: inside its `forEach`, enable each button again (`button.disabled = false`) and remove its classes with `button.classList.remove(\"correct\", \"wrong\")`; after the `forEach`, empty `feedback`.",
+        "es": "Escribe `showResults()`: escribe `You got 3 of 5 right` en `finalScore` (con `quiz.score` y `quiz.questions.length`) y muestra `endScreen` con `showScreen`. Después, haz que funcione `nextBtn`: al pulsarlo, llama a `quiz.nextQuestion()`; después, si `quiz.isFinished()`, llama a `showResults()` y, si no, a `showQuestion()`. Ahora `showQuestion()` tiene que limpiar la respuesta anterior: dentro de su `forEach`, vuelve a activar cada botón (`button.disabled = false`) y quítale las clases con `button.classList.remove(\"correct\", \"wrong\")`; después del `forEach`, vacía `feedback`."
+      },
+      "hint": {
+        "en": "Ask `isFinished()` after `nextQuestion()`: after the fifth question, `index` is 5 and there is no `questions[5]`, so it’s time for the end screen. `classList.remove` can take several classes at once, and it does nothing if the button doesn’t have them.",
+        "es": "Pregunta `isFinished()` después de `nextQuestion()`: tras la quinta pregunta, `index` vale 5 y no existe `questions[5]`, así que toca la pantalla final. `classList.remove` admite varias clases a la vez, y no hace nada si el botón no las tiene."
+      },
+      "note": {
+        "en": "Play the whole quiz in the preview.",
+        "es": "Juega la partida entera en la vista previa."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#question",
+              "text": "typeof",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#progress",
+              "text": "\\b2\\D+5\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`#next-btn` shows question 2 (`Question 2 of 5`)",
+            "es": "`#next-btn` muestra la pregunta 2 (`Question 2 of 5`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.correct, .answer.wrong",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer:disabled",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#feedback",
+              "text": "\\S",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#next-btn",
+              "visible": true,
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "…with the answers clean and active again, and the message empty",
+            "es": "…con las respuestas limpias y activas otra vez, y el mensaje vacío"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 3
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#end-screen",
+              "visible": true,
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#quiz-screen",
+              "visible": true,
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "After question 5, the end screen appears",
+            "es": "Después de la pregunta 5, aparece la pantalla final"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 3
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#final-score",
+              "text": "\\b5\\D+5\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "5 right answers: `#final-score` says `5 of 5`",
+            "es": "5 aciertos: `#final-score` dice `5 of 5`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#final-score",
+              "text": "\\b3\\D+5\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "3 right answers: it says `3 of 5`",
+            "es": "3 aciertos: dice `3 of 5`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-6",
+      "lang": "js",
+      "title": {
+        "en": "The countdown with `setInterval`",
+        "es": "La cuenta atrás con `setInterval`"
+      },
+      "requirement": {
+        "en": "A countdown for each question that stops when you answer or when it reaches 0",
+        "es": "Una cuenta atrás en cada pregunta que se para al responder o al llegar a 0"
+      },
+      "task": {
+        "en": "Create three variables: `let seconds = 15;`, `let timeLeft = 0;` and `let timerId = null;`. In `startQuiz()`, read the seconds chosen as a whole number: `seconds = parseInt(secondsInput.value);` (if it’s not a number or it’s less than 1, use 15). Write `startTimer()`: first `clearInterval(timerId);` (it stops any old countdown), then `timeLeft = seconds;`, show it in `timerText` and start the countdown with `timerId = setInterval(() => { … }, 1000);`. Every second, the function subtracts 1 from `timeLeft` and shows it; when it reaches 0 (`timeLeft <= 0`), it stops with `clearInterval(timerId)` and calls `timeUp()`. `timeUp()` calls `showRightAnswer()` and writes in `feedback` that time is up and which was the right answer. Call `startTimer()` at the end of `showQuestion()`, and stop the countdown with `clearInterval(timerId);` at the start of `answer()`.",
+        "es": "Crea tres variables: `let seconds = 15;`, `let timeLeft = 0;` y `let timerId = null;`. En `startQuiz()`, lee los segundos elegidos como número entero: `seconds = parseInt(secondsInput.value);` (si no es un número o es menor que 1, usa 15). Escribe `startTimer()`: primero, `clearInterval(timerId);` (detiene cualquier cuenta atrás anterior); después, `timeLeft = seconds;`, muéstralo en `timerText` y empieza la cuenta atrás con `timerId = setInterval(() => { … }, 1000);`. Cada segundo, la función resta 1 a `timeLeft` y lo muestra; cuando llega a 0 (`timeLeft <= 0`), se para con `clearInterval(timerId)` y llama a `timeUp()`. `timeUp()` llama a `showRightAnswer()` y escribe en `feedback` que se ha acabado el tiempo y cuál era la respuesta correcta. Llama a `startTimer()` al final de `showQuestion()` y para la cuenta atrás con `clearInterval(timerId);` al principio de `answer()`."
+      },
+      "hint": {
+        "en": "`setInterval(…, 1000)` runs the function you give it every 1000 milliseconds (1 second) and returns a number that identifies it: save it in `timerId`, because `clearInterval(timerId)` needs it to stop that countdown. If you forget to stop it when you answer, it keeps running and can call `timeUp()` on the next question! `parseInt` keeps only the whole number (`parseInt(\"2.5\")` is `2`) and gives `NaN` for an empty box, so `isNaN(seconds) || seconds < 1` covers an empty box, a 0 and a negative number.",
+        "es": "`setInterval(…, 1000)` ejecuta la función que le pasas cada 1000 milisegundos (1 segundo) y devuelve un número que la identifica: guárdalo en `timerId`, porque `clearInterval(timerId)` lo necesita para parar esa cuenta atrás. Si te olvidas de pararla al responder, ¡sigue corriendo y puede llamar a `timeUp()` en la pregunta siguiente! `parseInt` se queda solo con la parte entera (`parseInt(\"2.5\")` vale `2`) y da `NaN` si la casilla está vacía, así que `isNaN(seconds) || seconds < 1` cubre la casilla vacía, el 0 y los números negativos."
+      },
+      "note": {
+        "en": "The preview starts again every time you type. To see the end of the countdown without waiting long, choose 3 seconds before clicking “Start quiz”.",
+        "es": "La vista previa vuelve a empezar cada vez que escribes. Para ver el final de la cuenta atrás sin esperar mucho, elige 3 segundos antes de pulsar «Start quiz»."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "\\bsetInterval\\s*\\(",
+          "label": {
+            "en": "`setInterval` for the countdown",
+            "es": "`setInterval` para la cuenta atrás"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\bclearInterval\\s*\\(",
+          "label": {
+            "en": "`clearInterval` to stop it",
+            "es": "`clearInterval` para pararla"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "7"
+            },
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#timer",
+              "text": "^\\D*7\\D*$",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "With 7 seconds chosen, `#timer` starts at 7",
+            "es": "Si se eligen 7 segundos, `#timer` empieza en 7"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "3"
+            },
+            {
+              "click": "#start-btn"
+            },
+            {
+              "wait": 1500
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#timer",
+              "text": "^\\D*2\\D*$",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "A second later, it shows 2",
+            "es": "Un segundo después, muestra 2"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "1"
+            },
+            {
+              "click": "#start-btn"
+            },
+            {
+              "wait": 1500
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.correct",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer:disabled",
+              "count": 4
+            },
+            {
+              "kind": "selector",
+              "selector": "#next-btn",
+              "visible": true,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "At 0: the right answer is shown, the buttons are disabled and `#next-btn` appears",
+            "es": "Al llegar a 0: se marca la respuesta correcta, se desactivan los botones y aparece `#next-btn`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "2"
+            },
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "wait": 1500
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#timer",
+              "text": "^\\D*2\\D*$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b1\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Answering stops the countdown (`clearInterval`)",
+            "es": "Al responder, se para la cuenta atrás (`clearInterval`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "3"
+            },
+            {
+              "click": "#start-btn"
+            },
+            {
+              "wait": 1500
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#timer",
+              "text": "^\\D*3\\D*$",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "The next question starts the countdown again",
+            "es": "La pregunta siguiente vuelve a empezar la cuenta atrás"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-7",
+      "lang": "js",
+      "title": {
+        "en": "Percentage, message and “Play again”",
+        "es": "Porcentaje, mensaje y «Play again»"
+      },
+      "requirement": {
+        "en": "The end screen shows the percentage and an encouraging message, and “Play again” starts a new game",
+        "es": "La pantalla final muestra el porcentaje y un mensaje de ánimo, y «Play again» empieza una partida nueva"
+      },
+      "task": {
+        "en": "Add a method to the class: `percentage()` returns `Math.round((this.score / this.questions.length) * 100)`. Write `getMessage(percent)`, which returns a different encouraging message depending on the result: from 80, `Excellent! You really know your JavaScript.`; from 50, `Good job! A bit more practice and you'll ace it.`; and below 50, `Nice try! Play again and beat your score.`. In `showResults()`, add the percentage to `finalScore` (`You got 3 of 5 right (60%)`) and write `getMessage(quiz.percentage())` in `finalMessage`. Finally, call `startQuiz` when `restartBtn` is clicked: a new game, with the score at 0, from question 1.",
+        "es": "Añade un método a la clase: `percentage()` devuelve `Math.round((this.score / this.questions.length) * 100)`. Escribe `getMessage(percent)`, que devuelve un mensaje de ánimo distinto según el resultado: desde 80, `Excellent! You really know your JavaScript.`; desde 50, `Good job! A bit more practice and you'll ace it.`; y por debajo de 50, `Nice try! Play again and beat your score.`. En `showResults()`, añade el porcentaje a `finalScore` (`You got 3 of 5 right (60%)`) y escribe `getMessage(quiz.percentage())` en `finalMessage`. Por último, llama a `startQuiz` al pulsar `restartBtn`: una partida nueva, con la puntuación a 0, desde la pregunta 1."
+      },
+      "hint": {
+        "en": "Check the conditions from the highest to the lowest: with `if (percent >= 80)` first, a 100 never reaches `percent >= 50`. `return` ends the function, so you don’t need `else`. `startQuiz()` already does everything a new game needs (a new `Quiz`, the score at 0, the first question and the countdown), so “Play again” only has to call it.",
+        "es": "Comprueba las condiciones de la más alta a la más baja: con `if (percent >= 80)` delante, un 100 nunca llega a `percent >= 50`. `return` termina la función, así que no hace falta `else`. `startQuiz()` ya hace todo lo que necesita una partida nueva (un `Quiz` nuevo, la puntuación a 0, la primera pregunta y la cuenta atrás), así que «Play again» solo tiene que llamarla."
+      },
+      "note": {
+        "en": "Play to the end in the preview and then click “Play again”.",
+        "es": "Juega hasta el final en la vista previa y pulsa después «Play again»."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 3
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#final-score",
+              "text": "\\b100\\s*%",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "5 of 5: `#final-score` shows `100%`",
+            "es": "5 de 5: `#final-score` muestra `100%`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#final-score",
+              "text": "\\b60\\s*%",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "3 of 5: it shows `60%`",
+            "es": "3 de 5: muestra `60%`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 3
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#final-message",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "An encouraging message in `#final-message`",
+            "es": "Un mensaje de ánimo en `#final-message`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 3
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": "#restart-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#quiz-screen",
+              "visible": true,
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#end-screen",
+              "visible": true,
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#progress",
+              "text": "\\b1\\D+5\\b",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b0\\b",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`#restart-btn` starts again: question 1 and the score at 0",
+            "es": "`#restart-btn` vuelve a empezar: pregunta 1 y la puntuación a 0"
+          }
+        }
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "lang": "html",
+      "label": {
+        "en": "Start, question and end screens",
+        "es": "Pantallas de inicio, de preguntas y final"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#start-screen, #quiz-screen, #end-screen",
+          "count": 3
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"seconds\"]",
+          "text": "\\S",
+          "count": 1
+        },
+        {
+          "kind": "selector",
+          "selector": "#start-btn, #next-btn, #restart-btn",
+          "text": "\\S",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "4 answer buttons and a message for screen readers",
+        "es": "4 botones de respuesta y un mensaje para lectores de pantalla"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#answers button.answer",
+          "count": 4
+        },
+        {
+          "kind": "selector",
+          "selector": "#feedback[aria-live]",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "The quiz in a white card",
+        "es": "El juego en una tarjeta blanca"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".quiz",
+          "prop": "width",
+          "min": 280,
+          "max": 600
+        },
+        {
+          "kind": "css",
+          "selector": ".quiz",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Answers in 2 columns, or 1 on small screens",
+        "es": "Respuestas en 2 columnas, o en 1 en pantallas pequeñas"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": ".answer",
+              "prop": "width",
+              "min": 150,
+              "max": 300
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": ".answer",
+              "prop": "width",
+              "min": 240
+            }
+          ],
+          "width": 400
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Green and red for right and wrong answers",
+        "es": "Verde y rojo para los aciertos y los fallos"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "rule": "\\.correct$",
+          "prop": "background-color"
+        },
+        {
+          "kind": "css",
+          "rule": "\\.wrong$",
+          "prop": "background-color"
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Questions in objects and the game in a class",
+        "es": "Preguntas en objetos y el juego en una clase"
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "(const|let|var)\\s+questions\\s*=\\s*\\[\\s*\\{"
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "class\\s+\\w+[\\s\\S]*constructor\\s*\\(|(const|let)\\s+\\w+\\s*=\\s*\\{[\\s\\S]*\\bthis\\."
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\bthis\\.\\w+",
+          "min": 4
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Answers checked and score counted",
+        "es": "Respuestas corregidas y puntuación"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.correct",
+              "text": "^const$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer.wrong",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b1\\b",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.wrong",
+              "text": "^var$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer.correct",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b0\\b",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer:disabled",
+              "count": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "A countdown that stops on time",
+        "es": "Una cuenta atrás que se para a tiempo"
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "\\bsetInterval\\s*\\("
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\bclearInterval\\s*\\("
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "1"
+            },
+            {
+              "click": "#start-btn"
+            },
+            {
+              "wait": 1500
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".answer.correct",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer:disabled",
+              "count": 4
+            },
+            {
+              "kind": "selector",
+              "selector": "#next-btn",
+              "visible": true,
+              "count": 1
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#seconds",
+              "value": "2"
+            },
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "wait": 1500
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#timer",
+              "text": "^\\D*2\\D*$",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Final score and “Play again”",
+        "es": "Puntuación final y «Play again»"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#end-screen",
+              "visible": true,
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#final-score",
+              "text": "\\b3\\D+5\\b",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#final-score",
+              "text": "\\b60\\s*%",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#final-message",
+              "text": "\\S",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#start-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 2
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 0
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 3
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": ".answer",
+              "index": 1
+            },
+            {
+              "click": "#next-btn"
+            },
+            {
+              "click": "#restart-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#quiz-screen",
+              "visible": true,
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#progress",
+              "text": "\\b1\\D+5\\b",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#score",
+              "text": "\\b0\\b",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".answer.correct, .answer.wrong",
+              "count": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

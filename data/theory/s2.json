@@ -1,0 +1,117 @@
+{
+  "section": 2,
+  "title": { "en": "Variables, data types and type casting", "es": "Variables, tipos de datos y conversión de tipos" },
+  "readingMinutes": 5,
+  "intro": {
+    "en": "The key ideas of this section. Press “Run this code” on any example to try it.",
+    "es": "Las ideas clave de esta sección. Pulsa «Ejecutar este código» en cualquier ejemplo para probarlo."
+  },
+  "blocks": [
+    {
+      "heading": { "en": "Variables: `let`, `const` and `var`", "es": "Variables: `let`, `const` y `var`" },
+      "body": {
+        "en": "Use `let` for values that change and `const` for values that don't: a `const` gets its value on the same line and can't be reassigned. `var` is the old way.\n`let` and `const` only exist inside the `{ }` where they're declared (block scope), and a variable with the same name inside a block shadows the outer one. `var` ignores blocks. Names can't start with a digit and are case-sensitive.",
+        "es": "Usa `let` para valores que cambian y `const` para los que no: una `const` recibe su valor en la misma línea y no se puede reasignar. `var` es la forma antigua.\n`let` y `const` solo existen dentro de las `{ }` donde se declaran (ámbito de bloque), y una variable con el mismo nombre dentro de un bloque sombrea a la de fuera. `var` no respeta los bloques. Los nombres no pueden empezar por un dígito y distinguen mayúsculas de minúsculas."
+      },
+      "example": { "code": "let level = 1;\n{ let level = 2; console.log(level); }\nconsole.log(level);", "output": "2\n1" }
+    },
+    {
+      "heading": { "en": "Primitive types and `typeof`", "es": "Tipos primitivos y `typeof`" },
+      "body": {
+        "en": "The seven primitive types are `string`, `number`, `bigint`, `boolean`, `undefined`, `null` and `symbol`. A variable without a value is `undefined`; `null` means «empty on purpose».\n`typeof` returns the type as a string. Careful: `typeof null` and `typeof` of an array are both `\"object\"`.",
+        "es": "Los siete tipos primitivos son `string`, `number`, `bigint`, `boolean`, `undefined`, `null` y `symbol`. Una variable sin valor vale `undefined`; `null` significa «vacío a propósito».\n`typeof` devuelve el tipo como string. Cuidado: `typeof null` y `typeof` de un array dan los dos `\"object\"`."
+      },
+      "example": { "code": "let empty;\nconsole.log(typeof \"hi\", typeof 42, typeof true);\nconsole.log(typeof empty, typeof 10n);", "output": "string number boolean\nundefined bigint" }
+    },
+    {
+      "heading": { "en": "`number` and `bigint`", "es": "`number` y `bigint`" },
+      "body": {
+        "en": "`number` holds whole numbers and decimals, which aren't always exact (`0.1 + 0.2` isn't exactly `0.3`). Dividing by zero gives `Infinity`, and an impossible operation gives `NaN`, which is still a `number`.\n`bigint` holds whole numbers of any size: `10n` or `BigInt(10)`. Its divisions drop the decimals.",
+        "es": "`number` guarda enteros y decimales, que no siempre son exactos (`0.1 + 0.2` no es exactamente `0.3`). Dividir entre cero da `Infinity`, y una operación imposible da `NaN`, que sigue siendo un `number`.\n`bigint` guarda enteros de cualquier tamaño: `10n` o `BigInt(10)`. En sus divisiones se pierden los decimales."
+      },
+      "example": { "code": "console.log(10 / 0, typeof NaN);\nconsole.log(7n / 2n, 10n == 10, 10n === 10);", "output": "Infinity number\n3n true false" }
+    },
+    {
+      "heading": { "en": "Strings", "es": "Strings" },
+      "body": {
+        "en": "Write strings with `\"…\"`, `'…'` or backticks. Backticks make a template literal, where `${ }` inserts an expression. Escape sequences: `\\n` (line break), `\\t` (tab), `\\'` (quote).\nPositions start at 0. `length` is a property, without parentheses. `charAt(i)` and `[i]` read one character, `slice(start, end)` copies a part without `end`, and `split(\",\")` returns an array. Strings can't be modified.",
+        "es": "Los strings se escriben con `\"…\"`, `'…'` o comillas invertidas. Estas últimas crean una plantilla literal, en la que `${ }` inserta una expresión. Secuencias de escape: `\\n` (salto de línea), `\\t` (tabulador), `\\'` (comilla).\nLas posiciones empiezan en 0. `length` es una propiedad, sin paréntesis. `charAt(i)` y `[i]` leen un carácter, `slice(start, end)` copia una parte sin incluir `end`, y `split(\",\")` devuelve un array. Los strings no se pueden modificar."
+      },
+      "example": { "code": "let file = \"photo.png\";\nconsole.log(file.length, file.charAt(0), file.slice(-3));\nconsole.log(`Name: ${file.split(\".\")[0]}`);", "output": "9 p png\nName: photo" }
+    },
+    {
+      "heading": { "en": "Type casting", "es": "Conversión de tipos" },
+      "body": {
+        "en": "Explicit conversion is the one you write: `Number()`, `String()`, `Boolean()`, `BigInt()`. `Number(\"12px\")` is `NaN`, but `parseInt(\"12px\")` reads the first digits: `12`.\nImplicit conversion happens on its own: `-`, `*` and `/` turn strings into numbers, but `+` with a string joins text. `Boolean()` is `false` only for `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined` and `NaN` (the falsy values).",
+        "es": "La conversión explícita es la que escribes tú: `Number()`, `String()`, `Boolean()`, `BigInt()`. `Number(\"12px\")` da `NaN`, pero `parseInt(\"12px\")` lee los primeros dígitos: `12`.\nLa conversión implícita ocurre sola: `-`, `*` y `/` convierten los strings en números, pero `+` con un string une texto. `Boolean()` da `false` solo con `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined` y `NaN` (los valores falsy)."
+      },
+      "example": { "code": "console.log(Number(\"12px\"), parseInt(\"12px\"));\nconsole.log(\"8\" * \"2\", \"8\" + 2, Boolean(\"false\"));", "output": "NaN 12\n16 82 true" }
+    },
+    {
+      "heading": { "en": "Objects", "es": "Objetos" },
+      "body": {
+        "en": "An object groups values under keys. Read a property with a dot (`user.name`) or with brackets (`user[\"name\"]`); `user[key]` uses the value of the variable `key`.\nAssign to add or change a property, use `delete` to remove it and `in` to check it exists. A missing property is `undefined`.",
+        "es": "Un objeto agrupa valores bajo claves. Una propiedad se lee con punto (`user.name`) o con corchetes (`user[\"name\"]`); `user[key]` usa el valor de la variable `key`.\nAsigna para añadir o cambiar una propiedad, usa `delete` para eliminarla e `in` para comprobar si existe. Una propiedad que no existe da `undefined`."
+      },
+      "example": { "code": "let user = { name: \"Leo\", age: 30 };\ndelete user.age;\nconsole.log(user.name, user.age, \"age\" in user);", "output": "Leo undefined false" }
+    },
+    {
+      "heading": { "en": "Arrays", "es": "Arrays" },
+      "body": {
+        "en": "An array is an ordered list from position 0 to `length - 1`. `push`/`pop` work at the end, `unshift`/`shift` at the beginning, and `indexOf` returns a position or `-1`.\n`push`, `pop`, `shift`, `unshift` and `reverse` change the original array; `slice` and `concat` return a new one. To recognise an array, use `instanceof Array`.",
+        "es": "Un array es una lista ordenada de la posición 0 a `length - 1`. `push`/`pop` trabajan al final, `unshift`/`shift` al principio, e `indexOf` devuelve una posición o `-1`.\n`push`, `pop`, `shift`, `unshift` y `reverse` cambian el array original; `slice` y `concat` devuelven uno nuevo. Para reconocer un array, usa `instanceof Array`."
+      },
+      "example": { "code": "let tasks = [\"wash\", \"cook\"];\ntasks.push(\"shop\");\nconsole.log(tasks.shift(), tasks.length);\nconsole.log(tasks instanceof Array);", "output": "wash 2\ntrue" }
+    }
+  ],
+  "traps": [
+    {
+      "title": { "en": "Using `let` or `const` before their line", "es": "Usar `let` o `const` antes de su línea" },
+      "body": {
+        "en": "With `var` you get `undefined`, but `let` and `const` throw a `ReferenceError`.",
+        "es": "Con `var` sale `undefined`, pero `let` y `const` lanzan un `ReferenceError`."
+      },
+      "example": { "code": "console.log(points);\nlet points = 10;", "errorType": "ReferenceError" }
+    },
+    {
+      "title": { "en": "`typeof null` is `\"object\"`", "es": "`typeof null` es `\"object\"`" },
+      "body": {
+        "en": "It's an old bug. To check for `null`, use `value === null`. And `null == undefined` is `true`, but `null === undefined` is `false`.",
+        "es": "Es un fallo antiguo. Para comprobar si algo es `null`, usa `value === null`. Y `null == undefined` da `true`, pero `null === undefined` da `false`."
+      },
+      "example": { "code": "let winner = null;\nconsole.log(typeof winner, winner === null);", "output": "object true" }
+    },
+    {
+      "title": { "en": "`bigint` and `number` don't mix", "es": "`bigint` y `number` no se mezclan" },
+      "body": {
+        "en": "Adding them throws a `TypeError`: convert first, `10n + BigInt(5)`. They can be compared, though. `BigInt(1.5)` throws a `RangeError`.",
+        "es": "Sumarlos lanza un `TypeError`: convierte antes, `10n + BigInt(5)`. Lo que sí se puede es compararlos. `BigInt(1.5)` lanza un `RangeError`."
+      },
+      "example": { "code": "console.log(10n + BigInt(5));\nconsole.log(10n + 5);", "output": "15n", "errorType": "TypeError" }
+    },
+    {
+      "title": { "en": "`+` with strings, from left to right", "es": "`+` con strings, de izquierda a derecha" },
+      "body": {
+        "en": "Once a string appears, `+` joins. In sums, `true` counts as `1`, `null` as `0` and `undefined` as `NaN`.",
+        "es": "En cuanto aparece un string, `+` une. En las sumas, `true` cuenta como `1`, `null` como `0` y `undefined` como `NaN`."
+      },
+      "example": { "code": "console.log(\"3\" + 4 + 5, 3 + 4 + \"5\");\nconsole.log(true + true, null + 1, undefined + 1);", "output": "345 75\n2 1 NaN" }
+    },
+    {
+      "title": { "en": "`const` doesn't freeze objects or arrays", "es": "`const` no congela los objetos ni los arrays" },
+      "body": {
+        "en": "You can change their content (`push`, new properties, `delete`). Only reassigning the variable is forbidden.",
+        "es": "Su contenido sí puede cambiar (`push`, propiedades nuevas, `delete`). Lo único prohibido es reasignar la variable."
+      },
+      "example": { "code": "const pet = { kind: \"dog\" };\npet.kind = \"cat\";\nconsole.log(pet.kind);\npet = {};", "output": "cat", "errorType": "TypeError" }
+    },
+    {
+      "title": { "en": "A second name isn't a copy", "es": "Un segundo nombre no es una copia" },
+      "body": {
+        "en": "`let b = a` with an object or array copies the reference: both names point to the same thing. Use `slice()` to copy an array. Two objects with the same content aren't `===`.",
+        "es": "`let b = a` con un objeto o un array copia la referencia: los dos nombres apuntan a lo mismo. Usa `slice()` para copiar un array. Dos objetos con el mismo contenido no son `===`."
+      },
+      "example": { "code": "let a = [1, 2, 3];\nlet b = a;\nconsole.log(b.reverse() === a, a[0], [1] === [1]);", "output": "true 3 false" }
+    }
+  ]
+}

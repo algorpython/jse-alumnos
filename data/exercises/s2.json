@@ -1,0 +1,315 @@
+[
+  {
+    "id": "s2-e001", "section": 2, "difficulty": 1, "tags": ["strings", "template"], "courseRef": "02_Strings",
+    "title": { "en": "Full name", "es": "Nombre completo" },
+    "statement": {
+      "en": "Write a function `fullName(first, last)` that returns the first name and the last name joined with one space between them. Try to do it with a template literal.\nExample: `fullName(\"Ana\", \"López\")` returns `\"Ana López\"`.",
+      "es": "Escribe una función `fullName(first, last)` que devuelva el nombre y el apellido unidos con un espacio entre los dos. Intenta hacerlo con una plantilla literal.\nEjemplo: `fullName(\"Ana\", \"López\")` devuelve `\"Ana López\"`."
+    },
+    "starter": "function fullName(first, last) {\n  // your code here\n}\n\nconsole.log(fullName(\"Ana\", \"López\"));\n",
+    "solution": "function fullName(first, last) {\n  // Inside backticks, each ${ } is replaced by the value of the variable.\n  // The space between the two ${ } is part of the text.\n  return `${first} ${last}`;\n}\n\nconsole.log(fullName(\"Ana\", \"López\"));\n",
+    "alternatives": [
+      "function fullName(first, last) {\n  return first + \" \" + last;\n}\n\nconsole.log(fullName(\"Ana\", \"López\"));\n"
+    ],
+    "tests": [
+      { "call": "fullName(\"Ana\", \"López\")", "expected": "Ana López" },
+      { "call": "fullName(\"Leo\", \"Martín\")", "expected": "Leo Martín" },
+      { "output": "Ana López" }
+    ],
+    "hints": [
+      { "en": "A template literal is written between backticks, and `${first}` inserts the value of `first`.", "es": "Una plantilla literal se escribe entre comillas invertidas, y `${first}` inserta el valor de `first`." },
+      { "en": "Put a space between the two `${ }` and use `return` to give back the text.", "es": "Pon un espacio entre los dos `${ }` y usa `return` para devolver el texto." }
+    ],
+    "solutionExplanation": {
+      "en": "The template literal builds the text in one go: `${first}` and `${last}` are replaced by the values of the parameters, and the space between them is kept as it is. The same result can be built with concatenation: `first + \" \" + last`.",
+      "es": "La plantilla literal construye el texto de una vez: `${first}` y `${last}` se sustituyen por los valores de los parámetros, y el espacio entre ellos se queda tal cual. El mismo resultado se consigue concatenando: `first + \" \" + last`."
+    },
+    "commonMistakes": [
+      { "en": "Using normal quotes, as in `\"${first} ${last}\"`: only backticks replace the `${ }`, so you'd get that text literally.", "es": "Usar comillas normales, como en `\"${first} ${last}\"`: solo las comillas invertidas sustituyen los `${ }`, así que saldría ese texto tal cual." },
+      { "en": "Forgetting the space and returning `\"AnaLópez\"`.", "es": "Olvidar el espacio y devolver `\"AnaLópez\"`." },
+      { "en": "Printing with `console.log` inside the function instead of returning with `return`: the function then returns `undefined`.", "es": "Mostrar con `console.log` dentro de la función en vez de devolver con `return`: entonces la función devuelve `undefined`." }
+    ]
+  },
+  {
+    "id": "s2-e002", "section": 2, "difficulty": 2, "tags": ["strings", "split"], "courseRef": "02_Strings",
+    "title": { "en": "Initials", "es": "Iniciales" },
+    "statement": {
+      "en": "Write a function `initials(text)` that receives a name made of exactly two words separated by one space and returns their initials, each one followed by a dot.\nExample: `initials(\"Ana López\")` returns `\"A.L.\"`.",
+      "es": "Escribe una función `initials(text)` que reciba un nombre de exactamente dos palabras separadas por un espacio y devuelva sus iniciales, cada una seguida de un punto.\nEjemplo: `initials(\"Ana López\")` devuelve `\"A.L.\"`."
+    },
+    "starter": "function initials(text) {\n  // your code here\n}\n\nconsole.log(initials(\"Ana López\"));\n",
+    "solution": "function initials(text) {\n  // split(\" \") cuts the text at the space: [\"Ana\", \"López\"]\n  let words = text.split(\" \");\n  // charAt(0) is the first letter of each word.\n  return words[0].charAt(0) + \".\" + words[1].charAt(0) + \".\";\n}\n\nconsole.log(initials(\"Ana López\"));\n",
+    "alternatives": [
+      "function initials(text) {\n  let words = text.split(\" \");\n  return `${words[0][0]}.${words[1][0]}.`;\n}\n\nconsole.log(initials(\"Ana López\"));\n"
+    ],
+    "tests": [
+      { "call": "initials(\"Ana López\")", "expected": "A.L." },
+      { "call": "initials(\"Marta Ruiz\")", "expected": "M.R." },
+      { "call": "initials(\"Leo Martín\")", "expected": "L.M." },
+      { "output": "A.L." }
+    ],
+    "hints": [
+      { "en": "`text.split(\" \")` returns an array with the two words.", "es": "`text.split(\" \")` devuelve un array con las dos palabras." },
+      { "en": "The first letter of a word is at position 0: `word.charAt(0)` or `word[0]`. Then join the pieces with `+ \".\"`.", "es": "La primera letra de una palabra está en la posición 0: `word.charAt(0)` o `word[0]`. Después une los trozos con `+ \".\"`." }
+    ],
+    "solutionExplanation": {
+      "en": "`split(\" \")` turns the name into an array of words. From each word we take the character at position 0 with `charAt(0)` and add a dot after it. Positions start at 0, so the first word is `words[0]` and the second is `words[1]`.",
+      "es": "`split(\" \")` convierte el nombre en un array de palabras. De cada palabra tomamos el carácter de la posición 0 con `charAt(0)` y le añadimos un punto detrás. Las posiciones empiezan en 0, así que la primera palabra es `words[0]` y la segunda, `words[1]`."
+    },
+    "commonMistakes": [
+      { "en": "Using `charAt(1)` to get the first letter: positions start at 0, so that's the second letter.", "es": "Usar `charAt(1)` para la primera letra: las posiciones empiezan en 0, así que esa es la segunda letra." },
+      { "en": "Taking `text.charAt(0)` and `text.charAt(1)`: those are the first two letters of the first word, not one letter of each word.", "es": "Tomar `text.charAt(0)` y `text.charAt(1)`: son las dos primeras letras de la primera palabra, no una letra de cada palabra." }
+    ]
+  },
+  {
+    "id": "s2-e003", "section": 2, "difficulty": 1, "tags": ["trap", "casting"], "courseRef": "03_Casting",
+    "title": { "en": "Add two numbers written as text", "es": "Sumar dos números escritos como texto" },
+    "statement": {
+      "en": "Write a function `sumStrings(a, b)` that receives two numbers written as strings (as `prompt()` would give them) and returns their sum as a number. The numbers can have decimals.\nExample: `sumStrings(\"2\", \"3\")` returns `5`, not `\"23\"`.",
+      "es": "Escribe una función `sumStrings(a, b)` que reciba dos números escritos como strings (como los daría `prompt()`) y devuelva su suma como número. Los números pueden tener decimales.\nEjemplo: `sumStrings(\"2\", \"3\")` devuelve `5`, no `\"23\"`."
+    },
+    "starter": "function sumStrings(a, b) {\n  // your code here\n}\n\nconsole.log(sumStrings(\"2\", \"3\"));\n",
+    "solution": "function sumStrings(a, b) {\n  // With strings, + would join them (\"2\" + \"3\" is \"23\").\n  // Number() converts each text into a number first.\n  return Number(a) + Number(b);\n}\n\nconsole.log(sumStrings(\"2\", \"3\"));\n",
+    "alternatives": [
+      "function sumStrings(a, b) {\n  return parseFloat(a) + parseFloat(b);\n}\n\nconsole.log(sumStrings(\"2\", \"3\"));\n"
+    ],
+    "tests": [
+      { "call": "sumStrings(\"2\", \"3\")", "expected": 5 },
+      { "call": "sumStrings(\"10\", \"0.5\")", "expected": 10.5 },
+      { "call": "sumStrings(\"-4\", \"6\")", "expected": 2 },
+      { "output": "5" }
+    ],
+    "hints": [
+      { "en": "If you write `a + b` with two strings, `+` joins them. You have to convert them first.", "es": "Si escribes `a + b` con dos strings, `+` los une. Primero hay que convertirlos." },
+      { "en": "`Number(\"10\")` gives the number `10`, and `Number(\"0.5\")` gives `0.5`.", "es": "`Number(\"10\")` da el número `10`, y `Number(\"0.5\")` da `0.5`." }
+    ],
+    "solutionExplanation": {
+      "en": "The `+` operator joins texts as soon as one of the values is a string, so the conversion must happen before adding. `Number()` converts each string into a number explicitly, and then `+` adds them. `parseFloat()` also works because it keeps the decimals.",
+      "es": "El operador `+` une textos en cuanto uno de los valores es un string, así que la conversión tiene que hacerse antes de sumar. `Number()` convierte cada string en número de forma explícita, y después `+` los suma. `parseFloat()` también sirve, porque conserva los decimales."
+    },
+    "commonMistakes": [
+      { "en": "Returning `a + b`: with two strings the result is `\"23\"`, not `5`.", "es": "Devolver `a + b`: con dos strings el resultado es `\"23\"`, no `5`." },
+      { "en": "Converting the result instead of the values, as in `Number(a + b)`: `\"2\" + \"3\"` is already `\"23\"`, and you get `23`.", "es": "Convertir el resultado en vez de los valores, como en `Number(a + b)`: `\"2\" + \"3\"` ya es `\"23\"`, y sale `23`." },
+      { "en": "Using `parseInt()`: it drops the decimals, so `\"0.5\"` becomes `0`.", "es": "Usar `parseInt()`: quita los decimales, así que `\"0.5\"` se convierte en `0`." }
+    ]
+  },
+  {
+    "id": "s2-e004", "section": 2, "difficulty": 2, "tags": ["trap", "typeof", "null", "arrays"], "courseRef": "03_Casting",
+    "title": { "en": "A better typeof", "es": "Un typeof mejorado" },
+    "statement": {
+      "en": "Write a function `describeType(value)` that returns the same as `typeof value`, with two exceptions: for `null` it returns `\"null\"`, and for an array it returns `\"array\"`.\nExamples: `describeType(5)` returns `\"number\"`, `describeType(null)` returns `\"null\"` and `describeType([1, 2])` returns `\"array\"`.",
+      "es": "Escribe una función `describeType(value)` que devuelva lo mismo que `typeof value`, con dos excepciones: con `null` devuelve `\"null\"` y con un array devuelve `\"array\"`.\nEjemplos: `describeType(5)` devuelve `\"number\"`, `describeType(null)` devuelve `\"null\"` y `describeType([1, 2])` devuelve `\"array\"`."
+    },
+    "starter": "function describeType(value) {\n  // your code here\n}\n\nconsole.log(describeType(null));\n",
+    "solution": "function describeType(value) {\n  // typeof null is \"object\" (an old bug), so null is checked first.\n  if (value === null) {\n    return \"null\";\n  }\n  // Arrays are objects too; instanceof Array tells them apart.\n  if (value instanceof Array) {\n    return \"array\";\n  }\n  return typeof value;\n}\n\nconsole.log(describeType(null));\n",
+    "alternatives": [
+      "function describeType(value) {\n  if (value === null) {\n    return \"null\";\n  }\n  if (Array.isArray(value)) {\n    return \"array\";\n  }\n  return typeof value;\n}\n\nconsole.log(describeType(null));\n"
+    ],
+    "tests": [
+      { "call": "describeType(5)", "expected": "number" },
+      { "call": "describeType(\"hi\")", "expected": "string" },
+      { "call": "describeType(null)", "expected": "null" },
+      { "call": "describeType([1, 2])", "expected": "array" },
+      { "call": "describeType({ a: 1 })", "expected": "object" },
+      { "call": "describeType(10n)", "expected": "bigint" },
+      { "call": "describeType(undefined)", "expected": "undefined" },
+      { "output": "null" }
+    ],
+    "hints": [
+      { "en": "`typeof` gives `\"object\"` for both `null` and arrays, so those two cases need their own check before using `typeof`.", "es": "`typeof` da `\"object\"` tanto con `null` como con los arrays, así que esos dos casos necesitan su propia comprobación antes de usar `typeof`." },
+      { "en": "Use `value === null` for the first case and `value instanceof Array` for the second. If neither matches, `return typeof value;`.", "es": "Usa `value === null` para el primer caso y `value instanceof Array` para el segundo. Si no se cumple ninguno, `return typeof value;`." }
+    ],
+    "solutionExplanation": {
+      "en": "`typeof` works for almost everything, but it says `\"object\"` for `null` (a historical bug) and for arrays (which really are objects). So the function checks those two cases first: `value === null` and `value instanceof Array` (or `Array.isArray(value)`). For anything else, it returns `typeof value`.",
+      "es": "`typeof` funciona con casi todo, pero dice `\"object\"` con `null` (un fallo histórico) y con los arrays (que en realidad son objetos). Por eso la función comprueba primero esos dos casos: `value === null` y `value instanceof Array` (o `Array.isArray(value)`). Con cualquier otra cosa, devuelve `typeof value`."
+    },
+    "commonMistakes": [
+      { "en": "Checking `typeof value === \"null\"` or `typeof value === \"array\"`: `typeof` never returns those words.", "es": "Comprobar `typeof value === \"null\"` o `typeof value === \"array\"`: `typeof` nunca devuelve esas palabras." },
+      { "en": "Returning `typeof value` before checking the special cases: the function stops at the first `return`.", "es": "Devolver `typeof value` antes de comprobar los casos especiales: la función termina en el primer `return`." }
+    ]
+  },
+  {
+    "id": "s2-e005", "section": 2, "difficulty": 2, "tags": ["trap", "bigint", "casting"], "courseRef": "03_Casting",
+    "title": { "en": "Add a number to a BigInt", "es": "Sumar un número a un BigInt" },
+    "statement": {
+      "en": "Write a function `addToBig(big, n)` that receives a `bigint` and a whole `number` and returns their sum as a `bigint`.\nExample: `addToBig(10n, 5)` returns `15n`. Remember that `bigint` and `number` can't be mixed directly.",
+      "es": "Escribe una función `addToBig(big, n)` que reciba un `bigint` y un `number` entero y devuelva su suma como `bigint`.\nEjemplo: `addToBig(10n, 5)` devuelve `15n`. Recuerda que `bigint` y `number` no se pueden mezclar directamente."
+    },
+    "starter": "function addToBig(big, n) {\n  // your code here\n}\n\nconsole.log(addToBig(10n, 5));\n",
+    "solution": "function addToBig(big, n) {\n  // big + n would throw a TypeError (BigInt and number can't be mixed),\n  // so n is converted to a BigInt first.\n  return big + BigInt(n);\n}\n\nconsole.log(addToBig(10n, 5));\n",
+    "tests": [
+      { "call": "addToBig(10n, 5) === 15n", "expected": true },
+      { "call": "addToBig(0n, 7) === 7n", "expected": true },
+      { "call": "typeof addToBig(1n, 2)", "expected": "bigint" },
+      { "output": "15n" }
+    ],
+    "hints": [
+      { "en": "Try `big + n` and look at the console: a `TypeError` tells you that the types can't be mixed.", "es": "Prueba `big + n` y mira la consola: un `TypeError` te avisa de que los tipos no se pueden mezclar." },
+      { "en": "Convert the number with `BigInt(n)` and then add.", "es": "Convierte el número con `BigInt(n)` y después suma." }
+    ],
+    "solutionExplanation": {
+      "en": "Arithmetic between a `bigint` and a `number` throws a `TypeError`, so one of them has to be converted explicitly. Since the result must be a `bigint`, we convert `n` with `BigInt(n)`; then both values are `bigint` and `+` works. The console shows the result with an `n`: `15n`.",
+      "es": "Una operación aritmética entre un `bigint` y un `number` lanza un `TypeError`, así que hay que convertir uno de los dos de forma explícita. Como el resultado tiene que ser `bigint`, convertimos `n` con `BigInt(n)`; así los dos valores son `bigint` y `+` funciona. La consola muestra el resultado con una `n`: `15n`."
+    },
+    "commonMistakes": [
+      { "en": "Returning `big + n`: it throws `TypeError: Cannot mix BigInt and other types`.", "es": "Devolver `big + n`: lanza `TypeError: Cannot mix BigInt and other types`." },
+      { "en": "Converting the other way, `Number(big) + n`: it adds correctly, but the result is a `number`, not a `bigint`.", "es": "Convertir al revés, `Number(big) + n`: suma bien, pero el resultado es un `number`, no un `bigint`." },
+      { "en": "Writing `new BigInt(n)`: `BigInt` is called without `new`.", "es": "Escribir `new BigInt(n)`: `BigInt` se llama sin `new`." }
+    ]
+  },
+  {
+    "id": "s2-e006", "section": 2, "difficulty": 2, "tags": ["strings", "split", "arrays"], "courseRef": "02_Strings",
+    "title": { "en": "File extension", "es": "Extensión de un archivo" },
+    "statement": {
+      "en": "Write a function `fileExtension(file)` that returns the extension of a file name: the text after the last dot. You can assume the name always has at least one dot.\nExamples: `fileExtension(\"photo.png\")` returns `\"png\"` and `fileExtension(\"backup.tar.gz\")` returns `\"gz\"`.",
+      "es": "Escribe una función `fileExtension(file)` que devuelva la extensión de un nombre de archivo: el texto que va después del último punto. Puedes dar por hecho que el nombre siempre tiene al menos un punto.\nEjemplos: `fileExtension(\"photo.png\")` devuelve `\"png\"` y `fileExtension(\"backup.tar.gz\")` devuelve `\"gz\"`."
+    },
+    "starter": "function fileExtension(file) {\n  // your code here\n}\n\nconsole.log(fileExtension(\"photo.png\"));\n",
+    "solution": "function fileExtension(file) {\n  // \"backup.tar.gz\".split(\".\") gives [\"backup\", \"tar\", \"gz\"].\n  let parts = file.split(\".\");\n  // The last element is at position length - 1.\n  return parts[parts.length - 1];\n}\n\nconsole.log(fileExtension(\"photo.png\"));\n",
+    "alternatives": [
+      "function fileExtension(file) {\n  let parts = file.split(\".\");\n  return parts.pop();\n}\n\nconsole.log(fileExtension(\"photo.png\"));\n"
+    ],
+    "tests": [
+      { "call": "fileExtension(\"photo.png\")", "expected": "png" },
+      { "call": "fileExtension(\"backup.tar.gz\")", "expected": "gz" },
+      { "call": "fileExtension(\"notes.txt\")", "expected": "txt" },
+      { "output": "png" }
+    ],
+    "hints": [
+      { "en": "Cut the name at each dot with `split(\".\")`: you get an array of pieces.", "es": "Corta el nombre en cada punto con `split(\".\")`: obtendrás un array de trozos." },
+      { "en": "The extension is the last piece. If an array has `length` elements, the last one is at position `length - 1`.", "es": "La extensión es el último trozo. Si un array tiene `length` elementos, el último está en la posición `length - 1`." }
+    ],
+    "solutionExplanation": {
+      "en": "`split(\".\")` divides the name at every dot, and the extension is always the last piece, whatever the number of dots. The last element of an array is at position `length - 1`, because positions start at 0. Another option is `parts.pop()`, which removes the last element and returns it.",
+      "es": "`split(\".\")` divide el nombre en cada punto, y la extensión siempre es el último trozo, haya los puntos que haya. El último elemento de un array está en la posición `length - 1`, porque las posiciones empiezan en 0. Otra opción es `parts.pop()`, que quita el último elemento y lo devuelve."
+    },
+    "commonMistakes": [
+      { "en": "Returning `parts[1]`: it works for `\"photo.png\"` but gives `\"tar\"` for `\"backup.tar.gz\"`.", "es": "Devolver `parts[1]`: funciona con `\"photo.png\"`, pero da `\"tar\"` con `\"backup.tar.gz\"`." },
+      { "en": "Returning `parts[parts.length]`: that position doesn't exist, so you get `undefined`.", "es": "Devolver `parts[parts.length]`: esa posición no existe, así que sale `undefined`." },
+      { "en": "Using `file.slice(-3)`: it only works when the extension has exactly three letters (`\"gz\"` has two).", "es": "Usar `file.slice(-3)`: solo funciona si la extensión tiene exactamente tres letras (`\"gz\"` tiene dos)." }
+    ]
+  },
+  {
+    "id": "s2-e007", "section": 2, "difficulty": 1, "tags": ["arrays"], "courseRef": "06_Arrays",
+    "title": { "en": "Next in line", "es": "El siguiente de la fila" },
+    "statement": {
+      "en": "Write a function `moveFirstToEnd(list)` that takes the first element of the array, moves it to the end and returns the same array. The array always has at least one element.\nExample: `moveFirstToEnd([1, 2, 3])` returns `[2, 3, 1]`.",
+      "es": "Escribe una función `moveFirstToEnd(list)` que tome el primer elemento del array, lo mueva al final y devuelva el mismo array. El array siempre tiene al menos un elemento.\nEjemplo: `moveFirstToEnd([1, 2, 3])` devuelve `[2, 3, 1]`."
+    },
+    "starter": "function moveFirstToEnd(list) {\n  // your code here\n}\n\nconsole.log(moveFirstToEnd([1, 2, 3]));\n",
+    "solution": "function moveFirstToEnd(list) {\n  // shift() removes the first element and returns it...\n  let first = list.shift();\n  // ...and push() adds it at the end.\n  list.push(first);\n  return list;\n}\n\nconsole.log(moveFirstToEnd([1, 2, 3]));\n",
+    "alternatives": [
+      "function moveFirstToEnd(list) {\n  list.push(list.shift());\n  return list;\n}\n\nconsole.log(moveFirstToEnd([1, 2, 3]));\n"
+    ],
+    "tests": [
+      { "call": "moveFirstToEnd([1, 2, 3])", "expected": [2, 3, 1] },
+      { "call": "moveFirstToEnd([\"a\", \"b\"])", "expected": ["b", "a"] },
+      { "call": "moveFirstToEnd([7])", "expected": [7] },
+      { "output": "[ 2, 3, 1 ]" }
+    ],
+    "hints": [
+      { "en": "Which method removes the first element of an array and gives it back to you?", "es": "¿Qué método quita el primer elemento de un array y te lo devuelve?" },
+      { "en": "`shift()` removes the first element and returns it; `push()` adds an element at the end. Don't forget `return list;`.", "es": "`shift()` quita el primer elemento y lo devuelve; `push()` añade un elemento al final. No olvides `return list;`." }
+    ],
+    "solutionExplanation": {
+      "en": "`shift()` removes the first element and returns it, so we can keep it in a variable. Then `push()` adds it at the end. Both methods change the array itself, so at the end we return that same array.",
+      "es": "`shift()` quita el primer elemento y lo devuelve, así que podemos guardarlo en una variable. Después, `push()` lo añade al final. Los dos métodos cambian el propio array, así que al terminar devolvemos ese mismo array."
+    },
+    "commonMistakes": [
+      { "en": "Using `pop()` instead of `shift()`: `pop()` removes the last element, not the first.", "es": "Usar `pop()` en vez de `shift()`: `pop()` quita el último elemento, no el primero." },
+      { "en": "Returning what `push()` returns: it's the new length of the array (a number), not the array.", "es": "Devolver lo que devuelve `push()`: es la nueva longitud del array (un número), no el array." }
+    ]
+  },
+  {
+    "id": "s2-e008", "section": 2, "difficulty": 3, "tags": ["trap", "arrays"], "courseRef": "06_Arrays",
+    "title": { "en": "Mirror array", "es": "Array en espejo" },
+    "statement": {
+      "en": "Write a function `mirror(list)` that returns a new array with the elements of `list` followed by the same elements in reverse order. The original array must not change.\nExample: `mirror([1, 2, 3])` returns `[1, 2, 3, 3, 2, 1]`, and after the call the original is still `[1, 2, 3]`.",
+      "es": "Escribe una función `mirror(list)` que devuelva un array nuevo con los elementos de `list` seguidos de esos mismos elementos en orden inverso. El array original no puede cambiar.\nEjemplo: `mirror([1, 2, 3])` devuelve `[1, 2, 3, 3, 2, 1]`, y después de la llamada el original sigue siendo `[1, 2, 3]`."
+    },
+    "starter": "function mirror(list) {\n  // your code here\n}\n\nlet nums = [1, 2];\nconsole.log(mirror(nums).length, nums[0]);\n",
+    "solution": "function mirror(list) {\n  // reverse() changes the array it is called on,\n  // so we reverse a copy made with slice().\n  let reversed = list.slice().reverse();\n  // concat() returns a new array and leaves list untouched.\n  return list.concat(reversed);\n}\n\nlet nums = [1, 2];\nconsole.log(mirror(nums).length, nums[0]);\n",
+    "alternatives": [
+      "function mirror(list) {\n  let copy = list.concat();\n  copy.reverse();\n  return list.concat(copy);\n}\n\nlet nums = [1, 2];\nconsole.log(mirror(nums).length, nums[0]);\n"
+    ],
+    "tests": [
+      { "call": "mirror([1, 2, 3])", "expected": [1, 2, 3, 3, 2, 1] },
+      { "call": "mirror([\"a\"])", "expected": ["a", "a"] },
+      { "call": "mirror([5, 9])", "expected": [5, 9, 9, 5] },
+      { "output": "4 1" }
+    ],
+    "hints": [
+      { "en": "`reverse()` doesn't return a copy: it turns the original array around. Make a copy first with `slice()`.", "es": "`reverse()` no devuelve una copia: le da la vuelta al array original. Haz antes una copia con `slice()`." },
+      { "en": "`list.slice().reverse()` gives the reversed copy. Join both arrays with `concat()`.", "es": "`list.slice().reverse()` da la copia invertida. Une los dos arrays con `concat()`." }
+    ],
+    "solutionExplanation": {
+      "en": "The trap is that `reverse()` mutates the array it's called on. If you write `list.concat(list.reverse())`, `list` is reversed before `concat` runs, and you get `[3, 2, 1, 3, 2, 1]`. Calling `slice()` without arguments makes a copy, so we can reverse the copy safely. `concat()` then builds a new array with both parts, and the original stays as it was (the last line prints `4 1`).",
+      "es": "La trampa es que `reverse()` muta el array sobre el que se llama. Si escribes `list.concat(list.reverse())`, `list` se invierte antes de que se ejecute `concat`, y sale `[3, 2, 1, 3, 2, 1]`. Llamar a `slice()` sin argumentos hace una copia, así que podemos invertir la copia sin peligro. Después, `concat()` crea un array nuevo con las dos partes, y el original se queda como estaba (la última línea muestra `4 1`)."
+    },
+    "commonMistakes": [
+      { "en": "Writing `list.concat(list.reverse())`: `reverse()` changes `list` first, so both halves come out reversed.", "es": "Escribir `list.concat(list.reverse())`: `reverse()` cambia `list` primero, así que las dos mitades salen invertidas." },
+      { "en": "Making the «copy» with `let copy = list;`: that isn't a copy, just another name for the same array, so reversing it also reverses the original.", "es": "Hacer la «copia» con `let copy = list;`: eso no es una copia, sino otro nombre para el mismo array, así que al invertirla también se invierte el original." }
+    ]
+  },
+  {
+    "id": "s2-e009", "section": 2, "difficulty": 1, "tags": ["objects"], "courseRef": "10_Objetos",
+    "title": { "en": "Create a product", "es": "Crear un producto" },
+    "statement": {
+      "en": "Write a function `makeProduct(name, price)` that returns an object with three properties: `name`, `price` (with the values received) and `inStock`, which is always `true`.\nExample: `makeProduct(\"pen\", 2)` returns `{ name: \"pen\", price: 2, inStock: true }`.",
+      "es": "Escribe una función `makeProduct(name, price)` que devuelva un objeto con tres propiedades: `name`, `price` (con los valores recibidos) e `inStock`, que siempre vale `true`.\nEjemplo: `makeProduct(\"pen\", 2)` devuelve `{ name: \"pen\", price: 2, inStock: true }`."
+    },
+    "starter": "function makeProduct(name, price) {\n  // your code here\n}\n\nconsole.log(makeProduct(\"pen\", 2));\n",
+    "solution": "function makeProduct(name, price) {\n  // An object literal: each property is key: value.\n  // inStock is the boolean true, not the string \"true\".\n  return {\n    name: name,\n    price: price,\n    inStock: true,\n  };\n}\n\nconsole.log(makeProduct(\"pen\", 2));\n",
+    "alternatives": [
+      "function makeProduct(name, price) {\n  let product = {};\n  product.name = name;\n  product.price = price;\n  product.inStock = true;\n  return product;\n}\n\nconsole.log(makeProduct(\"pen\", 2));\n"
+    ],
+    "tests": [
+      { "call": "makeProduct(\"pen\", 2)", "expected": {"name":"pen", "price":2, "inStock":true} },
+      { "call": "makeProduct(\"book\", 15)", "expected": {"name":"book", "price":15, "inStock":true} },
+      { "call": "makeProduct(\"cup\", 4).price", "expected": 4 },
+      { "output": "{ name: 'pen', price: 2, inStock: true }" }
+    ],
+    "hints": [
+      { "en": "An object is written between `{ }` with `key: value` pairs separated by commas.", "es": "Un objeto se escribe entre `{ }` con pares `key: value` (clave y valor) separados por comas." },
+      { "en": "Return `{ name: name, price: price, inStock: true }`. The key is the property name; the value is the parameter.", "es": "Devuelve `{ name: name, price: price, inStock: true }`. La clave es el nombre de la propiedad; el valor, el parámetro." }
+    ],
+    "solutionExplanation": {
+      "en": "An object literal groups related values under named keys. In `name: name`, the left side is the key and the right side is the value of the parameter. `inStock` gets the boolean `true`. You can also create an empty object and add the properties one by one with dot notation.",
+      "es": "Un objeto literal agrupa valores relacionados bajo claves con nombre. En `name: name`, la parte izquierda es la clave y la derecha es el valor del parámetro. `inStock` recibe el booleano `true`. También puedes crear un objeto vacío e ir añadiendo las propiedades una a una con punto."
+    },
+    "commonMistakes": [
+      { "en": "Writing `inStock: \"true\"` with quotes: that's a string, not the boolean `true`.", "es": "Escribir `inStock: \"true\"` con comillas: eso es un string, no el booleano `true`." },
+      { "en": "Writing the values in quotes, as in `name: \"name\"`: every product would be called `\"name\"`.", "es": "Escribir los valores entre comillas, como en `name: \"name\"`: todos los productos se llamarían `\"name\"`." },
+      { "en": "Separating the properties with `;` instead of `,`: that's a `SyntaxError`.", "es": "Separar las propiedades con `;` en vez de `,`: eso es un `SyntaxError`." }
+    ]
+  },
+  {
+    "id": "s2-e010", "section": 2, "difficulty": 2, "tags": ["trap", "objects", "delete"], "courseRef": "10_Objetos",
+    "title": { "en": "Remove a property", "es": "Eliminar una propiedad" },
+    "statement": {
+      "en": "Write a function `removeKey(obj, key)` that removes from `obj` the property whose name is in `key` and returns the object. If the property doesn't exist, the object is returned unchanged.\nExample: `removeKey({ a: 1, b: 2 }, \"a\")` returns `{ b: 2 }`.",
+      "es": "Escribe una función `removeKey(obj, key)` que elimine de `obj` la propiedad cuyo nombre está en `key` y devuelva el objeto. Si la propiedad no existe, el objeto se devuelve sin cambios.\nEjemplo: `removeKey({ a: 1, b: 2 }, \"a\")` devuelve `{ b: 2 }`."
+    },
+    "starter": "function removeKey(obj, key) {\n  // your code here\n}\n\nconsole.log(removeKey({ a: 1, b: 2 }, \"a\"));\n",
+    "solution": "function removeKey(obj, key) {\n  // Square brackets use the VALUE of key (for example \"a\").\n  // obj.key would look for a property literally called \"key\".\n  delete obj[key];\n  return obj;\n}\n\nconsole.log(removeKey({ a: 1, b: 2 }, \"a\"));\n",
+    "tests": [
+      { "call": "removeKey({ a: 1, b: 2 }, \"a\")", "expected": {"b":2} },
+      { "call": "removeKey({ color: \"red\", size: \"M\" }, \"size\")", "expected": {"color":"red"} },
+      { "call": "removeKey({ x: 1 }, \"y\")", "expected": {"x":1} },
+      { "output": "{ b: 2 }" }
+    ],
+    "hints": [
+      { "en": "The `delete` operator removes a property: `delete obj.name` removes `name`.", "es": "El operador `delete` elimina una propiedad: `delete obj.name` elimina `name`." },
+      { "en": "The name of the property is inside the variable `key`, so you need square brackets: `obj[key]`.", "es": "El nombre de la propiedad está dentro de la variable `key`, así que necesitas corchetes: `obj[key]`." }
+    ],
+    "solutionExplanation": {
+      "en": "`delete` removes a property from an object. Since the property name comes in a variable, we must use square brackets: `obj[key]` uses the value of `key` (for example `\"a\"`). If the property doesn't exist, `delete` simply does nothing, so the third case works without extra code.",
+      "es": "`delete` elimina una propiedad de un objeto. Como el nombre de la propiedad llega en una variable, hay que usar corchetes: `obj[key]` usa el valor de `key` (por ejemplo, `\"a\"`). Si la propiedad no existe, `delete` simplemente no hace nada, así que el tercer caso funciona sin código extra."
+    },
+    "commonMistakes": [
+      { "en": "Writing `delete obj.key`: it tries to remove a property literally called `key`, which doesn't exist, so nothing changes.", "es": "Escribir `delete obj.key`: intenta eliminar una propiedad que se llama literalmente `key`, que no existe, así que no cambia nada." },
+      { "en": "Setting the value to `undefined` or `null` instead of using `delete`: the key is still in the object.", "es": "Poner el valor a `undefined` o a `null` en vez de usar `delete`: la clave sigue en el objeto." },
+      { "en": "Returning the result of `delete` (`true`) instead of the object.", "es": "Devolver el resultado de `delete` (`true`) en vez del objeto." }
+    ]
+  }
+]

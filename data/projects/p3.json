@@ -1,0 +1,1070 @@
+{
+  "id": "p3",
+  "number": 3,
+  "level": "intermediate",
+  "minutes": 90,
+  "folder": "my-gallery",
+  "title": {
+    "en": "Photo gallery with filters",
+    "es": "Galería de fotos con filtros"
+  },
+  "summary": {
+    "en": "Grid gallery with hover overlay. JS filters the photos by category.",
+    "es": "Galería en Grid con overlay al pasar el ratón. El JS filtra las fotos por categoría."
+  },
+  "basedOn": [
+    "Galería con efecto Overlay",
+    "13_Eventos"
+  ],
+  "goal": {
+    "title": {
+      "en": "Build a photo gallery that visitors can filter by category",
+      "es": "Crea una galería de fotos que se pueda filtrar por categoría"
+    },
+    "body": {
+      "en": "You will create a one-page website with 9 photos in a grid. Clicking a category button (All, Nature, City, People) shows only the photos of that category. Hovering a photo shows its title on a dark overlay.",
+      "es": "Vas a crear una web de una sola página con 9 fotos en una cuadrícula. Al pulsar un botón de categoría (All, Nature, City, People), solo se ven las fotos de esa categoría. Al pasar el ratón por encima de una foto, su título aparece sobre una capa oscura."
+    }
+  },
+  "result": {
+    "en": "All the photos in a 3-column grid. Clicking “Nature” shows only the nature photos.",
+    "es": "Todas las fotos en una cuadrícula de 3 columnas. Al pulsar «Nature», solo se ven las fotos de naturaleza."
+  },
+  "starter": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My Gallery</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Steps 1 to 4: your gallery goes here -->\n\n\n\n  <!--\n    Photos for step 3: copy the address of each category into the src of its <img>\n\n    nature:\n    data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%236FBF73'/%3E%3Cstop%20offset='1'%20stop-color='%232E7D32'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='310'%20cy='62'%20r='26'%20fill='%23FFF59D'%20fill-opacity='0.8'/%3E%3Cpath%20d='M0%20240L110%20110L180%20180L260%2090L400%20240z'%20fill='%231B5E20'%20fill-opacity='0.4'/%3E%3C/svg%3E\n\n    city:\n    data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%238C9EFF'/%3E%3Cstop%20offset='1'%20stop-color='%233949AB'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Cpath%20d='M30%20240V120h50v120zM95%20240V70h60v170zM170%20240V140h40v100zM225%20240V95h55v145zM295%20240V130h70v110z'%20fill='%231A237E'%20fill-opacity='0.4'/%3E%3C/svg%3E\n\n    people:\n    data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%23FFB74D'/%3E%3Cstop%20offset='1'%20stop-color='%23E65100'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='160'%20cy='112'%20r='30'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M100%20240a60%2060%200%200%201%20120%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Ccircle%20cx='248'%20cy='124'%20r='25'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M198%20240a50%2050%200%200%201%20100%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3C/svg%3E\n  -->\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Photo gallery · style.css */\n\n/* Steps 5 to 9: your styles go here */\n\n\n\n/* Step 12: JavaScript adds the class \"hidden\" to the photos it hides */\n.hidden {\n  display: none;\n}\n",
+    "js": "// Photo gallery · script.js\n\n// Steps 10 to 13: your JavaScript goes here\n"
+  },
+  "solution": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My Gallery</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <header>\n    <h1>My Gallery</h1>\n  </header>\n\n  <main>\n    <div class=\"filters\">\n      <button class=\"filter-btn active\" data-filter=\"all\">All</button>\n      <button class=\"filter-btn\" data-filter=\"nature\">Nature</button>\n      <button class=\"filter-btn\" data-filter=\"city\">City</button>\n      <button class=\"filter-btn\" data-filter=\"people\">People</button>\n    </div>\n\n    <div class=\"gallery\">\n      <div class=\"photo\" data-category=\"nature\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%236FBF73'/%3E%3Cstop%20offset='1'%20stop-color='%232E7D32'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='310'%20cy='62'%20r='26'%20fill='%23FFF59D'%20fill-opacity='0.8'/%3E%3Cpath%20d='M0%20240L110%20110L180%20180L260%2090L400%20240z'%20fill='%231B5E20'%20fill-opacity='0.4'/%3E%3C/svg%3E\" alt=\"Green forest at sunrise\">\n        <div class=\"overlay\">\n          <h2>Forest</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"city\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%238C9EFF'/%3E%3Cstop%20offset='1'%20stop-color='%233949AB'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Cpath%20d='M30%20240V120h50v120zM95%20240V70h60v170zM170%20240V140h40v100zM225%20240V95h55v145zM295%20240V130h70v110z'%20fill='%231A237E'%20fill-opacity='0.4'/%3E%3C/svg%3E\" alt=\"Bridge over the river\">\n        <div class=\"overlay\">\n          <h2>Bridge</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"people\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%23FFB74D'/%3E%3Cstop%20offset='1'%20stop-color='%23E65100'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='160'%20cy='112'%20r='30'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M100%20240a60%2060%200%200%201%20120%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Ccircle%20cx='248'%20cy='124'%20r='25'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M198%20240a50%2050%200%200%201%20100%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3C/svg%3E\" alt=\"People at a street market\">\n        <div class=\"overlay\">\n          <h2>Market</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"city\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%238C9EFF'/%3E%3Cstop%20offset='1'%20stop-color='%233949AB'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Cpath%20d='M30%20240V120h50v120zM95%20240V70h60v170zM170%20240V140h40v100zM225%20240V95h55v145zM295%20240V130h70v110z'%20fill='%231A237E'%20fill-opacity='0.4'/%3E%3C/svg%3E\" alt=\"City skyline at dusk\">\n        <div class=\"overlay\">\n          <h2>Skyline</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"nature\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%236FBF73'/%3E%3Cstop%20offset='1'%20stop-color='%232E7D32'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='310'%20cy='62'%20r='26'%20fill='%23FFF59D'%20fill-opacity='0.8'/%3E%3Cpath%20d='M0%20240L110%20110L180%20180L260%2090L400%20240z'%20fill='%231B5E20'%20fill-opacity='0.4'/%3E%3C/svg%3E\" alt=\"Calm lake in the mountains\">\n        <div class=\"overlay\">\n          <h2>Lake</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"people\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%23FFB74D'/%3E%3Cstop%20offset='1'%20stop-color='%23E65100'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='160'%20cy='112'%20r='30'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M100%20240a60%2060%200%200%201%20120%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Ccircle%20cx='248'%20cy='124'%20r='25'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M198%20240a50%2050%200%200%201%20100%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3C/svg%3E\" alt=\"Group of friends laughing\">\n        <div class=\"overlay\">\n          <h2>Friends</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"people\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%23FFB74D'/%3E%3Cstop%20offset='1'%20stop-color='%23E65100'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='160'%20cy='112'%20r='30'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M100%20240a60%2060%200%200%201%20120%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Ccircle%20cx='248'%20cy='124'%20r='25'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3Cpath%20d='M198%20240a50%2050%200%200%201%20100%200z'%20fill='%23BF360C'%20fill-opacity='0.45'/%3E%3C/svg%3E\" alt=\"Crowd at an outdoor concert\">\n        <div class=\"overlay\">\n          <h2>Concert</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"city\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%238C9EFF'/%3E%3Cstop%20offset='1'%20stop-color='%233949AB'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Cpath%20d='M30%20240V120h50v120zM95%20240V70h60v170zM170%20240V140h40v100zM225%20240V95h55v145zM295%20240V130h70v110z'%20fill='%231A237E'%20fill-opacity='0.4'/%3E%3C/svg%3E\" alt=\"Busy city street\">\n        <div class=\"overlay\">\n          <h2>Street</h2>\n        </div>\n      </div>\n      <div class=\"photo\" data-category=\"nature\">\n        <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='288'%20viewBox='0%200%20400%20240'%3E%3ClinearGradient%20id='g'%20x2='0.4'%20y2='1'%3E%3Cstop%20stop-color='%236FBF73'/%3E%3Cstop%20offset='1'%20stop-color='%232E7D32'/%3E%3C/linearGradient%3E%3Crect%20width='400'%20height='240'%20fill='url(%23g)'/%3E%3Ccircle%20cx='310'%20cy='62'%20r='26'%20fill='%23FFF59D'%20fill-opacity='0.8'/%3E%3Cpath%20d='M0%20240L110%20110L180%20180L260%2090L400%20240z'%20fill='%231B5E20'%20fill-opacity='0.4'/%3E%3C/svg%3E\" alt=\"Snowy mountain peak\">\n        <div class=\"overlay\">\n          <h2>Mountain</h2>\n        </div>\n      </div>\n    </div>\n  </main>\n\n  <footer>\n    <p>My Gallery · Made with HTML, CSS and JavaScript</p>\n  </footer>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Photo gallery · style.css */\n\n/* Step 5: reset and base typography */\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: Arial, sans-serif;\n  background-color: #f7f5fb;\n  color: #1e1527;\n}\n\nheader,\nmain,\nfooter {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 16px 24px;\n}\n\nh1 {\n  margin-top: 8px;\n  color: #43235f;\n}\n\nfooter {\n  color: #5c5368;\n  font-size: 14px;\n}\n\n/* Step 6: the gallery grid */\n.gallery {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 16px;\n}\n\n.photo img {\n  display: block;\n  width: 100%;\n}\n\n/* Step 7: filter buttons and the active one */\n.filters {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 8px;\n  margin-bottom: 20px;\n}\n\n.filter-btn {\n  padding: 8px 16px;\n  border: 1px solid #cfc8d8;\n  border-radius: 999px;\n  background-color: #ffffff;\n  color: #1e1527;\n  font-size: 15px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.filter-btn.active {\n  background-color: #602b7a;\n  border-color: #602b7a;\n  color: #ffffff;\n}\n\n/* Step 8: the overlay with the title, darker on hover */\n.photo {\n  position: relative;\n  overflow: hidden;\n  border-radius: 10px;\n}\n\n.overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: flex-end;\n  padding: 12px;\n  color: #ffffff;\n  background-color: rgba(30, 21, 39, 0);\n  transition: background-color 0.4s;\n}\n\n.overlay h2 {\n  font-size: 18px;\n  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);\n}\n\n.photo:hover .overlay {\n  align-items: center;\n  justify-content: center;\n  background-color: rgba(30, 21, 39, 0.7);\n}\n\n/* Step 9: 1 column on small screens */\n@media (max-width: 600px) {\n  .gallery {\n    grid-template-columns: 1fr;\n  }\n}\n\n/* Step 12: JavaScript adds the class \"hidden\" to the photos it hides */\n.hidden {\n  display: none;\n}\n",
+    "js": "// Photo gallery · script.js\n\n// Step 10: select the filter buttons and the photos\nconst buttons = document.querySelectorAll(\".filter-btn\");\nconst photos = document.querySelectorAll(\".photo\");\nconsole.log(buttons.length, photos.length);\n\n// Step 11: listen to clicks on every button\nbuttons.forEach((btn) => {\n  btn.addEventListener(\"click\", () => {\n    console.log(btn.dataset.filter);\n\n    // Step 12: show the photos of that category and hide the rest\n    const filter = btn.dataset.filter;\n    photos.forEach((photo) => {\n      if (filter === \"all\" || photo.dataset.category === filter) {\n        photo.classList.remove(\"hidden\");\n      } else {\n        photo.classList.add(\"hidden\");\n      }\n    });\n\n    // Step 13: highlight only the clicked button\n    buttons.forEach((b) => {\n      b.classList.remove(\"active\");\n    });\n    btn.classList.add(\"active\");\n  });\n});\n"
+  },
+  "steps": [
+    {
+      "id": "html-1",
+      "lang": "html",
+      "title": {
+        "en": "Page structure: header, main, footer",
+        "es": "Estructura de la página: header, main y footer"
+      },
+      "requirement": {
+        "en": "`<header>`, `<main>` and `<footer>`",
+        "es": "`<header>`, `<main>` y `<footer>`"
+      },
+      "task": {
+        "en": "Inside `<body>`, before the `<script>`, add the three big parts of the page: a `<header>` with the title `My Gallery` in an `<h1>`, an empty `<main>` (the buttons and the photos will go there in the next steps) and a `<footer>` with a short text, for example “Made with HTML, CSS and JavaScript”.",
+        "es": "Dentro de `<body>`, antes del `<script>`, añade las tres partes grandes de la página: un `<header>` con el título `My Gallery` en un `<h1>`, un `<main>` vacío (ahí irán los botones y las fotos en los próximos pasos) y un `<footer>` con un texto corto, por ejemplo, «Made with HTML, CSS and JavaScript»."
+      },
+      "hint": {
+        "en": "`<header>`, `<main>` and `<footer>` are semantic tags: they work like a `<div>`, but their name says what each part of the page is. That helps screen readers and search engines.",
+        "es": "`<header>`, `<main>` y `<footer>` son etiquetas semánticas: funcionan como un `<div>`, pero su nombre dice qué es cada parte de la página. Eso ayuda a los lectores de pantalla y a los buscadores."
+      },
+      "note": {
+        "en": "The page has no style yet: it will look plain until the CSS steps.",
+        "es": "La página todavía no tiene estilo: se verá sencilla hasta los pasos de CSS."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "header",
+          "count": 1,
+          "label": {
+            "en": "A `<header>`",
+            "es": "Un `<header>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "header h1",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h1>` with the title inside the `<header>`",
+            "es": "Un `<h1>` con el título dentro del `<header>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "main",
+          "count": 1,
+          "label": {
+            "en": "A `<main>`",
+            "es": "Un `<main>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "footer",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `<footer>` with some text",
+            "es": "Un `<footer>` con algún texto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-2",
+      "lang": "html",
+      "title": {
+        "en": "Filter buttons with data-filter",
+        "es": "Botones de filtro con data-filter"
+      },
+      "requirement": {
+        "en": "4 buttons with class `filter-btn` and a `data-filter`",
+        "es": "4 botones con la clase `filter-btn` y un `data-filter`"
+      },
+      "task": {
+        "en": "At the start of `<main>`, add a `<div class=\"filters\">` with 4 buttons. Each one has the class `filter-btn` and a `data-filter` attribute with its category: `all`, `nature`, `city` and `people`. Their texts are `All`, `Nature`, `City` and `People`. The `All` button also gets the class `active`, because at the start all the photos are shown.",
+        "es": "Al principio de `<main>`, añade un `<div class=\"filters\">` con 4 botones. Cada uno lleva la clase `filter-btn` y un atributo `data-filter` con su categoría: `all`, `nature`, `city` y `people`. Sus textos son `All`, `Nature`, `City` y `People`. El botón `All` lleva además la clase `active`, porque al principio se ven todas las fotos."
+      },
+      "hint": {
+        "en": "`<button class=\"filter-btn active\" data-filter=\"all\">All</button>`: an element can have several classes separated by spaces. Attributes that start with `data-` store your own information, and JavaScript will read it in step 11.",
+        "es": "`<button class=\"filter-btn active\" data-filter=\"all\">All</button>`: un elemento puede tener varias clases separadas por espacios. Los atributos que empiezan por `data-` guardan información tuya, y JavaScript la leerá en el paso 11."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "button.filter-btn",
+          "count": 4,
+          "label": {
+            "en": "4 `<button>` with the class `filter-btn`",
+            "es": "4 `<button>` con la clase `filter-btn`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".filter-btn",
+          "attr": "data-filter",
+          "pattern": "^(all|nature|city|people)$",
+          "label": {
+            "en": "Every button has a `data-filter`: `all`, `nature`, `city` or `people`",
+            "es": "Cada botón tiene un `data-filter`: `all`, `nature`, `city` o `people`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".filter-btn[data-filter=\"nature\"], .filter-btn[data-filter=\"city\"], .filter-btn[data-filter=\"people\"]",
+          "count": 3,
+          "label": {
+            "en": "One button for each category (`nature`, `city` and `people`)",
+            "es": "Un botón para cada categoría (`nature`, `city` y `people`)"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".filter-btn[data-filter=\"all\"].active",
+          "count": 1,
+          "label": {
+            "en": "The `All` button also has the class `active`",
+            "es": "El botón `All` tiene además la clase `active`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-3",
+      "lang": "html",
+      "title": {
+        "en": "9 photos with data-category",
+        "es": "9 fotos con data-category"
+      },
+      "requirement": {
+        "en": "9 photos with class `photo`, `alt` text and `data-category`",
+        "es": "9 fotos con la clase `photo`, texto `alt` y `data-category`"
+      },
+      "task": {
+        "en": "After the buttons, still inside `<main>`, add a `<div class=\"gallery\">` with 9 photos: 3 of nature, 3 of the city and 3 of people. Each photo is a `<div class=\"photo\">` with a `data-category` (`nature`, `city` or `people`) and an `<img>` inside. In `src`, paste the address of its category from the comment at the end of `index.html`. In `alt`, describe the photo, for example “Green forest at sunrise”.",
+        "es": "Después de los botones, todavía dentro de `<main>`, añade un `<div class=\"gallery\">` con 9 fotos: 3 de naturaleza, 3 de ciudad y 3 de personas. Cada foto es un `<div class=\"photo\">` con un `data-category` (`nature`, `city` o `people`) y una `<img>` dentro. En `src`, pega la dirección de su categoría que está en el comentario del final de `index.html`. En `alt`, describe la foto, por ejemplo, «Bosque verde al amanecer»."
+      },
+      "hint": {
+        "en": "One photo: `<div class=\"photo\" data-category=\"nature\"><img src=\"…\" alt=\"…\"></div>`. Write the first one, look at it in the preview, and then copy it and change the category, the address and the `alt`. Mix the categories: the filter will look better.",
+        "es": "Una foto: `<div class=\"photo\" data-category=\"nature\"><img src=\"…\" alt=\"…\"></div>`. Escribe la primera, mírala en la vista previa y después cópiala y cambia la categoría, la dirección y el `alt`. Mezcla las categorías: así el filtro se lucirá más."
+      },
+      "note": {
+        "en": "The photos look too big for now: in step 6 they'll fit in a grid of 3 columns.",
+        "es": "De momento, las fotos se ven demasiado grandes: en el paso 6 encajarán en una cuadrícula de 3 columnas."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".gallery .photo",
+          "count": 9,
+          "label": {
+            "en": "9 elements with the class `photo` inside `.gallery`",
+            "es": "9 elementos con la clase `photo` dentro de `.gallery`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".photo",
+          "attr": "data-category",
+          "pattern": "^(nature|city|people)$",
+          "label": {
+            "en": "Every photo has a `data-category`: `nature`, `city` or `people`",
+            "es": "Cada foto tiene un `data-category`: `nature`, `city` o `people`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".photo[data-category=\"nature\"]",
+          "count": 3,
+          "label": {
+            "en": "3 photos of `nature`",
+            "es": "3 fotos de `nature`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".photo[data-category=\"city\"]",
+          "count": 3,
+          "label": {
+            "en": "3 photos of `city`",
+            "es": "3 fotos de `city`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".photo[data-category=\"people\"]",
+          "count": 3,
+          "label": {
+            "en": "3 photos of `people`",
+            "es": "3 fotos de `people`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".photo img[src^=\"data:image/\"], .photo img[src^=\"https://\"]",
+          "count": 9,
+          "label": {
+            "en": "An `<img>` in every photo, with an address in `src` (`data:image/…` or `https://…`)",
+            "es": "Una `<img>` en cada foto, con una dirección en `src` (`data:image/…` o `https://…`)"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": ".photo img",
+          "attr": "alt",
+          "label": {
+            "en": "Every `<img>` has an `alt` text",
+            "es": "Cada `<img>` tiene un texto `alt`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-4",
+      "lang": "html",
+      "title": {
+        "en": "Overlay with title on each photo",
+        "es": "Overlay con el título en cada foto"
+      },
+      "requirement": {
+        "en": "An overlay with the title inside each photo",
+        "es": "Un overlay con el título dentro de cada foto"
+      },
+      "task": {
+        "en": "Inside each photo, after the `<img>`, add a `<div class=\"overlay\">` with the title of the photo in an `<h2>`, for example `<h2>Forest</h2>`. In the CSS steps, this box will go on top of the photo and get darker when the mouse is over it.",
+        "es": "Dentro de cada foto, después de la `<img>`, añade un `<div class=\"overlay\">` con el título de la foto en un `<h2>`, por ejemplo, `<h2>Forest</h2>`. En los pasos de CSS, esta caja se pondrá encima de la foto y se oscurecerá al pasar el ratón por encima."
+      },
+      "hint": {
+        "en": "Each photo ends up like this: `<div class=\"photo\" data-category=\"nature\"><img src=\"…\" alt=\"…\"><div class=\"overlay\"><h2>Forest</h2></div></div>`. Give each photo a different title.",
+        "es": "Cada foto queda así: `<div class=\"photo\" data-category=\"nature\"><img src=\"…\" alt=\"…\"><div class=\"overlay\"><h2>Forest</h2></div></div>`. Pon un título distinto a cada foto."
+      },
+      "note": {
+        "en": "For now, each title appears under its photo. In step 8 it will go on top of it.",
+        "es": "De momento, cada título sale debajo de su foto. En el paso 8 se pondrá encima."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".photo .overlay",
+          "count": 9,
+          "label": {
+            "en": "9 overlays: a `<div class=\"overlay\">` inside each photo",
+            "es": "9 overlays: un `<div class=\"overlay\">` dentro de cada foto"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".photo .overlay",
+          "text": "\\S",
+          "count": 9,
+          "label": {
+            "en": "A title in every overlay (for example in an `<h2>`)",
+            "es": "Un título en cada overlay (por ejemplo, en un `<h2>`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-1",
+      "lang": "css",
+      "title": {
+        "en": "Reset and base typography",
+        "es": "Reset y tipografía base"
+      },
+      "requirement": {
+        "en": "Reset and a base font for the page",
+        "es": "Un reset y una fuente base para la página"
+      },
+      "task": {
+        "en": "In `style.css`, start with a reset: a rule for `*` (all the elements) with `margin: 0`, `padding: 0` and `box-sizing: border-box`. Then give `body` a `font-family` (for example `Arial, sans-serif`), a light `background-color` and a text `color`. If you like, give `header`, `main` and `footer` some `padding` so the content doesn't touch the edges.",
+        "es": "En `style.css`, empieza con un reset: una regla para `*` (todos los elementos) con `margin: 0`, `padding: 0` y `box-sizing: border-box`. Después, da a `body` un `font-family` (por ejemplo, `Arial, sans-serif`), un `background-color` claro y un `color` para el texto. Si quieres, pon algo de `padding` a `header`, `main` y `footer` para que el contenido no toque los bordes."
+      },
+      "hint": {
+        "en": "Browsers add their own margins to many elements (`body`, for example, has 8px). The reset removes them so you start from zero. With `box-sizing: border-box`, the padding and the border count inside the width you give an element.",
+        "es": "Los navegadores añaden sus propios márgenes a muchos elementos (`body`, por ejemplo, tiene 8 px). El reset los quita y así empiezas desde cero. Con `box-sizing: border-box`, el padding y el borde cuentan dentro del ancho que le das a un elemento."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "margin-top",
+          "value": "0px",
+          "label": {
+            "en": "No margin on `body` (`margin: 0`)",
+            "es": "Sin margen en `body` (`margin: 0`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "box-sizing",
+          "value": "border-box",
+          "label": {
+            "en": "`box-sizing: border-box`",
+            "es": "`box-sizing: border-box`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "^(\\*|html|body)$",
+          "prop": "font-family",
+          "label": {
+            "en": "A `font-family` for the page",
+            "es": "Un `font-family` para la página"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-2",
+      "lang": "css",
+      "title": {
+        "en": "Gallery layout with CSS Grid",
+        "es": "La galería con CSS Grid"
+      },
+      "requirement": {
+        "en": "`.gallery` with `display: grid` and 3 columns",
+        "es": "`.gallery` con `display: grid` y 3 columnas"
+      },
+      "task": {
+        "en": "Turn `.gallery` into a grid: `display: grid`, `grid-template-columns: repeat(3, 1fr)` (3 columns of the same width) and `gap: 16px` (the space between the photos). Then make each image fill its column: `.photo img` with `width: 100%` and `display: block`.",
+        "es": "Convierte `.gallery` en una cuadrícula: `display: grid`, `grid-template-columns: repeat(3, 1fr)` (3 columnas del mismo ancho) y `gap: 16px` (el espacio entre las fotos). Después, haz que cada imagen ocupe su columna: `.photo img` con `width: 100%` y `display: block`."
+      },
+      "hint": {
+        "en": "`1fr` means “one part of the free space”, so `repeat(3, 1fr)` is the same as `1fr 1fr 1fr`. Without `width: 100%`, each image keeps its own size and pushes its column. `display: block` removes the small gap that images leave below them.",
+        "es": "`1fr` significa «una parte del espacio libre», así que `repeat(3, 1fr)` es lo mismo que `1fr 1fr 1fr`. Sin `width: 100%`, cada imagen mantiene su tamaño y ensancha su columna. `display: block` quita el pequeño hueco que dejan las imágenes por debajo."
+      },
+      "note": {
+        "en": "The preview is narrow, so the photos look small. Open “View my website” to see the gallery at full size.",
+        "es": "La vista previa es estrecha y las fotos se ven pequeñas. Abre «Ver mi web» para ver la galería a tamaño completo."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".gallery",
+          "prop": "display",
+          "value": "grid",
+          "label": {
+            "en": "`.gallery` with `display: grid`",
+            "es": "`.gallery` con `display: grid`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".gallery",
+          "prop": "grid-template-columns",
+          "pattern": "^[\\d.]+px [\\d.]+px [\\d.]+px$",
+          "label": {
+            "en": "3 columns (`grid-template-columns`)",
+            "es": "3 columnas (`grid-template-columns`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".photo img",
+          "prop": "width",
+          "max": 420,
+          "label": {
+            "en": "The images fit their column (`width: 100%`)",
+            "es": "Las imágenes caben en su columna (`width: 100%`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-3",
+      "lang": "css",
+      "title": {
+        "en": "Buttons and active state",
+        "es": "Botones y estado activo"
+      },
+      "requirement": {
+        "en": "Styled buttons plus an `.active` state",
+        "es": "Botones con estilo y un estado `.active`"
+      },
+      "task": {
+        "en": "Style `.filter-btn`: some `padding`, a `border`, rounded corners with `border-radius` (`999px` gives a pill shape), a `background-color` and `cursor: pointer`. Then add a `.filter-btn.active` rule with a different `background-color` (for example `#602b7a`) and a white text `color`: it marks the selected category. If you like, give `.filters` a `margin-bottom` to separate the buttons from the photos.",
+        "es": "Da estilo a `.filter-btn`: algo de `padding`, un `border`, esquinas redondeadas con `border-radius` (`999px` les da forma de píldora), un `background-color` y `cursor: pointer`. Después, añade una regla `.filter-btn.active` con otro `background-color` (por ejemplo, `#602b7a`) y un `color` de texto blanco: marca la categoría elegida. Si quieres, pon un `margin-bottom` a `.filters` para separar los botones de las fotos."
+      },
+      "hint": {
+        "en": "`.filter-btn.active`, without a space, means “an element with both classes”. For now only `All` has it; in step 13, JavaScript will move it to the button you click.",
+        "es": "`.filter-btn.active`, sin espacio, significa «un elemento con las dos clases». De momento solo la tiene `All`; en el paso 13, JavaScript la pasará al botón que pulses."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".filter-btn",
+          "prop": "padding-top",
+          "min": 4,
+          "label": {
+            "en": "`padding` in the buttons",
+            "es": "`padding` en los botones"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".filter-btn",
+          "prop": "border-top-left-radius",
+          "min": 1,
+          "label": {
+            "en": "Rounded corners (`border-radius`)",
+            "es": "Esquinas redondeadas (`border-radius`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".filter-btn",
+          "prop": "cursor",
+          "value": "pointer",
+          "label": {
+            "en": "`cursor: pointer`",
+            "es": "`cursor: pointer`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "\\.active",
+          "prop": "background-color",
+          "label": {
+            "en": "A `background-color` for `.filter-btn.active`",
+            "es": "Un `background-color` para `.filter-btn.active`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-4",
+      "lang": "css",
+      "title": {
+        "en": "Hover overlay with transition",
+        "es": "Overlay al pasar el ratón con transition"
+      },
+      "requirement": {
+        "en": "Overlay appears on `:hover` with a `transition`",
+        "es": "El overlay aparece con `:hover` y una `transition`"
+      },
+      "task": {
+        "en": "Put the overlay on top of its photo. Give `.photo` `position: relative`, `overflow: hidden` and `border-radius: 10px`. Give `.overlay` `position: absolute` with `top: 0`, `left: 0`, `width: 100%` and `height: 100%`, a white text `color`, some `padding`, a transparent background (`background-color: rgba(30, 21, 39, 0)`) and `transition: background-color 0.4s` for a smooth change. Last, add a `.photo:hover .overlay` rule with a dark background: `rgba(30, 21, 39, 0.7)`.",
+        "es": "Pon el overlay encima de su foto. Da a `.photo` `position: relative`, `overflow: hidden` y `border-radius: 10px`. Da a `.overlay` `position: absolute` con `top: 0`, `left: 0`, `width: 100%` y `height: 100%`, un `color` de texto blanco, algo de `padding`, un fondo transparente (`background-color: rgba(30, 21, 39, 0)`) y `transition: background-color 0.4s` para que el cambio sea suave. Por último, añade una regla `.photo:hover .overlay` con un fondo oscuro: `rgba(30, 21, 39, 0.7)`."
+      },
+      "hint": {
+        "en": "`position: absolute` places an element relative to the closest container with `position: relative`: here, its photo. In `rgba(30, 21, 39, 0.7)` the last number is the opacity, from 0 (transparent) to 1 (solid). Extra: `display: flex` and `align-items: flex-end` in `.overlay` put the title at the bottom.",
+        "es": "`position: absolute` coloca un elemento respecto al contenedor más cercano con `position: relative`: aquí, su foto. En `rgba(30, 21, 39, 0.7)`, el último número es la opacidad, de 0 (transparente) a 1 (opaco). Extra: `display: flex` y `align-items: flex-end` en `.overlay` llevan el título abajo."
+      },
+      "note": {
+        "en": "Move the mouse over a photo in the preview to see the overlay.",
+        "es": "Pasa el ratón por encima de una foto de la vista previa para ver el overlay."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".photo",
+          "prop": "position",
+          "not": "static",
+          "label": {
+            "en": "`.photo` with `position: relative`",
+            "es": "`.photo` con `position: relative`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".overlay",
+          "prop": "position",
+          "value": "absolute",
+          "label": {
+            "en": "`.overlay` with `position: absolute`",
+            "es": "`.overlay` con `position: absolute`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": ":hover.*overlay|overlay:hover",
+          "label": {
+            "en": "A `.photo:hover .overlay` rule",
+            "es": "Una regla `.photo:hover .overlay`"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "overlay",
+          "prop": "transition-duration",
+          "pattern": "[1-9]",
+          "label": {
+            "en": "A `transition` on the overlay",
+            "es": "Una `transition` en el overlay"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-5",
+      "lang": "css",
+      "title": {
+        "en": "Media query: 1 column on mobile",
+        "es": "Media query: 1 columna en el móvil"
+      },
+      "requirement": {
+        "en": "1 column under 600px (`@media`)",
+        "es": "1 columna por debajo de 600 px (`@media`)"
+      },
+      "task": {
+        "en": "At the end of `style.css`, add a media query for small screens: `@media (max-width: 600px) { … }`. Inside it, give `.gallery` a single column with `grid-template-columns: 1fr`.",
+        "es": "Al final de `style.css`, añade una media query para pantallas pequeñas: `@media (max-width: 600px) { … }`. Dentro, deja `.gallery` en una sola columna con `grid-template-columns: 1fr`."
+      },
+      "hint": {
+        "en": "The rules inside `@media (max-width: 600px)` only apply when the window is 600px wide or less. Write it at the end so it wins over the `.gallery` rule above it.",
+        "es": "Las reglas de dentro de `@media (max-width: 600px)` solo se aplican cuando la ventana mide 600 px de ancho o menos. Escríbela al final para que gane a la regla `.gallery` de más arriba."
+      },
+      "note": {
+        "en": "The preview is narrower than 600px, so here you'll see 1 column. Open “View my website” to see the 3 columns.",
+        "es": "La vista previa mide menos de 600 px, así que aquí verás 1 columna. Abre «Ver mi web» para ver las 3 columnas."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "rule": "gallery",
+          "media": "width",
+          "label": {
+            "en": "A `@media` rule for `.gallery`",
+            "es": "Una regla `@media` para `.gallery`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".photo",
+          "prop": "width",
+          "min": 250,
+          "width": 400,
+          "label": {
+            "en": "1 photo per row on a 400px screen",
+            "es": "1 foto por fila en una pantalla de 400 px"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".gallery",
+          "prop": "grid-template-columns",
+          "pattern": "^[\\d.]+px [\\d.]+px [\\d.]+px$",
+          "label": {
+            "en": "Still 3 columns on a big screen",
+            "es": "Siguen las 3 columnas en una pantalla grande"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-1",
+      "lang": "js",
+      "title": {
+        "en": "Select buttons and photos",
+        "es": "Selecciona los botones y las fotos"
+      },
+      "requirement": {
+        "en": "Select buttons and photos with `querySelectorAll`",
+        "es": "Seleccionar los botones y las fotos con `querySelectorAll`"
+      },
+      "task": {
+        "en": "In `script.js`, select all the filter buttons with `document.querySelectorAll(\".filter-btn\")` and save them in a `const` called `buttons`. Do the same with the photos (`\".photo\"`) in a `const` called `photos`. To check it, print how many there are: `console.log(buttons.length, photos.length);`.",
+        "es": "En `script.js`, selecciona todos los botones de filtro con `document.querySelectorAll(\".filter-btn\")` y guárdalos en una `const` llamada `buttons`. Haz lo mismo con las fotos (`\".photo\"`) en una `const` llamada `photos`. Para comprobarlo, muestra cuántos hay: `console.log(buttons.length, photos.length);`."
+      },
+      "hint": {
+        "en": "`querySelectorAll` returns a list (a `NodeList`) with all the elements that match the selector, and `.length` tells you how many there are. If the console shows `0`, check the selector: classes need the dot.",
+        "es": "`querySelectorAll` devuelve una lista (una `NodeList`) con todos los elementos que cumplen el selector, y `.length` te dice cuántos hay. Si la consola muestra `0`, revisa el selector: las clases llevan el punto."
+      },
+      "note": {
+        "en": "Look at the console: it should say `4 9`.",
+        "es": "Mira la consola: debería poner `4 9`."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "querySelectorAll\\s*\\(",
+          "min": 2,
+          "label": {
+            "en": "`querySelectorAll` twice: buttons and photos",
+            "es": "`querySelectorAll` dos veces: botones y fotos"
+          }
+        },
+        {
+          "kind": "console",
+          "pattern": "^\\s*4\\s+9\\s*$",
+          "label": {
+            "en": "The console shows `4 9`",
+            "es": "La consola muestra `4 9`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-2",
+      "lang": "js",
+      "title": {
+        "en": "Listen to clicks on the buttons",
+        "es": "Escucha los clics de los botones"
+      },
+      "requirement": {
+        "en": "A `click` listener on every button",
+        "es": "Un listener de `click` en cada botón"
+      },
+      "task": {
+        "en": "Make every filter button react to a click. Go through the buttons with `buttons.forEach((btn) => { … })` and give each one a `click` listener with `addEventListener`. For now, just print the button’s `data-filter` value in the console — the filtering comes in step 12.",
+        "es": "Haz que cada botón de filtro reaccione a un clic. Recorre los botones con `buttons.forEach((btn) => { … })` y pon a cada uno un listener de `click` con `addEventListener`. De momento, solo muestra en la consola el valor de `data-filter` del botón: el filtro llega en el paso 12."
+      },
+      "hint": {
+        "en": "Inside the `forEach`: `btn.addEventListener(\"click\", () => { console.log(btn.dataset.filter); });`. `btn.dataset.filter` reads the attribute `data-filter`. You can also use a `for…of` loop: `for (const btn of buttons) { … }`.",
+        "es": "Dentro del `forEach`: `btn.addEventListener(\"click\", () => { console.log(btn.dataset.filter); });`. `btn.dataset.filter` lee el atributo `data-filter`. También puedes usar un bucle `for…of`: `for (const btn of buttons) { … }`."
+      },
+      "note": {
+        "en": "Filtering arrives in step 12 — for now all photos stay visible.",
+        "es": "El filtro llega en el paso 12: de momento se ven todas las fotos."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "forEach|for\\s*\\(",
+          "label": {
+            "en": "A loop over buttons (`forEach` or `for…of`)",
+            "es": "Un bucle que recorre los botones (`forEach` o `for…of`)"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "addEventListener\\s*\\(\\s*[\"'`]click[\"'`]",
+          "label": {
+            "en": "`addEventListener(\"click\", …)` on each button",
+            "es": "`addEventListener(\"click\", …)` en cada botón"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn",
+              "index": 1
+            },
+            {
+              "click": ".filter-btn",
+              "index": 3
+            }
+          ],
+          "expect": [
+            {
+              "kind": "console",
+              "text": "nature"
+            },
+            {
+              "kind": "console",
+              "text": "people"
+            }
+          ],
+          "label": {
+            "en": "`console.log(btn.dataset.filter)` inside the listener",
+            "es": "`console.log(btn.dataset.filter)` dentro del listener"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-3",
+      "lang": "js",
+      "title": {
+        "en": "Show / hide photos by category",
+        "es": "Muestra u oculta las fotos por categoría"
+      },
+      "requirement": {
+        "en": "Hide the photos whose `data-category` doesn’t match",
+        "es": "Ocultar las fotos cuyo `data-category` no coincide"
+      },
+      "task": {
+        "en": "Inside the listener, save the category of the clicked button: `const filter = btn.dataset.filter;`. Then go through the photos with `photos.forEach((photo) => { … })`. If `filter` is `\"all\"` or it’s the same as `photo.dataset.category`, remove the class `hidden` from the photo; if not, add it. The `.hidden` rule (with `display: none`) is already in `style.css`.",
+        "es": "Dentro del listener, guarda la categoría del botón pulsado: `const filter = btn.dataset.filter;`. Después, recorre las fotos con `photos.forEach((photo) => { … })`. Si `filter` es `\"all\"` o es igual que `photo.dataset.category`, quita la clase `hidden` a la foto; si no, pónsela. La regla `.hidden` (con `display: none`) ya está en `style.css`."
+      },
+      "hint": {
+        "en": "`if (filter === \"all\" || photo.dataset.category === filter) { photo.classList.remove(\"hidden\"); } else { photo.classList.add(\"hidden\"); }`. `||` means “or”: one of the two conditions is enough.",
+        "es": "`if (filter === \"all\" || photo.dataset.category === filter) { photo.classList.remove(\"hidden\"); } else { photo.classList.add(\"hidden\"); }`. `||` significa «o»: basta con que se cumpla una de las dos condiciones."
+      },
+      "note": {
+        "en": "Try the buttons in the preview: only the photos of that category should stay.",
+        "es": "Prueba los botones en la vista previa: solo deberían quedar las fotos de esa categoría."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"nature\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".photo",
+              "visible": true,
+              "count": 3
+            },
+            {
+              "kind": "selector",
+              "selector": ".photo[data-category=\"nature\"]",
+              "visible": true,
+              "count": 3
+            }
+          ],
+          "label": {
+            "en": "Clicking `Nature` shows only the 3 nature photos",
+            "es": "Al pulsar `Nature`, solo se ven las 3 fotos de naturaleza"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"people\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".photo",
+              "visible": true,
+              "count": 3
+            },
+            {
+              "kind": "selector",
+              "selector": ".photo[data-category=\"people\"]",
+              "visible": true,
+              "count": 3
+            }
+          ],
+          "label": {
+            "en": "Clicking `People` shows only the 3 people photos",
+            "es": "Al pulsar `People`, solo se ven las 3 fotos de personas"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"nature\"]"
+            },
+            {
+              "click": ".filter-btn[data-filter=\"all\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".photo",
+              "visible": true,
+              "count": 9
+            }
+          ],
+          "label": {
+            "en": "Clicking `All` shows the 9 photos again",
+            "es": "Al pulsar `All`, vuelven a verse las 9 fotos"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-4",
+      "lang": "js",
+      "title": {
+        "en": "Highlight the active button",
+        "es": "Resalta el botón activo"
+      },
+      "requirement": {
+        "en": "Add `.active` to the clicked button only",
+        "es": "Poner `.active` solo en el botón pulsado"
+      },
+      "task": {
+        "en": "Inside the listener, mark the clicked button. First remove the class `active` from all the buttons: `buttons.forEach((b) => { b.classList.remove(\"active\"); });`. Then add it to the one that was clicked: `btn.classList.add(\"active\");`.",
+        "es": "Dentro del listener, marca el botón pulsado. Primero quita la clase `active` a todos los botones: `buttons.forEach((b) => { b.classList.remove(\"active\"); });`. Después, pónsela al que se ha pulsado: `btn.classList.add(\"active\");`."
+      },
+      "hint": {
+        "en": "First remove it from all of them, then add it to one: that way only one button is ever highlighted. If you only add it, the buttons you clicked before would stay purple.",
+        "es": "Primero se quita a todos y luego se pone a uno: así solo hay un botón resaltado cada vez. Si solo la añades, los botones que pulsaste antes se quedarían morados."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"nature\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".filter-btn.active",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".filter-btn[data-filter=\"nature\"].active",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "After clicking `Nature`, only `Nature` has the class `active`",
+            "es": "Tras pulsar `Nature`, solo `Nature` tiene la clase `active`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"nature\"]"
+            },
+            {
+              "click": ".filter-btn[data-filter=\"city\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".filter-btn.active",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".filter-btn[data-filter=\"city\"].active",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Clicking another button moves `active` to it",
+            "es": "Al pulsar otro botón, `active` pasa a ese botón"
+          }
+        }
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "lang": "html",
+      "label": {
+        "en": "Semantic structure",
+        "es": "Estructura semántica"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "header"
+        },
+        {
+          "kind": "selector",
+          "selector": "main"
+        },
+        {
+          "kind": "selector",
+          "selector": "footer"
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "All images have alt text",
+        "es": "Todas las imágenes tienen texto alt"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".photo img",
+          "count": 9
+        },
+        {
+          "kind": "attr",
+          "selector": "img",
+          "attr": "alt"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Grid with 3 columns",
+        "es": "Cuadrícula de 3 columnas"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".gallery",
+          "prop": "display",
+          "value": "grid"
+        },
+        {
+          "kind": "css",
+          "selector": ".gallery",
+          "prop": "grid-template-columns",
+          "pattern": "^[\\d.]+px [\\d.]+px [\\d.]+px$"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Responsive under 600px",
+        "es": "Adaptable por debajo de 600 px"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "rule": "gallery",
+          "media": "width"
+        },
+        {
+          "kind": "css",
+          "selector": ".photo",
+          "prop": "width",
+          "min": 250,
+          "width": 400
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Filter shows the right photos",
+        "es": "El filtro muestra las fotos correctas"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"nature\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".photo",
+              "visible": true,
+              "count": 3
+            },
+            {
+              "kind": "selector",
+              "selector": ".photo[data-category=\"nature\"]",
+              "visible": true,
+              "count": 3
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"city\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".photo",
+              "visible": true,
+              "count": 3
+            },
+            {
+              "kind": "selector",
+              "selector": ".photo[data-category=\"city\"]",
+              "visible": true,
+              "count": 3
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"people\"]"
+            },
+            {
+              "click": ".filter-btn[data-filter=\"all\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".photo",
+              "visible": true,
+              "count": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Active button highlighted",
+        "es": "El botón activo está resaltado"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": ".filter-btn[data-filter=\"nature\"]"
+            },
+            {
+              "click": ".filter-btn[data-filter=\"city\"]"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": ".filter-btn.active",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": ".filter-btn[data-filter=\"city\"].active",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "kind": "css",
+          "rule": "\\.active",
+          "prop": "background-color"
+        }
+      ]
+    }
+  ]
+}

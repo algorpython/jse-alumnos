@@ -1,0 +1,1554 @@
+{
+  "id": "p5",
+  "number": 5,
+  "level": "intermediate",
+  "minutes": 90,
+  "folder": "todo-list",
+  "title": {
+    "en": "To-do list",
+    "es": "Lista de tareas"
+  },
+  "summary": {
+    "en": "Add, complete and delete tasks. Tasks are saved in the browser with localStorage.",
+    "es": "Añade, completa y borra tareas. Las tareas se guardan en el navegador con localStorage."
+  },
+  "basedOn": [
+    "14_DOM",
+    "06_Arrays",
+    "15_BOM"
+  ],
+  "goal": {
+    "title": {
+      "en": "Build a to-do list that remembers your tasks",
+      "es": "Crea una lista de tareas que recuerde tus tareas"
+    },
+    "body": {
+      "en": "You will create a to-do list app in a white card. You write a task and click “Add” (or press Enter); tick its box to complete it, and it’s crossed out; click “Delete” to remove it. A counter shows how many tasks are left. Your tasks live in a JavaScript array, and every change draws the list again from it. Finally, the array is saved in the browser with `localStorage`, so the tasks are still there when you reload the page. Note: the preview can’t save anything, so this last part only works in the website you download at the end.",
+      "es": "Vas a crear una aplicación de lista de tareas en una tarjeta blanca. Escribes una tarea y pulsas «Add» (o Intro); marcas su casilla para completarla, y se tacha; pulsas «Delete» para quitarla. Un contador muestra cuántas tareas quedan. Tus tareas viven en un array de JavaScript, y con cada cambio la lista se vuelve a dibujar a partir de él. Por último, el array se guarda en el navegador con `localStorage`, y así las tareas siguen ahí al recargar la página. Ojo: la vista previa no puede guardar nada, así que esta última parte solo funciona en la web que descargas al final."
+    }
+  },
+  "result": {
+    "en": "A to-do list in a white card: done tasks are crossed out, “Delete” removes them and the counter is always up to date. In the preview you also see the “can't be saved” message; in your downloaded website the tasks are saved.",
+    "es": "Una lista de tareas en una tarjeta blanca: las tareas hechas salen tachadas, «Delete» las quita y el contador siempre está al día. En la vista previa también ves el aviso de que no se puede guardar; en tu web descargada, las tareas sí se guardan."
+  },
+  "starter": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>To-do list</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Steps 1 and 2: your to-do list goes here -->\n\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* To-do list · style.css */\n\n/* Steps 3 to 5: your styles go here */\n",
+    "js": "// To-do list · script.js\n\n// Steps 6 to 11: your JavaScript goes here\n"
+  },
+  "solution": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>To-do list</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <main class=\"todo-app\">\n    <h1>My to-do list</h1>\n\n    <form id=\"todo-form\">\n      <label for=\"todo-input\">New task</label>\n      <input type=\"text\" id=\"todo-input\" placeholder=\"What do you need to do?\" autocomplete=\"off\">\n      <button type=\"submit\">Add</button>\n    </form>\n\n    <ul id=\"todo-list\">\n      <li>\n        <label><input type=\"checkbox\"> <span class=\"task-text\">Buy bread</span></label>\n        <button class=\"delete\">Delete</button>\n      </li>\n      <li class=\"done\">\n        <label><input type=\"checkbox\" checked> <span class=\"task-text\">Learn HTML</span></label>\n        <button class=\"delete\">Delete</button>\n      </li>\n    </ul>\n\n    <p id=\"counter\" class=\"counter\" aria-live=\"polite\">1 task left</p>\n    <p id=\"storage-msg\" class=\"storage-msg\" role=\"status\"></p>\n  </main>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* To-do list · style.css */\n\n/* Step 3: the page and the card */\n* {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n  padding: 40px 16px;\n  font-family: Arial, sans-serif;\n  color: #1e1527;\n  background-color: #f1e9f6;\n}\n\n.todo-app {\n  width: 100%;\n  max-width: 480px;\n  margin: 0 auto;\n  padding: 28px 24px;\n  border-radius: 16px;\n  background-color: #ffffff;\n  box-shadow: 0 8px 24px rgba(67, 35, 95, 0.15);\n}\n\nh1 {\n  margin: 0 0 20px;\n  color: #43235f;\n  font-size: 28px;\n}\n\n/* Step 4: the form to add tasks */\n#todo-form {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 8px;\n  margin-bottom: 20px;\n}\n\n#todo-form label {\n  width: 100%;\n  font-size: 14px;\n  font-weight: bold;\n}\n\n#todo-input {\n  flex: 1;\n  min-width: 0;\n  padding: 12px;\n  border: 2px solid #cfc8d8;\n  border-radius: 8px;\n  font-size: 16px;\n}\n\n#todo-input:focus {\n  border-color: #602b7a;\n  outline: 3px solid #e3d3ee;\n}\n\n#todo-form button {\n  padding: 12px 20px;\n  border: none;\n  border-radius: 8px;\n  background-color: #602b7a;\n  color: #ffffff;\n  font-size: 16px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n#todo-form button:hover {\n  background-color: #43235f;\n}\n\n/* Step 5: the list of tasks */\n#todo-list {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n#todo-list li {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 10px 0;\n  border-bottom: 1px solid #e7e1ee;\n}\n\n#todo-list label {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  cursor: pointer;\n}\n\n#todo-list input[type=\"checkbox\"] {\n  width: 20px;\n  height: 20px;\n  accent-color: #602b7a;\n}\n\n.done .task-text {\n  color: #6b6177;\n  text-decoration: line-through;\n}\n\n.delete {\n  padding: 8px 12px;\n  border: 2px solid #c62828;\n  border-radius: 8px;\n  background-color: #ffffff;\n  color: #c62828;\n  cursor: pointer;\n}\n\n.delete:hover {\n  background-color: #c62828;\n  color: #ffffff;\n}\n\n.counter {\n  margin: 16px 0 0;\n  color: #6b6177;\n  font-size: 14px;\n}\n\n.storage-msg {\n  margin: 8px 0 0;\n  color: #8a4b00;\n  font-size: 14px;\n}\n",
+    "js": "// To-do list · script.js\n\n// Step 6: the elements of the page and the list of tasks\nconst form = document.querySelector(\"#todo-form\");\nconst input = document.querySelector(\"#todo-input\");\nconst list = document.querySelector(\"#todo-list\");\nconst counter = document.querySelector(\"#counter\");\nconst storageMsg = document.querySelector(\"#storage-msg\");\n\n// Every task is an object with its text and whether it's done\nlet tasks = [\n  { text: \"Buy bread\", done: false },\n  { text: \"Learn HTML\", done: true },\n];\n\n// Step 10: count the tasks that are not done yet\nfunction updateCounter() {\n  let left = 0;\n  for (const task of tasks) {\n    if (!task.done) {\n      left++;\n    }\n  }\n  if (left === 1) {\n    counter.textContent = \"1 task left\";\n  } else {\n    counter.textContent = left + \" tasks left\";\n  }\n}\n\n// Step 11: save the tasks in the browser and load them again\nconst STORAGE_OFF = \"Your tasks can't be saved in this browser: they will disappear if you reload the page.\";\n\nfunction save() {\n  try {\n    localStorage.setItem(\"todo-tasks\", JSON.stringify(tasks));\n  } catch (error) {\n    storageMsg.textContent = STORAGE_OFF;\n  }\n}\n\nfunction load() {\n  try {\n    const saved = localStorage.getItem(\"todo-tasks\");\n    if (saved !== null) {\n      tasks = JSON.parse(saved);\n    }\n  } catch (error) {\n    storageMsg.textContent = STORAGE_OFF;\n  }\n}\n\n// Step 7: draw the list from the array\nfunction render() {\n  list.innerHTML = \"\";\n\n  tasks.forEach((task, index) => {\n    const item = document.createElement(\"li\");\n    if (task.done) {\n      item.classList.add(\"done\");\n    }\n\n    const label = document.createElement(\"label\");\n    const checkbox = document.createElement(\"input\");\n    checkbox.type = \"checkbox\";\n    checkbox.checked = task.done;\n    const text = document.createElement(\"span\");\n    text.className = \"task-text\";\n    text.textContent = task.text;\n    label.appendChild(checkbox);\n    label.appendChild(text);\n\n    const deleteButton = document.createElement(\"button\");\n    deleteButton.className = \"delete\";\n    deleteButton.textContent = \"Delete\";\n\n    item.appendChild(label);\n    item.appendChild(deleteButton);\n    list.appendChild(item);\n\n    // Step 8: tick the box to complete a task (or untick it)\n    checkbox.addEventListener(\"change\", () => {\n      task.done = checkbox.checked;\n      render();\n    });\n\n    // Step 9: delete a task\n    deleteButton.addEventListener(\"click\", () => {\n      tasks.splice(index, 1);\n      render();\n    });\n  });\n\n  updateCounter();\n  save();\n}\n\n// Step 6: add a task when the form is sent\nform.addEventListener(\"submit\", (event) => {\n  event.preventDefault();\n  const text = input.value.trim();\n  if (text === \"\") {\n    return;\n  }\n  tasks.push({ text: text, done: false });\n  console.log(tasks);\n  render();\n  input.value = \"\";\n  input.focus();\n});\n\n// Step 11: load the saved tasks, then draw the list\nload();\nrender();\n"
+  },
+  "steps": [
+    {
+      "id": "html-1",
+      "lang": "html",
+      "title": {
+        "en": "The card and the form to add tasks",
+        "es": "La tarjeta y el formulario para añadir tareas"
+      },
+      "requirement": {
+        "en": "A `.todo-app` with an `<h1>` and a form with a labelled field and an “Add” button",
+        "es": "Un `.todo-app` con un `<h1>` y un formulario con un campo con label y un botón «Add»"
+      },
+      "task": {
+        "en": "Inside `<body>`, before the `<script>`, add a `<main class=\"todo-app\">`: it will be the white card of your app. Inside it, write the title `My to-do list` in an `<h1>` and, below, a `<form id=\"todo-form\">` with three things: a `<label for=\"todo-input\">New task</label>`, a text field `<input type=\"text\" id=\"todo-input\">` with a `placeholder` such as `What do you need to do?` and `autocomplete=\"off\"`, and a button `<button type=\"submit\">Add</button>`.",
+        "es": "Dentro de `<body>`, antes del `<script>`, añade un `<main class=\"todo-app\">`: será la tarjeta blanca de tu aplicación. Dentro, escribe el título `My to-do list` en un `<h1>` y, debajo, un `<form id=\"todo-form\">` con tres cosas: un `<label for=\"todo-input\">New task</label>`, un campo de texto `<input type=\"text\" id=\"todo-input\">` con un `placeholder` como `What do you need to do?` y `autocomplete=\"off\"`, y un botón `<button type=\"submit\">Add</button>`."
+      },
+      "hint": {
+        "en": "Why a `<form>` and not just an input and a button? Because a form is sent both when you click its button and when you press Enter in the field: your app will work with the mouse and with the keyboard. The `for` of the label is the `id` of the input, and `autocomplete=\"off\"` stops the browser from suggesting old texts.",
+        "es": "¿Por qué un `<form>` y no solo un input y un botón? Porque un formulario se envía tanto al pulsar su botón como al pulsar Intro en el campo: tu aplicación funcionará con el ratón y con el teclado. El `for` del label es el `id` del input, y `autocomplete=\"off\"` evita que el navegador sugiera textos antiguos."
+      },
+      "note": {
+        "en": "If you click “Add” now, the console only says that the form was sent: in step 6 your JavaScript will take control.",
+        "es": "Si pulsas «Add» ahora, la consola solo avisa de que se ha enviado el formulario: en el paso 6 tu JavaScript tomará el control."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".todo-app",
+          "count": 1,
+          "label": {
+            "en": "An element with the class `todo-app`",
+            "es": "Un elemento con la clase `todo-app`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".todo-app h1",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h1>` with the title inside `.todo-app`",
+            "es": "Un `<h1>` con el título dentro de `.todo-app`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".todo-app form#todo-form",
+          "count": 1,
+          "label": {
+            "en": "A `<form id=\"todo-form\">` inside `.todo-app`",
+            "es": "Un `<form id=\"todo-form\">` dentro de `.todo-app`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-form input#todo-input[type=\"text\"]",
+          "count": 1,
+          "label": {
+            "en": "A text field `<input type=\"text\" id=\"todo-input\">` inside the form",
+            "es": "Un campo de texto `<input type=\"text\" id=\"todo-input\">` dentro del formulario"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"todo-input\"]",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `<label for=\"todo-input\">` with text",
+            "es": "Un `<label for=\"todo-input\">` con texto"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": "#todo-input",
+          "attr": "placeholder",
+          "pattern": "\\S",
+          "label": {
+            "en": "The field has a `placeholder`",
+            "es": "El campo tiene un `placeholder`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-form button[type=\"submit\"], #todo-form button:not([type])",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `<button type=\"submit\">` with a text inside the form",
+            "es": "Un `<button type=\"submit\">` con texto dentro del formulario"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-2",
+      "lang": "html",
+      "title": {
+        "en": "The list with two example tasks",
+        "es": "La lista con dos tareas de ejemplo"
+      },
+      "requirement": {
+        "en": "A `<ul id=\"todo-list\">` with two example tasks (one done), a counter and a space for messages",
+        "es": "Una `<ul id=\"todo-list\">` con dos tareas de ejemplo (una hecha), un contador y un hueco para mensajes"
+      },
+      "task": {
+        "en": "After the form, add a `<ul id=\"todo-list\">` with two example tasks, so you can style them in the CSS steps. Each task is an `<li>` with a `<label>` that holds a checkbox (`<input type=\"checkbox\">`) and the text in a `<span class=\"task-text\">`, and after the label a `<button class=\"delete\">Delete</button>`. The first task is `Buy bread`. The second one, `Learn HTML`, is already done: give its `<li>` the class `done` and its checkbox the attribute `checked`. Below the list, add `<p id=\"counter\" class=\"counter\" aria-live=\"polite\">1 task left</p>` and an empty `<p id=\"storage-msg\" class=\"storage-msg\" role=\"status\"></p>`, where a message will appear if the tasks can’t be saved.",
+        "es": "Después del formulario, añade una `<ul id=\"todo-list\">` con dos tareas de ejemplo, para poder darles estilo en los pasos de CSS. Cada tarea es un `<li>` con un `<label>` que contiene una casilla (`<input type=\"checkbox\">`) y el texto en un `<span class=\"task-text\">`, y después del label, un `<button class=\"delete\">Delete</button>`. La primera tarea es `Buy bread`. La segunda, `Learn HTML`, ya está hecha: pon a su `<li>` la clase `done` y a su casilla el atributo `checked`. Debajo de la lista, añade `<p id=\"counter\" class=\"counter\" aria-live=\"polite\">1 task left</p>` y un `<p id=\"storage-msg\" class=\"storage-msg\" role=\"status\"></p>` vacío, donde saldrá un aviso si las tareas no se pueden guardar."
+      },
+      "hint": {
+        "en": "A task: `<li><label><input type=\"checkbox\"> <span class=\"task-text\">Buy bread</span></label><button class=\"delete\">Delete</button></li>`. When the checkbox is inside its `<label>`, you don’t need `for`: clicking the text also ticks the box, and screen readers read the text as the name of the box. `aria-live=\"polite\"` and `role=\"status\"` make screen readers announce the changes in the counter and in the message.",
+        "es": "Una tarea: `<li><label><input type=\"checkbox\"> <span class=\"task-text\">Buy bread</span></label><button class=\"delete\">Delete</button></li>`. Si la casilla está dentro de su `<label>`, no hace falta `for`: al pulsar el texto también se marca la casilla, y los lectores de pantalla leen el texto como nombre de la casilla. Con `aria-live=\"polite\"` y `role=\"status\"`, los lectores de pantalla anuncian los cambios del contador y del aviso."
+      },
+      "note": {
+        "en": "These two tasks are written by hand for now. From step 7, JavaScript will draw the list from an array.",
+        "es": "De momento, estas dos tareas están escritas a mano. A partir del paso 7, JavaScript dibujará la lista a partir de un array."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".todo-app ul#todo-list",
+          "count": 1,
+          "label": {
+            "en": "A `<ul id=\"todo-list\">` inside `.todo-app`",
+            "es": "Una `<ul id=\"todo-list\">` dentro de `.todo-app`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-list li",
+          "min": 2,
+          "label": {
+            "en": "At least 2 tasks (`<li>`) in the list",
+            "es": "Al menos 2 tareas (`<li>`) en la lista"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-list li label input[type=\"checkbox\"]",
+          "min": 2,
+          "label": {
+            "en": "Each task has a checkbox inside a `<label>`",
+            "es": "Cada tarea tiene una casilla dentro de un `<label>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-list li .task-text",
+          "text": "\\S",
+          "min": 2,
+          "label": {
+            "en": "Each task has its text in a `<span class=\"task-text\">`",
+            "es": "Cada tarea tiene su texto en un `<span class=\"task-text\">`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-list li button.delete",
+          "text": "\\S",
+          "min": 2,
+          "label": {
+            "en": "Each task has a `<button class=\"delete\">`",
+            "es": "Cada tarea tiene un `<button class=\"delete\">`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-list li.done input[type=\"checkbox\"]:checked",
+          "min": 1,
+          "label": {
+            "en": "A done task: `<li class=\"done\">` with its box `checked`",
+            "es": "Una tarea hecha: `<li class=\"done\">` con su casilla `checked`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#counter[aria-live], #counter[role=\"status\"]",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "A `#counter` with text and `aria-live=\"polite\"`",
+            "es": "Un `#counter` con texto y `aria-live=\"polite\"`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#storage-msg[aria-live], #storage-msg[role=\"status\"]",
+          "count": 1,
+          "label": {
+            "en": "A `#storage-msg` with `role=\"status\"`",
+            "es": "Un `#storage-msg` con `role=\"status\"`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-1",
+      "lang": "css",
+      "title": {
+        "en": "The page and the white card",
+        "es": "La página y la tarjeta blanca"
+      },
+      "requirement": {
+        "en": "A soft background and the app in a centred white card",
+        "es": "Un fondo suave y la aplicación en una tarjeta blanca centrada"
+      },
+      "task": {
+        "en": "In `style.css`, start with `* { box-sizing: border-box; }`. Give `body` `margin: 0`, `padding: 40px 16px`, a `font-family` and a soft background colour (for example `#f1e9f6`). Then turn `.todo-app` into a white card: `width: 100%`, `max-width: 480px`, `margin: 0 auto` to centre it, some `padding`, `border-radius: 16px`, `background-color: #ffffff` and a soft `box-shadow`. Give the `h1` a colour and some space below.",
+        "es": "En `style.css`, empieza con `* { box-sizing: border-box; }`. Pon a `body` `margin: 0`, `padding: 40px 16px`, un `font-family` y un color de fondo suave (por ejemplo, `#f1e9f6`). Después, convierte `.todo-app` en una tarjeta blanca: `width: 100%`, `max-width: 480px`, `margin: 0 auto` para centrarla, algo de `padding`, `border-radius: 16px`, `background-color: #ffffff` y una `box-shadow` suave. Pon al `h1` un color y algo de espacio por debajo."
+      },
+      "hint": {
+        "en": "`margin: 0 auto` centres a block that has a width: the space left on the sides is shared equally between left and right. With `width: 100%` and `max-width: 480px`, the card fills a phone screen and stays narrow on a computer.",
+        "es": "`margin: 0 auto` centra un bloque que tiene ancho: el espacio que sobra a los lados se reparte a partes iguales entre la izquierda y la derecha. Con `width: 100%` y `max-width: 480px`, la tarjeta ocupa la pantalla de un móvil y se queda estrecha en un ordenador."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "margin-top",
+          "value": "0px",
+          "label": {
+            "en": "No margin on `body` (`margin: 0`)",
+            "es": "Sin margen en `body` (`margin: 0`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "^(\\*|html|body)$",
+          "prop": "font-family",
+          "label": {
+            "en": "A `font-family` for the page",
+            "es": "Un `font-family` para la página"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".todo-app",
+          "prop": "width",
+          "min": 280,
+          "max": 560,
+          "label": {
+            "en": "A card between 280 and 560px wide (`max-width: 480px`)",
+            "es": "Una tarjeta de entre 280 y 560 px de ancho (`max-width: 480px`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".todo-app",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "The card has a `background-color`",
+            "es": "La tarjeta tiene un `background-color`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".todo-app",
+          "prop": "border-top-left-radius",
+          "min": 8,
+          "label": {
+            "en": "Rounded corners on the card (`border-radius`)",
+            "es": "Esquinas redondeadas en la tarjeta (`border-radius`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-2",
+      "lang": "css",
+      "title": {
+        "en": "The field and the button in one row",
+        "es": "El campo y el botón en una fila"
+      },
+      "requirement": {
+        "en": "The field and the “Add” button side by side, with a focus style",
+        "es": "El campo y el botón «Add» uno al lado del otro, con un estilo de foco"
+      },
+      "task": {
+        "en": "Put the form in a row with flexbox: `#todo-form` with `display: flex`, `flex-wrap: wrap` and `gap: 8px`. Give `#todo-form label` `width: 100%`, so it takes its own line above. Then `#todo-input` with `flex: 1` (it takes all the free space), `min-width: 0`, `padding: 12px`, `border: 2px solid #cfc8d8`, `border-radius: 8px` and `font-size: 16px`, and a rule `#todo-input:focus` that changes the `border-color` and adds a soft `outline`. Finally, style `#todo-form button`: `padding`, no border, `border-radius`, a `background-color`, white text, `font-weight: bold`, `cursor: pointer` and a darker colour on `:hover`.",
+        "es": "Pon el formulario en fila con flexbox: `#todo-form` con `display: flex`, `flex-wrap: wrap` y `gap: 8px`. Pon a `#todo-form label` `width: 100%`, para que ocupe su propia línea arriba. Después, `#todo-input` con `flex: 1` (ocupa todo el espacio libre), `min-width: 0`, `padding: 12px`, `border: 2px solid #cfc8d8`, `border-radius: 8px` y `font-size: 16px`, y una regla `#todo-input:focus` que cambie el `border-color` y ponga un `outline` suave. Por último, da estilo a `#todo-form button`: `padding`, sin borde, `border-radius`, un `background-color`, texto blanco, `font-weight: bold`, `cursor: pointer` y un color más oscuro en `:hover`."
+      },
+      "hint": {
+        "en": "With `flex-wrap: wrap`, an element with `width: 100%` jumps to a line of its own: that’s how the label goes on top and the field and the button share the row below. `flex: 1` means “grow to fill the free space”, so the button keeps its size and the field stretches. `min-width: 0` lets the field also shrink on narrow screens (like the preview), so the button never jumps to another line.",
+        "es": "Con `flex-wrap: wrap`, un elemento con `width: 100%` salta a una línea propia: así el label va arriba y el campo y el botón comparten la fila de abajo. `flex: 1` significa «crece hasta llenar el espacio libre», así que el botón mantiene su tamaño y el campo se estira. Con `min-width: 0`, el campo también puede encogerse en pantallas estrechas (como la vista previa), y así el botón nunca salta a otra línea."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "#todo-form",
+          "prop": "display",
+          "pattern": "flex|grid",
+          "label": {
+            "en": "`#todo-form` with `display: flex`",
+            "es": "`#todo-form` con `display: flex`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-input",
+          "prop": "width",
+          "min": 200,
+          "label": {
+            "en": "A wide field (`flex: 1`)",
+            "es": "Un campo ancho (`flex: 1`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-input",
+          "prop": "border-top-left-radius",
+          "min": 4,
+          "label": {
+            "en": "A rounded field (`border-radius`)",
+            "es": "Un campo redondeado (`border-radius`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "input(\\[[^\\]]*\\])?:focus(-visible)?$",
+          "label": {
+            "en": "A rule for the field with focus (`#todo-input:focus`)",
+            "es": "Una regla para el campo con el foco (`#todo-input:focus`)"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "button|\\[type=.?submit",
+          "prop": "background-color",
+          "label": {
+            "en": "The button has a `background-color`",
+            "es": "El botón tiene un `background-color`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-form button",
+          "prop": "cursor",
+          "value": "pointer",
+          "label": {
+            "en": "`cursor: pointer` on the button",
+            "es": "`cursor: pointer` en el botón"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-3",
+      "lang": "css",
+      "title": {
+        "en": "One row per task, and done tasks crossed out",
+        "es": "Una fila por tarea y las hechas, tachadas"
+      },
+      "requirement": {
+        "en": "A list without bullets, one row per task, done tasks crossed out and a “Delete” button",
+        "es": "Una lista sin viñetas, una fila por tarea, las tareas hechas tachadas y un botón «Delete»"
+      },
+      "task": {
+        "en": "Remove the bullets and the space of the list: `#todo-list` with `margin: 0`, `padding: 0` and `list-style: none`. Turn every task into a row: `#todo-list li` with `display: flex`, `align-items: center`, `gap: 12px`, some `padding` and a thin `border-bottom`. Give `#todo-list label` `flex: 1` (so the button goes to the right), `display: flex`, `align-items: center` and `gap: 10px`. Now the important one: cross out the done tasks with `.done .task-text { text-decoration: line-through; }` and a grey `color`. Style `.delete` as a small red button (red border and text, `cursor: pointer`) that turns red with white text on `:hover`. Finally, give `.counter` and `.storage-msg` a smaller `font-size`.",
+        "es": "Quita las viñetas y el espacio de la lista: `#todo-list` con `margin: 0`, `padding: 0` y `list-style: none`. Convierte cada tarea en una fila: `#todo-list li` con `display: flex`, `align-items: center`, `gap: 12px`, algo de `padding` y un `border-bottom` fino. Pon a `#todo-list label` `flex: 1` (así el botón se va a la derecha), `display: flex`, `align-items: center` y `gap: 10px`. Ahora, lo importante: tacha las tareas hechas con `.done .task-text { text-decoration: line-through; }` y un `color` gris. Convierte `.delete` en un botón pequeño en rojo (borde y texto rojos, `cursor: pointer`) que se pone rojo con texto blanco en `:hover`. Por último, pon a `.counter` y a `.storage-msg` un `font-size` más pequeño."
+      },
+      "hint": {
+        "en": "`.done .task-text` (with a space) means “a `.task-text` inside an element with the class `done`”. That’s the trick of this project: JavaScript will only add or remove the class `done` on the `<li>`, and this rule does the rest. If you like, `accent-color: #602b7a` on the checkboxes paints them purple.",
+        "es": "`.done .task-text` (con un espacio) significa «un `.task-text` dentro de un elemento con la clase `done`». Es el truco de este proyecto: JavaScript solo pondrá o quitará la clase `done` en el `<li>`, y esta regla hace el resto. Si quieres, `accent-color: #602b7a` en las casillas las pinta de morado."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "#todo-list",
+          "prop": "list-style-type",
+          "value": "none",
+          "label": {
+            "en": "A list without bullets (`list-style: none`)",
+            "es": "Una lista sin viñetas (`list-style: none`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-list",
+          "prop": "padding-left",
+          "value": "0px",
+          "label": {
+            "en": "No left space in the list (`padding: 0`)",
+            "es": "Sin espacio a la izquierda en la lista (`padding: 0`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-list li",
+          "prop": "display",
+          "pattern": "flex|grid",
+          "label": {
+            "en": "Every task is a row (`#todo-list li` with `display: flex`)",
+            "es": "Cada tarea es una fila (`#todo-list li` con `display: flex`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-list li.done, #todo-list li.done *",
+          "prop": "text-decoration-line",
+          "value": "line-through",
+          "any": true,
+          "label": {
+            "en": "Done tasks are crossed out (`text-decoration: line-through`)",
+            "es": "Las tareas hechas están tachadas (`text-decoration: line-through`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#todo-list li button",
+          "prop": "cursor",
+          "value": "pointer",
+          "label": {
+            "en": "`cursor: pointer` on the “Delete” buttons",
+            "es": "`cursor: pointer` en los botones «Delete»"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-1",
+      "lang": "js",
+      "title": {
+        "en": "An array of tasks and the “Add” button",
+        "es": "Un array de tareas y el botón «Add»"
+      },
+      "requirement": {
+        "en": "An array of task objects, and every new task is added to it with `push`",
+        "es": "Un array de objetos tarea, y cada tarea nueva se añade con `push`"
+      },
+      "task": {
+        "en": "In `script.js`, select with `document.querySelector` the elements you will use: `form` (`#todo-form`), `input` (`#todo-input`), `list` (`#todo-list`), `counter` (`#counter`) and `storageMsg` (`#storage-msg`). Then create the array of tasks with the same two tasks as the HTML: `let tasks = [{ text: \"Buy bread\", done: false }, { text: \"Learn HTML\", done: true }];`. Listen to the form’s `submit` event and, inside: call `event.preventDefault()`, read the text with `input.value.trim()`, and if it’s empty, stop with `return`. If not, add the task to the array with `tasks.push({ text: text, done: false });`, show the array with `console.log(tasks);` and empty the field (`input.value = \"\";`) and give it the focus back with `input.focus();`.",
+        "es": "En `script.js`, selecciona con `document.querySelector` los elementos que vas a usar: `form` (`#todo-form`), `input` (`#todo-input`), `list` (`#todo-list`), `counter` (`#counter`) y `storageMsg` (`#storage-msg`). Después, crea el array de tareas con las mismas dos tareas que el HTML: `let tasks = [{ text: \"Buy bread\", done: false }, { text: \"Learn HTML\", done: true }];`. Escucha el evento `submit` del formulario y, dentro: llama a `event.preventDefault()`, lee el texto con `input.value.trim()` y, si está vacío, para con `return`. Si no, añade la tarea al array con `tasks.push({ text: text, done: false });`, muestra el array con `console.log(tasks);`, vacía el campo (`input.value = \"\";`) y devuélvele el foco con `input.focus();`."
+      },
+      "hint": {
+        "en": "Each task is an object with two properties: `text` (what to do) and `done` (`true` or `false`). Use `let`, not `const`, for the array: in step 11 you will replace it with the saved tasks. `trim()` removes the spaces at the start and at the end, so a task made only of spaces is not added.",
+        "es": "Cada tarea es un objeto con dos propiedades: `text` (qué hay que hacer) y `done` (`true` o `false`). Usa `let`, no `const`, para el array: en el paso 11 lo sustituirás por las tareas guardadas. `trim()` quita los espacios del principio y del final, así que no se añade una tarea hecha solo de espacios."
+      },
+      "note": {
+        "en": "Write a task, click “Add” (or press Enter) and look at the console: the array grows. The list on the page doesn’t change yet: that’s step 7.",
+        "es": "Escribe una tarea, pulsa «Add» (o Intro) y mira la consola: el array crece. La lista de la página todavía no cambia: eso es el paso 7."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "querySelector|getElementById",
+          "label": {
+            "en": "You select the elements with `querySelector`",
+            "es": "Seleccionas los elementos con `querySelector`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\w\\s*=\\s*\\[",
+          "label": {
+            "en": "An array for the tasks (`let tasks = [ … ]`)",
+            "es": "Un array para las tareas (`let tasks = [ … ]`)"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "[\"'`]submit[\"'`]|\\.onsubmit",
+          "label": {
+            "en": "A listener for the `submit` event of the form",
+            "es": "Un listener del evento `submit` del formulario"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\.preventDefault\\s*\\(\\s*\\)",
+          "label": {
+            "en": "`event.preventDefault()` so the page doesn’t reload",
+            "es": "`event.preventDefault()` para que la página no se recargue"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\.push\\s*\\(",
+          "label": {
+            "en": "The new task goes into the array with `push`",
+            "es": "La tarea nueva entra en el array con `push`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "console",
+              "pattern": "Buy milk"
+            }
+          ],
+          "label": {
+            "en": "Adding `Buy milk` shows it in the console (`console.log(tasks)`)",
+            "es": "Al añadir `Buy milk`, sale en la consola (`console.log(tasks)`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-input:placeholder-shown",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "After adding a task, the field is empty again",
+            "es": "Después de añadir una tarea, el campo vuelve a estar vacío"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-2",
+      "lang": "js",
+      "title": {
+        "en": "Draw the list from the array",
+        "es": "Dibuja la lista a partir del array"
+      },
+      "requirement": {
+        "en": "A `render()` function that creates one `<li>` per task with `createElement`",
+        "es": "Una función `render()` que crea un `<li>` por tarea con `createElement`"
+      },
+      "task": {
+        "en": "Write a function `render()` that draws the list from the array. First it empties the list: `list.innerHTML = \"\";`. Then it goes through the array with `tasks.forEach((task, index) => { … })` and, for each task, builds the same HTML as your examples with `document.createElement`: an `<li>` (with the class `done` if `task.done` is `true`: `item.classList.add(\"done\")`), a `<label>`, an `<input>` with `type = \"checkbox\"` and `checked = task.done`, a `<span>` with `className = \"task-text\"` and `textContent = task.text`, and a `<button>` with `className = \"delete\"` and the text `Delete`. Put them together with `appendChild` and add the `<li>` to `list`. Call `render();` at the end of the file, so the list is drawn when the page opens, and also in the listener, after `console.log(tasks);`.",
+        "es": "Escribe una función `render()` que dibuje la lista a partir del array. Primero vacía la lista: `list.innerHTML = \"\";`. Después recorre el array con `tasks.forEach((task, index) => { … })` y, para cada tarea, construye el mismo HTML que tus ejemplos con `document.createElement`: un `<li>` (con la clase `done` si `task.done` es `true`: `item.classList.add(\"done\")`), un `<label>`, un `<input>` con `type = \"checkbox\"` y `checked = task.done`, un `<span>` con `className = \"task-text\"` y `textContent = task.text`, y un `<button>` con `className = \"delete\"` y el texto `Delete`. Únelos con `appendChild` y añade el `<li>` a `list`. Llama a `render();` al final del archivo, para que la lista se dibuje al abrir la página, y también en el listener, después de `console.log(tasks);`."
+      },
+      "hint": {
+        "en": "`list.innerHTML = \"\"` removes the example tasks of the HTML; `render()` draws them again from the array, so the page looks the same, but from now on the array is in charge. Use `textContent`, not `innerHTML`, for the text of the task: if someone writes `<b>hi</b>`, it must appear as text, not become HTML. You will use `index` in step 9.",
+        "es": "`list.innerHTML = \"\"` borra las tareas de ejemplo del HTML; `render()` las vuelve a dibujar a partir del array, así que la página se ve igual, pero a partir de ahora manda el array. Usa `textContent`, no `innerHTML`, para el texto de la tarea: si alguien escribe `<b>hi</b>`, tiene que salir como texto, no convertirse en HTML. `index` lo usarás en el paso 9."
+      },
+      "note": {
+        "en": "Add a few tasks in the preview. The boxes and the “Delete” buttons don’t work yet: that comes in steps 8 and 9.",
+        "es": "Añade unas cuantas tareas en la vista previa. Las casillas y los botones «Delete» todavía no funcionan: eso llega en los pasos 8 y 9."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "createElement\\s*\\(",
+          "label": {
+            "en": "You create the elements with `document.createElement`",
+            "es": "Creas los elementos con `document.createElement`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "appendChild\\s*\\(|\\.append\\s*\\(|\\.prepend\\s*\\(|insertAdjacentElement\\s*\\(",
+          "label": {
+            "en": "You add them to the page with `appendChild`",
+            "es": "Los añades a la página con `appendChild`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "Call Ana"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 4
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "text": "Buy milk",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "text": "Call Ana",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Adding `Buy milk` and `Call Ana` shows 4 tasks in the list",
+            "es": "Al añadir `Buy milk` y `Call Ana`, la lista tiene 4 tareas"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:last-child label input[type=\"checkbox\"]",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:last-child .task-text",
+              "text": "^\\s*Buy milk\\s*$",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:last-child button.delete",
+              "text": "\\S",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "The new task has a checkbox in its label, a `.task-text` and a `button.delete`",
+            "es": "La tarea nueva tiene una casilla en su label, un `.task-text` y un `button.delete`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done input[type=\"checkbox\"]:checked",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:nth-child(2).done",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "The second task (`Learn HTML`) is drawn as done (class `done` and its box ticked)",
+            "es": "La segunda tarea (`Learn HTML`) se dibuja como hecha (clase `done` y su casilla marcada)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "     "
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 2
+            }
+          ],
+          "label": {
+            "en": "Only spaces adds nothing",
+            "es": "Solo espacios no añade nada"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "<b>Bold</b>"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li b",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "text": "<b>Bold</b>",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "`<b>Bold</b>` appears as text (`textContent`)",
+            "es": "`<b>Bold</b>` sale como texto (`textContent`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-3",
+      "lang": "js",
+      "title": {
+        "en": "Complete a task",
+        "es": "Completa una tarea"
+      },
+      "requirement": {
+        "en": "Ticking a box marks the task as done in the array and crosses it out",
+        "es": "Al marcar una casilla, la tarea queda hecha en el array y se tacha"
+      },
+      "task": {
+        "en": "Inside the `forEach` of `render()`, after creating the checkbox, listen to its `change` event: `checkbox.addEventListener(\"change\", () => { … });`. Inside, save the new state in the array with `task.done = checkbox.checked;` and draw the list again with `render();`. Try it: tick `Buy bread` and it’s crossed out; untick `Learn HTML` and it comes back.",
+        "es": "Dentro del `forEach` de `render()`, después de crear la casilla, escucha su evento `change`: `checkbox.addEventListener(\"change\", () => { … });`. Dentro, guarda el nuevo estado en el array con `task.done = checkbox.checked;` y vuelve a dibujar la lista con `render();`. Pruébalo: marca `Buy bread` y se tacha; desmarca `Learn HTML` y vuelve a la normalidad."
+      },
+      "hint": {
+        "en": "Why change the array and then call `render()`, instead of just adding the class to the `<li>`? Because the array is what you will save in step 11: if a change is only on the page, it’s lost. The rule is always the same: change the array, then draw it again. `task` is the object of this task, so `task.done = …` changes it inside the array.",
+        "es": "¿Por qué cambiar el array y después llamar a `render()`, en lugar de poner sin más la clase al `<li>`? Porque el array es lo que guardarás en el paso 11: si un cambio solo está en la página, se pierde. La regla es siempre la misma: cambia el array y vuelve a dibujarlo. `task` es el objeto de esta tarea, así que `task.done = …` lo cambia dentro del array."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "[\"'`](change|click)[\"'`]|\\.on(change|click)\\b",
+          "label": {
+            "en": "A listener on the checkbox (`change`)",
+            "es": "Un listener en la casilla (`change`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 0
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "count": 2
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:first-child.done",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Ticking the first task (`Buy bread`) marks it as done (class `done`)",
+            "es": "Al marcar la primera tarea (`Buy bread`), queda hecha (clase `done`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 1
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list input[type=\"checkbox\"]:checked",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Unticking `Learn HTML` makes it pending again",
+            "es": "Al desmarcar `Learn HTML`, vuelve a estar pendiente"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 0
+            },
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "count": 2
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 3
+            }
+          ],
+          "label": {
+            "en": "A done task stays done after adding another one (it’s saved in the array)",
+            "es": "Una tarea hecha sigue hecha después de añadir otra (está guardada en el array)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-4",
+      "lang": "js",
+      "title": {
+        "en": "Delete a task",
+        "es": "Borra una tarea"
+      },
+      "requirement": {
+        "en": "The “Delete” button removes its task from the array with `splice`",
+        "es": "El botón «Delete» quita su tarea del array con `splice`"
+      },
+      "task": {
+        "en": "Also inside the `forEach` of `render()`, listen to the `click` of `deleteButton`. Inside, remove the task from the array with `tasks.splice(index, 1);` and call `render();`. `index` is the position of this task in the array: the second parameter of `forEach`.",
+        "es": "También dentro del `forEach` de `render()`, escucha el `click` de `deleteButton`. Dentro, quita la tarea del array con `tasks.splice(index, 1);` y llama a `render();`. `index` es la posición de esta tarea en el array: el segundo parámetro de `forEach`."
+      },
+      "hint": {
+        "en": "`splice` takes a position and how many elements to remove, and it changes the array: `tasks.splice(2, 1)` removes 1 element at position 2. Another way is `tasks = tasks.filter((t, i) => i !== index);`, which makes a new array without that task. Remember: change the array, then draw it again.",
+        "es": "`splice` recibe una posición y cuántos elementos quitar, y cambia el array: `tasks.splice(2, 1)` quita 1 elemento en la posición 2. Otra forma es `tasks = tasks.filter((t, i) => i !== index);`, que crea un array nuevo sin esa tarea. Recuerda: cambia el array y vuelve a dibujarlo."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "\\.splice\\s*\\(|\\.filter\\s*\\(",
+          "label": {
+            "en": "You remove the task from the array with `splice` (or `filter`)",
+            "es": "Quitas la tarea del array con `splice` (o `filter`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li button",
+              "index": 1
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Deleting the second task (`Learn HTML`) leaves only the first one",
+            "es": "Al borrar la segunda tarea (`Learn HTML`), solo queda la primera"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "Call Ana"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "click": "#todo-list li button",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 3
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "text": "Buy milk",
+              "count": 0
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "text": "Call Ana",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "With 4 tasks, “Delete” on the third one removes just that one",
+            "es": "Con 4 tareas, «Delete» en la tercera quita solo esa"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li button",
+              "index": 0
+            },
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 2
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:first-child.done",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li:last-child",
+              "text": "Buy milk",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "A deleted task doesn’t come back when you add another one",
+            "es": "Una tarea borrada no vuelve al añadir otra"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-5",
+      "lang": "js",
+      "title": {
+        "en": "Count the pending tasks",
+        "es": "Cuenta las tareas pendientes"
+      },
+      "requirement": {
+        "en": "`#counter` always shows how many tasks are not done",
+        "es": "`#counter` muestra siempre cuántas tareas quedan sin hacer"
+      },
+      "task": {
+        "en": "Write a function `updateCounter()`. Start a counter with `let left = 0;`, go through the array with `for (const task of tasks)` and add 1 (`left++`) for every task that is not done (`!task.done`). Then write the result in `counter.textContent`: `\"1 task left\"` if `left` is 1, and `left + \" tasks left\"` if not. Call `updateCounter();` at the end of `render()`, after the `forEach`: that way the counter is updated every time the list changes.",
+        "es": "Escribe una función `updateCounter()`. Empieza un contador con `let left = 0;`, recorre el array con `for (const task of tasks)` y suma 1 (`left++`) por cada tarea sin hacer (`!task.done`). Después, escribe el resultado en `counter.textContent`: `\"1 task left\"` si `left` es 1, y `left + \" tasks left\"` si no. Llama a `updateCounter();` al final de `render()`, después del `forEach`: así el contador se actualiza cada vez que cambia la lista."
+      },
+      "hint": {
+        "en": "Counting with a loop is a classic: a variable that starts at 0 and grows inside an `if`. Another way is `tasks.filter((task) => !task.done).length`. Calling it from `render()` means you never forget to update it: adding, completing and deleting all end in `render()`.",
+        "es": "Contar con un bucle es un clásico: una variable que empieza en 0 y crece dentro de un `if`. Otra forma es `tasks.filter((task) => !task.done).length`. Si lo llamas desde `render()`, nunca te olvidarás de actualizarlo: añadir, completar y borrar terminan siempre en `render()`."
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "Call Ana"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)3(\\D|$)",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "With 3 pending tasks, `#counter` shows 3",
+            "es": "Con 3 tareas pendientes, `#counter` muestra 3"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "Call Ana"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)2(\\D|$)",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)3(\\D|$)",
+              "count": 0
+            }
+          ],
+          "label": {
+            "en": "Completing one of them leaves 2",
+            "es": "Al completar una de ellas, quedan 2"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 0
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)0(\\D|$)|\\bno\\b|all done",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "With every task done, it shows 0",
+            "es": "Con todas las tareas hechas, muestra 0"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "Call Ana"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "click": "#todo-list li button",
+              "index": 0
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)2(\\D|$)",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "It’s also updated when you delete a task",
+            "es": "También se actualiza al borrar una tarea"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-6",
+      "lang": "js",
+      "title": {
+        "en": "Save the tasks in the browser",
+        "es": "Guarda las tareas en el navegador"
+      },
+      "requirement": {
+        "en": "The tasks are saved with `localStorage` and `JSON`, and are still there after reloading",
+        "es": "Las tareas se guardan con `localStorage` y `JSON`, y siguen ahí al recargar"
+      },
+      "task": {
+        "en": "Write two functions. `save()` saves the array: `localStorage.setItem(\"todo-tasks\", JSON.stringify(tasks));`. `load()` reads it back: `const saved = localStorage.getItem(\"todo-tasks\");` and, if `saved` is not `null`, `tasks = JSON.parse(saved);`. Some browsers don’t let a page save anything (for example, this preview), and then `localStorage` gives an error: write the inside of each function in a `try { … } catch (error) { … }`, and in the `catch` write in `storageMsg.textContent` a message such as “Your tasks can't be saved in this browser: they will disappear if you reload the page.” Call `save();` at the end of `render()`, and `load();` just before the first `render();` at the end of the file.",
+        "es": "Escribe dos funciones. `save()` guarda el array: `localStorage.setItem(\"todo-tasks\", JSON.stringify(tasks));`. `load()` lo vuelve a leer: `const saved = localStorage.getItem(\"todo-tasks\");` y, si `saved` no es `null`, `tasks = JSON.parse(saved);`. Algunos navegadores no dejan que una página guarde nada (por ejemplo, esta vista previa), y entonces `localStorage` da un error: escribe el interior de cada función en un `try { … } catch (error) { … }` y, en el `catch`, escribe en `storageMsg.textContent` un mensaje como «Your tasks can't be saved in this browser: they will disappear if you reload the page». Llama a `save();` al final de `render()`, y a `load();` justo antes del primer `render();` del final del archivo."
+      },
+      "hint": {
+        "en": "`localStorage` (an object of `window`, like `location` or `history`) only stores text. `JSON.stringify(tasks)` turns the array into a text such as `[{\"text\":\"Buy bread\",\"done\":false}]`, and `JSON.parse` turns that text back into an array. `getItem` returns `null` the first time, when nothing has been saved yet: then the two example tasks stay. The `try…catch` stops the error from breaking the whole app.",
+        "es": "`localStorage` (un objeto de `window`, como `location` o `history`) solo guarda texto. `JSON.stringify(tasks)` convierte el array en un texto como `[{\"text\":\"Buy bread\",\"done\":false}]`, y `JSON.parse` vuelve a convertir ese texto en un array. `getItem` devuelve `null` la primera vez, cuando todavía no se ha guardado nada: entonces se quedan las dos tareas de ejemplo. El `try…catch` evita que el error rompa toda la aplicación."
+      },
+      "note": {
+        "en": "In the preview your tasks are NOT saved: it’s isolated from the browser’s storage, so `localStorage` gives an error and your `catch` shows the message. That’s expected. In the last step, download the .zip and open its `index.html`: there your tasks are saved and are still there when you reload.",
+        "es": "En la vista previa las tareas NO se guardan: está aislada del almacenamiento del navegador, así que `localStorage` da un error y tu `catch` muestra el aviso. Es lo esperado. En el último paso, descarga el .zip y abre su `index.html`: ahí las tareas sí se guardan y siguen al recargar."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "localStorage\\.setItem\\s*\\(",
+          "label": {
+            "en": "You save with `localStorage.setItem`",
+            "es": "Guardas con `localStorage.setItem`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "JSON\\.stringify\\s*\\(",
+          "label": {
+            "en": "…turning the array into text with `JSON.stringify`",
+            "es": "…convirtiendo el array en texto con `JSON.stringify`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "localStorage\\.getItem\\s*\\(",
+          "label": {
+            "en": "You load with `localStorage.getItem`",
+            "es": "Cargas con `localStorage.getItem`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "JSON\\.parse\\s*\\(",
+          "label": {
+            "en": "…turning the text back into an array with `JSON.parse`",
+            "es": "…convirtiendo el texto otra vez en array con `JSON.parse`"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "\\btry\\s*\\{[\\s\\S]*?\\}\\s*catch\\b",
+          "label": {
+            "en": "A `try…catch` in case the browser doesn’t let you save",
+            "es": "Un `try…catch` por si el navegador no deja guardar"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#storage-msg",
+          "visible": true,
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "In the preview, which can’t save, `#storage-msg` shows the message",
+            "es": "En la vista previa, que no puede guardar, `#storage-msg` muestra el aviso"
+          }
+        },
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 3
+            },
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)1(\\D|$)",
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "The list keeps working even though it can’t be saved",
+            "es": "La lista sigue funcionando aunque no se pueda guardar"
+          }
+        }
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "lang": "html",
+      "label": {
+        "en": "A form with a labelled field to add tasks",
+        "es": "Un formulario con un campo con label para añadir tareas"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#todo-form #todo-input",
+          "count": 1
+        },
+        {
+          "kind": "selector",
+          "selector": "label[for=\"todo-input\"]",
+          "text": "\\S",
+          "count": 1
+        },
+        {
+          "kind": "selector",
+          "selector": "#todo-form button[type=\"submit\"], #todo-form button:not([type])",
+          "text": "\\S",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "Counter and message announced to screen readers",
+        "es": "Contador y aviso que leen los lectores de pantalla"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#counter[aria-live], #counter[role=\"status\"]",
+          "count": 1
+        },
+        {
+          "kind": "selector",
+          "selector": "#storage-msg[aria-live], #storage-msg[role=\"status\"]",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "The app inside a white card",
+        "es": "La aplicación en una tarjeta blanca"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".todo-app",
+          "prop": "width",
+          "min": 280,
+          "max": 560
+        },
+        {
+          "kind": "css",
+          "selector": ".todo-app",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "One row per task, without bullets",
+        "es": "Una fila por tarea, sin viñetas"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "css",
+              "selector": "#todo-list",
+              "prop": "list-style-type",
+              "value": "none"
+            },
+            {
+              "kind": "css",
+              "selector": "#todo-list li",
+              "prop": "display",
+              "pattern": "flex|grid"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "Done tasks are crossed out",
+        "es": "Las tareas hechas salen tachadas"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "text": "Buy milk",
+              "count": 1
+            },
+            {
+              "kind": "css",
+              "selector": "#todo-list li.done, #todo-list li.done *",
+              "prop": "text-decoration-line",
+              "value": "line-through",
+              "any": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Add tasks (but not empty ones)",
+        "es": "Añadir tareas (pero no vacías)"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "input": "#todo-input",
+              "value": "Buy milk"
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "   "
+            },
+            {
+              "click": "#todo-form button"
+            },
+            {
+              "input": "#todo-input",
+              "value": "Call Ana"
+            },
+            {
+              "click": "#todo-form button"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 4
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "text": "Call Ana",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Complete and delete tasks, with the counter up to date",
+        "es": "Completar y borrar tareas, con el contador al día"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "actions": [
+            {
+              "click": "#todo-list li input[type=\"checkbox\"]",
+              "index": 0
+            },
+            {
+              "click": "#todo-list li button",
+              "index": 1
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "#todo-list li",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#todo-list li.done",
+              "count": 1
+            },
+            {
+              "kind": "selector",
+              "selector": "#counter",
+              "text": "(^|\\D)0(\\D|$)|\\bno\\b|all done",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Saved with localStorage and JSON",
+        "es": "Guardado con localStorage y JSON"
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "localStorage\\.setItem\\s*\\("
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "localStorage\\.getItem\\s*\\("
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "JSON\\.stringify\\s*\\("
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "JSON\\.parse\\s*\\("
+        },
+        {
+          "kind": "selector",
+          "selector": "#storage-msg",
+          "visible": true,
+          "text": "\\S",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,748 @@
+[
+  {
+    "id": "s3-q001", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["arithmetic", "remainder"], "courseRef": "01_Variables",
+    "code": "let a = 17;\nlet b = 5;\nconsole.log(a % b);\nconsole.log(a / b);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "3\n3.4", "es": "3\n3.4" }, "why": { "en": "`17 % 5` isn't how many times 5 fits into 17 (that's 3); it's what is left over: 17 − 15 = 2.", "es": "`17 % 5` no es cuántas veces cabe 5 en 17 (eso es 3), sino lo que sobra: 17 − 15 = 2." } },
+      { "id": "B", "text": { "en": "2\n3.4", "es": "2\n3.4" } },
+      { "id": "C", "text": { "en": "2\n3", "es": "2\n3" }, "why": { "en": "In JavaScript `/` doesn't drop the decimals: `17 / 5` is `3.4`. To drop them you would use `Math.floor()`.", "es": "En JavaScript `/` no quita los decimales: `17 / 5` da `3.4`. Para quitarlos habría que usar `Math.floor()`." } },
+      { "id": "D", "text": { "en": "0.4\n3.4", "es": "0.4\n3.4" }, "why": { "en": "`%` gives the remainder as a whole amount (2), not the decimal part of the division (0.4).", "es": "`%` da el resto como cantidad entera (2), no la parte decimal de la división (0.4)." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`%` is the remainder operator: it divides and gives back what is left over. 5 fits 3 times into 17 (15), and 2 are left, so `17 % 5` is `2`. The `/` operator always does the real division, decimals included: `17 / 5` is `3.4`.", "es": "`%` es el operador de resto: divide y devuelve lo que sobra. El 5 cabe 3 veces en 17 (15) y sobran 2, así que `17 % 5` da `2`. El operador `/` siempre hace la división real, con decimales: `17 / 5` da `3.4`." },
+    "verify": { "kind": "output", "expected": "2\n3.4" }
+  },
+  {
+    "id": "s3-q002", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "increment"], "courseRef": "01_Variables",
+    "code": "let x = 5;\nlet y = x++ + ++x;\nconsole.log(x, y);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "7 12", "es": "7 12" } },
+      { "id": "B", "text": { "en": "7 11", "es": "7 11" }, "why": { "en": "That would be `5 + 6`. But the second `x` is `++x`: it first goes from 6 to 7 and then gives 7, so the sum is `5 + 7`.", "es": "Eso sería `5 + 6`. Pero la segunda `x` es `++x`: primero pasa de 6 a 7 y luego da 7, así que la suma es `5 + 7`." } },
+      { "id": "C", "text": { "en": "6 12", "es": "6 12" }, "why": { "en": "`x` goes up twice (once with each `++`), so it ends at 7, not 6.", "es": "`x` sube dos veces (una con cada `++`), así que acaba valiendo 7, no 6." } },
+      { "id": "D", "text": { "en": "7 14", "es": "7 14" }, "why": { "en": "`x++` gives the old value (5), not the new one. Only `++x` gives the value after adding 1.", "es": "`x++` da el valor antiguo (5), no el nuevo. Solo `++x` da el valor después de sumar 1." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "It's read from left to right. `x++` (postfix) gives the current value, 5, and then increments `x` to 6. `++x` (prefix) first increments `x` to 7 and then gives 7. So `y` is `5 + 7 = 12`, and `x` ends at 7.", "es": "Se lee de izquierda a derecha. `x++` (postincremento) da el valor actual, 5, y después sube `x` a 6. `++x` (preincremento) primero sube `x` a 7 y después da 7. Así que `y` vale `5 + 7 = 12`, y `x` acaba en 7." },
+    "verify": { "kind": "output", "expected": "7 12" }
+  },
+  {
+    "id": "s3-q003", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["assignment", "arithmetic"], "courseRef": "01_Variables",
+    "code": "let total = 10;\ntotal -= 4;\ntotal **= 2;\ntotal /= 4;\nconsole.log(total);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "3", "es": "3" }, "why": { "en": "That would be `total *= 2` (6 × 2 = 12, and 12 / 4 = 3). `**=` raises to a power: 6 squared is 36.", "es": "Eso sería `total *= 2` (6 × 2 = 12, y 12 / 4 = 3). `**=` eleva a una potencia: 6 al cuadrado es 36." } },
+      { "id": "B", "text": { "en": "9", "es": "9" } },
+      { "id": "C", "text": { "en": "36", "es": "36" }, "why": { "en": "The last line also changes `total`: `/= 4` divides 36 by 4.", "es": "La última línea también cambia `total`: `/= 4` divide 36 entre 4." } },
+      { "id": "D", "text": { "en": "1.5", "es": "1.5" }, "why": { "en": "That would be dividing 6 by 4, but line 3 also changes `total`: `**= 2` turns 6 into 36 before the division.", "es": "Eso sería dividir 6 entre 4, pero la línea 3 también cambia `total`: `**= 2` convierte el 6 en 36 antes de dividir." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Compound assignment operators do the operation and store the result in the same variable: `total -= 4` is `total = total - 4`. Step by step: 10 − 4 = 6; `**= 2` gives 6² = 36; `/= 4` gives 36 / 4 = 9.", "es": "Los operadores de asignación compuesta hacen la operación y guardan el resultado en la misma variable: `total -= 4` es `total = total - 4`. Paso a paso: 10 − 4 = 6; `**= 2` da 6² = 36; `/= 4` da 36 / 4 = 9." },
+    "verify": { "kind": "output", "expected": "9" }
+  },
+  {
+    "id": "s3-q004", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["strings", "coercion"], "courseRef": "03_Casting",
+    "code": "console.log(\"8\" - 3);\nconsole.log(\"8\" + 3);\nconsole.log(\"8\" * \"2\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "5\n83\n16", "es": "5\n83\n16" } },
+      { "id": "B", "text": { "en": "5\n11\n16", "es": "5\n11\n16" }, "why": { "en": "`+` is the only arithmetic operator that also joins text. With a string on one side, `\"8\" + 3` joins them: `\"83\"`.", "es": "`+` es el único operador aritmético que también une texto. Con un string a un lado, `\"8\" + 3` los une: `\"83\"`." } },
+      { "id": "C", "text": { "en": "NaN\n83\nNaN", "es": "NaN\n83\nNaN" }, "why": { "en": "`-` and `*` only work with numbers, so they convert `\"8\"` and `\"2\"` into numbers. As the texts are valid numbers, the result isn't `NaN`.", "es": "`-` y `*` solo trabajan con números, así que convierten `\"8\"` y `\"2\"` en números. Como los textos son números válidos, el resultado no es `NaN`." } },
+      { "id": "D", "text": { "en": "83\n83\n82", "es": "83\n83\n82" }, "why": { "en": "Only `+` joins strings. `-` and `*` always do maths.", "es": "Solo `+` une strings. `-` y `*` siempre hacen cuentas." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`+` has two jobs: it adds numbers, but if one side is a string it joins (concatenates) the values as text, so `\"8\" + 3` is `\"83\"`. The other arithmetic operators (`-`, `*`, `/`, `%`) only make sense with numbers, so they convert the strings: `\"8\" - 3` is `5` and `\"8\" * \"2\"` is `16`.", "es": "`+` tiene dos funciones: suma números, pero si uno de los lados es un string une (concatena) los valores como texto, así que `\"8\" + 3` da `\"83\"`. El resto de operadores aritméticos (`-`, `*`, `/`, `%`) solo tienen sentido con números, así que convierten los strings: `\"8\" - 3` da `5` y `\"8\" * \"2\"` da `16`." },
+    "verify": { "kind": "output", "expected": "5\n83\n16" }
+  },
+  {
+    "id": "s3-q005", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "strings", "assignment"], "courseRef": "02_Strings",
+    "code": "let code = \"a\";\ncode += 1 + 2;\ncode += \"b\" + 3;\nconsole.log(code);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "a12b3", "es": "a12b3" }, "why": { "en": "The right side of `+=` is worked out first: `1 + 2` are two numbers, so they add up to 3 before being joined to `\"a\"`.", "es": "Primero se calcula la parte derecha de `+=`: `1 + 2` son dos números, así que suman 3 antes de unirse a `\"a\"`." } },
+      { "id": "B", "text": { "en": "a3b3", "es": "a3b3" } },
+      { "id": "C", "text": { "en": "a3b", "es": "a3b" }, "why": { "en": "`\"b\" + 3` joins the text and the number, so it gives `\"b3\"`; the 3 isn't lost.", "es": "`\"b\" + 3` une el texto y el número, así que da `\"b3\"`; el 3 no se pierde." } },
+      { "id": "D", "text": { "en": "NaN", "es": "NaN" }, "why": { "en": "Joining text with `+=` never gives `NaN`: when there is a string, `+` joins instead of adding.", "es": "Unir texto con `+=` nunca da `NaN`: cuando hay un string, `+` une en vez de sumar." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`code += value` means `code = code + (value)`: the right side is calculated first. In line 2, `1 + 2` are two numbers, so they give `3`, and then `\"a\" + 3` is `\"a3\"`. In line 3, `\"b\" + 3` is `\"b3\"`, and `\"a3\" + \"b3\"` is `\"a3b3\"`.", "es": "`code += value` significa `code = code + (value)`: primero se calcula la parte derecha. En la línea 2, `1 + 2` son dos números, así que dan `3`, y después `\"a\" + 3` da `\"a3\"`. En la línea 3, `\"b\" + 3` da `\"b3\"`, y `\"a3\" + \"b3\"` da `\"a3b3\"`." },
+    "verify": { "kind": "output", "expected": "a3b3" }
+  },
+  {
+    "id": "s3-q006", "section": 3, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["arithmetic", "remainder"], "courseRef": "01_Variables",
+    "code": "let minutes = 135;\nlet hours = Math.floor(minutes / 60);\nlet rest = minutes ___ 60;\nconsole.log(hours + \"h \" + rest + \"min\");",
+    "prompt": { "en": "Which operator fills the gap so that the code prints `2h 15min`?", "es": "¿Qué operador completa el hueco para que el código muestre `2h 15min`?" },
+    "options": [
+      { "id": "A", "text": { "en": "/", "es": "/" }, "why": { "en": "`135 / 60` is `2.25`, the hours with decimals. We need the minutes left over after the full hours.", "es": "`135 / 60` da `2.25`, las horas con decimales. Hacen falta los minutos que sobran después de las horas completas." } },
+      { "id": "B", "text": { "en": "%", "es": "%" } },
+      { "id": "C", "text": { "en": "-", "es": "-" }, "why": { "en": "`135 - 60` is `75`: it only takes away one hour, not all the full hours.", "es": "`135 - 60` da `75`: solo quita una hora, no todas las horas completas." } },
+      { "id": "D", "text": { "en": "**", "es": "**" }, "why": { "en": "`**` raises to a power: `135 ** 60` is a huge number.", "es": "`**` eleva a una potencia: `135 ** 60` es un número enorme." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`%` gives the remainder of a division. 60 fits twice into 135 (120), and 15 are left over, so `135 % 60` is `15`. Using `Math.floor(minutes / 60)` for the full units and `%` for what is left is a very common pattern (hours and minutes, metres and centimetres…).", "es": "`%` da el resto de una división. El 60 cabe dos veces en 135 (120) y sobran 15, así que `135 % 60` da `15`. Usar `Math.floor(minutes / 60)` para las unidades completas y `%` para lo que sobra es un patrón muy habitual (horas y minutos, metros y centímetros…)." },
+    "verify": { "kind": "output", "expected": "2h 15min" }
+  },
+  {
+    "id": "s3-q007", "section": 3, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["trap", "arithmetic", "exponent"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which expression calculates 2 to the power of 3 (that is, 8)?", "es": "¿Qué expresión calcula 2 elevado a 3 (es decir, 8)?" },
+    "options": [
+      { "id": "A", "text": { "en": "`2 ^ 3`", "es": "`2 ^ 3`" }, "why": { "en": "In JavaScript `^` isn't a power: it's a bitwise operator (XOR), and `2 ^ 3` gives `1`.", "es": "En JavaScript `^` no es una potencia: es un operador de bits (XOR), y `2 ^ 3` da `1`." } },
+      { "id": "B", "text": { "en": "`3 ** 2`", "es": "`3 ** 2`" }, "why": { "en": "The base goes on the left and the exponent on the right: `3 ** 2` is 3 squared, `9`.", "es": "La base va a la izquierda y el exponente a la derecha: `3 ** 2` es 3 al cuadrado, `9`." } },
+      { "id": "C", "text": { "en": "`2 * 3`", "es": "`2 * 3`" }, "why": { "en": "`*` multiplies: `2 * 3` is `6`. A power multiplies the base by itself: 2 × 2 × 2.", "es": "`*` multiplica: `2 * 3` da `6`. Una potencia multiplica la base por sí misma: 2 × 2 × 2." } },
+      { "id": "D", "text": { "en": "`2 ** 3`", "es": "`2 ** 3`" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "The exponentiation operator is `**`: base on the left, exponent on the right, so `2 ** 3` is 2 × 2 × 2 = 8. Many people write `^` because it's used on calculators, but in JavaScript it's a different operator and gives an unexpected result without any error.", "es": "El operador de potencia es `**`: la base a la izquierda y el exponente a la derecha, así que `2 ** 3` es 2 × 2 × 2 = 8. Mucha gente escribe `^` porque se usa en las calculadoras, pero en JavaScript es otro operador y da un resultado inesperado sin ningún error." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q008", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["increment"], "courseRef": "01_Variables",
+    "code": "let n = 10;\nn--;\n--n;\nconsole.log(n--);\nconsole.log(n);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "7\n7", "es": "7\n7" }, "why": { "en": "`n--` inside `console.log` shows the value before subtracting (8). The variable goes down to 7 afterwards.", "es": "`n--` dentro de `console.log` muestra el valor antes de restar (8). La variable baja a 7 después." } },
+      { "id": "B", "text": { "en": "8\n7", "es": "8\n7" } },
+      { "id": "C", "text": { "en": "8\n8", "es": "8\n8" }, "why": { "en": "`n--` does subtract 1 after showing the value, so the second line prints 7.", "es": "`n--` sí resta 1 después de mostrar el valor, así que la segunda línea muestra 7." } },
+      { "id": "D", "text": { "en": "9\n8", "es": "9\n8" }, "why": { "en": "Lines 2 and 3 both subtract 1, whether `--` goes before or after: `n` is already 8 on line 4.", "es": "Las líneas 2 y 3 restan 1 las dos, tanto si el `--` va delante como detrás: `n` ya vale 8 en la línea 4." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "On their own line, `n--` and `--n` do the same: subtract 1. So after lines 2 and 3, `n` is 8. The difference appears when the result is used: `console.log(n--)` prints the old value (8) and then `n` becomes 7, which is what the last line shows.", "es": "En su propia línea, `n--` y `--n` hacen lo mismo: restar 1. Así que después de las líneas 2 y 3, `n` vale 8. La diferencia aparece cuando se usa el resultado: `console.log(n--)` muestra el valor antiguo (8) y después `n` pasa a 7, que es lo que muestra la última línea." },
+    "verify": { "kind": "output", "expected": "8\n7" }
+  },
+  {
+    "id": "s3-q009", "section": 3, "bank": "practice", "type": "error",
+    "difficulty": 3, "tags": ["trap", "increment"], "courseRef": "01_Variables",
+    "code": "let points = 4;\npoints++;\n(points + 1)++;\nconsole.log(points);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `6`", "es": "Muestra `6`" }, "why": { "en": "`++` can only change a variable (or a property). `(points + 1)` is just a value, so there is nowhere to store the result.", "es": "`++` solo puede cambiar una variable (o una propiedad). `(points + 1)` es solo un valor, así que no hay dónde guardar el resultado." } },
+      { "id": "B", "text": { "en": "It prints `5`", "es": "Muestra `5`" }, "why": { "en": "The code doesn't get to run: line 3 is not valid JavaScript, so nothing is printed.", "es": "El código no llega a ejecutarse: la línea 3 no es JavaScript válido, así que no se muestra nada." } },
+      { "id": "C", "text": { "en": "A `SyntaxError` because of line 3, before anything runs", "es": "Un `SyntaxError` por la línea 3, antes de ejecutar nada" } },
+      { "id": "D", "text": { "en": "A `TypeError` on line 3, after line 2 has run", "es": "Un `TypeError` en la línea 3, después de ejecutar la línea 2" }, "why": { "en": "This isn't a problem with the type of a value while running: the code is badly written, so JavaScript rejects it before running any line.", "es": "No es un problema con el tipo de un valor durante la ejecución: el código está mal escrito, así que JavaScript lo rechaza antes de ejecutar ninguna línea." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`++` and `--` add or subtract 1 and store the result, so they need something that can store a value: a variable such as `points`. `(points + 1)++` tries to increment a calculation, which is not allowed: `SyntaxError: Invalid left-hand side expression in postfix operation`. As it's a syntax error, no line runs, not even line 2.", "es": "`++` y `--` suman o restan 1 y guardan el resultado, así que necesitan algo donde se pueda guardar un valor: una variable como `points`. `(points + 1)++` intenta incrementar un cálculo, y eso no está permitido: `SyntaxError: Invalid left-hand side expression in postfix operation`. Como es un error de sintaxis, no se ejecuta ninguna línea, ni siquiera la 2." },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 3 }
+  },
+  {
+    "id": "s3-q010", "section": 3, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["strings", "coercion"], "courseRef": "02_Strings",
+    "prompt": { "en": "Which expressions give the string `\"12\"`? (Choose two.)", "es": "¿Qué expresiones dan el string `\"12\"`? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`\"3\" * 4`", "es": "`\"3\" * 4`" }, "why": { "en": "`*` converts to numbers, so the result is the number `12`, not the string `\"12\"`.", "es": "`*` convierte a números, así que el resultado es el número `12`, no el string `\"12\"`." } },
+      { "id": "B", "text": { "en": "`\"1\" + 2`", "es": "`\"1\" + 2`" } },
+      { "id": "C", "text": { "en": "`1 + 2`", "es": "`1 + 2`" }, "why": { "en": "Two numbers are added: the result is `3`.", "es": "Se suman dos números: el resultado es `3`." } },
+      { "id": "D", "text": { "en": "`\"14\" - 2`", "es": "`\"14\" - 2`" }, "why": { "en": "`-` always does maths: `\"14\" - 2` is the number `12`, not a string.", "es": "`-` siempre hace cuentas: `\"14\" - 2` da el número `12`, no un string." } },
+      { "id": "E", "text": { "en": "`1 + \"2\"`", "es": "`1 + \"2\"`" } }
+    ],
+    "answer": ["B", "E"],
+    "explanation": { "en": "With `+`, if either side is a string, the other value is turned into text and both are joined, no matter which side the string is on: `\"1\" + 2` and `1 + \"2\"` both give `\"12\"`. `*` and `-` give the number `12`, which looks the same in the console but is a `number`, not a `string`.", "es": "Con `+`, si cualquiera de los dos lados es un string, el otro valor se pasa a texto y se unen, da igual en qué lado esté el string: `\"1\" + 2` y `1 + \"2\"` dan los dos `\"12\"`. `*` y `-` dan el número `12`, que en la consola se ve igual pero es un `number`, no un `string`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q011", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "strings", "precedence"], "courseRef": "02_Strings",
+    "code": "let price = 20;\nlet qty = 3;\nconsole.log(\"Total: \" + price * qty);\nconsole.log(\"Total: \" + price - qty);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Total: 60\nNaN", "es": "Total: 60\nNaN" } },
+      { "id": "B", "text": { "en": "Total: 60\nTotal: 17", "es": "Total: 60\nTotal: 17" }, "why": { "en": "Nothing makes `price - qty` go first: `+` and `-` have the same precedence and run from left to right, so the text is joined first.", "es": "Nada hace que `price - qty` vaya primero: `+` y `-` tienen la misma precedencia y se ejecutan de izquierda a derecha, así que primero se une el texto." } },
+      { "id": "C", "text": { "en": "Total: 203\nNaN", "es": "Total: 203\nNaN" }, "why": { "en": "`*` goes before `+`, so in line 3 `price * qty` (60) is calculated first and then joined to the text.", "es": "`*` va antes que `+`, así que en la línea 3 primero se calcula `price * qty` (60) y después se une al texto." } },
+      { "id": "D", "text": { "en": "Total: 60\nTotal: 20-3", "es": "Total: 60\nTotal: 20-3" }, "why": { "en": "`-` never joins text. It tries to subtract, and subtracting from a text that isn't a number gives `NaN`.", "es": "`-` nunca une texto. Intenta restar, y restarle algo a un texto que no es un número da `NaN`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "Line 3: `*` has higher precedence than `+`, so `20 * 3` (60) is calculated first and then joined: `\"Total: 60\"`. Line 4: `+` and `-` have the same precedence and run from left to right. First `\"Total: \" + 20` gives `\"Total: 20\"`, and then `\"Total: 20\" - 3` tries to subtract from a text that isn't a number: `NaN`. Use parentheses: `\"Total: \" + (price - qty)`.", "es": "Línea 3: `*` tiene más precedencia que `+`, así que primero se calcula `20 * 3` (60) y después se une: `\"Total: 60\"`. Línea 4: `+` y `-` tienen la misma precedencia y se ejecutan de izquierda a derecha. Primero `\"Total: \" + 20` da `\"Total: 20\"`, y después `\"Total: 20\" - 3` intenta restarle 3 a un texto que no es un número: `NaN`. Usa paréntesis: `\"Total: \" + (price - qty)`." },
+    "verify": { "kind": "output", "expected": "Total: 60\nNaN" }
+  },
+  {
+    "id": "s3-q012", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["unary", "coercion"], "courseRef": "03_Casting",
+    "code": "let a = \"4\";\nlet b = \"6\";\nconsole.log(a + b);\nconsole.log(+a + +b);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "46\n46", "es": "46\n46" }, "why": { "en": "The `+` written just before `a` and `b` is the unary plus: it converts each string into a number before adding.", "es": "El `+` escrito justo delante de `a` y de `b` es el más unario: convierte cada string en número antes de sumar." } },
+      { "id": "B", "text": { "en": "10\n10", "es": "10\n10" }, "why": { "en": "In line 3 both values are strings, so `+` joins them: `\"46\"`.", "es": "En la línea 3 los dos valores son strings, así que `+` los une: `\"46\"`." } },
+      { "id": "C", "text": { "en": "46\nSyntaxError", "es": "46\nSyntaxError" }, "why": { "en": "`+a + +b` is valid: the first and third `+` are unary (they convert), and the one in the middle adds.", "es": "`+a + +b` es válido: el primer y el tercer `+` son unarios (convierten) y el del medio suma." } },
+      { "id": "D", "text": { "en": "46\n10", "es": "46\n10" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`+` in front of a single value is the unary plus operator: it converts the value into a number, like `Number()`. So `+a` is `4` and `+b` is `6`, and the `+` in the middle adds them: `10`. Without the unary plus, two strings are joined: `\"46\"`.", "es": "Un `+` delante de un solo valor es el operador más unario: convierte el valor en número, como `Number()`. Así que `+a` vale `4` y `+b` vale `6`, y el `+` del medio los suma: `10`. Sin el más unario, dos strings se unen: `\"46\"`." },
+    "verify": { "kind": "output", "expected": "46\n10" }
+  },
+  {
+    "id": "s3-q013", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "remainder"], "courseRef": "01_Variables",
+    "code": "console.log(-7 % 3);\nconsole.log(7.5 % 2);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "2\n1.5", "es": "2\n1.5" }, "why": { "en": "The result of `%` takes the sign of the number on the left. As `-7` is negative, the remainder is `-1`, not `2`.", "es": "El resultado de `%` lleva el signo del número de la izquierda. Como `-7` es negativo, el resto es `-1`, no `2`." } },
+      { "id": "B", "text": { "en": "-1\n1", "es": "-1\n1" }, "why": { "en": "`%` also works with decimals: 2 fits 3 times into 7.5 (6) and 1.5 is left over.", "es": "`%` también funciona con decimales: el 2 cabe 3 veces en 7.5 (6) y sobra 1.5." } },
+      { "id": "C", "text": { "en": "-1\n1.5", "es": "-1\n1.5" } },
+      { "id": "D", "text": { "en": "1\n1.5", "es": "1\n1.5" }, "why": { "en": "The remainder keeps the sign of the left number (`-7`), so it's negative.", "es": "El resto conserva el signo del número de la izquierda (`-7`), así que es negativo." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "In JavaScript, `%` is the remainder, and its result has the same sign as the number on the left: 3 fits twice into 7 (6), 1 is left over, and as the 7 is negative the result is `-1`. `%` also works with decimals: `7.5 % 2` is `7.5 - 6 = 1.5`.", "es": "En JavaScript, `%` es el resto, y su resultado tiene el mismo signo que el número de la izquierda: el 3 cabe dos veces en 7 (6), sobra 1 y, como el 7 es negativo, el resultado es `-1`. `%` también funciona con decimales: `7.5 % 2` es `7.5 - 6 = 1.5`." },
+    "verify": { "kind": "output", "expected": "-1\n1.5" }
+  },
+  {
+    "id": "s3-q014", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["comparison", "equality"], "courseRef": "04_Condicionales",
+    "code": "console.log(5 == \"5\");\nconsole.log(5 === \"5\");\nconsole.log(5 != \"5\");\nconsole.log(5 !== \"5\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue\nfalse\nfalse", "es": "true\ntrue\nfalse\nfalse" }, "why": { "en": "`===` also compares the type: a number and a string are never strictly equal.", "es": "`===` también compara el tipo: un número y un string nunca son estrictamente iguales." } },
+      { "id": "B", "text": { "en": "false\nfalse\ntrue\ntrue", "es": "false\nfalse\ntrue\ntrue" }, "why": { "en": "`==` converts the string `\"5\"` into the number 5 before comparing, so `5 == \"5\"` is `true`.", "es": "`==` convierte el string `\"5\"` en el número 5 antes de comparar, así que `5 == \"5\"` da `true`." } },
+      { "id": "C", "text": { "en": "true\nfalse\ntrue\nfalse", "es": "true\nfalse\ntrue\nfalse" }, "why": { "en": "`!=` is the opposite of `==`: as `5 == \"5\"` is `true`, `5 != \"5\"` is `false`. And `!==` is the opposite of `===`.", "es": "`!=` es lo contrario de `==`: como `5 == \"5\"` da `true`, `5 != \"5\"` da `false`. Y `!==` es lo contrario de `===`." } },
+      { "id": "D", "text": { "en": "true\nfalse\nfalse\ntrue", "es": "true\nfalse\nfalse\ntrue" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`==` (loose equality) converts the values to the same type before comparing, so `5 == \"5\"` is `true`. `===` (strict equality) also requires the same type, so `5 === \"5\"` is `false`. `!=` and `!==` are just their opposites. In your code, use `===` and `!==`.", "es": "`==` (igualdad débil) convierte los valores al mismo tipo antes de comparar, así que `5 == \"5\"` da `true`. `===` (igualdad estricta) exige además el mismo tipo, así que `5 === \"5\"` da `false`. `!=` y `!==` son simplemente sus contrarios. En tu código, usa `===` y `!==`." },
+    "verify": { "kind": "output", "expected": "true\nfalse\nfalse\ntrue" }
+  },
+  {
+    "id": "s3-q015", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "equality", "coercion"], "courseRef": "03_Casting",
+    "code": "console.log(0 == \"\");\nconsole.log(0 == \"0\");\nconsole.log(\"\" == \"0\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue\ntrue", "es": "true\ntrue\ntrue" }, "why": { "en": "In the last line both values are strings, so `==` doesn't convert anything: it compares two different texts.", "es": "En la última línea los dos valores son strings, así que `==` no convierte nada: compara dos textos distintos." } },
+      { "id": "B", "text": { "en": "false\ntrue\nfalse", "es": "false\ntrue\nfalse" }, "why": { "en": "The empty string converts to the number `0`, so `0 == \"\"` is `true`.", "es": "El string vacío se convierte en el número `0`, así que `0 == \"\"` da `true`." } },
+      { "id": "C", "text": { "en": "true\ntrue\nfalse", "es": "true\ntrue\nfalse" } },
+      { "id": "D", "text": { "en": "false\nfalse\nfalse", "es": "false\nfalse\nfalse" }, "why": { "en": "`==` converts the string to a number when comparing it with a number: `\"\"` becomes `0` and `\"0\"` becomes `0`.", "es": "`==` convierte el string en número cuando lo compara con un número: `\"\"` pasa a `0` y `\"0\"` pasa a `0`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "When `==` compares a number with a string, it converts the string to a number: `\"\"` becomes `0` and `\"0\"` becomes `0`, so the first two are `true`. But `\"\" == \"0\"` compares two strings, and they're different texts, so it's `false`. With `==`, `a == b` and `a == c` can both be true while `b == c` is false. With `===` the three comparisons are `false`.", "es": "Cuando `==` compara un número con un string, convierte el string en número: `\"\"` pasa a `0` y `\"0\"` pasa a `0`, así que las dos primeras dan `true`. Pero `\"\" == \"0\"` compara dos strings, que son textos distintos, así que da `false`. Con `==` puede pasar que `a == b` y `a == c` sean ciertas y, en cambio, `b == c` sea falsa. Con `===` las tres comparaciones dan `false`." },
+    "verify": { "kind": "output", "expected": "true\ntrue\nfalse" }
+  },
+  {
+    "id": "s3-q016", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "comparison", "strings"], "courseRef": "02_Strings",
+    "code": "console.log(\"apple\" < \"banana\");\nconsole.log(\"Zebra\" < \"apple\");\nconsole.log(\"10\" < 9);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue\nfalse", "es": "true\ntrue\nfalse" } },
+      { "id": "B", "text": { "en": "true\nfalse\nfalse", "es": "true\nfalse\nfalse" }, "why": { "en": "Strings are compared character by character using their codes, and every capital letter comes before every lowercase one: `\"Z\"` is less than `\"a\"`.", "es": "Los strings se comparan carácter a carácter según su código, y todas las mayúsculas van antes que las minúsculas: `\"Z\"` es menor que `\"a\"`." } },
+      { "id": "C", "text": { "en": "true\ntrue\ntrue", "es": "true\ntrue\ntrue" }, "why": { "en": "In the last line there is a number on one side, so `\"10\"` is converted to the number 10, and 10 isn't less than 9.", "es": "En la última línea hay un número a un lado, así que `\"10\"` se convierte en el número 10, y 10 no es menor que 9." } },
+      { "id": "D", "text": { "en": "false\ntrue\nfalse", "es": "false\ntrue\nfalse" }, "why": { "en": "`\"a\"` comes before `\"b\"`, so `\"apple\"` is less than `\"banana\"`.", "es": "`\"a\"` va antes que `\"b\"`, así que `\"apple\"` es menor que `\"banana\"`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "Two strings are compared letter by letter, by character code (like a dictionary, but all capital letters come before lowercase ones). So `\"apple\" < \"banana\"` and `\"Zebra\" < \"apple\"` are both `true`. If one side is a number, the string is converted to a number: `\"10\" < 9` is `10 < 9`, which is `false`.", "es": "Dos strings se comparan letra a letra, según el código de cada carácter (como en un diccionario, pero todas las mayúsculas van antes que las minúsculas). Por eso `\"apple\" < \"banana\"` y `\"Zebra\" < \"apple\"` dan los dos `true`. Si uno de los lados es un número, el string se convierte en número: `\"10\" < 9` es `10 < 9`, que da `false`." },
+    "verify": { "kind": "output", "expected": "true\ntrue\nfalse" }
+  },
+  {
+    "id": "s3-q017", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "logical", "short-circuit"], "courseRef": "04_Condicionales",
+    "code": "console.log(\"cat\" && \"dog\");\nconsole.log(0 || \"default\");\nconsole.log(null && \"x\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue\nfalse", "es": "true\ntrue\nfalse" }, "why": { "en": "`&&` and `||` don't turn the result into `true` or `false`: they return one of the two values exactly as it is.", "es": "`&&` y `||` no convierten el resultado en `true` o `false`: devuelven uno de los dos valores tal cual." } },
+      { "id": "B", "text": { "en": "dog\ndefault\nnull", "es": "dog\ndefault\nnull" } },
+      { "id": "C", "text": { "en": "cat\ndefault\nnull", "es": "cat\ndefault\nnull" }, "why": { "en": "`&&` only stops at the first value if it's falsy. `\"cat\"` is truthy, so it goes on and returns the second one, `\"dog\"`.", "es": "`&&` solo se queda con el primer valor si es falsy. `\"cat\"` es truthy, así que sigue y devuelve el segundo, `\"dog\"`." } },
+      { "id": "D", "text": { "en": "dog\n0\nx", "es": "dog\n0\nx" }, "why": { "en": "`||` skips falsy values like `0` and returns the next one. And `&&` stops at `null` because it's falsy.", "es": "`||` se salta los valores falsy como `0` y devuelve el siguiente. Y `&&` se para en `null` porque es falsy." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`&&` and `||` return one of their values, not necessarily a boolean. `a && b` returns `a` if it's falsy and `b` otherwise: `\"cat\"` is truthy, so you get `\"dog\"`; `null` is falsy, so you get `null`. `a || b` returns `a` if it's truthy and `b` otherwise: `0` is falsy, so you get `\"default\"`.", "es": "`&&` y `||` devuelven uno de sus valores, no necesariamente un booleano. `a && b` devuelve `a` si es falsy y `b` si no: `\"cat\"` es truthy, así que sale `\"dog\"`; `null` es falsy, así que sale `null`. `a || b` devuelve `a` si es truthy y `b` si no: `0` es falsy, así que sale `\"default\"`." },
+    "verify": { "kind": "output", "expected": "dog\ndefault\nnull" }
+  },
+  {
+    "id": "s3-q018", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "logical", "short-circuit"], "courseRef": "04_Condicionales",
+    "code": "let count = 0;\nfalse && count++;\ntrue || count++;\ntrue && count++;\nconsole.log(count);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "0", "es": "0" }, "why": { "en": "In line 4 the left side is `true`, so `&&` does have to look at the right side, and `count++` runs.", "es": "En la línea 4 la parte izquierda es `true`, así que `&&` sí tiene que mirar la parte derecha, y `count++` se ejecuta." } },
+      { "id": "B", "text": { "en": "1", "es": "1" } },
+      { "id": "C", "text": { "en": "2", "es": "2" }, "why": { "en": "In line 3, `true || …` already knows the result is truthy, so it never runs `count++`.", "es": "En la línea 3, `true || …` ya sabe que el resultado es truthy, así que no ejecuta `count++`." } },
+      { "id": "D", "text": { "en": "3", "es": "3" }, "why": { "en": "In line 2, `false && …` can never be true, so the right side is skipped.", "es": "En la línea 2, `false && …` ya no puede ser verdadero, así que la parte derecha se salta." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "This is short-circuit evaluation: `&&` and `||` only look at the right side if they need it. `false && …` is already false, so it skips `count++`. `true || …` is already true, so it skips it too. Only `true && count++` needs the right side, so `count` goes up once: `1`.", "es": "Esto es la evaluación en cortocircuito: `&&` y `||` solo miran la parte derecha si la necesitan. `false && …` ya es falso, así que se salta `count++`. `true || …` ya es verdadero, así que también se lo salta. Solo `true && count++` necesita la parte derecha, así que `count` sube una vez: `1`." },
+    "verify": { "kind": "output", "expected": "1" }
+  },
+  {
+    "id": "s3-q019", "section": 3, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["logical", "short-circuit"], "courseRef": "04_Condicionales",
+    "code": "let name = \"\";\nlet shown = name ___ \"Guest\";\nconsole.log(shown);",
+    "prompt": { "en": "Which operator fills the gap so that the code prints `Guest`?", "es": "¿Qué operador completa el hueco para que el código muestre `Guest`?" },
+    "options": [
+      { "id": "A", "text": { "en": "&&", "es": "&&" }, "why": { "en": "`\"\" && \"Guest\"` stops at the first falsy value, the empty string, so it prints an empty line.", "es": "`\"\" && \"Guest\"` se para en el primer valor falsy, el string vacío, así que muestra una línea vacía." } },
+      { "id": "B", "text": { "en": "==", "es": "==" }, "why": { "en": "`==` compares, so `shown` would be a boolean: `\"\" == \"Guest\"` is `false`.", "es": "`==` compara, así que `shown` sería un booleano: `\"\" == \"Guest\"` da `false`." } },
+      { "id": "C", "text": { "en": "||", "es": "||" } },
+      { "id": "D", "text": { "en": "!==", "es": "!==" }, "why": { "en": "`!==` also compares: `\"\" !== \"Guest\"` gives `true`, not the text.", "es": "`!==` también compara: `\"\" !== \"Guest\"` da `true`, no el texto." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`a || b` returns `a` if it's truthy and `b` if it isn't. The empty string `\"\"` is falsy, so `name || \"Guest\"` gives `\"Guest\"`. It's a common way to give a default value when a text is empty.", "es": "`a || b` devuelve `a` si es truthy y `b` si no lo es. El string vacío `\"\"` es falsy, así que `name || \"Guest\"` da `\"Guest\"`. Es una forma habitual de poner un valor por defecto cuando un texto está vacío." },
+    "verify": { "kind": "output", "expected": "Guest" }
+  },
+  {
+    "id": "s3-q020", "section": 3, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["trap", "logical", "boolean"], "courseRef": "04_Condicionales",
+    "prompt": { "en": "Which expressions evaluate to `false`? (Choose two.)", "es": "¿Qué expresiones dan `false`? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`!\"0\"`", "es": "`!\"0\"`" } },
+      { "id": "B", "text": { "en": "`!!\"\"`", "es": "`!!\"\"`" } },
+      { "id": "C", "text": { "en": "`!0`", "es": "`!0`" }, "why": { "en": "`0` is falsy, so its opposite is `true`.", "es": "`0` es falsy, así que su contrario es `true`." } },
+      { "id": "D", "text": { "en": "`!!\"false\"`", "es": "`!!\"false\"`" }, "why": { "en": "`\"false\"` is a string with text, so it's truthy: `!!\"false\"` is `true`. The word inside doesn't matter.", "es": "`\"false\"` es un string con texto, así que es truthy: `!!\"false\"` da `true`. La palabra que lleve dentro da igual." } },
+      { "id": "E", "text": { "en": "`!null`", "es": "`!null`" }, "why": { "en": "`null` is falsy, so `!null` is `true`.", "es": "`null` es falsy, así que `!null` da `true`." } }
+    ],
+    "answer": ["A", "B"],
+    "explanation": { "en": "`!` converts the value to a boolean and flips it; `!!` flips it twice, so it just converts. Only `\"\"` (empty) is a falsy string: any string with characters, even `\"0\"` or `\"false\"`, is truthy. So `!\"0\"` is `false` and `!!\"\"` is `false`. `0` and `null` are falsy, so `!0` and `!null` are `true`.", "es": "`!` convierte el valor en booleano y le da la vuelta; `!!` le da la vuelta dos veces, así que solo convierte. El único string falsy es `\"\"` (vacío): cualquier string con caracteres, aunque sea `\"0\"` o `\"false\"`, es truthy. Por eso `!\"0\"` da `false` y `!!\"\"` da `false`. `0` y `null` son falsy, así que `!0` y `!null` dan `true`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q021", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["equality", "boolean", "coercion"], "courseRef": "03_Casting",
+    "code": "console.log(true == 1);\nconsole.log(true === 1);\nconsole.log(\"1\" == true);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "false\nfalse\nfalse", "es": "false\nfalse\nfalse" }, "why": { "en": "`==` converts booleans to numbers: `true` becomes `1`, so `true == 1` is `true`.", "es": "`==` convierte los booleanos en números: `true` pasa a `1`, así que `true == 1` da `true`." } },
+      { "id": "B", "text": { "en": "true\ntrue\ntrue", "es": "true\ntrue\ntrue" }, "why": { "en": "`===` doesn't convert: a boolean and a number are different types, so it's `false`.", "es": "`===` no convierte: un booleano y un número son tipos distintos, así que da `false`." } },
+      { "id": "C", "text": { "en": "true\nfalse\ntrue", "es": "true\nfalse\ntrue" } },
+      { "id": "D", "text": { "en": "true\nfalse\nfalse", "es": "true\nfalse\nfalse" }, "why": { "en": "In the last line both sides end up as the number 1: `true` becomes `1` and `\"1\"` becomes `1`.", "es": "En la última línea los dos lados acaban siendo el número 1: `true` pasa a `1` y `\"1\"` pasa a `1`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "With `==`, a boolean is converted to a number (`true` → `1`, `false` → `0`), and a string compared with a number is converted too. So `true == 1` and `\"1\" == true` (both become `1 == 1`) are `true`. `===` never converts, and a boolean is not a number: `false`.", "es": "Con `==`, un booleano se convierte en número (`true` → `1`, `false` → `0`), y un string que se compara con un número también se convierte. Por eso `true == 1` y `\"1\" == true` (los dos acaban en `1 == 1`) dan `true`. `===` nunca convierte, y un booleano no es un número: `false`." },
+    "verify": { "kind": "output", "expected": "true\nfalse\ntrue" }
+  },
+  {
+    "id": "s3-q022", "section": 3, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["equality"], "courseRef": "04_Condicionales",
+    "prompt": { "en": "What is the difference between `==` and `===`?", "es": "¿Qué diferencia hay entre `==` y `===`?" },
+    "options": [
+      { "id": "A", "text": { "en": "`==` assigns a value and `===` compares", "es": "`==` asigna un valor y `===` compara" }, "why": { "en": "The assignment operator is a single `=`. Both `==` and `===` compare.", "es": "El operador de asignación es un solo `=`. `==` y `===` comparan los dos." } },
+      { "id": "B", "text": { "en": "`===` compares value and type without converting; `==` converts the values to the same type first", "es": "`===` compara valor y tipo sin convertir; `==` primero convierte los valores al mismo tipo" } },
+      { "id": "C", "text": { "en": "`===` is only for strings and `==` is for numbers", "es": "`===` es solo para strings y `==` para números" }, "why": { "en": "Both work with any type of value. What changes is whether the types are converted.", "es": "Los dos sirven para cualquier tipo de valor. Lo que cambia es si se convierten los tipos." } },
+      { "id": "D", "text": { "en": "There's no difference; `===` is just the modern way to write it", "es": "No hay diferencia; `===` es simplemente la forma moderna de escribirlo" }, "why": { "en": "They can give different results: `0 == \"\"` is `true`, but `0 === \"\"` is `false`.", "es": "Pueden dar resultados distintos: `0 == \"\"` da `true`, pero `0 === \"\"` da `false`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`===` (strict equality) is only `true` if both values have the same type and the same value. `==` (loose equality) converts the values to a common type before comparing, which gives surprises like `0 == \"\"`. That's why the usual advice is to always use `===` and `!==`.", "es": "`===` (igualdad estricta) solo da `true` si los dos valores tienen el mismo tipo y el mismo valor. `==` (igualdad débil) convierte los valores a un tipo común antes de comparar, y eso da sorpresas como `0 == \"\"`. Por eso lo recomendable es usar siempre `===` y `!==`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q023", "section": 3, "bank": "practice", "type": "gap",
+    "difficulty": 2, "tags": ["logical", "comparison"], "courseRef": "04_Condicionales",
+    "code": "let age = 15;\nlet hasPermission = true;\nlet canGo = age >= 16 ___ hasPermission;\nconsole.log(canGo);",
+    "prompt": { "en": "A person can go on the trip if they are 16 or older, or if they have permission. Which operator fills the gap so that the code prints `true`?", "es": "Una persona puede ir de excursión si tiene 16 años o más, o si tiene permiso. ¿Qué operador completa el hueco para que el código muestre `true`?" },
+    "options": [
+      { "id": "A", "text": { "en": "&&", "es": "&&" }, "why": { "en": "`&&` needs both conditions: `age >= 16` is `false`, so the result is `false`.", "es": "`&&` necesita las dos condiciones: `age >= 16` da `false`, así que el resultado es `false`." } },
+      { "id": "B", "text": { "en": "===", "es": "===" }, "why": { "en": "`===` compares the two booleans: `false === true` is `false`.", "es": "`===` compara los dos booleanos: `false === true` da `false`." } },
+      { "id": "C", "text": { "en": ">", "es": ">" }, "why": { "en": "`>` compares the booleans as numbers: `false > true` is `0 > 1`, which is `false`.", "es": "`>` compara los booleanos como números: `false > true` es `0 > 1`, que da `false`." } },
+      { "id": "D", "text": { "en": "||", "es": "||" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "“Or” in a condition is `||`: the result is `true` if at least one side is `true`. Here `age >= 16` is `false`, but `hasPermission` is `true`, so `canGo` is `true`. Comparison operators such as `>=` go before `||`, so no parentheses are needed.", "es": "La «o» de una condición es `||`: el resultado es `true` si al menos uno de los lados es `true`. Aquí `age >= 16` da `false`, pero `hasPermission` es `true`, así que `canGo` vale `true`. Los operadores de comparación como `>=` van antes que `||`, así que no hacen falta paréntesis." },
+    "verify": { "kind": "output", "expected": "true" }
+  },
+  {
+    "id": "s3-q024", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["logical", "short-circuit"], "courseRef": "04_Condicionales",
+    "code": "let age = 20;\nconsole.log(age > 18 && \"adult\");\nconsole.log(age > 30 && \"senior\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\nfalse", "es": "true\nfalse" }, "why": { "en": "When the left side is truthy, `&&` returns the right side exactly as it is: the text `\"adult\"`, not `true`.", "es": "Cuando la parte izquierda es truthy, `&&` devuelve la parte derecha tal cual: el texto `\"adult\"`, no `true`." } },
+      { "id": "B", "text": { "en": "adult\nfalse", "es": "adult\nfalse" } },
+      { "id": "C", "text": { "en": "adult\nsenior", "es": "adult\nsenior" }, "why": { "en": "`age > 30` is `false`, so `&&` stops there and returns `false`; it never gets to `\"senior\"`.", "es": "`age > 30` da `false`, así que `&&` se para ahí y devuelve `false`; no llega a `\"senior\"`." } },
+      { "id": "D", "text": { "en": "adult\nundefined", "es": "adult\nundefined" }, "why": { "en": "`&&` returns the falsy value it stopped at, which is `false`, not `undefined`.", "es": "`&&` devuelve el valor falsy en el que se ha parado, que es `false`, no `undefined`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`condition && value` returns `value` if the condition is true, and the condition itself (`false`) if it isn't. `20 > 18` is `true`, so the first line prints `adult`. `20 > 30` is `false`, so `&&` stops there and prints `false`.", "es": "`condition && value` devuelve `value` si la condición es verdadera, y la propia condición (`false`) si no lo es. `20 > 18` da `true`, así que la primera línea muestra `adult`. `20 > 30` da `false`, así que `&&` se para ahí y muestra `false`." },
+    "verify": { "kind": "output", "expected": "adult\nfalse" }
+  },
+  {
+    "id": "s3-q025", "section": 3, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap", "logical", "comparison"], "courseRef": "04_Condicionales",
+    "prompt": { "en": "Which condition is `true` only when `x` is between 1 and 10, both included?", "es": "¿Qué condición da `true` solo cuando `x` está entre 1 y 10, ambos incluidos?" },
+    "options": [
+      { "id": "A", "text": { "en": "`x >= 1 || x <= 10`", "es": "`x >= 1 || x <= 10`" }, "why": { "en": "With `||` it's enough for one side to be true, and every number is either at least 1 or at most 10: it's always `true`.", "es": "Con `||` basta con que un lado sea verdadero, y cualquier número es mayor o igual que 1 o menor o igual que 10: siempre da `true`." } },
+      { "id": "B", "text": { "en": "`1 <= x <= 10`", "es": "`1 <= x <= 10`" }, "why": { "en": "It's read as `(1 <= x) <= 10`: the first part gives `true` or `false` (1 or 0 as a number), which is always `<= 10`. It's always `true`.", "es": "Se lee como `(1 <= x) <= 10`: la primera parte da `true` o `false` (1 o 0 como número), que siempre es `<= 10`. Siempre da `true`." } },
+      { "id": "C", "text": { "en": "`x => 1 && x <= 10`", "es": "`x => 1 && x <= 10`" }, "why": { "en": "`=>` isn't “greater than or equal”: it's the arrow of an arrow function. The operator is `>=`.", "es": "`=>` no es «mayor o igual»: es la flecha de una función flecha. El operador es `>=`." } },
+      { "id": "D", "text": { "en": "`x >= 1 && x <= 10`", "es": "`x >= 1 && x <= 10`" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "To check a range you need two comparisons joined with `&&` (“and”): `x >= 1 && x <= 10`. In maths you can write 1 ≤ x ≤ 10, but JavaScript compares from left to right and turns the first result into a number, so `1 <= x <= 10` is always `true`. And remember: “greater than or equal” is `>=`, never `=>`.", "es": "Para comprobar un intervalo hacen falta dos comparaciones unidas con `&&` («y»): `x >= 1 && x <= 10`. En matemáticas se puede escribir 1 ≤ x ≤ 10, pero JavaScript compara de izquierda a derecha y convierte el primer resultado en número, así que `1 <= x <= 10` siempre da `true`. Y recuerda: «mayor o igual» es `>=`, nunca `=>`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q026", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["ternary"], "courseRef": "04_Condicionales",
+    "code": "let temp = 25;\nlet msg = temp > 30 ? \"hot\" : temp > 15 ? \"nice\" : \"cold\";\nconsole.log(msg);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "hot", "es": "hot" }, "why": { "en": "`25 > 30` is `false`, so the first value is skipped and the second ternary is evaluated.", "es": "`25 > 30` da `false`, así que se salta el primer valor y se evalúa el segundo ternario." } },
+      { "id": "B", "text": { "en": "nice", "es": "nice" } },
+      { "id": "C", "text": { "en": "cold", "es": "cold" }, "why": { "en": "`cold` is only reached if `temp > 15` is also `false`, and `25 > 15` is `true`.", "es": "Solo se llega a `cold` si `temp > 15` también da `false`, y `25 > 15` da `true`." } },
+      { "id": "D", "text": { "en": "false", "es": "false" }, "why": { "en": "The ternary returns one of its values, never the result of the condition.", "es": "El ternario devuelve uno de sus valores, nunca el resultado de la condición." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "The ternary operator `condition ? a : b` returns `a` if the condition is true and `b` if not. Here the `b` part is another ternary. `25 > 30` is `false`, so we move on to `temp > 15 ? \"nice\" : \"cold\"`; `25 > 15` is `true`, so the result is `\"nice\"`. It works like an `if…else if…else` that returns a value.", "es": "El operador ternario `condition ? a : b` devuelve `a` si la condición es verdadera y `b` si no. Aquí la parte `b` es otro ternario. `25 > 30` da `false`, así que se pasa a `temp > 15 ? \"nice\" : \"cold\"`; `25 > 15` da `true`, así que el resultado es `\"nice\"`. Funciona como un `if…else if…else` que devuelve un valor." },
+    "verify": { "kind": "output", "expected": "nice" }
+  },
+  {
+    "id": "s3-q027", "section": 3, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["ternary"], "courseRef": "04_Condicionales",
+    "code": "let items = 1;\nlet word = items === 1 ___ \"item\" : \"items\";\nconsole.log(items + \" \" + word);",
+    "prompt": { "en": "Which symbol fills the gap so that the code prints `1 item`?", "es": "¿Qué símbolo completa el hueco para que el código muestre `1 item`?" },
+    "options": [
+      { "id": "A", "text": { "en": "&&", "es": "&&" }, "why": { "en": "`&&` can't be paired with `:`. The code has a `SyntaxError`.", "es": "`&&` no se puede combinar con `:`. El código tiene un `SyntaxError`." } },
+      { "id": "B", "text": { "en": "=>", "es": "=>" }, "why": { "en": "`=>` is the arrow of arrow functions, not part of the ternary operator: `SyntaxError`.", "es": "`=>` es la flecha de las funciones flecha, no forma parte del operador ternario: `SyntaxError`." } },
+      { "id": "C", "text": { "en": ":", "es": ":" }, "why": { "en": "The ternary needs `?` after the condition and `:` between the two values. With two `:` the code has a `SyntaxError`.", "es": "El ternario necesita `?` después de la condición y `:` entre los dos valores. Con dos `:` el código tiene un `SyntaxError`." } },
+      { "id": "D", "text": { "en": "?", "es": "?" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "The ternary operator is written `condition ? valueIfTrue : valueIfFalse`. `items === 1` is `true`, so `word` is `\"item\"` and the code prints `1 item`. With `items = 3` it would print `3 items`.", "es": "El operador ternario se escribe `condition ? valueIfTrue : valueIfFalse`. `items === 1` da `true`, así que `word` vale `\"item\"` y el código muestra `1 item`. Con `items = 3` mostraría `3 items`." },
+    "verify": { "kind": "output", "expected": "1 item" }
+  },
+  {
+    "id": "s3-q028", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "typeof", "precedence"], "courseRef": "03_Casting",
+    "code": "console.log(typeof typeof 42);\nconsole.log(typeof \"42\" + 1);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "number\nstring1", "es": "number\nstring1" }, "why": { "en": "`typeof 42` is `\"number\"`, but that's a string, and the second `typeof` gives the type of that string: `\"string\"`.", "es": "`typeof 42` da `\"number\"`, pero eso es un string, y el segundo `typeof` da el tipo de ese string: `\"string\"`." } },
+      { "id": "B", "text": { "en": "string\nstring1", "es": "string\nstring1" } },
+      { "id": "C", "text": { "en": "string\nnumber", "es": "string\nnumber" }, "why": { "en": "`typeof` goes before `+`: first `typeof \"42\"` gives `\"string\"`, and then `+ 1` joins a 1 to it.", "es": "`typeof` va antes que `+`: primero `typeof \"42\"` da `\"string\"` y después `+ 1` le une un 1." } },
+      { "id": "D", "text": { "en": "string\n421", "es": "string\n421" }, "why": { "en": "That would need `typeof` to apply to the whole `\"42\" + 1`. Without parentheses it only applies to `\"42\"`.", "es": "Para eso `typeof` tendría que aplicarse a todo `\"42\" + 1`. Sin paréntesis solo se aplica a `\"42\"`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`typeof` always returns a string with the name of the type. So `typeof 42` is `\"number\"`, and `typeof \"number\"` is `\"string\"`. Also, `typeof` has higher precedence than `+`: `typeof \"42\" + 1` is `(typeof \"42\") + 1`, that is, `\"string\" + 1`, which gives `\"string1\"`. To get the type of the whole sum, write `typeof (\"42\" + 1)`.", "es": "`typeof` siempre devuelve un string con el nombre del tipo. Así que `typeof 42` da `\"number\"`, y `typeof \"number\"` da `\"string\"`. Además, `typeof` tiene más precedencia que `+`: `typeof \"42\" + 1` es `(typeof \"42\") + 1`, es decir, `\"string\" + 1`, que da `\"string1\"`. Para el tipo de toda la suma, escribe `typeof (\"42\" + 1)`." },
+    "verify": { "kind": "output", "expected": "string\nstring1" }
+  },
+  {
+    "id": "s3-q029", "section": 3, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap", "typeof"], "courseRef": "03_Casting",
+    "code": "console.log(typeof score);\nconsole.log(score);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "A `ReferenceError` on line 1", "es": "Un `ReferenceError` en la línea 1" }, "why": { "en": "`typeof` is the exception: with a variable that doesn't exist it doesn't throw an error, it returns `\"undefined\"`.", "es": "`typeof` es la excepción: con una variable que no existe no lanza ningún error, devuelve `\"undefined\"`." } },
+      { "id": "B", "text": { "en": "It prints `undefined` twice", "es": "Muestra `undefined` dos veces" }, "why": { "en": "Only `typeof` is protected. Reading a variable that was never declared, as in line 2, throws an error.", "es": "Solo `typeof` está protegido. Leer una variable que nunca se ha declarado, como en la línea 2, lanza un error." } },
+      { "id": "C", "text": { "en": "It prints `undefined`, then a `TypeError` on line 2", "es": "Muestra `undefined` y después lanza un `TypeError` en la línea 2" }, "why": { "en": "Using a name that doesn't exist is a `ReferenceError`. A `TypeError` is when the variable exists but its value can't do what you ask.", "es": "Usar un nombre que no existe es un `ReferenceError`. Un `TypeError` es cuando la variable existe pero su valor no puede hacer lo que le pides." } },
+      { "id": "D", "text": { "en": "It prints `undefined`, then a `ReferenceError` on line 2", "es": "Muestra `undefined` y después lanza un `ReferenceError` en la línea 2" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`score` was never declared. `typeof` on an undeclared variable doesn't fail: it returns `\"undefined\"`, so line 1 prints `undefined`. But reading the variable itself on line 2 throws `ReferenceError: score is not defined`.", "es": "`score` no se ha declarado nunca. `typeof` con una variable sin declarar no falla: devuelve `\"undefined\"`, así que la línea 1 muestra `undefined`. Pero leer la propia variable en la línea 2 lanza `ReferenceError: score is not defined`." },
+    "verify": { "kind": "error", "errorType": "ReferenceError", "line": 2, "match": "both" }
+  },
+  {
+    "id": "s3-q030", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "instanceof"], "courseRef": "10_Objetos",
+    "code": "let today = new Date();\nlet list = [1, 2];\nconsole.log(today instanceof Date);\nconsole.log(list instanceof Object);\nconsole.log(\"hi\" instanceof String);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\nfalse\nfalse", "es": "true\nfalse\nfalse" }, "why": { "en": "An array is a special kind of object, so it's also an instance of `Object`.", "es": "Un array es un tipo especial de objeto, así que también es una instancia de `Object`." } },
+      { "id": "B", "text": { "en": "true\ntrue\ntrue", "es": "true\ntrue\ntrue" }, "why": { "en": "`\"hi\"` is a primitive string, not an object created with `new String()`. `instanceof` only gives `true` for objects.", "es": "`\"hi\"` es un string primitivo, no un objeto creado con `new String()`. `instanceof` solo da `true` con objetos." } },
+      { "id": "C", "text": { "en": "true\ntrue\nfalse", "es": "true\ntrue\nfalse" } },
+      { "id": "D", "text": { "en": "object\nobject\nstring", "es": "object\nobject\nstring" }, "why": { "en": "That is what `typeof` would give. `instanceof` always returns a boolean.", "es": "Eso es lo que daría `typeof`. `instanceof` siempre devuelve un booleano." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`value instanceof Type` returns `true` if the value is an object created from that type (or a more specific one). `today` was created with `new Date()`: `true`. Arrays are objects, so `list instanceof Object` is `true` too. Primitives such as `\"hi\"` aren't objects, so `instanceof` gives `false`; for them use `typeof`.", "es": "`value instanceof Type` devuelve `true` si el valor es un objeto creado a partir de ese tipo (o de uno más concreto). `today` se creó con `new Date()`: `true`. Los arrays son objetos, así que `list instanceof Object` también da `true`. Los primitivos como `\"hi\"` no son objetos, así que `instanceof` da `false`; con ellos se usa `typeof`." },
+    "verify": { "kind": "output", "expected": "true\ntrue\nfalse" }
+  },
+  {
+    "id": "s3-q031", "section": 3, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["instanceof"], "courseRef": "06_Arrays",
+    "code": "let pets = [\"cat\", \"dog\"];\nconsole.log(pets instanceof \"Array\");",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `true`", "es": "Muestra `true`" }, "why": { "en": "The right side of `instanceof` must be the type itself (`Array`), not a string with its name.", "es": "A la derecha de `instanceof` tiene que ir el propio tipo (`Array`), no un string con su nombre." } },
+      { "id": "B", "text": { "en": "It prints `false`", "es": "Muestra `false`" }, "why": { "en": "It doesn't get to compare anything: with a string on the right, `instanceof` throws an error.", "es": "No llega a comparar nada: con un string a la derecha, `instanceof` lanza un error." } },
+      { "id": "C", "text": { "en": "A `SyntaxError` before anything runs", "es": "Un `SyntaxError` antes de ejecutar nada" }, "why": { "en": "The code is well written; the problem is the value on the right, and that is only seen when line 2 runs.", "es": "El código está bien escrito; el problema es el valor de la derecha, y eso solo se ve al ejecutar la línea 2." } },
+      { "id": "D", "text": { "en": "A `TypeError` on line 2", "es": "Un `TypeError` en la línea 2" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`instanceof` needs a type on the right, such as `Array`, `Object` or `Date`, written without quotes. `\"Array\"` is just a string, so line 2 throws a `TypeError` (“Right-hand side of 'instanceof' is not an object”). The correct check is `pets instanceof Array`, which gives `true`.", "es": "`instanceof` necesita un tipo a la derecha, como `Array`, `Object` o `Date`, escrito sin comillas. `\"Array\"` es solo un string, así que la línea 2 lanza un `TypeError` («Right-hand side of 'instanceof' is not an object»). La comprobación correcta es `pets instanceof Array`, que da `true`." },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 2 }
+  },
+  {
+    "id": "s3-q032", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "delete", "objects"], "courseRef": "10_Objetos",
+    "code": "let car = { brand: \"Kia\", year: 2020 };\nconsole.log(delete car.year);\nconsole.log(delete car.color);\nconsole.log(car.year);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue\nundefined", "es": "true\ntrue\nundefined" } },
+      { "id": "B", "text": { "en": "true\nfalse\nundefined", "es": "true\nfalse\nundefined" }, "why": { "en": "`delete` also returns `true` when the property didn't exist: there is nothing left to remove, so it has done its job.", "es": "`delete` también devuelve `true` cuando la propiedad no existía: no queda nada que borrar, así que ha cumplido." } },
+      { "id": "C", "text": { "en": "2020\nundefined\nundefined", "es": "2020\nundefined\nundefined" }, "why": { "en": "`delete` doesn't return the deleted value: it returns `true` or `false`.", "es": "`delete` no devuelve el valor borrado: devuelve `true` o `false`." } },
+      { "id": "D", "text": { "en": "true\ntrue\n2020", "es": "true\ntrue\n2020" }, "why": { "en": "The property `year` was deleted in line 2, so reading it now gives `undefined`.", "es": "La propiedad `year` se borró en la línea 2, así que al leerla ahora da `undefined`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The `delete` operator removes a property from an object and returns `true` when, after running it, the property is no longer there. That's why it also returns `true` for `color`, which never existed. After deleting `year`, reading `car.year` gives `undefined`.", "es": "El operador `delete` borra una propiedad de un objeto y devuelve `true` cuando, después de ejecutarse, la propiedad ya no está. Por eso también devuelve `true` con `color`, que nunca existió. Después de borrar `year`, leer `car.year` da `undefined`." },
+    "verify": { "kind": "output", "expected": "true\ntrue\nundefined" }
+  },
+  {
+    "id": "s3-q033", "section": 3, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["typeof"], "courseRef": "03_Casting",
+    "prompt": { "en": "Which statements about the `typeof` operator are true? (Choose two.)", "es": "¿Qué afirmaciones sobre el operador `typeof` son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "It always returns a string, such as `\"number\"` or `\"boolean\"`", "es": "Siempre devuelve un string, como `\"number\"` o `\"boolean\"`" } },
+      { "id": "B", "text": { "en": "`typeof null` returns `\"null\"`", "es": "`typeof null` devuelve `\"null\"`" }, "why": { "en": "It returns `\"object\"`, an old JavaScript bug that was never fixed.", "es": "Devuelve `\"object\"`, un fallo antiguo de JavaScript que nunca se corrigió." } },
+      { "id": "C", "text": { "en": "`typeof [1, 2]` returns `\"array\"`", "es": "`typeof [1, 2]` devuelve `\"array\"`" }, "why": { "en": "Arrays are objects, so it returns `\"object\"`. To check for an array, use `Array.isArray()` or `instanceof Array`.", "es": "Los arrays son objetos, así que devuelve `\"object\"`. Para saber si algo es un array, usa `Array.isArray()` o `instanceof Array`." } },
+      { "id": "D", "text": { "en": "With a variable that was never declared, it returns `\"undefined\"` without throwing an error", "es": "Con una variable que nunca se ha declarado, devuelve `\"undefined\"` sin lanzar ningún error" } },
+      { "id": "E", "text": { "en": "It's a function, so the parentheses in `typeof(x)` are required", "es": "Es una función, así que los paréntesis de `typeof(x)` son obligatorios" }, "why": { "en": "`typeof` is an operator, like `!` or `-`. `typeof x` works; the parentheses only group, as in any expression.", "es": "`typeof` es un operador, como `!` o `-`. `typeof x` funciona; los paréntesis solo agrupan, como en cualquier expresión." } }
+    ],
+    "answer": ["A", "D"],
+    "explanation": { "en": "`typeof` is a unary operator that returns the type of a value as a string: `\"string\"`, `\"number\"`, `\"boolean\"`, `\"undefined\"`, `\"object\"`, `\"function\"`, `\"bigint\"`… It doesn't fail with undeclared variables (it gives `\"undefined\"`). Remember its two surprises: `typeof null` and `typeof` of an array both give `\"object\"`.", "es": "`typeof` es un operador unario que devuelve el tipo de un valor como string: `\"string\"`, `\"number\"`, `\"boolean\"`, `\"undefined\"`, `\"object\"`, `\"function\"`, `\"bigint\"`… No falla con variables sin declarar (da `\"undefined\"`). Recuerda sus dos sorpresas: `typeof null` y `typeof` de un array dan los dos `\"object\"`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q034", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["delete", "arrays"], "courseRef": "06_Arrays",
+    "code": "let nums = [10, 20, 30];\ndelete nums[1];\nconsole.log(nums.length);\nconsole.log(nums[1]);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "3\nundefined", "es": "3\nundefined" } },
+      { "id": "B", "text": { "en": "2\n30", "es": "2\n30" }, "why": { "en": "`delete` doesn't move the other elements or shorten the array: it only empties that position.", "es": "`delete` no mueve los demás elementos ni acorta el array: solo deja vacía esa posición." } },
+      { "id": "C", "text": { "en": "3\n20", "es": "3\n20" }, "why": { "en": "The value at position 1 has been deleted, so reading it gives `undefined`.", "es": "El valor de la posición 1 se ha borrado, así que al leerlo da `undefined`." } },
+      { "id": "D", "text": { "en": "2\nundefined", "es": "2\nundefined" }, "why": { "en": "`length` doesn't change with `delete`: the array keeps its 3 positions, one of them empty.", "es": "`length` no cambia con `delete`: el array conserva sus 3 posiciones, una de ellas vacía." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "On an array, `delete nums[1]` removes the value but leaves a hole: the other elements stay where they were and `length` is still `3`. Reading the hole gives `undefined`. To really remove elements from an array, use methods such as `pop()`, `shift()` or `splice()`.", "es": "En un array, `delete nums[1]` borra el valor pero deja un hueco: los demás elementos se quedan donde estaban y `length` sigue siendo `3`. Al leer el hueco se obtiene `undefined`. Para quitar elementos de verdad, usa métodos como `pop()`, `shift()` o `splice()`." },
+    "verify": { "kind": "output", "expected": "3\nundefined" }
+  },
+  {
+    "id": "s3-q035", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "comparison", "associativity"], "courseRef": "04_Condicionales",
+    "code": "console.log(1 < 2 < 3);\nconsole.log(3 > 2 > 1);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\ntrue", "es": "true\ntrue" }, "why": { "en": "It isn't read like in maths. `3 > 2` gives `true`, and then `true > 1` compares `1 > 1`, which is `false`.", "es": "No se lee como en matemáticas. `3 > 2` da `true`, y después `true > 1` compara `1 > 1`, que da `false`." } },
+      { "id": "B", "text": { "en": "false\nfalse", "es": "false\nfalse" }, "why": { "en": "`1 < 2` is `true`, and `true < 3` becomes `1 < 3`, which is `true`.", "es": "`1 < 2` da `true`, y `true < 3` pasa a ser `1 < 3`, que da `true`." } },
+      { "id": "C", "text": { "en": "true\nfalse", "es": "true\nfalse" } },
+      { "id": "D", "text": { "en": "SyntaxError", "es": "SyntaxError" }, "why": { "en": "Chaining comparisons is valid JavaScript; it just doesn't do what it looks like.", "es": "Encadenar comparaciones es JavaScript válido; simplemente no hace lo que parece." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "Comparisons are evaluated from left to right, two values at a time. `1 < 2 < 3` is `(1 < 2) < 3` → `true < 3` → `1 < 3` → `true`. `3 > 2 > 1` is `(3 > 2) > 1` → `true > 1` → `1 > 1` → `false`. The first one is right only by luck. To check both conditions, use `&&`: `3 > 2 && 2 > 1`.", "es": "Las comparaciones se evalúan de izquierda a derecha, de dos en dos. `1 < 2 < 3` es `(1 < 2) < 3` → `true < 3` → `1 < 3` → `true`. `3 > 2 > 1` es `(3 > 2) > 1` → `true > 1` → `1 > 1` → `false`. La primera acierta por casualidad. Para comprobar las dos condiciones, usa `&&`: `3 > 2 && 2 > 1`." },
+    "verify": { "kind": "output", "expected": "true\nfalse" }
+  },
+  {
+    "id": "s3-q036", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["logical", "precedence"], "courseRef": "04_Condicionales",
+    "code": "console.log(true || false && false);\nconsole.log((true || false) && false);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "false\nfalse", "es": "false\nfalse" }, "why": { "en": "`&&` has higher precedence than `||`, so line 1 is `true || (false && false)`, which is `true`.", "es": "`&&` tiene más precedencia que `||`, así que la línea 1 es `true || (false && false)`, que da `true`." } },
+      { "id": "B", "text": { "en": "true\ntrue", "es": "true\ntrue" }, "why": { "en": "In line 2 the parentheses go first: `true || false` is `true`, and `true && false` is `false`.", "es": "En la línea 2 van primero los paréntesis: `true || false` da `true`, y `true && false` da `false`." } },
+      { "id": "C", "text": { "en": "true\nfalse", "es": "true\nfalse" } },
+      { "id": "D", "text": { "en": "false\ntrue", "es": "false\ntrue" }, "why": { "en": "Line 1 isn't read from left to right: `&&` goes first, and then `true || …` is `true`.", "es": "La línea 1 no se lee de izquierda a derecha: va primero `&&`, y después `true || …` da `true`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`&&` has higher precedence than `||` (like `*` before `+`). So `true || false && false` is `true || (false && false)` → `true || false` → `true`. With parentheses the order changes: `(true || false) && false` → `true && false` → `false`. If you mix `&&` and `||`, add parentheses to make the order clear.", "es": "`&&` tiene más precedencia que `||` (como `*` antes que `+`). Así que `true || false && false` es `true || (false && false)` → `true || false` → `true`. Con paréntesis cambia el orden: `(true || false) && false` → `true && false` → `false`. Si mezclas `&&` y `||`, pon paréntesis para que el orden quede claro." },
+    "verify": { "kind": "output", "expected": "true\nfalse" }
+  },
+  {
+    "id": "s3-q037", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["logical", "precedence"], "courseRef": "04_Condicionales",
+    "code": "let a = 5;\nconsole.log(!a === false);\nconsole.log(!(a === 5));",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\nfalse", "es": "true\nfalse" } },
+      { "id": "B", "text": { "en": "false\nfalse", "es": "false\nfalse" }, "why": { "en": "`!` only applies to `a` in line 2: `!5` is `false`, and `false === false` is `true`.", "es": "En la línea 2 el `!` solo se aplica a `a`: `!5` da `false`, y `false === false` da `true`." } },
+      { "id": "C", "text": { "en": "true\ntrue", "es": "true\ntrue" }, "why": { "en": "In line 3 the parentheses go first: `a === 5` is `true`, and `!true` is `false`.", "es": "En la línea 3 van primero los paréntesis: `a === 5` da `true`, y `!true` da `false`." } },
+      { "id": "D", "text": { "en": "false\ntrue", "es": "false\ntrue" }, "why": { "en": "Both lines are swapped. Remember that `!` without parentheses only affects the value right next to it.", "es": "Las dos líneas están al revés. Recuerda que `!` sin paréntesis solo afecta al valor que tiene justo al lado." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "`!` is a unary operator and has higher precedence than `===`, so it only applies to the value right next to it. `!a === false` is `(!a) === false`: `5` is truthy, `!5` is `false`, and `false === false` is `true`. In `!(a === 5)` the comparison goes first (`true`) and then `!` flips it: `false`.", "es": "`!` es un operador unario y tiene más precedencia que `===`, así que solo se aplica al valor que tiene justo al lado. `!a === false` es `(!a) === false`: `5` es truthy, `!5` da `false` y `false === false` da `true`. En `!(a === 5)` va primero la comparación (`true`) y después `!` le da la vuelta: `false`." },
+    "verify": { "kind": "output", "expected": "true\nfalse" }
+  },
+  {
+    "id": "s3-q038", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["precedence", "associativity"], "courseRef": "01_Variables",
+    "code": "console.log(10 - 4 - 3);\nconsole.log(48 / 4 / 2);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "3\n6", "es": "3\n6" } },
+      { "id": "B", "text": { "en": "9\n24", "es": "9\n24" }, "why": { "en": "That would be `10 - (4 - 3)` and `48 / (4 / 2)`. Without parentheses, `-` and `/` go from left to right.", "es": "Eso sería `10 - (4 - 3)` y `48 / (4 / 2)`. Sin paréntesis, `-` y `/` van de izquierda a derecha." } },
+      { "id": "C", "text": { "en": "3\n24", "es": "3\n24" }, "why": { "en": "`/` also goes from left to right: first `48 / 4` (12), then `12 / 2`.", "es": "`/` también va de izquierda a derecha: primero `48 / 4` (12) y después `12 / 2`." } },
+      { "id": "D", "text": { "en": "9\n6", "es": "9\n6" }, "why": { "en": "`-` also goes from left to right: first `10 - 4` (6), then `6 - 3`.", "es": "`-` también va de izquierda a derecha: primero `10 - 4` (6) y después `6 - 3`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "When operators have the same precedence, associativity decides the order. `-` and `/` (and `+`, `*`, `%`) are left-associative: they are calculated from left to right. `10 - 4 - 3` is `(10 - 4) - 3 = 3`, and `48 / 4 / 2` is `(48 / 4) / 2 = 6`.", "es": "Cuando los operadores tienen la misma precedencia, la asociatividad decide el orden. `-` y `/` (y también `+`, `*` y `%`) son asociativos por la izquierda: se calculan de izquierda a derecha. `10 - 4 - 3` es `(10 - 4) - 3 = 3`, y `48 / 4 / 2` es `(48 / 4) / 2 = 6`." },
+    "verify": { "kind": "output", "expected": "3\n6" }
+  },
+  {
+    "id": "s3-q039", "section": 3, "bank": "practice", "type": "error",
+    "difficulty": 3, "tags": ["trap", "precedence", "exponent"], "courseRef": "01_Variables",
+    "code": "let base = 2;\nlet result = -base ** 2;\nconsole.log(result);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `4`", "es": "Muestra `4`" }, "why": { "en": "JavaScript doesn't choose between `(-2) ** 2` (4) and `-(2 ** 2)` (-4): it refuses to run and asks for parentheses.", "es": "JavaScript no elige entre `(-2) ** 2` (4) y `-(2 ** 2)` (-4): se niega a ejecutar y pide paréntesis." } },
+      { "id": "B", "text": { "en": "It prints `-4`", "es": "Muestra `-4`" }, "why": { "en": "In maths −2² is −4, but JavaScript doesn't accept a unary minus right before `**` without parentheses.", "es": "En matemáticas −2² es −4, pero JavaScript no acepta un menos unario justo antes de `**` sin paréntesis." } },
+      { "id": "C", "text": { "en": "A `TypeError` on line 2", "es": "Un `TypeError` en la línea 2" }, "why": { "en": "It isn't a problem with the type of `base`, which is a number. The expression is badly written, so it's a syntax error.", "es": "No es un problema con el tipo de `base`, que es un número. La expresión está mal escrita, así que es un error de sintaxis." } },
+      { "id": "D", "text": { "en": "A `SyntaxError` because of line 2, before anything runs", "es": "Un `SyntaxError` por la línea 2, antes de ejecutar nada" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`-base ** 2` is ambiguous: it could mean `(-base) ** 2` (4) or `-(base ** 2)` (-4). JavaScript doesn't guess: it throws `SyntaxError: Unary operator used immediately before exponentiation expression…`. You must add parentheses to say which one you want.", "es": "`-base ** 2` es ambiguo: podría ser `(-base) ** 2` (4) o `-(base ** 2)` (-4). JavaScript no lo adivina: lanza `SyntaxError: Unary operator used immediately before exponentiation expression…`. Hay que poner paréntesis para indicar cuál de las dos quieres." },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 2 }
+  },
+  {
+    "id": "s3-q040", "section": 3, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["precedence", "parentheses"], "courseRef": "01_Variables",
+    "code": "let a = 2;\nlet b = 3;\nlet c = 4;\nconsole.log(___);",
+    "prompt": { "en": "Which expression fills the gap so that the code prints `20`?", "es": "¿Qué expresión completa el hueco para que el código muestre `20`?" },
+    "options": [
+      { "id": "A", "text": { "en": "a + b * c", "es": "a + b * c" }, "why": { "en": "`*` goes before `+`: `3 * 4` is 12, plus 2 is 14.", "es": "`*` va antes que `+`: `3 * 4` da 12, y más 2 da 14." } },
+      { "id": "B", "text": { "en": "a + (b * c)", "es": "a + (b * c)" }, "why": { "en": "These parentheses don't change anything: `*` already went first. The result is 14.", "es": "Estos paréntesis no cambian nada: `*` ya iba primero. El resultado es 14." } },
+      { "id": "C", "text": { "en": "(a + b * c)", "es": "(a + b * c)" }, "why": { "en": "Parentheses around the whole expression don't change the order inside: it's still 14.", "es": "Unos paréntesis alrededor de toda la expresión no cambian el orden de dentro: sigue dando 14." } },
+      { "id": "D", "text": { "en": "(a + b) * c", "es": "(a + b) * c" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "Parentheses have the highest precedence, so what is inside is calculated first. In `(a + b) * c`, first `2 + 3` = 5, and then `5 * 4` = 20. Without them, `*` goes before `+` and the result is 14.", "es": "Los paréntesis tienen la máxima precedencia, así que lo de dentro se calcula primero. En `(a + b) * c`, primero `2 + 3` = 5 y después `5 * 4` = 20. Sin ellos, `*` va antes que `+` y el resultado es 14." },
+    "verify": { "kind": "output", "expected": "20" }
+  },
+  {
+    "id": "s3-q041", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["assignment", "associativity"], "courseRef": "01_Variables",
+    "code": "let a, b, c;\na = b = c = 5;\nc += a;\nconsole.log(a, b, c);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "5 5 10", "es": "5 5 10" } },
+      { "id": "B", "text": { "en": "undefined undefined 10", "es": "undefined undefined 10" }, "why": { "en": "`=` is evaluated from right to left: `c = 5` gives 5, that 5 is assigned to `b`, and then to `a`.", "es": "`=` se evalúa de derecha a izquierda: `c = 5` da 5, ese 5 se asigna a `b` y después a `a`." } },
+      { "id": "C", "text": { "en": "10 10 10", "es": "10 10 10" }, "why": { "en": "The three variables are independent: after line 2 they hold the number 5 separately, so `c += a` only changes `c`.", "es": "Las tres variables son independientes: después de la línea 2 guardan el número 5 cada una por su lado, así que `c += a` solo cambia `c`." } },
+      { "id": "D", "text": { "en": "5 5 5", "es": "5 5 5" }, "why": { "en": "`c += a` changes `c`: it becomes `5 + 5`, that is, 10.", "es": "`c += a` cambia `c`: pasa a valer `5 + 5`, es decir, 10." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The assignment operator is right-associative and an assignment also returns the assigned value. So `a = b = c = 5` is `a = (b = (c = 5))`: all three end up as 5. Then `c += a` is `c = c + a`, so `c` becomes 10 and the others stay at 5.", "es": "El operador de asignación es asociativo por la derecha, y una asignación también devuelve el valor asignado. Así que `a = b = c = 5` es `a = (b = (c = 5))`: las tres acaban valiendo 5. Después `c += a` es `c = c + a`, así que `c` pasa a 10 y las demás siguen en 5." },
+    "verify": { "kind": "output", "expected": "5 5 10" }
+  },
+  {
+    "id": "s3-q042", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "precedence", "strings"], "courseRef": "02_Strings",
+    "code": "console.log(\"1\" + 2 * 3);\nconsole.log((\"1\" + 2) * 3);",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "16\n36", "es": "16\n36" } },
+      { "id": "B", "text": { "en": "123\n36", "es": "123\n36" }, "why": { "en": "`*` goes before `+`, so `2 * 3` is calculated first (6) and then joined to `\"1\"`.", "es": "`*` va antes que `+`, así que primero se calcula `2 * 3` (6) y después se une a `\"1\"`." } },
+      { "id": "C", "text": { "en": "9\n9", "es": "9\n9" }, "why": { "en": "With a string on one side, `+` joins instead of adding, so `\"1\" + 6` is `\"16\"`.", "es": "Con un string a un lado, `+` une en vez de sumar, así que `\"1\" + 6` da `\"16\"`." } },
+      { "id": "D", "text": { "en": "16\n121212", "es": "16\n121212" }, "why": { "en": "`*` doesn't repeat strings: it converts `\"12\"` into the number 12 and multiplies.", "es": "`*` no repite strings: convierte `\"12\"` en el número 12 y multiplica." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "Line 1: `*` goes first, `2 * 3` is 6, and then `\"1\" + 6` joins them: `\"16\"`. Line 2: the parentheses go first, `\"1\" + 2` is the string `\"12\"`, and then `*` converts it into a number: `12 * 3` = 36. Precedence decides when the text is joined.", "es": "Línea 1: va primero `*`, `2 * 3` da 6, y después `\"1\" + 6` los une: `\"16\"`. Línea 2: van primero los paréntesis, `\"1\" + 2` da el string `\"12\"`, y después `*` lo convierte en número: `12 * 3` = 36. La precedencia decide en qué momento se une el texto." },
+    "verify": { "kind": "output", "expected": "16\n36" }
+  },
+  {
+    "id": "s3-q043", "section": 3, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["precedence", "arithmetic"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which expressions evaluate to `10`? (Choose two.)", "es": "¿Qué expresiones dan `10`? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`(2 + 2) * 4`", "es": "`(2 + 2) * 4`" }, "why": { "en": "The parentheses go first: `4 * 4` is 16.", "es": "Primero van los paréntesis: `4 * 4` da 16." } },
+      { "id": "B", "text": { "en": "`(30 - 10) * 2`", "es": "`(30 - 10) * 2`" }, "why": { "en": "The parentheses make the subtraction go first: `20 * 2` is 40.", "es": "Los paréntesis hacen que la resta vaya primero: `20 * 2` da 40." } },
+      { "id": "C", "text": { "en": "`2 + 2 * 4`", "es": "`2 + 2 * 4`" } },
+      { "id": "D", "text": { "en": "`30 - 10 * 2`", "es": "`30 - 10 * 2`" } },
+      { "id": "E", "text": { "en": "`100 / 10 / 10`", "es": "`100 / 10 / 10`" }, "why": { "en": "`/` goes from left to right: `100 / 10` is 10, and `10 / 10` is 1.", "es": "`/` va de izquierda a derecha: `100 / 10` da 10, y `10 / 10` da 1." } }
+    ],
+    "answer": ["C", "D"],
+    "explanation": { "en": "`*` and `/` have higher precedence than `+` and `-`. `2 + 2 * 4` is `2 + 8 = 10`, and `30 - 10 * 2` is `30 - 20 = 10`. Parentheses change the order, and operators with the same precedence go from left to right.", "es": "`*` y `/` tienen más precedencia que `+` y `-`. `2 + 2 * 4` es `2 + 8 = 10`, y `30 - 10 * 2` es `30 - 20 = 10`. Los paréntesis cambian el orden, y los operadores con la misma precedencia van de izquierda a derecha." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q044", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "prompt", "coercion"], "courseRef": "01_Variables",
+    "code": "let a = prompt(\"First number?\");\nlet b = prompt(\"Second number?\");\nconsole.log(a + b);\nconsole.log(a * b);",
+    "prompt": { "en": "The user types 3 in the first window and 4 in the second, clicking OK each time. What is printed to the console?", "es": "El usuario escribe 3 en la primera ventana y 4 en la segunda, y pulsa Aceptar las dos veces. ¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "34\n12", "es": "34\n12" } },
+      { "id": "B", "text": { "en": "7\n12", "es": "7\n12" }, "why": { "en": "`prompt` returns strings, so `a + b` joins `\"3\"` and `\"4\"` instead of adding them.", "es": "`prompt` devuelve strings, así que `a + b` une `\"3\"` y `\"4\"` en vez de sumarlos." } },
+      { "id": "C", "text": { "en": "34\n34", "es": "34\n34" }, "why": { "en": "`*` only works with numbers, so it converts both strings and multiplies: 12.", "es": "`*` solo trabaja con números, así que convierte los dos strings y multiplica: 12." } },
+      { "id": "D", "text": { "en": "34\nNaN", "es": "34\nNaN" }, "why": { "en": "`\"3\"` and `\"4\"` contain valid numbers, so `*` can convert them without problems.", "es": "`\"3\"` y `\"4\"` contienen números válidos, así que `*` los convierte sin problemas." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "Whatever the user types, `prompt` returns it as a string: `a` is `\"3\"` and `b` is `\"4\"`. `+` with strings joins them: `\"34\"`. `*` converts them into numbers: `12`. To add them, convert first: `Number(a) + Number(b)`. (“Run this code” doesn't open any windows: there `prompt` answers 3 and 4 for you, as in the question.)", "es": "Escriba lo que escriba el usuario, `prompt` lo devuelve como string: `a` vale `\"3\"` y `b` vale `\"4\"`. `+` con strings los une: `\"34\"`. `*` los convierte en números: `12`. Para sumarlos, primero hay que convertir: `Number(a) + Number(b)`. («Ejecutar este código» no abre ninguna ventana: ahí `prompt` responde 3 y 4 por ti, como en el enunciado.)" },
+    "verify": { "kind": "output", "expected": "34\n12", "inputs": ["3", "4"] }
+  },
+  {
+    "id": "s3-q045", "section": 3, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap", "prompt", "null"], "courseRef": "01_Variables",
+    "code": "let city = prompt(\"Your city?\");\nconsole.log(city.toUpperCase());",
+    "prompt": { "en": "The user clicks Cancel in the `prompt` window. What happens?", "es": "El usuario pulsa Cancelar en la ventana de `prompt`. ¿Qué ocurre?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints an empty line", "es": "Muestra una línea vacía" }, "why": { "en": "Cancel doesn't return an empty string `\"\"` (that's what OK with an empty box gives). It returns `null`.", "es": "Cancelar no devuelve un string vacío `\"\"` (eso es lo que da Aceptar con la caja vacía). Devuelve `null`." } },
+      { "id": "B", "text": { "en": "It prints `NULL`", "es": "Muestra `NULL`" }, "why": { "en": "`null` isn't a string, so it has no `toUpperCase()` method to turn it into `\"NULL\"`.", "es": "`null` no es un string, así que no tiene el método `toUpperCase()` para convertirlo en `\"NULL\"`." } },
+      { "id": "C", "text": { "en": "A `TypeError` on line 2", "es": "Un `TypeError` en la línea 2" } },
+      { "id": "D", "text": { "en": "A `ReferenceError` on line 1", "es": "Un `ReferenceError` en la línea 1" }, "why": { "en": "Line 1 works: `city` is declared and stores `null`. The problem comes when it's used on line 2.", "es": "La línea 1 funciona: `city` se declara y guarda `null`. El problema llega al usarla en la línea 2." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "When the user clicks Cancel, `prompt` returns `null`. `null` has no properties or methods, so `city.toUpperCase()` throws `TypeError: Cannot read properties of null`. Before using the answer, check it: `if (city !== null) { … }`.", "es": "Cuando el usuario pulsa Cancelar, `prompt` devuelve `null`. `null` no tiene propiedades ni métodos, así que `city.toUpperCase()` lanza `TypeError: Cannot read properties of null`. Antes de usar la respuesta, compruébala: `if (city !== null) { … }`." },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 2 }
+  },
+  {
+    "id": "s3-q046", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["confirm"], "courseRef": "01_Variables",
+    "code": "let ok = confirm(\"Save changes?\");\nconsole.log(ok);\nconsole.log(typeof ok);",
+    "prompt": { "en": "The user clicks OK in the `confirm` window. What is printed to the console?", "es": "El usuario pulsa Aceptar en la ventana de `confirm`. ¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "OK\nstring", "es": "OK\nstring" }, "why": { "en": "`confirm` doesn't return the text of the button: it returns a boolean.", "es": "`confirm` no devuelve el texto del botón: devuelve un booleano." } },
+      { "id": "B", "text": { "en": "true\nstring", "es": "true\nstring" }, "why": { "en": "`true` here is a boolean value, not the text `\"true\"`, so `typeof` gives `\"boolean\"`.", "es": "Aquí `true` es un valor booleano, no el texto `\"true\"`, así que `typeof` da `\"boolean\"`." } },
+      { "id": "C", "text": { "en": "true\nboolean", "es": "true\nboolean" } },
+      { "id": "D", "text": { "en": "1\nnumber", "es": "1\nnumber" }, "why": { "en": "`confirm` returns `true` or `false`, not a number.", "es": "`confirm` devuelve `true` o `false`, no un número." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`confirm` shows a message with OK and Cancel buttons and returns a boolean: `true` if the user clicks OK and `false` if they click Cancel. That's why it fits directly in an `if`: `if (confirm(\"Save changes?\")) { … }`. (“Run this code” doesn't open any windows: there `confirm` returns `true`, as if you had clicked OK.)", "es": "`confirm` muestra un mensaje con los botones Aceptar y Cancelar y devuelve un booleano: `true` si el usuario pulsa Aceptar y `false` si pulsa Cancelar. Por eso encaja directamente en un `if`: `if (confirm(\"Save changes?\")) { … }`. («Ejecutar este código» no abre ninguna ventana: ahí `confirm` devuelve `true`, como si hubieras pulsado Aceptar.)" },
+    "verify": { "kind": "output", "expected": "true\nboolean" }
+  },
+  {
+    "id": "s3-q047", "section": 3, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["alert"], "courseRef": "01_Variables",
+    "code": "let answer = alert(\"Hello!\");\nconsole.log(answer);",
+    "prompt": { "en": "The user reads the message and clicks OK. What is printed to the console?", "es": "El usuario lee el mensaje y pulsa Aceptar. ¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Hello!", "es": "Hello!" }, "why": { "en": "`alert` shows the text in a window, but it doesn't give it back.", "es": "`alert` muestra el texto en una ventana, pero no lo devuelve." } },
+      { "id": "B", "text": { "en": "true", "es": "true" }, "why": { "en": "Unlike `confirm`, `alert` only has an OK button and doesn't return what the user clicked.", "es": "A diferencia de `confirm`, `alert` solo tiene el botón Aceptar y no devuelve lo que ha pulsado el usuario." } },
+      { "id": "C", "text": { "en": "null", "es": "null" }, "why": { "en": "`null` is what `prompt` returns when the user clicks Cancel. `alert` returns nothing, that is, `undefined`.", "es": "`null` es lo que devuelve `prompt` cuando el usuario pulsa Cancelar. `alert` no devuelve nada, es decir, `undefined`." } },
+      { "id": "D", "text": { "en": "undefined", "es": "undefined" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "`alert` only shows a message and waits for the user to click OK. It doesn't return any value, so the result is `undefined`. To get an answer from the user, use `confirm` (yes or no) or `prompt` (text).", "es": "`alert` solo muestra un mensaje y espera a que el usuario pulse Aceptar. No devuelve ningún valor, así que el resultado es `undefined`. Para obtener una respuesta del usuario se usa `confirm` (sí o no) o `prompt` (texto)." },
+    "verify": { "kind": "output", "expected": "undefined" }
+  },
+  {
+    "id": "s3-q048", "section": 3, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["prompt"], "courseRef": "01_Variables",
+    "prompt": { "en": "This line opens a window: `let nick = prompt(\"Nickname?\", \"Anonymous\");`. The user clicks OK without changing the text in the box. What is stored in `nick`?", "es": "Esta línea abre una ventana: `let nick = prompt(\"Nickname?\", \"Anonymous\");`. El usuario pulsa Aceptar sin cambiar el texto de la caja. ¿Qué se guarda en `nick`?" },
+    "options": [
+      { "id": "A", "text": { "en": "`\"\"`", "es": "`\"\"`" }, "why": { "en": "The box isn't empty: the second argument of `prompt` is the text it starts with.", "es": "La caja no está vacía: el segundo argumento de `prompt` es el texto con el que empieza." } },
+      { "id": "B", "text": { "en": "`null`", "es": "`null`" }, "why": { "en": "`prompt` only returns `null` when the user clicks Cancel.", "es": "`prompt` solo devuelve `null` cuando el usuario pulsa Cancelar." } },
+      { "id": "C", "text": { "en": "`\"Anonymous\"`", "es": "`\"Anonymous\"`" } },
+      { "id": "D", "text": { "en": "`\"Nickname?\"`", "es": "`\"Nickname?\"`" }, "why": { "en": "The first argument is the message shown above the box, not the answer.", "es": "El primer argumento es el mensaje que se muestra encima de la caja, no la respuesta." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`prompt(message, defaultValue)`: the first argument is the question and the second, which is optional, is the text that already appears in the box. If the user clicks OK without touching it, `prompt` returns that text as a string: `\"Anonymous\"`.", "es": "`prompt(message, defaultValue)`: el primer argumento es la pregunta y el segundo, que es opcional, es el texto que ya aparece en la caja. Si el usuario pulsa Aceptar sin tocarlo, `prompt` devuelve ese texto como string: `\"Anonymous\"`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q049", "section": 3, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["prompt", "confirm", "alert"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which statements about `alert`, `confirm` and `prompt` are true? (Choose two.)", "es": "¿Qué afirmaciones sobre `alert`, `confirm` y `prompt` son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`prompt` returns an empty string `\"\"` when the user clicks Cancel", "es": "`prompt` devuelve un string vacío `\"\"` cuando el usuario pulsa Cancelar" }, "why": { "en": "Cancel returns `null`. `\"\"` is what you get if the user clicks OK with an empty box.", "es": "Cancelar devuelve `null`. `\"\"` es lo que se obtiene si el usuario pulsa Aceptar con la caja vacía." } },
+      { "id": "B", "text": { "en": "`alert` returns the text it has shown", "es": "`alert` devuelve el texto que ha mostrado" }, "why": { "en": "`alert` doesn't return anything: its result is `undefined`.", "es": "`alert` no devuelve nada: su resultado es `undefined`." } },
+      { "id": "C", "text": { "en": "`prompt` returns a string, even if the user types only digits", "es": "`prompt` devuelve un string, aunque el usuario solo escriba cifras" } },
+      { "id": "D", "text": { "en": "The code keeps running while the window is open", "es": "El código sigue ejecutándose mientras la ventana está abierta" }, "why": { "en": "The three windows are modal: the code stops until the user closes them.", "es": "Las tres ventanas son modales: el código se detiene hasta que el usuario las cierra." } },
+      { "id": "E", "text": { "en": "`confirm` returns `false` when the user clicks Cancel", "es": "`confirm` devuelve `false` cuando el usuario pulsa Cancelar" } }
+    ],
+    "answer": ["C", "E"],
+    "explanation": { "en": "The three functions open a window and stop the code until the user closes it. `alert` only shows a message (returns `undefined`). `confirm` returns `true` (OK) or `false` (Cancel). `prompt` returns the text typed as a string, or `null` if the user clicks Cancel, so to do maths you must convert it with `Number()`.", "es": "Las tres funciones abren una ventana y detienen el código hasta que el usuario la cierra. `alert` solo muestra un mensaje (devuelve `undefined`). `confirm` devuelve `true` (Aceptar) o `false` (Cancelar). `prompt` devuelve el texto escrito como string, o `null` si el usuario pulsa Cancelar, así que para hacer cuentas hay que convertirlo con `Number()`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s3-q050", "section": 3, "bank": "practice", "type": "gap",
+    "difficulty": 2, "tags": ["trap", "prompt", "equality"], "courseRef": "01_Variables",
+    "code": "let answer = prompt(\"How much is 2 + 2?\");\nconsole.log(answer ___ 4);",
+    "prompt": { "en": "The user types 4 and clicks OK. Which operator fills the gap so that the code prints `true`?", "es": "El usuario escribe 4 y pulsa Aceptar. ¿Qué operador completa el hueco para que el código muestre `true`?" },
+    "options": [
+      { "id": "A", "text": { "en": "===", "es": "===" }, "why": { "en": "`answer` is the string `\"4\"` and `4` is a number. `===` doesn't convert types, so it gives `false`.", "es": "`answer` es el string `\"4\"` y `4` es un número. `===` no convierte tipos, así que da `false`." } },
+      { "id": "B", "text": { "en": "=", "es": "=" }, "why": { "en": "A single `=` assigns: `answer = 4` stores 4 and the code prints `4`, not `true`.", "es": "Un solo `=` asigna: `answer = 4` guarda un 4 y el código muestra `4`, no `true`." } },
+      { "id": "C", "text": { "en": "==", "es": "==" } },
+      { "id": "D", "text": { "en": ">", "es": ">" }, "why": { "en": "`\"4\" > 4` converts the string and compares `4 > 4`, which is `false`.", "es": "`\"4\" > 4` convierte el string y compara `4 > 4`, que da `false`." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "`prompt` returns `\"4\"` (a string). `==` converts the string into a number before comparing, so `\"4\" == 4` is `true`; `===` would give `false` because the types are different. In real code it's clearer to convert first and use `===`: `Number(answer) === 4`. (“Run this code” doesn't open any windows: there `prompt` answers 4 for you, as in the question.)", "es": "`prompt` devuelve `\"4\"` (un string). `==` convierte el string en número antes de comparar, así que `\"4\" == 4` da `true`; `===` daría `false` porque los tipos son distintos. En código real es más claro convertir primero y usar `===`: `Number(answer) === 4`. («Ejecutar este código» no abre ninguna ventana: ahí `prompt` responde 4 por ti, como en el enunciado.)" },
+    "verify": { "kind": "output", "expected": "true", "inputs": ["4"] }
+  }
+]

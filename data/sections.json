@@ -1,0 +1,84 @@
+{
+  "source": "https://jsinstitute.org/jse-exam-syllabus (JSE-40-01, consultado el 2026-10-28)",
+  "sections": [
+    {
+      "id": 1,
+      "title": { "en": "Basics of JavaScript and computer programming", "es": "Fundamentos de JavaScript y de la programación" },
+      "weight": 8,
+      "items": 3,
+      "noExercises": true,
+      "topics": [
+        { "id": "1.1.1", "title": { "en": "Understand fundamental terms and definitions (interpreter vs. compiler, client side vs. server side)", "es": "Conocer los términos y definiciones básicos (intérprete frente a compilador, lado del cliente frente a lado del servidor)" } },
+        { "id": "1.2.1", "title": { "en": "Set up the programming environment (editor, console, debugger; online or local)", "es": "Preparar el entorno de programación (editor, consola y depurador; en línea o en local)" } },
+        { "id": "1.3.1", "title": { "en": "Explain client-side execution of JavaScript code (HTML basics, embedding scripts, browser console)", "es": "Explicar cómo se ejecuta JavaScript en el cliente (nociones de HTML, cómo insertar scripts y consola del navegador)" } }
+      ]
+    },
+    {
+      "id": 2,
+      "title": { "en": "Variables, data types and type casting", "es": "Variables, tipos de datos y conversión de tipos" },
+      "weight": 20,
+      "items": 6,
+      "topics": [
+        { "id": "2.1.1", "title": { "en": "Use variables effectively (declaration, constants, block scope, shadowing, hoisting)", "es": "Usar bien las variables (declaración, constantes, ámbito de bloque, sombreado y hoisting)" } },
+        { "id": "2.2.1", "title": { "en": "Define, identify and use primitive data types: boolean, number, bigint, undefined, null", "es": "Definir, reconocer y usar los tipos primitivos: boolean, number, bigint, undefined y null" } },
+        { "id": "2.3.1", "title": { "en": "Define, identify and use the string type (literals, escapes, interpolation, length, charAt, slice, split)", "es": "Definir, reconocer y usar el tipo string (literales, secuencias de escape, interpolación, length, charAt, slice y split)" } },
+        { "id": "2.4.1", "title": { "en": "Perform type-casting operations (String, Number, BigInt, Boolean; explicit vs. implicit conversion)", "es": "Convertir tipos (String, Number, BigInt y Boolean; conversión explícita frente a implícita)" } },
+        { "id": "2.5.1", "title": { "en": "Define, identify and use complex data types: Object", "es": "Definir, reconocer y usar tipos complejos: Object" } },
+        { "id": "2.6.1", "title": { "en": "Define, identify and use complex data types: Array (length, indexOf, push, unshift, pop, shift, reverse, slice, concat)", "es": "Definir, reconocer y usar tipos complejos: Array (length, indexOf, push, unshift, pop, shift, reverse, slice y concat)" } }
+      ]
+    },
+    {
+      "id": 3,
+      "title": { "en": "Operators and user interaction", "es": "Operadores e interacción con el usuario" },
+      "weight": 18,
+      "items": 5,
+      "topics": [
+        { "id": "3.1.1", "title": { "en": "Recognize and use assignment, arithmetic and string operators", "es": "Reconocer y usar los operadores de asignación, aritméticos y de cadenas" } },
+        { "id": "3.2.1", "title": { "en": "Identify and use logical and comparison operators", "es": "Reconocer y usar los operadores lógicos y de comparación" } },
+        { "id": "3.3.1", "title": { "en": "Recognize and use the ternary and other operators (typeof, instanceof, delete)", "es": "Reconocer y usar el operador ternario y otros operadores (typeof, instanceof y delete)" } },
+        { "id": "3.4.1", "title": { "en": "Understand and implement operator precedence (associativity, parentheses)", "es": "Entender y aplicar la precedencia de operadores (asociatividad y paréntesis)" } },
+        { "id": "3.5.1", "title": { "en": "Implement simple user interaction (alert, confirm, prompt)", "es": "Interactuar con el usuario de forma sencilla (alert, confirm y prompt)" } }
+      ]
+    },
+    {
+      "id": 4,
+      "title": { "en": "Control flow: conditional execution and loops", "es": "Control de flujo: ejecución condicional y bucles" },
+      "weight": 21,
+      "items": 6,
+      "topics": [
+        { "id": "4.1.1", "title": { "en": "Implement decision making with if (if...else, multiple and nested conditions)", "es": "Tomar decisiones con if (if...else y condiciones múltiples y anidadas)" } },
+        { "id": "4.2.1", "title": { "en": "Implement decision making with switch", "es": "Tomar decisiones con switch" } },
+        { "id": "4.3.1", "title": { "en": "Control repetition with while-family loops (while, do...while, break, continue)", "es": "Repetir con los bucles de la familia while (while, do...while, break y continue)" } },
+        { "id": "4.4.1", "title": { "en": "Control repetition with for", "es": "Repetir con for" } },
+        { "id": "4.5.1", "title": { "en": "Enumerate object keys with for...in", "es": "Recorrer las claves de un objeto con for...in" } },
+        { "id": "4.6.1", "title": { "en": "Traverse arrays with for...of", "es": "Recorrer arrays con for...of" } }
+      ]
+    },
+    {
+      "id": 5,
+      "title": { "en": "Functions", "es": "Funciones" },
+      "weight": 21,
+      "items": 6,
+      "topics": [
+        { "id": "5.1.1", "title": { "en": "Organize and decompose code using functions (declare, call, pass arguments, return)", "es": "Organizar y dividir el código con funciones (declarar, llamar, pasar argumentos y devolver)" } },
+        { "id": "5.2.1", "title": { "en": "Implement interactions between a function and its environment (parameters, local variables, shadowing)", "es": "Relacionar una función con su entorno (parámetros, variables locales y sombreado)" } },
+        { "id": "5.3.1", "title": { "en": "Apply function expressions and first-class patterns", "es": "Usar expresiones de función y funciones como valores" } },
+        { "id": "5.4.1", "title": { "en": "Understand and implement recursion", "es": "Entender y aplicar la recursividad" } },
+        { "id": "5.5.1", "title": { "en": "Explain and implement callback functions (setTimeout, setInterval)", "es": "Explicar y usar funciones callback (setTimeout y setInterval)" } },
+        { "id": "5.6.1", "title": { "en": "Explain and implement arrow functions", "es": "Explicar y usar funciones flecha" } }
+      ]
+    },
+    {
+      "id": 6,
+      "title": { "en": "Errors, exceptions, debugging and troubleshooting", "es": "Errores, excepciones, depuración y resolución de problemas" },
+      "weight": 12,
+      "items": 4,
+      "topics": [
+        { "id": "6.1.1", "title": { "en": "Classify and distinguish programming errors (syntax, semantic, logic, runtime)", "es": "Clasificar y distinguir los errores de programación (de sintaxis, semánticos, lógicos y de ejecución)" } },
+        { "id": "6.2.1", "title": { "en": "Compare and contrast JavaScript error types (SyntaxError, ReferenceError, TypeError, RangeError)", "es": "Comparar los tipos de error de JavaScript (SyntaxError, ReferenceError, TypeError y RangeError)" } },
+        { "id": "6.3.1", "title": { "en": "Understand and design exception-handling mechanisms (try...catch...finally, throw)", "es": "Entender y diseñar el tratamiento de excepciones (try...catch...finally y throw)" } },
+        { "id": "6.4.1", "title": { "en": "Use basic debugging and troubleshooting techniques (step through code, inspect variables, measure time)", "es": "Usar técnicas básicas de depuración (ejecutar paso a paso, inspeccionar variables y medir tiempos)" } }
+      ]
+    }
+  ]
+}

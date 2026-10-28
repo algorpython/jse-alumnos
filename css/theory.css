@@ -1,0 +1,75 @@
+/* Fichas de teoría (#/theory/N) y acceso al modo «Tricky questions». No hay maqueta propia:
+   tarjetas, bloque de código y nota morada «Exam trap» de la styleguide, y la tarjeta morada
+   (.m-cta, css/mistakes.css) de 01_inicio. «Run this code» usa css/runner.css. */
+
+/* ---------- Ficha ---------- */
+.top .th-title { margin-top: 4px; }
+.th-title .chip { margin-left: 8px; }
+.top .sub { max-width: 760px; line-height: 1.5; }
+
+.th-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 22px; align-items: start; }
+.th-main { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.th-side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; }
+
+.th-block h2 { margin-bottom: 8px; }
+.th-block h2 code, .th-trap h3 code { font-family: var(--mono); font-size: .92em; background: rgba(30, 21, 39, 0.07); padding: 1px 5px; border-radius: 4px; }
+.th-body { font-size: 15px; line-height: 1.6; max-width: 72ch; }
+
+/* Ejemplo: código, lo que muestra y «Run this code» */
+.th-example { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.th-example pre.code { margin: 0; }
+.th-result { display: flex; flex-direction: column; gap: 4px; }
+.th-out-title { font-size: 13px; font-weight: 600; color: var(--muted); }
+.th-out-title code { color: var(--ink); }
+.th-out { margin: 0; padding: 8px 12px; border-radius: var(--radius-s); background: var(--ground); border: 1px solid var(--line); font: 13.5px/1.55 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); }
+.th-result-row { display: flex; align-items: flex-end; gap: 12px; }
+.th-result-row .th-result { flex: 1; min-width: 0; }
+.th-example .q-run { margin-top: 0; flex: none; }
+/* Dentro de la nota morada y del <li>: el código no lleva el fondo gris de «.note code» / «li code» */
+.th-example pre code, .th-out code { background: none; padding: 0; border-radius: 0; font-size: inherit; }
+
+/* Trampas del examen: notas moradas como «Exam trap» en la styleguide */
+.th-traps { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.th-traps > h2 { font-size: 20px; }
+.th-traps-sub { margin-bottom: 8px; }
+.th-trap-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.th-trap { display: flex; flex-direction: column; gap: 6px; }
+.th-trap-kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--purple); }
+.th-trap h3 { font-size: 16px; }
+.th-trap .th-out { background: var(--surface); }
+
+/* Columna derecha: índice y Tricky questions */
+.th-toc h2 { margin-bottom: 6px; }
+.th-toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.th-jump { all: unset; box-sizing: border-box; display: block; width: 100%; min-height: var(--touch); padding: 10px 8px; border-radius: var(--radius-s); font-size: 14px; line-height: 1.35; cursor: pointer; color: var(--ink); }
+.th-jump:hover { background: var(--purple-soft); color: var(--purple); }
+.th-jump:focus-visible { box-shadow: var(--focus); }
+.th-jump.traps { font-weight: 700; color: var(--purple); }
+.th-jump code { font-family: var(--mono); font-size: .92em; }
+.th-block h2:focus-visible, .th-traps h2:focus-visible { box-shadow: none; outline: none; }
+.th-traps-sub { font-size: 14px; }
+.th-cta h2 { font-size: 18px; }
+.th-next { display: flex; flex-direction: column; gap: 10px; }
+.th-next h2 { margin-bottom: 0; }
+
+/* ---------- «Practice by topic»: enlace a la teoría y tarjeta de Tricky questions ---------- */
+.topic-action { gap: 10px; flex-wrap: wrap; }
+.tricky-banner { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; }
+.tricky-banner-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.tricky-banner h2 { font-size: 19px; }
+.tricky-banner .btn { align-self: center; flex: none; margin-top: 0; }
+
+/* Tras corregir una pregunta con trampa: enlace a la ficha de la sección */
+.tricky-theory a { color: var(--purple); font-weight: 600; }
+
+@media (max-width: 1100px) {
+  .th-layout { grid-template-columns: 1fr; }
+  /* En pantallas estrechas, Tricky questions y el índice van antes de la ficha (no al final) */
+  .th-side { position: static; flex-direction: row; align-items: stretch; order: -1; }
+  .th-side > * { flex: 1; }
+}
+@media (max-width: 760px) {
+  .th-side { flex-direction: column; }
+  .tricky-banner { flex-direction: column; align-items: flex-start; }
+  .tricky-banner .btn { align-self: flex-start; }
+}

@@ -1,0 +1,89 @@
+/* Tokens de diseño de JSE Practice.
+   Colores de algorithmics.es y de ../maquetas/html/estilos.css (no cambiarlos sin hablar con Algorithmics).
+   Las fuentes se sirven desde css/fonts/ (fuentes variables de Fontsource 5.1.0, licencia OFL),
+   así la app no depende de Google Fonts y funciona igual sin conexión. */
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/montserrat-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Marca */
+  --purple: #602B7A;
+  --purple-dark: #43235F;
+  --purple-soft: #F1E9F6;
+  --lime: #D4DE00;
+  --lime-soft: #F8FAD0;
+  --lime-line: #D9DE7A;
+
+  /* Superficies y texto */
+  --ground: #F7F5FB;
+  --surface: #FFFFFF;
+  --ink: #1E1527;
+  --muted: #5E5868;
+  --line: #EAEAF0;
+  --line-strong: #D8D2E0;
+  --ring: #CFC8D8;
+  --track: #ECE8F1;
+  --side-text: #F3ECF7;
+  --side-muted: #D9C5E4;
+
+  /* Estados (acierto / fallo) */
+  --green: #1F7A4D;
+  --green-bg: #E6F4EC;
+  --green-line: #B9DEC9;
+  --red: #B3261E;
+  --red-bg: #FBE9E7;
+
+  /* Etiquetas de lenguaje */
+  --html: #FFBA48;
+  --html-ink: #4A2A00;
+  --css: #98E0FE;
+  --css-ink: #0B3F57;
+  --js: #AAE86D;
+  --js-ink: #1F4006;
+
+  /* Código */
+  --code-bg: #1E1527;
+  --code-ink: #EDE7F2;
+  --code-keyword: #D99BFF;
+  --code-string: #C3E88D;
+  --code-number: #FFB86C;
+  --code-func: #8FD3FE;
+  --code-comment: #8C8296;
+  --code-tag: #FF9E80;
+  --code-attr: #E6DB74;
+  --code-line-no: #8A8095;   /* 4,7:1 sobre --code-bg (AA) */
+
+  /* Tipografía */
+  --head: Montserrat, "Segoe UI", sans-serif;
+  --body: Inter, "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+
+  /* Medidas */
+  --side-width: 240px;
+  --radius-s: 8px;
+  --radius-m: 10px;
+  --radius-l: 12px;
+  --radius-xl: 14px;
+  --touch: 44px;      /* zona táctil mínima (accesibilidad) */
+  --focus: 0 0 0 3px var(--surface), 0 0 0 5px var(--purple);
+}

@@ -1,0 +1,522 @@
+[
+  {
+    "id": "s5-e001",
+    "section": 5,
+    "difficulty": 1,
+    "tags": [
+      "trap",
+      "functions",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "title": {
+      "en": "Convert Celsius to Fahrenheit",
+      "es": "Convertir de Celsius a Fahrenheit"
+    },
+    "statement": {
+      "en": "Write a function `toFahrenheit(celsius)` that returns the temperature in Fahrenheit. The formula is `celsius * 9 / 5 + 32`.\nExample: `toFahrenheit(100)` returns `212`.",
+      "es": "Escribe una función `toFahrenheit(celsius)` que devuelva la temperatura en grados Fahrenheit. La fórmula es `celsius * 9 / 5 + 32`.\nEjemplo: `toFahrenheit(100)` devuelve `212`."
+    },
+    "starter": "function toFahrenheit(celsius) {\n  // your code here\n}\n\nconsole.log(toFahrenheit(100));\n",
+    "solution": "function toFahrenheit(celsius) {\n  // return sends the result back to whoever called the function.\n  return celsius * 9 / 5 + 32;\n}\n\nconsole.log(toFahrenheit(100));\n",
+    "alternatives": [
+      "const toFahrenheit = (celsius) => celsius * 9 / 5 + 32;\n\nconsole.log(toFahrenheit(100));\n"
+    ],
+    "tests": [
+      {
+        "call": "toFahrenheit(100)",
+        "expected": 212
+      },
+      {
+        "call": "toFahrenheit(0)",
+        "expected": 32
+      },
+      {
+        "call": "toFahrenheit(-40)",
+        "expected": -40
+      },
+      {
+        "call": "toFahrenheit(25)",
+        "expected": 77
+      },
+      {
+        "output": "212"
+      }
+    ],
+    "hints": [
+      {
+        "en": "The function has to give the value back with `return`. A `console.log` inside it only prints, and the call would still give back `undefined`.",
+        "es": "La función tiene que devolver el valor con `return`. Un `console.log` dentro solo lo muestra, y la llamada seguiría devolviendo `undefined`."
+      },
+      {
+        "en": "Inside the function, write `return` followed by the formula, using the parameter `celsius`.",
+        "es": "Dentro de la función, escribe `return` seguido de la fórmula, usando el parámetro `celsius`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "The parameter `celsius` receives the value of the argument on each call. `return` calculates the formula and gives the result back, so it can be printed, stored in a variable or used in another calculation.",
+      "es": "El parámetro `celsius` recibe el valor del argumento en cada llamada. `return` calcula la fórmula y devuelve el resultado, así que se puede mostrar, guardar en una variable o usar en otro cálculo."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `console.log(celsius * 9 / 5 + 32)` instead of `return`: the value is printed, but `toFahrenheit(100)` gives back `undefined`.",
+        "es": "Escribir `console.log(celsius * 9 / 5 + 32)` en lugar de `return`: el valor se muestra, pero `toFahrenheit(100)` devuelve `undefined`."
+      },
+      {
+        "en": "Putting `return` on its own line and the formula on the next one: JavaScript reads `return;` and gives back `undefined`.",
+        "es": "Poner `return` en una línea y la fórmula en la siguiente: JavaScript lee `return;` y devuelve `undefined`."
+      },
+      {
+        "en": "Using a fixed number instead of the parameter, such as `return 100 * 9 / 5 + 32;`: it only works for 100.",
+        "es": "Usar un número fijo en vez del parámetro, como `return 100 * 9 / 5 + 32;`: solo funciona con 100."
+      }
+    ]
+  },
+  {
+    "id": "s5-e002",
+    "section": 5,
+    "difficulty": 1,
+    "tags": [
+      "default-parameters",
+      "functions"
+    ],
+    "courseRef": "07_Funciones/99_Funciones.html",
+    "title": {
+      "en": "Badge with a default role",
+      "es": "Credencial con un rol por defecto"
+    },
+    "statement": {
+      "en": "Write a function `makeBadge(name, role)` that returns a text like `\"Ana (teacher)\"`. If the role is not passed, it must be `\"student\"`.\nExamples: `makeBadge(\"Leo\", \"teacher\")` returns `\"Leo (teacher)\"` and `makeBadge(\"Ana\")` returns `\"Ana (student)\"`.",
+      "es": "Escribe una función `makeBadge(name, role)` que devuelva un texto como `\"Ana (teacher)\"`. Si no se pasa el rol, tiene que ser `\"student\"`.\nEjemplos: `makeBadge(\"Leo\", \"teacher\")` devuelve `\"Leo (teacher)\"` y `makeBadge(\"Ana\")` devuelve `\"Ana (student)\"`."
+    },
+    "starter": "function makeBadge(name, role) {\n  // your code here\n}\n\nconsole.log(makeBadge(\"Ana\"));\n",
+    "solution": "// role = \"student\" is a default parameter:\n// it's used when the call doesn't pass a second argument.\nfunction makeBadge(name, role = \"student\") {\n  return name + \" (\" + role + \")\";\n}\n\nconsole.log(makeBadge(\"Ana\"));\n",
+    "alternatives": [
+      "function makeBadge(name, role = \"student\") {\n  return `${name} (${role})`;\n}\n\nconsole.log(makeBadge(\"Ana\"));\n",
+      "function makeBadge(name, role) {\n  if (role === undefined) {\n    role = \"student\";\n  }\n  return name + \" (\" + role + \")\";\n}\n\nconsole.log(makeBadge(\"Ana\"));\n"
+    ],
+    "tests": [
+      {
+        "call": "makeBadge(\"Ana\")",
+        "expected": "Ana (student)"
+      },
+      {
+        "call": "makeBadge(\"Leo\", \"teacher\")",
+        "expected": "Leo (teacher)"
+      },
+      {
+        "call": "makeBadge(\"Eva\", \"tutor\")",
+        "expected": "Eva (tutor)"
+      },
+      {
+        "output": "Ana (student)"
+      }
+    ],
+    "hints": [
+      {
+        "en": "A parameter can have a default value written with `=` in the parentheses: `function f(a, b = 5)`.",
+        "es": "Un parámetro puede tener un valor por defecto escrito con `=` entre los paréntesis: `function f(a, b = 5)`."
+      },
+      {
+        "en": "Write `role = \"student\"` in the parameter list and join the text with `+` or with a template literal.",
+        "es": "Escribe `role = \"student\"` en la lista de parámetros y une el texto con `+` o con una plantilla literal."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "With `role = \"student\"`, the parameter takes that value when the call doesn't pass a second argument (or passes `undefined`). When a role is passed, it replaces the default value. The other solution checks `role === undefined` by hand, which does the same.",
+      "es": "Con `role = \"student\"`, el parámetro toma ese valor cuando la llamada no pasa un segundo argumento (o pasa `undefined`). Cuando se pasa un rol, sustituye al valor por defecto. La otra solución comprueba `role === undefined` a mano, que hace lo mismo."
+    },
+    "commonMistakes": [
+      {
+        "en": "Not giving `role` a default value: `makeBadge(\"Ana\")` returns `\"Ana (undefined)\"`.",
+        "es": "No darle un valor por defecto a `role`: `makeBadge(\"Ana\")` devuelve `\"Ana (undefined)\"`."
+      },
+      {
+        "en": "Always writing `role = \"student\"` inside the function: then `makeBadge(\"Leo\", \"teacher\")` also says `student`.",
+        "es": "Escribir siempre `role = \"student\"` dentro de la función: entonces `makeBadge(\"Leo\", \"teacher\")` también dice `student`."
+      },
+      {
+        "en": "Forgetting the space or the parentheses in the text: the result must be exactly `\"Ana (student)\"`.",
+        "es": "Olvidar el espacio o los paréntesis del texto: el resultado tiene que ser exactamente `\"Ana (student)\"`."
+      }
+    ]
+  },
+  {
+    "id": "s5-e003",
+    "section": 5,
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "shadowing",
+      "scope"
+    ],
+    "courseRef": "07_Funciones",
+    "title": {
+      "en": "Fix the visit counter",
+      "es": "Arreglar el contador de visitas"
+    },
+    "statement": {
+      "en": "`registerVisit()` should add 1 to the global variable `visits` and return the new total, but it always returns `1`. Find the bug and fix it.\nExample: calling it three times in a row returns `1`, `2` and `3`.",
+      "es": "`registerVisit()` debería sumar 1 a la variable global `visits` y devolver el nuevo total, pero siempre devuelve `1`. Encuentra el fallo y arréglalo.\nEjemplo: si se llama tres veces seguidas, devuelve `1`, `2` y `3`."
+    },
+    "starter": "let visits = 0;\n\nfunction registerVisit() {\n  let visits = 0;\n  visits++;\n  return visits;\n}\n",
+    "solution": "let visits = 0;\n\nfunction registerVisit() {\n  // No let here: we want to change the global visits,\n  // not create a new local variable that shadows it.\n  visits++;\n  return visits;\n}\n",
+    "alternatives": [
+      "let visits = 0;\n\nfunction registerVisit() {\n  visits = visits + 1;\n  return visits;\n}\n"
+    ],
+    "tests": [
+      {
+        "call": "[registerVisit(), registerVisit(), registerVisit()]",
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "hints": [
+      {
+        "en": "Look at the first line inside the function. Is `visits` there the global variable or a new one?",
+        "es": "Fíjate en la primera línea de dentro de la función. ¿Esa `visits` es la variable global o una nueva?"
+      },
+      {
+        "en": "`let visits = 0;` inside the function creates a local variable that starts at `0` on every call. Remove that line.",
+        "es": "`let visits = 0;` dentro de la función crea una variable local que empieza en `0` en cada llamada. Quita esa línea."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "The `let visits = 0;` inside the function declared a local variable with the same name as the global one. It shadowed it: each call created a new `visits` at `0`, added 1 and returned `1`, while the global variable stayed at `0`. Without that line, `visits++` changes the global variable, which keeps its value between calls.",
+      "es": "El `let visits = 0;` de dentro de la función declaraba una variable local con el mismo nombre que la global. La sombreaba: cada llamada creaba una `visits` nueva a `0`, le sumaba 1 y devolvía `1`, mientras la variable global seguía a `0`. Sin esa línea, `visits++` cambia la variable global, que conserva su valor entre llamadas."
+    },
+    "commonMistakes": [
+      {
+        "en": "Changing `let visits = 0;` to `visits = 0;` inside the function: now it's the global variable, but it's reset to `0` on every call.",
+        "es": "Cambiar `let visits = 0;` por `visits = 0;` dentro de la función: ahora es la variable global, pero vuelve a `0` en cada llamada."
+      },
+      {
+        "en": "Deleting the global `let visits = 0;` instead of the local one: the function still returns `1` every time.",
+        "es": "Borrar el `let visits = 0;` global en vez del local: la función sigue devolviendo siempre `1`."
+      }
+    ]
+  },
+  {
+    "id": "s5-e004",
+    "section": 5,
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "title": {
+      "en": "Rewrite as arrow functions",
+      "es": "Reescribir como funciones flecha"
+    },
+    "statement": {
+      "en": "Complete the arrow functions `isEven(n)` and `fullName(first, last)` so that they do the same as the functions in the comments.\nExamples: `isEven(4)` returns `true` and `fullName(\"Ada\", \"Lovelace\")` returns `\"Ada Lovelace\"`.",
+      "es": "Completa las funciones flecha `isEven(n)` y `fullName(first, last)` para que hagan lo mismo que las funciones de los comentarios.\nEjemplos: `isEven(4)` devuelve `true` y `fullName(\"Ada\", \"Lovelace\")` devuelve `\"Ada Lovelace\"`."
+    },
+    "starter": "// function isEven(n) { return n % 2 === 0; }\n// function fullName(first, last) { return first + \" \" + last; }\n\nconst isEven = (n) => {\n  // your code here\n};\n\nconst fullName = (first, last) => {\n  // your code here\n};\n",
+    "solution": "// function isEven(n) { return n % 2 === 0; }\n// function fullName(first, last) { return first + \" \" + last; }\n\n// Without braces, the expression after => is returned automatically.\nconst isEven = n => n % 2 === 0;\n\n// Two parameters need parentheses.\nconst fullName = (first, last) => first + \" \" + last;\n",
+    "alternatives": [
+      "const isEven = (n) => {\n  return n % 2 === 0;\n};\n\nconst fullName = (first, last) => {\n  return `${first} ${last}`;\n};\n"
+    ],
+    "tests": [
+      {
+        "call": "isEven(4)",
+        "expected": true
+      },
+      {
+        "call": "isEven(7)",
+        "expected": false
+      },
+      {
+        "call": "isEven(0)",
+        "expected": true
+      },
+      {
+        "call": "fullName(\"Ada\", \"Lovelace\")",
+        "expected": "Ada Lovelace"
+      }
+    ],
+    "hints": [
+      {
+        "en": "The starter has braces `{ }`, so the functions need `return`. Or you can remove the braces and write only the expression after `=>`.",
+        "es": "El código de partida tiene llaves `{ }`, así que las funciones necesitan `return`. También puedes quitar las llaves y escribir solo la expresión después de `=>`."
+      },
+      {
+        "en": "For example: `const isEven = n => n % 2 === 0;`.",
+        "es": "Por ejemplo: `const isEven = n => n % 2 === 0;`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "An arrow function without braces returns the expression after `=>` directly (implicit return). With braces, the body is a normal block and needs `return`. With one parameter the parentheses are optional (`n => …`); with two they are required (`(first, last) => …`).",
+      "es": "Una función flecha sin llaves devuelve directamente la expresión que va después de `=>` (devolución implícita). Con llaves, el cuerpo es un bloque normal y necesita `return`. Con un parámetro los paréntesis son opcionales (`n => …`); con dos son obligatorios (`(first, last) => …`)."
+    },
+    "commonMistakes": [
+      {
+        "en": "Keeping the braces and writing only `n % 2 === 0;` inside: the function returns `undefined`.",
+        "es": "Dejar las llaves y escribir dentro solo `n % 2 === 0;`: la función devuelve `undefined`."
+      },
+      {
+        "en": "Writing `first, last => …` without parentheses: it's a `SyntaxError`.",
+        "es": "Escribir `first, last => …` sin paréntesis: es un `SyntaxError`."
+      },
+      {
+        "en": "Forgetting the space: `first + last` gives `\"AdaLovelace\"`.",
+        "es": "Olvidar el espacio: `first + last` da `\"AdaLovelace\"`."
+      }
+    ]
+  },
+  {
+    "id": "s5-e005",
+    "section": 5,
+    "difficulty": 2,
+    "tags": [
+      "callbacks",
+      "first-class",
+      "arrays"
+    ],
+    "courseRef": "07_Funciones/113_Funciones_Callback.html",
+    "title": {
+      "en": "Apply a function to every element",
+      "es": "Aplicar una función a cada elemento"
+    },
+    "statement": {
+      "en": "Write a function `applyToAll(list, fn)` that returns a new array with the result of calling the callback `fn` on each element of `list`. Don't change the original array.\nExample: `applyToAll([1, 2, 3], (n) => n * 2)` returns `[2, 4, 6]`.",
+      "es": "Escribe una función `applyToAll(list, fn)` que devuelva un array nuevo con el resultado de llamar al callback `fn` con cada elemento de `list`. No cambies el array original.\nEjemplo: `applyToAll([1, 2, 3], (n) => n * 2)` devuelve `[2, 4, 6]`."
+    },
+    "starter": "function applyToAll(list, fn) {\n  // your code here\n}\n\nconsole.log(applyToAll([1, 2, 3], (n) => n * 2));\n",
+    "solution": "function applyToAll(list, fn) {\n  const result = [];\n  for (const item of list) {\n    // fn is the callback: we call it with each element\n    // and keep what it returns.\n    result.push(fn(item));\n  }\n  return result;\n}\n\nconsole.log(applyToAll([1, 2, 3], (n) => n * 2));\n",
+    "alternatives": [
+      "function applyToAll(list, fn) {\n  return list.map(fn);\n}\n\nconsole.log(applyToAll([1, 2, 3], (n) => n * 2));\n",
+      "function applyToAll(list, fn) {\n  const result = [];\n  for (let i = 0; i < list.length; i++) {\n    result.push(fn(list[i]));\n  }\n  return result;\n}\n\nconsole.log(applyToAll([1, 2, 3], (n) => n * 2));\n"
+    ],
+    "tests": [
+      {
+        "call": "applyToAll([1, 2, 3], (n) => n * 2)",
+        "expected": [
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "call": "applyToAll([\"a\", \"b\"], (s) => s.toUpperCase())",
+        "expected": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "call": "applyToAll([], (n) => n + 1)",
+        "expected": []
+      }
+    ],
+    "hints": [
+      {
+        "en": "Create an empty array, go through `list` with a loop and, for each element, add `fn(item)` to the new array.",
+        "es": "Crea un array vacío, recorre `list` con un bucle y, por cada elemento, añade `fn(item)` al array nuevo."
+      },
+      {
+        "en": "`fn` is a function, so you call it like any other: `fn(item)`. Don't forget to `return` the new array at the end.",
+        "es": "`fn` es una función, así que se llama como cualquier otra: `fn(item)`. No olvides devolver el array nuevo con `return` al final."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`applyToAll` doesn't know what to do with each element: the callback `fn` decides. The loop calls `fn(item)` for every element and `push` stores what it returns in a new array, so the original isn't touched. That's exactly what the array method `map` does, which is why `list.map(fn)` also works.",
+      "es": "`applyToAll` no sabe qué hacer con cada elemento: lo decide el callback `fn`. El bucle llama a `fn(item)` con cada elemento y `push` guarda lo que devuelve en un array nuevo, así que el original no se toca. Es justo lo que hace el método de arrays `map`, por eso `list.map(fn)` también funciona."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `fn` without calling it, as in `result.push(fn)`: you store the function itself, not its result.",
+        "es": "Escribir `fn` sin llamarla, como en `result.push(fn)`: se guarda la propia función, no su resultado."
+      },
+      {
+        "en": "Changing the original with `list[i] = fn(list[i])`: the array the caller passed is modified.",
+        "es": "Cambiar el original con `list[i] = fn(list[i])`: se modifica el array que se ha pasado."
+      },
+      {
+        "en": "Forgetting `return result;`: the function gives back `undefined`.",
+        "es": "Olvidar `return result;`: la función devuelve `undefined`."
+      }
+    ]
+  },
+  {
+    "id": "s5-e006",
+    "section": 5,
+    "difficulty": 2,
+    "tags": [
+      "recursion",
+      "strings"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "title": {
+      "en": "Repeat a text with recursion",
+      "es": "Repetir un texto con recursividad"
+    },
+    "statement": {
+      "en": "Write a recursive function `repeatText(text, times)` that returns `text` repeated `times` times, without loops and without `repeat()`. If `times` is `0`, it returns an empty string.\nExample: `repeatText(\"ab\", 3)` returns `\"ababab\"`.",
+      "es": "Escribe una función recursiva `repeatText(text, times)` que devuelva `text` repetido `times` veces, sin bucles y sin `repeat()`. Si `times` es `0`, devuelve un string vacío.\nEjemplo: `repeatText(\"ab\", 3)` devuelve `\"ababab\"`."
+    },
+    "starter": "function repeatText(text, times) {\n  // your code here\n}\n\nconsole.log(repeatText(\"ab\", 3));\n",
+    "solution": "function repeatText(text, times) {\n  // Base case: nothing left to repeat.\n  if (times === 0) {\n    return \"\";\n  }\n  // Recursive call with one repetition less.\n  return text + repeatText(text, times - 1);\n}\n\nconsole.log(repeatText(\"ab\", 3));\n",
+    "alternatives": [
+      "function repeatText(text, times) {\n  if (times <= 0) return \"\";\n  return repeatText(text, times - 1) + text;\n}\n\nconsole.log(repeatText(\"ab\", 3));\n"
+    ],
+    "tests": [
+      {
+        "call": "repeatText(\"ab\", 3)",
+        "expected": "ababab"
+      },
+      {
+        "call": "repeatText(\"x\", 1)",
+        "expected": "x"
+      },
+      {
+        "call": "repeatText(\"hi\", 0)",
+        "expected": ""
+      },
+      {
+        "call": "repeatText(\"-\", 5)",
+        "expected": "-----"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Start with the base case: when `times` is `0`, return `\"\"` without calling the function again.",
+        "es": "Empieza por el caso base: cuando `times` sea `0`, devuelve `\"\"` sin volver a llamar a la función."
+      },
+      {
+        "en": "In any other case, `text` repeated `times` times is `text` plus the same text repeated `times - 1` times: `text + repeatText(text, times - 1)`.",
+        "es": "En cualquier otro caso, `text` repetido `times` veces es `text` más el mismo texto repetido `times - 1` veces: `text + repeatText(text, times - 1)`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "The base case (`times === 0`) stops the recursion and returns an empty string. Every other call adds one copy of `text` to the result of the call with one repetition less. `repeatText(\"ab\", 3)` = `\"ab\" + repeatText(\"ab\", 2)` = `\"ab\" + \"ab\" + repeatText(\"ab\", 1)` = `\"ab\" + \"ab\" + \"ab\" + \"\"`.",
+      "es": "El caso base (`times === 0`) detiene la recursividad y devuelve un string vacío. Las demás llamadas añaden una copia de `text` al resultado de la llamada con una repetición menos. `repeatText(\"ab\", 3)` = `\"ab\" + repeatText(\"ab\", 2)` = `\"ab\" + \"ab\" + repeatText(\"ab\", 1)` = `\"ab\" + \"ab\" + \"ab\" + \"\"`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Forgetting the base case, or writing one that's never reached: the function calls itself forever and ends with a `RangeError`.",
+        "es": "Olvidar el caso base, o escribir uno al que nunca se llega: la función se llama sin parar y acaba con un `RangeError`."
+      },
+      {
+        "en": "Calling `repeatText(text, times)` again without `- 1`: `times` never gets smaller, so it never reaches `0`.",
+        "es": "Volver a llamar a `repeatText(text, times)` sin `- 1`: `times` nunca baja, así que nunca llega a `0`."
+      },
+      {
+        "en": "Writing the recursive call without `return`: the function gives back `undefined`.",
+        "es": "Escribir la llamada recursiva sin `return`: la función devuelve `undefined`."
+      }
+    ]
+  },
+  {
+    "id": "s5-e007",
+    "section": 5,
+    "difficulty": 1,
+    "tags": [
+      "timers",
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "title": {
+      "en": "Show a message later",
+      "es": "Mostrar un mensaje más tarde"
+    },
+    "statement": {
+      "en": "Without changing the two `console.log` lines, add code so that `Done!` is printed 500 milliseconds later. The console must show `Start`, `End` and `Done!`, in that order.",
+      "es": "Sin cambiar las dos líneas con `console.log`, añade código para que se muestre `Done!` 500 milisegundos después. La consola tiene que mostrar `Start`, `End` y `Done!`, en ese orden."
+    },
+    "starter": "console.log(\"Start\");\n// your code here\n\nconsole.log(\"End\");\n",
+    "solution": "console.log(\"Start\");\n// setTimeout schedules the callback and the program carries on,\n// so \"End\" is printed first and \"Done!\" 500 ms later.\nsetTimeout(() => {\n  console.log(\"Done!\");\n}, 500);\n\nconsole.log(\"End\");\n",
+    "alternatives": [
+      "console.log(\"Start\");\nfunction finish() {\n  console.log(\"Done!\");\n}\nsetTimeout(finish, 500);\n\nconsole.log(\"End\");\n"
+    ],
+    "tests": [
+      {
+        "output": "Start\nEnd\nDone!"
+      }
+    ],
+    "hints": [
+      {
+        "en": "`setTimeout(callback, ms)` runs the callback once, after `ms` milliseconds.",
+        "es": "`setTimeout(callback, ms)` ejecuta el callback una vez, pasados `ms` milisegundos."
+      },
+      {
+        "en": "Write `setTimeout(() => console.log(\"Done!\"), 500);` between the two lines. It will still appear after `End`.",
+        "es": "Escribe `setTimeout(() => console.log(\"Done!\"), 500);` entre las dos líneas. Aun así, saldrá después de `End`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`setTimeout` doesn't stop the program: it schedules the callback and the code carries on. That's why `End` is printed straight away and `Done!` appears 500 ms later, although its code is written before `console.log(\"End\")`.",
+      "es": "`setTimeout` no para el programa: programa el callback y el código sigue. Por eso `End` se muestra en el momento y `Done!` aparece 500 ms después, aunque su código esté escrito antes de `console.log(\"End\")`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `setTimeout(console.log(\"Done!\"), 500)`: `console.log` runs immediately, so `Done!` comes before `End`.",
+        "es": "Escribir `setTimeout(console.log(\"Done!\"), 500)`: `console.log` se ejecuta en el momento, así que `Done!` sale antes que `End`."
+      },
+      {
+        "en": "Writing the delay in seconds (`0.5`): `setTimeout` works in milliseconds, so 500 ms is `500`.",
+        "es": "Poner la espera en segundos (`0.5`): `setTimeout` trabaja en milisegundos, así que 500 ms son `500`."
+      }
+    ]
+  },
+  {
+    "id": "s5-e008",
+    "section": 5,
+    "difficulty": 3,
+    "tags": [
+      "timers",
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "title": {
+      "en": "Countdown with setInterval",
+      "es": "Cuenta atrás con setInterval"
+    },
+    "statement": {
+      "en": "Without changing the two `console.log` lines, use `setInterval` to print `3`, `2`, `1` and `Go!`, one every 200 ms, and then stop the interval with `clearInterval`.\nThe console must show: `Countdown:`, `Get ready...`, `3`, `2`, `1`, `Go!`.",
+      "es": "Sin cambiar las dos líneas con `console.log`, usa `setInterval` para mostrar `3`, `2`, `1` y `Go!`, uno cada 200 ms, y después para el intervalo con `clearInterval`.\nLa consola tiene que mostrar: `Countdown:`, `Get ready...`, `3`, `2`, `1`, `Go!`."
+    },
+    "starter": "console.log(\"Countdown:\");\n// your code here\n\nconsole.log(\"Get ready...\");\n",
+    "solution": "console.log(\"Countdown:\");\nlet count = 3;\n// setInterval returns an id that clearInterval needs to stop it.\nconst timer = setInterval(() => {\n  if (count > 0) {\n    console.log(count);\n    count--;\n  } else {\n    console.log(\"Go!\");\n    clearInterval(timer);\n  }\n}, 200);\n\nconsole.log(\"Get ready...\");\n",
+    "alternatives": [
+      "console.log(\"Countdown:\");\nlet count = 3;\nconst timer = setInterval(() => {\n  console.log(count === 0 ? \"Go!\" : count);\n  if (count === 0) {\n    clearInterval(timer);\n  }\n  count--;\n}, 200);\n\nconsole.log(\"Get ready...\");\n"
+    ],
+    "tests": [
+      {
+        "output": "Countdown:\nGet ready...\n3\n2\n1\nGo!"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Keep the current number in a variable outside the callback (`let count = 3;`) and store the id that `setInterval` returns: `const timer = setInterval(…, 200);`.",
+        "es": "Guarda el número actual en una variable fuera del callback (`let count = 3;`) y guarda el identificador que devuelve `setInterval`: `const timer = setInterval(…, 200);`."
+      },
+      {
+        "en": "In the callback: if `count` is greater than `0`, print it and subtract 1; if not, print `Go!` and call `clearInterval(timer)`.",
+        "es": "En el callback: si `count` es mayor que `0`, muéstralo y réstale 1; si no, muestra `Go!` y llama a `clearInterval(timer)`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`setInterval` runs the callback every 200 ms without stopping the program, so `Get ready...` is printed before the countdown. The variable `count` lives outside the callback, so it keeps its value between runs. When it reaches `0`, the callback prints `Go!` and `clearInterval(timer)` stops the interval; without it, it would run forever.",
+      "es": "`setInterval` ejecuta el callback cada 200 ms sin parar el programa, así que `Get ready...` se muestra antes de la cuenta atrás. La variable `count` vive fuera del callback, así que conserva su valor entre ejecuciones. Cuando llega a `0`, el callback muestra `Go!` y `clearInterval(timer)` para el intervalo; sin eso, seguiría para siempre."
+    },
+    "commonMistakes": [
+      {
+        "en": "Declaring `let count = 3;` inside the callback: it starts at `3` on every run, so it prints `3` again and again.",
+        "es": "Declarar `let count = 3;` dentro del callback: empieza en `3` en cada ejecución, así que muestra `3` una y otra vez."
+      },
+      {
+        "en": "Not calling `clearInterval`: the interval never stops and the exercise runs out of time.",
+        "es": "No llamar a `clearInterval`: el intervalo no se para nunca y el ejercicio se queda sin tiempo."
+      },
+      {
+        "en": "Using `setTimeout` with the same delay for all the numbers: they all appear at the same time, not one every 200 ms.",
+        "es": "Usar `setTimeout` con la misma espera para todos los números: salen todos a la vez, no uno cada 200 ms."
+      }
+    ]
+  }
+]

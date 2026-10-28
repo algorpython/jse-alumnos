@@ -1,0 +1,102 @@
+{
+  "section": 1,
+  "title": { "en": "Basics of JavaScript and computer programming", "es": "Fundamentos de JavaScript y de la programación" },
+  "readingMinutes": 5,
+  "intro": {
+    "en": "The key ideas of this section. Press “Run this code” on any example to try it.",
+    "es": "Las ideas clave de esta sección. Pulsa «Ejecutar este código» en cualquier ejemplo para probarlo."
+  },
+  "blocks": [
+    {
+      "heading": { "en": "Compiled or interpreted", "es": "Compilado o interpretado" },
+      "body": {
+        "en": "You write source code: text that people can read. The processor only understands machine code, so something has to translate it. A compiler translates the whole program before it runs (C, C++). An interpreter runs the source code directly, while the program is running.\nJavaScript is usually called interpreted: you give the browser your `.js` file and its JavaScript engine runs it (V8 in Chrome and Edge, SpiderMonkey in Firefox). Modern engines also compile on the fly to go faster, but it happens inside the browser: you never create an `.exe` file.",
+        "es": "Tú escribes código fuente: texto que las personas pueden leer. El procesador solo entiende código máquina, así que algo tiene que traducirlo. Un compilador traduce todo el programa antes de ejecutarlo (C, C++). Un intérprete ejecuta el código fuente directamente, mientras el programa está en marcha.\nDe JavaScript se suele decir que es interpretado: le das al navegador tu archivo `.js` y su motor de JavaScript lo ejecuta (V8 en Chrome y Edge, SpiderMonkey en Firefox). Los motores actuales también compilan sobre la marcha para ir más rápido, pero eso pasa dentro del navegador: tú nunca creas un archivo `.exe`."
+      }
+    },
+    {
+      "heading": { "en": "Lines run in order, until an error", "es": "Las líneas se ejecutan en orden, hasta que hay un error" },
+      "body": {
+        "en": "The engine first reads the whole script to check its syntax. Then it runs the lines from top to bottom. If a line throws an error that isn't handled (for example, a `ReferenceError` because a name doesn't exist), the script stops there: the previous lines have already run, the next ones don't.",
+        "es": "El motor primero lee el script entero para comprobar la sintaxis. Después ejecuta las líneas de arriba abajo. Si una línea lanza un error que no se gestiona (por ejemplo, un `ReferenceError` porque un nombre no existe), el script se para ahí: las líneas anteriores ya se han ejecutado y las siguientes no."
+      },
+      "example": { "code": "console.log(\"Step 1\");\nconsole.log(total);\nconsole.log(\"Step 3\");", "output": "Step 1", "errorType": "ReferenceError" }
+    },
+    {
+      "heading": { "en": "Client side and server side", "es": "Lado del cliente y lado del servidor" },
+      "body": {
+        "en": "The client is the visitor's device and its browser. Client-side code is downloaded with the page and runs in the browser, so it reacts instantly: messages, checks before sending a form, changes to the page.\nThe server is the computer that hosts the website. Server-side code runs there and the visitor only receives the result: logins, databases, saving orders. JavaScript works on both sides: in the browser, and outside it with Node.js (`node app.js` in the terminal).\nOn a page, HTML gives the structure, CSS the look and JavaScript the behaviour.",
+        "es": "El cliente es el dispositivo del visitante y su navegador. El código del lado del cliente se descarga con la página y se ejecuta en el navegador, así que reacciona al momento: mensajes, comprobaciones antes de enviar un formulario, cambios en la página.\nEl servidor es el ordenador que aloja la web. El código del lado del servidor se ejecuta allí y el visitante solo recibe el resultado: inicios de sesión, bases de datos, guardar pedidos. JavaScript sirve en los dos lados: en el navegador y, fuera de él, con Node.js (`node app.js` en la terminal).\nEn una página, el HTML da la estructura, el CSS el aspecto y JavaScript el comportamiento."
+      }
+    },
+    {
+      "heading": { "en": "Your programming environment", "es": "Tu entorno de programación" },
+      "body": {
+        "en": "To start you only need a code editor (VS Code, Sublime Text…; never a word processor like Word) and a browser. Online editors such as CodePen or JSFiddle let you try code without installing anything.\nThe browser's developer tools (F12) have the console, where messages and errors appear, and the debugger: a breakpoint (click on a line number in Sources) or the `debugger;` statement pauses the program so you can look at the variables.",
+        "es": "Para empezar solo necesitas un editor de código (VS Code, Sublime Text…; nunca un procesador de textos como Word) y un navegador. Los editores en línea como CodePen o JSFiddle te dejan probar código sin instalar nada.\nLas herramientas para desarrolladores del navegador (F12) tienen la consola, donde aparecen los mensajes y los errores, y el depurador: un punto de interrupción (clic en el número de una línea en Sources) o la sentencia `debugger;` detienen el programa para que puedas ver las variables."
+      }
+    },
+    {
+      "heading": { "en": "JavaScript in an HTML page", "es": "JavaScript en una página HTML" },
+      "body": {
+        "en": "An HTML document has `<head>` (title, character set, CSS) and `<body>` (what the visitor sees). JavaScript goes in a `<script>` tag, in either part: with the code inside (`<script>…</script>`) or in an external file (`<script src=\"app.js\"></script>`), which keeps HTML and JavaScript apart.\nThe browser reads the HTML from top to bottom and stops to run each normal `<script>`. That's why scripts usually go at the end of `<body>`, or in `<head>` with `defer`. All the scripts of a page run in order and share their global variables.",
+        "es": "Un documento HTML tiene `<head>` (título, juego de caracteres, CSS) y `<body>` (lo que ve el visitante). JavaScript va en una etiqueta `<script>`, en cualquiera de las dos partes: con el código dentro (`<script>…</script>`) o en un archivo externo (`<script src=\"app.js\"></script>`), que separa el HTML del JavaScript.\nEl navegador lee el HTML de arriba abajo y se para a ejecutar cada `<script>` normal. Por eso los scripts se suelen poner al final del `<body>`, o en `<head>` con `defer`. Todos los scripts de una página se ejecutan en orden y comparten sus variables globales."
+      }
+    },
+    {
+      "heading": { "en": "The console", "es": "La consola" },
+      "body": {
+        "en": "`console.log()` writes a message, `console.warn()` a warning and `console.error()` an error. They don't change the page: the visitor only sees them with the developer tools open. You can also type an expression in the console, like `7 * 6`, and it shows its value at once.",
+        "es": "`console.log()` escribe un mensaje, `console.warn()` un aviso y `console.error()` un error. No cambian la página: el visitante solo los ve con las herramientas para desarrolladores abiertas. En la consola también puedes escribir una expresión, como `7 * 6`, y te enseña su valor al momento."
+      },
+      "example": { "code": "console.log(\"Total:\", 3 + 4);\nconsole.warn(\"Low battery\");\nconsole.error(\"File not found\");", "output": "Total: 7\nLow battery\nFile not found" }
+    }
+  ],
+  "traps": [
+    {
+      "title": { "en": "A syntax error stops everything", "es": "Un error de sintaxis lo para todo" },
+      "body": {
+        "en": "A `SyntaxError` is found before running, so not even the first line runs. Other errors appear when their line runs, after the previous lines.",
+        "es": "Un `SyntaxError` se detecta antes de ejecutar, así que no se ejecuta ni la primera línea. Los demás errores aparecen al ejecutarse su línea, después de las anteriores."
+      },
+      "example": { "code": "console.log(\"Start\");\nconsole.log(\"End\";", "errorType": "SyntaxError" }
+    },
+    {
+      "title": { "en": "A line that never runs can't fail", "es": "Una línea que nunca se ejecuta no puede fallar" },
+      "body": {
+        "en": "JavaScript only checks that a name exists when it reaches that line, so a mistake can stay hidden.",
+        "es": "JavaScript solo comprueba que un nombre existe cuando llega a esa línea, así que un fallo puede quedar escondido."
+      },
+      "example": { "code": "if (false) {\n  playSound();\n}\nconsole.log(\"No error\");", "output": "No error" }
+    },
+    {
+      "title": { "en": "Comma or `+` in `console.log`", "es": "Coma o `+` en `console.log`" },
+      "body": {
+        "en": "With commas, the console puts a space between the values. `+` joins the strings exactly as they are.",
+        "es": "Con comas, la consola pone un espacio entre los valores. `+` une los strings tal cual."
+      },
+      "example": { "code": "console.log(\"Hi\", \"Ana\");\nconsole.log(\"Hi\" + \"Ana\");", "output": "Hi Ana\nHiAna" }
+    },
+    {
+      "title": { "en": "`<script src>` ignores the code inside", "es": "`<script src>` ignora el código de dentro" },
+      "body": {
+        "en": "In `<script src=\"app.js\">console.log(1);</script>` only `app.js` runs. Use two tags if you need both. And `<script>` always needs `</script>`.",
+        "es": "En `<script src=\"app.js\">console.log(1);</script>` solo se ejecuta `app.js`. Usa dos etiquetas si necesitas las dos cosas. Y `<script>` siempre necesita `</script>`."
+      }
+    },
+    {
+      "title": { "en": "An error only stops its own script", "es": "Un error solo para su propio script" },
+      "body": {
+        "en": "If the first `<script>` of a page throws an error, the next `<script>` tags still run.",
+        "es": "Si el primer `<script>` de una página lanza un error, los siguientes `<script>` se siguen ejecutando."
+      }
+    },
+    {
+      "title": { "en": "Java isn't JavaScript", "es": "Java no es JavaScript" },
+      "body": {
+        "en": "They're two different languages. The similar name was a marketing decision in the 90s.",
+        "es": "Son dos lenguajes distintos. El nombre parecido fue una decisión de marketing de los años 90."
+      }
+    }
+  ]
+}

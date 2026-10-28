@@ -1,0 +1,4276 @@
+[
+  {
+    "id": "s4-q001",
+    "section": 4,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 1,
+    "tags": [
+      "if",
+      "else-if"
+    ],
+    "courseRef": "04_Condicionales",
+    "prompt": {
+      "en": "In an `if...else if...else` chain, which blocks run?",
+      "es": "En una cadena `if...else if...else`, ¿qué bloques se ejecutan?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Only the first block whose condition is true (or the `else` block if none is true)",
+          "es": "Solo el primer bloque cuya condición sea verdadera (o el bloque `else` si ninguna lo es)"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Every block whose condition is true, from top to bottom",
+          "es": "Todos los bloques cuya condición sea verdadera, de arriba abajo"
+        },
+        "why": {
+          "en": "As soon as one condition is true, its block runs and the rest of the chain is skipped, even if later conditions are also true.",
+          "es": "En cuanto una condición es verdadera, se ejecuta su bloque y el resto de la cadena se salta, aunque las condiciones de después también sean verdaderas."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "The last block whose condition is true",
+          "es": "El último bloque cuya condición sea verdadera"
+        },
+        "why": {
+          "en": "JavaScript checks the conditions in order and stops at the first true one. It never looks for the last one.",
+          "es": "JavaScript comprueba las condiciones en orden y se para en la primera verdadera. Nunca busca la última."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "The `else` block always runs at the end",
+          "es": "El bloque `else` siempre se ejecuta al final"
+        },
+        "why": {
+          "en": "`else` only runs when none of the conditions above it is true.",
+          "es": "`else` solo se ejecuta cuando ninguna de las condiciones de arriba es verdadera."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "The conditions are checked from top to bottom. The first one that is true runs its block, and the rest of the chain is skipped. If none is true, the `else` block runs (if there is one). So at most one block runs.",
+      "es": "Las condiciones se comprueban de arriba abajo. La primera que es verdadera ejecuta su bloque y el resto de la cadena se salta. Si ninguna es verdadera, se ejecuta el bloque `else` (si lo hay). Así que, como mucho, se ejecuta un bloque."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q002",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "if",
+      "truthy"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let a = \"0\";\nlet b = 0;\nlet c = [];\nif (a) console.log(\"a\");\nif (b) console.log(\"b\");\nif (c) console.log(\"c\");",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "a\nc",
+          "es": "a\nc"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "c",
+          "es": "c"
+        },
+        "why": {
+          "en": "`\"0\"` is a string with one character, so it isn't empty: it's truthy and `a` is printed.",
+          "es": "`\"0\"` es un string con un carácter, así que no está vacío: es truthy y se muestra `a`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "a",
+          "es": "a"
+        },
+        "why": {
+          "en": "An empty array `[]` is an object, and every object is truthy, so `c` is also printed.",
+          "es": "Un array vacío `[]` es un objeto, y todos los objetos son truthy, así que también se muestra `c`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "a\nb\nc",
+          "es": "a\nb\nc"
+        },
+        "why": {
+          "en": "The number `0` is falsy, so the second `if` doesn't run.",
+          "es": "El número `0` es falsy, así que el segundo `if` no se ejecuta."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "An `if` doesn't need a boolean: it converts the condition to `true` or `false`. The number `0` is falsy, but the string `\"0\"` (it isn't empty) and the empty array `[]` (it's an object) are truthy. So `a` and `c` are printed.",
+      "es": "Un `if` no necesita un booleano: convierte la condición en `true` o `false`. El número `0` es falsy, pero el string `\"0\"` (no está vacío) y el array vacío `[]` (es un objeto) son truthy. Por eso se muestran `a` y `c`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "a\nc"
+    }
+  },
+  {
+    "id": "s4-q003",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "if",
+      "assignment"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let lives = 3;\nif (lives = 0) {\n  console.log(\"Game over\");\n} else {\n  console.log(\"Lives: \" + lives);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Game over",
+          "es": "Game over"
+        },
+        "why": {
+          "en": "`lives = 0` doesn't compare: it stores `0` in `lives`. The condition is then `0`, which is falsy, so the `else` runs.",
+          "es": "`lives = 0` no compara: guarda `0` en `lives`. La condición pasa a ser `0`, que es falsy, así que se ejecuta el `else`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Lives: 0",
+          "es": "Lives: 0"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Lives: 3",
+          "es": "Lives: 3"
+        },
+        "why": {
+          "en": "The condition has already changed `lives` to `0` before the `else` runs.",
+          "es": "La condición ya ha cambiado `lives` a `0` antes de que se ejecute el `else`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "An assignment inside the condition is valid JavaScript. It's a logic mistake, not a syntax error.",
+          "es": "Una asignación dentro de la condición es JavaScript válido. Es un error de lógica, no de sintaxis."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "A single `=` assigns. `lives = 0` stores `0` in `lives` and the whole expression is worth `0`, which is falsy. So the `else` runs and prints `Lives: 0`. To compare, use `===`: `if (lives === 0)`.",
+      "es": "Un solo `=` asigna. `lives = 0` guarda `0` en `lives` y toda la expresión vale `0`, que es falsy. Así que se ejecuta el `else` y muestra `Lives: 0`. Para comparar, usa `===`: `if (lives === 0)`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Lives: 0"
+    }
+  },
+  {
+    "id": "s4-q004",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "if",
+      "syntax"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let points = 4;\nif (points > 10); {\n  console.log(\"Bonus!\");\n}\nconsole.log(\"Done\");",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Bonus!\nDone",
+          "es": "Bonus!\nDone"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Done",
+          "es": "Done"
+        },
+        "why": {
+          "en": "The `;` right after the condition ends the `if`. The `{ }` block below is no longer part of it, so it always runs.",
+          "es": "El `;` justo después de la condición termina el `if`. El bloque `{ }` de abajo ya no forma parte de él, así que se ejecuta siempre."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "`if (...);` is valid: it's an `if` with an empty statement. That's why this mistake is so hard to spot.",
+          "es": "`if (...);` es válido: es un `if` con una instrucción vacía. Por eso este fallo cuesta tanto de ver."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Bonus!",
+          "es": "Bonus!"
+        },
+        "why": {
+          "en": "After the block, `console.log(\"Done\")` also runs.",
+          "es": "Después del bloque también se ejecuta `console.log(\"Done\")`."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "The semicolon after `if (points > 10)` is an empty statement: if the condition is true, it does nothing. The block `{ console.log(\"Bonus!\"); }` is a normal block that always runs. So `Bonus!` is printed although `4 > 10` is false, and then `Done`.",
+      "es": "El punto y coma después de `if (points > 10)` es una instrucción vacía: si la condición es verdadera, no hace nada. El bloque `{ console.log(\"Bonus!\"); }` es un bloque normal que se ejecuta siempre. Por eso se muestra `Bonus!` aunque `4 > 10` sea falso, y después `Done`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Bonus!\nDone"
+    }
+  },
+  {
+    "id": "s4-q005",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "if",
+      "nested"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let age = 15;\nlet member = false;\nif (age >= 18)\n  if (member) console.log(\"VIP\");\nelse console.log(\"Too young\");\nconsole.log(\"Bye\");",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Bye",
+          "es": "Bye"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Too young\nBye",
+          "es": "Too young\nBye"
+        },
+        "why": {
+          "en": "The indentation suggests that the `else` goes with the first `if`, but JavaScript ignores indentation: an `else` always belongs to the nearest `if` without an `else`.",
+          "es": "La sangría hace pensar que el `else` va con el primer `if`, pero JavaScript no mira la sangría: un `else` siempre pertenece al `if` más cercano que no tenga `else`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "VIP\nBye",
+          "es": "VIP\nBye"
+        },
+        "why": {
+          "en": "`member` is `false`, and anyway the inner `if` is never reached because `age >= 18` is false.",
+          "es": "`member` vale `false`, y de todas formas al `if` de dentro no se llega porque `age >= 18` es falso."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "`if` without braces is allowed when it controls a single statement, and the inner `if...else` counts as one statement.",
+          "es": "Un `if` sin llaves está permitido cuando controla una sola instrucción, y el `if...else` de dentro cuenta como una instrucción."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "Without braces, an `else` is paired with the closest `if` before it: here, `if (member)`. So the code really means: if `age >= 18`, then (if `member` print `VIP`, else print `Too young`). As `age` is 15, the outer `if` is false and nothing inside runs. Only `Bye` is printed. Using `{ }` avoids this confusion.",
+      "es": "Sin llaves, un `else` se empareja con el `if` más cercano que tenga delante: aquí, `if (member)`. Así que el código significa en realidad: si `age >= 18`, entonces (si `member`, muestra `VIP`; si no, muestra `Too young`). Como `age` vale 15, el `if` de fuera es falso y no se ejecuta nada de dentro. Solo se muestra `Bye`. Usar `{ }` evita esta confusión."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Bye"
+    }
+  },
+  {
+    "id": "s4-q006",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 1,
+    "tags": [
+      "if",
+      "modulo"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let n = 8;\nif (___) {\n  console.log(\"even\");\n} else {\n  console.log(\"odd\");\n}",
+    "prompt": {
+      "en": "Fill the gap so that the code prints `even`.",
+      "es": "Completa el hueco para que el código muestre `even`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "n / 2 === 0",
+          "es": "n / 2 === 0"
+        },
+        "why": {
+          "en": "`8 / 2` is `4`, not `0`, so the condition is false and `odd` is printed.",
+          "es": "`8 / 2` es `4`, no `0`, así que la condición es falsa y se muestra `odd`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "n % 2 = 0",
+          "es": "n % 2 = 0"
+        },
+        "why": {
+          "en": "A single `=` tries to assign a value to `n % 2`, which isn't a variable: it's a `SyntaxError`.",
+          "es": "Un solo `=` intenta asignar un valor a `n % 2`, que no es una variable: da `SyntaxError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "n % 2 === 0",
+          "es": "n % 2 === 0"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "n % 2",
+          "es": "n % 2"
+        },
+        "why": {
+          "en": "`8 % 2` is `0`, which is falsy, so this condition sends even numbers to the `else`.",
+          "es": "`8 % 2` vale `0`, que es falsy, así que esta condición manda los números pares al `else`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`%` gives the remainder of a division. An even number divided by 2 leaves remainder `0`, so `n % 2 === 0` is `true` for `8` and the code prints `even`.",
+      "es": "`%` da el resto de una división. Un número par dividido entre 2 deja resto `0`, así que `n % 2 === 0` es `true` con `8` y el código muestra `even`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "even"
+    }
+  },
+  {
+    "id": "s4-q007",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "if",
+      "logical"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let age = 20;\nlet hasTicket = false;\nif (age >= 18 && hasTicket) {\n  console.log(\"Come in\");\n} else if (age >= 18 || hasTicket) {\n  console.log(\"Buy a ticket first\");\n} else {\n  console.log(\"Sorry\");\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Come in",
+          "es": "Come in"
+        },
+        "why": {
+          "en": "`&&` needs both parts to be true, and `hasTicket` is `false`.",
+          "es": "`&&` necesita que las dos partes sean verdaderas, y `hasTicket` vale `false`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Buy a ticket first",
+          "es": "Buy a ticket first"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Sorry",
+          "es": "Sorry"
+        },
+        "why": {
+          "en": "The second condition uses `||`, which only needs one true part: `age >= 18` is true.",
+          "es": "La segunda condición usa `||`, que solo necesita una parte verdadera: `age >= 18` lo es."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Come in\nBuy a ticket first",
+          "es": "Come in\nBuy a ticket first"
+        },
+        "why": {
+          "en": "Only one block of an `if...else if...else` chain runs, and the first condition is false anyway.",
+          "es": "Solo se ejecuta un bloque de la cadena `if...else if...else`, y además la primera condición es falsa."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`age >= 18 && hasTicket` is `true && false`, which is `false`. Then `age >= 18 || hasTicket` is `true || false`, which is `true`, so `Buy a ticket first` is printed and the `else` is skipped.",
+      "es": "`age >= 18 && hasTicket` es `true && false`, que da `false`. Después, `age >= 18 || hasTicket` es `true || false`, que da `true`, así que se muestra `Buy a ticket first` y el `else` se salta."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Buy a ticket first"
+    }
+  },
+  {
+    "id": "s4-q008",
+    "section": 4,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 1,
+    "tags": [
+      "if",
+      "syntax"
+    ],
+    "courseRef": "04_Condicionales",
+    "prompt": {
+      "en": "Which of these `if` statements are valid JavaScript? (Choose two.)",
+      "es": "¿Cuáles de estas instrucciones `if` son JavaScript válido? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`if x > 5 { console.log(x); }`",
+          "es": "`if x > 5 { console.log(x); }`"
+        },
+        "why": {
+          "en": "The condition of an `if` must go inside parentheses: `if (x > 5)`.",
+          "es": "La condición de un `if` tiene que ir entre paréntesis: `if (x > 5)`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`if (x > 5) { console.log(x); } else if { console.log(0); }`",
+          "es": "`if (x > 5) { console.log(x); } else if { console.log(0); }`"
+        },
+        "why": {
+          "en": "`else if` needs its own condition in parentheses. Without a condition, use a plain `else`.",
+          "es": "`else if` necesita su propia condición entre paréntesis. Sin condición, se usa un `else` normal."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`if (x > 5) then { console.log(x); }`",
+          "es": "`if (x > 5) then { console.log(x); }`"
+        },
+        "why": {
+          "en": "JavaScript has no `then` keyword in `if` statements. The block goes right after the condition.",
+          "es": "JavaScript no tiene la palabra `then` en los `if`. El bloque va justo después de la condición."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`if (x > 5) console.log(x);`",
+          "es": "`if (x > 5) console.log(x);`"
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`if (x > 5) { console.log(x); } else { console.log(0); }`",
+          "es": "`if (x > 5) { console.log(x); } else { console.log(0); }`"
+        }
+      }
+    ],
+    "answer": [
+      "D",
+      "E"
+    ],
+    "explanation": {
+      "en": "An `if` is written as `if (...)`, with the condition inside the parentheses, followed by one statement or a `{ }` block, and optionally `else` with another statement or block. Without braces, the `if` only controls the next statement. The braces are optional, but the parentheses aren't.",
+      "es": "Un `if` se escribe `if (...)`, con la condición dentro de los paréntesis, seguido de una instrucción o de un bloque `{ }`, y opcionalmente de `else` con otra instrucción o bloque. Sin llaves, el `if` solo controla la instrucción siguiente. Las llaves son opcionales, pero los paréntesis no."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q009",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "if",
+      "nested"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let score = 72;\nlet bonus = true;\nlet result;\nif (score >= 70) {\n  if (bonus) {\n    result = score + 10;\n  } else {\n    result = score;\n  }\n} else {\n  result = 0;\n}\nif (result > 80) {\n  console.log(\"Gold: \" + result);\n} else {\n  console.log(\"Silver: \" + result);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Silver: 72",
+          "es": "Silver: 72"
+        },
+        "why": {
+          "en": "`bonus` is `true`, so the inner `if` adds 10 points.",
+          "es": "`bonus` vale `true`, así que el `if` de dentro suma 10 puntos."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Silver: 82",
+          "es": "Silver: 82"
+        },
+        "why": {
+          "en": "`82 > 80` is true, so the first branch of the last `if` runs.",
+          "es": "`82 > 80` es verdadero, así que se ejecuta la primera rama del último `if`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Gold: 72",
+          "es": "Gold: 72"
+        },
+        "why": {
+          "en": "`72` isn't greater than `80`, and anyway `result` is `82` because of the bonus.",
+          "es": "`72` no es mayor que `80`, y de todas formas `result` vale `82` por el bonus."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Gold: 82",
+          "es": "Gold: 82"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`score >= 70` is true, so we go into the outer block. There `bonus` is `true`, so `result = 72 + 10 = 82`. In the last `if`, `82 > 80` is true and `Gold: 82` is printed.",
+      "es": "`score >= 70` es verdadero, así que se entra en el bloque de fuera. Ahí `bonus` vale `true`, así que `result = 72 + 10 = 82`. En el último `if`, `82 > 80` es verdadero y se muestra `Gold: 82`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Gold: 82"
+    }
+  },
+  {
+    "id": "s4-q010",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "if",
+      "syntax"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let x = 7;\nif (x > 10) {\n  console.log(\"big\");\n} else {\n  console.log(\"small\");\n} else if (x > 5) {\n  console.log(\"medium\");\n}",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `small`",
+          "es": "Muestra `small`"
+        },
+        "why": {
+          "en": "A `SyntaxError` stops the whole program before it starts, so nothing is printed.",
+          "es": "Un `SyntaxError` para todo el programa antes de empezar, así que no se muestra nada."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `small` and then `medium`",
+          "es": "Muestra `small` y después `medium`"
+        },
+        "why": {
+          "en": "Even if the code were valid, only one block of the chain would run.",
+          "es": "Aunque el código fuera válido, solo se ejecutaría un bloque de la cadena."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `SyntaxError` on line 4",
+          "es": "Un `SyntaxError` en la línea 4"
+        },
+        "why": {
+          "en": "`} else {` on line 4 is correct. The problem is the second `else`, on line 6.",
+          "es": "`} else {` de la línea 4 es correcto. El problema es el segundo `else`, en la línea 6."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `SyntaxError` on line 6",
+          "es": "Un `SyntaxError` en la línea 6"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`else` must be the last part of the chain. After an `else` nothing else can be attached, so the `else if` on line 6 throws `SyntaxError: Unexpected token 'else'`. The `else if` should go before the `else`.",
+      "es": "`else` tiene que ser la última parte de la cadena. Después de un `else` no se puede añadir nada más, así que el `else if` de la línea 6 lanza `SyntaxError: Unexpected token 'else'`. El `else if` debería ir antes del `else`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "SyntaxError",
+      "line": 6,
+      "match": "both"
+    }
+  },
+  {
+    "id": "s4-q011",
+    "section": 4,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "if",
+      "else-if"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let score = 95;\nif (score >= 50) {\n  console.log(\"Pass\");\n} else if (score >= 90) {\n  console.log(\"Excellent\");\n} else {\n  console.log(\"Fail\");\n}",
+    "prompt": {
+      "en": "This code prints `Pass`, not `Excellent`. Why?",
+      "es": "Este código muestra `Pass` y no `Excellent`. ¿Por qué?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`else if` only runs when the previous condition is true",
+          "es": "`else if` solo se ejecuta cuando la condición anterior es verdadera"
+        },
+        "why": {
+          "en": "It's the opposite: `else if` is only checked when every previous condition was false.",
+          "es": "Es al revés: `else if` solo se comprueba cuando todas las condiciones anteriores han sido falsas."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`score >= 50` is checked first and is already true, so the rest of the chain is skipped",
+          "es": "`score >= 50` se comprueba primero y ya es verdadero, así que el resto de la cadena se salta"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`95 >= 90` is false",
+          "es": "`95 >= 90` es falso"
+        },
+        "why": {
+          "en": "`95 >= 90` is true, but that condition is never checked.",
+          "es": "`95 >= 90` es verdadero, pero esa condición no llega a comprobarse."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "JavaScript checks the conditions from the bottom up",
+          "es": "JavaScript comprueba las condiciones de abajo arriba"
+        },
+        "why": {
+          "en": "The conditions are checked from top to bottom, in the order they're written.",
+          "es": "Las condiciones se comprueban de arriba abajo, en el orden en que están escritas."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "Only the first true condition counts. `95 >= 50` is true, so `Pass` is printed and the `else if` isn't even checked. When conditions overlap, put the most specific one first: `if (score >= 90)` before `else if (score >= 50)`.",
+      "es": "Solo cuenta la primera condición verdadera. `95 >= 50` es verdadero, así que se muestra `Pass` y el `else if` ni se comprueba. Cuando las condiciones se solapan, pon primero la más concreta: `if (score >= 90)` antes que `else if (score >= 50)`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Pass"
+    }
+  },
+  {
+    "id": "s4-q012",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "if",
+      "syntax"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let n = -3;\nif (n > 0) {\n  console.log(\"positive\");\n} elseif (n < 0) {\n  console.log(\"negative\");\n}",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `negative`",
+          "es": "Muestra `negative`"
+        },
+        "why": {
+          "en": "`elseif` (all together) isn't a JavaScript keyword, so the code can't even start.",
+          "es": "`elseif` (todo junto) no es una palabra clave de JavaScript, así que el código ni siquiera llega a empezar."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `SyntaxError` on line 4",
+          "es": "Un `SyntaxError` en la línea 4"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Nothing is printed and there's no error",
+          "es": "No se muestra nada y no hay error"
+        },
+        "why": {
+          "en": "JavaScript doesn't ignore code it doesn't understand: it throws an error.",
+          "es": "JavaScript no ignora el código que no entiende: lanza un error."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `ReferenceError` on line 4",
+          "es": "Un `ReferenceError` en la línea 4"
+        },
+        "why": {
+          "en": "The program never runs: the problem is found while reading the code, so it's a `SyntaxError`.",
+          "es": "El programa no llega a ejecutarse: el problema se detecta al leer el código, así que es un `SyntaxError`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "In JavaScript it's `else if`, two separate words. `elseif` is read as a call to a function called `elseif` followed by a `{`, which doesn't make sense there, so line 4 throws `SyntaxError: Unexpected token '{'`.",
+      "es": "En JavaScript se escribe `else if`, dos palabras separadas. `elseif` se lee como una llamada a una función llamada `elseif` seguida de una `{`, que ahí no tiene sentido, así que la línea 4 lanza `SyntaxError: Unexpected token '{'`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "SyntaxError",
+      "line": 4,
+      "match": "both"
+    }
+  },
+  {
+    "id": "s4-q013",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "switch",
+      "default"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let fruit = \"kiwi\";\nlet msg = \"Price\";\nswitch (fruit) {\n  case \"apple\":\n    msg += \": 1\";\n    break;\n  case \"pear\":\n    msg += \": 2\";\n    break;\n}\nconsole.log(msg);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Price: undefined",
+          "es": "Price: undefined"
+        },
+        "why": {
+          "en": "When no `case` matches, nothing inside the `switch` runs, so `msg` doesn't change.",
+          "es": "Cuando ningún `case` coincide, no se ejecuta nada del `switch`, así que `msg` no cambia."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Price: 2",
+          "es": "Price: 2"
+        },
+        "why": {
+          "en": "`\"kiwi\"` isn't `\"pear\"`: no `case` matches.",
+          "es": "`\"kiwi\"` no es `\"pear\"`: ningún `case` coincide."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "`default` is optional. A `switch` without it is valid.",
+          "es": "`default` es opcional. Un `switch` sin él es válido."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Price",
+          "es": "Price"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`switch` compares `fruit` with each `case`. `\"kiwi\"` doesn't match any of them and there's no `default`, so the `switch` does nothing and `msg` is still `\"Price\"`.",
+      "es": "`switch` compara `fruit` con cada `case`. `\"kiwi\"` no coincide con ninguno y no hay `default`, así que el `switch` no hace nada y `msg` sigue valiendo `\"Price\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Price"
+    }
+  },
+  {
+    "id": "s4-q014",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "switch",
+      "fallthrough",
+      "default"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let color = \"blue\";\nswitch (color) {\n  case \"red\":\n    console.log(\"stop\");\n    break;\n  default:\n    console.log(\"unknown\");\n  case \"green\":\n    console.log(\"go\");\n    break;\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "unknown\ngo",
+          "es": "unknown\ngo"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "unknown",
+          "es": "unknown"
+        },
+        "why": {
+          "en": "`default` has no `break`, so the code keeps running into the next `case`.",
+          "es": "`default` no tiene `break`, así que el código sigue ejecutándose en el `case` siguiente."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "go",
+          "es": "go"
+        },
+        "why": {
+          "en": "`\"blue\"` isn't `\"green\"`. The code reaches `go` only by falling through from `default`, so `unknown` is printed first.",
+          "es": "`\"blue\"` no es `\"green\"`. Al `go` se llega solo cayendo desde `default`, así que antes se muestra `unknown`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "`default` can go anywhere inside the `switch`, not only at the end.",
+          "es": "`default` puede ir en cualquier sitio dentro del `switch`, no solo al final."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "No `case` matches `\"blue\"`, so execution jumps to `default`, wherever it is. It prints `unknown`, and as there's no `break`, it falls through into `case \"green\"` and prints `go` before reaching `break`.",
+      "es": "Ningún `case` coincide con `\"blue\"`, así que la ejecución salta a `default`, esté donde esté. Muestra `unknown` y, como no hay `break`, cae en el `case \"green\"` y muestra `go` antes de llegar al `break`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "unknown\ngo"
+    }
+  },
+  {
+    "id": "s4-q015",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "switch",
+      "fallthrough"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let month = 4;\nlet days;\nswitch (month) {\n  case 4:\n  case 6:\n  case 9:\n  case 11:\n    days = 30;\n    break;\n  case 2:\n    days = 28;\n    break;\n  default:\n    days = 31;\n}\nconsole.log(days);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "31",
+          "es": "31"
+        },
+        "why": {
+          "en": "`case 4` matches, so `default` is never reached: there's a `break` before it.",
+          "es": "`case 4` coincide, así que nunca se llega a `default`: hay un `break` antes."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "An empty `case` isn't skipped: execution continues into the next lines until it finds code and a `break`.",
+          "es": "Un `case` vacío no se salta: la ejecución sigue en las líneas siguientes hasta encontrar código y un `break`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "30",
+          "es": "30"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "28",
+          "es": "28"
+        },
+        "why": {
+          "en": "The `break` after `days = 30` stops the `switch` before `case 2`.",
+          "es": "El `break` después de `days = 30` para el `switch` antes del `case 2`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`case 4:` has no code of its own, so execution falls through `case 6`, `case 9` and `case 11` until it reaches `days = 30` and the `break`. It's the usual way to give the same code to several values.",
+      "es": "`case 4:` no tiene código propio, así que la ejecución sigue por `case 6`, `case 9` y `case 11` hasta llegar a `days = 30` y al `break`. Es la forma habitual de dar el mismo código a varios valores."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "30"
+    }
+  },
+  {
+    "id": "s4-q016",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 1,
+    "tags": [
+      "switch",
+      "break"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let day = \"sat\";\nswitch (day) {\n  case \"sat\":\n  case \"sun\":\n    console.log(\"weekend\");\n    ___\n  default:\n    console.log(\"weekday\");\n}",
+    "prompt": {
+      "en": "Fill the gap so that the code prints only `weekend`.",
+      "es": "Completa el hueco para que el código muestre solo `weekend`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "continue;",
+          "es": "continue;"
+        },
+        "why": {
+          "en": "`continue` only works inside loops. Here there's no loop, so it's a `SyntaxError`.",
+          "es": "`continue` solo funciona dentro de bucles. Aquí no hay ningún bucle, así que da `SyntaxError`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "stop;",
+          "es": "stop;"
+        },
+        "why": {
+          "en": "`stop` isn't a JavaScript keyword: it's read as a variable that doesn't exist, so it throws a `ReferenceError`.",
+          "es": "`stop` no es una palabra clave de JavaScript: se lee como una variable que no existe, así que lanza un `ReferenceError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "break;",
+          "es": "break;"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "// stop here",
+          "es": "// stop here"
+        },
+        "why": {
+          "en": "A comment does nothing. Without `break`, the code falls through into `default` and also prints `weekday`.",
+          "es": "Un comentario no hace nada. Sin `break`, el código cae en `default` y también muestra `weekday`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`break` ends the `switch`. Without it, after printing `weekend` the code would keep going into `default` and print `weekday` too.",
+      "es": "`break` termina el `switch`. Sin él, después de mostrar `weekend`, el código seguiría en `default` y también mostraría `weekday`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "weekend"
+    }
+  },
+  {
+    "id": "s4-q017",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "switch",
+      "break",
+      "for"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let log = \"\";\nfor (let i = 1; i <= 3; i++) {\n  switch (i) {\n    case 2:\n      log += \"X\";\n      break;\n    default:\n      log += i;\n  }\n}\nconsole.log(log);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "1X",
+          "es": "1X"
+        },
+        "why": {
+          "en": "That `break` belongs to the `switch`, not to the `for`. The loop goes on with `i = 3`.",
+          "es": "Ese `break` pertenece al `switch`, no al `for`. El bucle sigue con `i = 3`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "1X3",
+          "es": "1X3"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1X23",
+          "es": "1X23"
+        },
+        "why": {
+          "en": "The `break` stops the `switch` after `X`, so `default` doesn't run for `i = 2`.",
+          "es": "El `break` para el `switch` después de `X`, así que `default` no se ejecuta con `i = 2`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "123",
+          "es": "123"
+        },
+        "why": {
+          "en": "When `i` is `2`, `case 2` matches and adds `X` instead of the number.",
+          "es": "Cuando `i` vale `2`, coincide el `case 2` y añade `X` en vez del número."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "A `break` inside a `switch` only leaves the `switch`, even if the `switch` is inside a loop. With `i = 1` → `default` adds `1`; with `i = 2` → `X` and `break` leaves the `switch`; with `i = 3` → `default` adds `3`. Result: `1X3`.",
+      "es": "Un `break` dentro de un `switch` solo sale del `switch`, aunque el `switch` esté dentro de un bucle. Con `i = 1` → `default` añade `1`; con `i = 2` → `X`, y el `break` sale del `switch`; con `i = 3` → `default` añade `3`. Resultado: `1X3`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "1X3"
+    }
+  },
+  {
+    "id": "s4-q018",
+    "section": 4,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 1,
+    "tags": [
+      "switch"
+    ],
+    "courseRef": "04_Condicionales",
+    "prompt": {
+      "en": "Which statements about `switch` are true? (Choose two.)",
+      "es": "¿Qué afirmaciones sobre `switch` son verdaderas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`default` is optional",
+          "es": "`default` es opcional"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`default` must always be the last clause",
+          "es": "`default` siempre tiene que ser la última cláusula"
+        },
+        "why": {
+          "en": "`default` can be written anywhere inside the `switch`. Putting it last is just a convention.",
+          "es": "`default` se puede escribir en cualquier sitio dentro del `switch`. Ponerlo al final es solo una costumbre."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Without `break`, execution continues into the next `case`",
+          "es": "Sin `break`, la ejecución continúa en el `case` siguiente"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Each `case` needs its own `{ }` block",
+          "es": "Cada `case` necesita su propio bloque `{ }`"
+        },
+        "why": {
+          "en": "The code of a `case` is simply written after the colon. Braces are allowed but not needed.",
+          "es": "El código de un `case` se escribe directamente después de los dos puntos. Las llaves se permiten, pero no hacen falta."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`switch` can only compare numbers",
+          "es": "`switch` solo puede comparar números"
+        },
+        "why": {
+          "en": "`switch` works with any value: strings, numbers, booleans…",
+          "es": "`switch` funciona con cualquier valor: strings, números, booleanos…"
+        }
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "en": "`switch` jumps to the `case` that matches (or to `default`, if there is one) and runs everything from there down until it finds a `break` or the end of the `switch`. That's why each `case` usually ends with `break`.",
+      "es": "`switch` salta al `case` que coincide (o a `default`, si lo hay) y ejecuta todo lo que hay desde ahí hacia abajo hasta encontrar un `break` o el final del `switch`. Por eso cada `case` suele terminar con `break`."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q019",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "switch"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let temp = 18;\nswitch (true) {\n  case temp < 10:\n    console.log(\"cold\");\n    break;\n  case temp < 20:\n    console.log(\"cool\");\n    break;\n  default:\n    console.log(\"warm\");\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "cold",
+          "es": "cold"
+        },
+        "why": {
+          "en": "`18 < 10` is `false`, and `false` isn't `true`, so the first `case` doesn't match.",
+          "es": "`18 < 10` da `false`, y `false` no es `true`, así que el primer `case` no coincide."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "cool",
+          "es": "cool"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "warm",
+          "es": "warm"
+        },
+        "why": {
+          "en": "The second `case` matches before `default` is reached.",
+          "es": "El segundo `case` coincide antes de llegar a `default`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "cool\nwarm",
+          "es": "cool\nwarm"
+        },
+        "why": {
+          "en": "The `break` after `cool` stops the `switch`.",
+          "es": "El `break` después de `cool` para el `switch`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "Each `case` here is a comparison that gives `true` or `false`, and `switch (true)` looks for the first one that is `true`. `18 < 10` is `false`; `18 < 20` is `true`, so it prints `cool` and `break` ends the `switch`.",
+      "es": "Aquí cada `case` es una comparación que da `true` o `false`, y `switch (true)` busca la primera que sea `true`. `18 < 10` da `false`; `18 < 20` da `true`, así que muestra `cool` y el `break` termina el `switch`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "cool"
+    }
+  },
+  {
+    "id": "s4-q020",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "switch",
+      "logical"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let letter = \"b\";\nswitch (letter) {\n  case \"a\" || \"b\":\n    console.log(\"first two\");\n    break;\n  default:\n    console.log(\"other\");\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "first two",
+          "es": "first two"
+        },
+        "why": {
+          "en": "`\"a\" || \"b\"` isn't «a or b»: it's an expression that gives `\"a\"`. And `\"b\"` isn't `\"a\"`.",
+          "es": "`\"a\" || \"b\"` no significa «a o b»: es una expresión que da `\"a\"`. Y `\"b\"` no es `\"a\"`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "A `case` can contain any expression, so `\"a\" || \"b\"` is valid. It just doesn't do what it seems.",
+          "es": "Un `case` puede contener cualquier expresión, así que `\"a\" || \"b\"` es válido. Simplemente no hace lo que parece."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "first two\nother",
+          "es": "first two\nother"
+        },
+        "why": {
+          "en": "At most one of these blocks can run: the first one ends with `break`.",
+          "es": "Como mucho se ejecuta uno de estos bloques: el primero termina con `break`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "other",
+          "es": "other"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`\"a\" || \"b\"` is evaluated first and gives `\"a\"` (the first truthy value). So the `case` is really `case \"a\"`, which doesn't match `\"b\"`, and `default` prints `other`. To accept two values, write two cases: `case \"a\":` and `case \"b\":`.",
+      "es": "`\"a\" || \"b\"` se evalúa primero y da `\"a\"` (el primer valor truthy). Así que el `case` es en realidad `case \"a\"`, que no coincide con `\"b\"`, y `default` muestra `other`. Para aceptar dos valores, escribe dos casos: `case \"a\":` y `case \"b\":`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "other"
+    }
+  },
+  {
+    "id": "s4-q021",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "switch",
+      "strict-equality"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let level = ___;\nswitch (level) {\n  case 1:\n    console.log(\"easy\");\n    break;\n  case 2:\n    console.log(\"normal\");\n  case 3:\n    console.log(\"hard\");\n    break;\n  default:\n    console.log(\"custom\");\n}",
+    "prompt": {
+      "en": "Fill the gap so that the code prints `custom`.",
+      "es": "Completa el hueco para que el código muestre `custom`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "`1` matches `case 1` and prints `easy`.",
+          "es": "`1` coincide con `case 1` y muestra `easy`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "2",
+          "es": "2"
+        },
+        "why": {
+          "en": "`2` matches `case 2`, which has no `break`: it prints `normal` and `hard`.",
+          "es": "`2` coincide con `case 2`, que no tiene `break`: muestra `normal` y `hard`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "\"1\"",
+          "es": "\"1\""
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "`3` matches `case 3` and prints `hard`.",
+          "es": "`3` coincide con `case 3` y muestra `hard`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`switch` compares with strict equality (`===`), so the string `\"1\"` doesn't match the number `1` or any other `case`. Execution goes to `default` and prints `custom`.",
+      "es": "`switch` compara con igualdad estricta (`===`), así que el string `\"1\"` no coincide con el número `1` ni con ningún otro `case`. La ejecución va a `default` y muestra `custom`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "custom"
+    }
+  },
+  {
+    "id": "s4-q022",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "switch",
+      "scope"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let shape = \"square\";\nswitch (shape) {\n  case \"circle\":\n    let area = 3.14;\n    break;\n  case \"square\":\n    let area = 4;\n    break;\n}",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Nothing is printed and there's no error",
+          "es": "No se muestra nada y no hay error"
+        },
+        "why": {
+          "en": "All the cases share the same `{ }` block of the `switch`, so `area` is declared twice in the same block.",
+          "es": "Todos los casos comparten el mismo bloque `{ }` del `switch`, así que `area` se declara dos veces en el mismo bloque."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `ReferenceError`: `area` is used before it's declared",
+          "es": "Un `ReferenceError`: se usa `area` antes de declararla"
+        },
+        "why": {
+          "en": "`area` is never read. The problem is found before the code runs, when JavaScript reads the two declarations.",
+          "es": "`area` no se lee en ningún momento. El problema se detecta antes de ejecutar nada, cuando JavaScript lee las dos declaraciones."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `TypeError`: you can't change `area`",
+          "es": "Un `TypeError`: no se puede cambiar `area`"
+        },
+        "why": {
+          "en": "`area` is declared with `let`, not `const`. The error is the duplicate declaration.",
+          "es": "`area` se declara con `let`, no con `const`. El error es la declaración repetida."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `SyntaxError`: `area` is declared twice",
+          "es": "Un `SyntaxError`: `area` se declara dos veces"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "The cases of a `switch` aren't separate blocks: they all live inside the same `{ }`. Declaring `let area` twice in the same block throws `SyntaxError: Identifier 'area' has already been declared` (line 7) before anything runs. The fix is to give each `case` its own block: `case \"circle\": { let area = 3.14; break; }`.",
+      "es": "Los casos de un `switch` no son bloques separados: todos están dentro de las mismas `{ }`. Declarar `let area` dos veces en el mismo bloque lanza `SyntaxError: Identifier 'area' has already been declared` (línea 7) antes de ejecutar nada. La solución es dar a cada `case` su propio bloque: `case \"circle\": { let area = 3.14; break; }`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "SyntaxError",
+      "line": 7
+    }
+  },
+  {
+    "id": "s4-q023",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "while"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let n = 1;\nwhile (n < 50) {\n  n = n * 3;\n}\nconsole.log(n);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "27",
+          "es": "27"
+        },
+        "why": {
+          "en": "When `n` is `27`, `27 < 50` is still true, so the loop multiplies once more.",
+          "es": "Cuando `n` vale `27`, `27 < 50` sigue siendo verdadero, así que el bucle multiplica una vez más."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "81",
+          "es": "81"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "50",
+          "es": "50"
+        },
+        "why": {
+          "en": "The loop never sets `n` to `50`: it multiplies by 3 (1, 3, 9, 27, 81) and stops when the condition is false.",
+          "es": "El bucle nunca pone `n` a `50`: multiplica por 3 (1, 3, 9, 27, 81) y para cuando la condición es falsa."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "243",
+          "es": "243"
+        },
+        "why": {
+          "en": "When `n` is `81`, `81 < 50` is false and the loop stops without multiplying again.",
+          "es": "Cuando `n` vale `81`, `81 < 50` es falso y el bucle para sin volver a multiplicar."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`n` goes 1 → 3 → 9 → 27 → 81. Before each round the condition is checked: `27 < 50` is true, so `n` becomes `81`; then `81 < 50` is false and the loop ends. The value printed is the first one that is no longer less than 50.",
+      "es": "`n` pasa por 1 → 3 → 9 → 27 → 81. Antes de cada vuelta se comprueba la condición: `27 < 50` es verdadero, así que `n` pasa a `81`; después, `81 < 50` es falso y el bucle termina. Se muestra el primer valor que ya no es menor que 50."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "81"
+    }
+  },
+  {
+    "id": "s4-q024",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "do-while"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let tries = 5;\ndo {\n  console.log(\"try \" + tries);\n  tries++;\n} while (tries < 3);\nconsole.log(tries);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "try 5\n6",
+          "es": "try 5\n6"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "5",
+          "es": "5"
+        },
+        "why": {
+          "en": "A `do...while` runs its block before checking the condition, so `try 5` is printed and `tries` changes.",
+          "es": "Un `do...while` ejecuta su bloque antes de comprobar la condición, así que se muestra `try 5` y `tries` cambia."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "try 5\n5",
+          "es": "try 5\n5"
+        },
+        "why": {
+          "en": "The block also runs `tries++`, so after it `tries` is `6`.",
+          "es": "El bloque también ejecuta `tries++`, así que después `tries` vale `6`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "try 5\ntry 6\n7",
+          "es": "try 5\ntry 6\n7"
+        },
+        "why": {
+          "en": "After the first round the condition `6 < 3` is false, so the block doesn't repeat.",
+          "es": "Después de la primera vuelta, la condición `6 < 3` es falsa, así que el bloque no se repite."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`do...while` checks the condition at the end, so its block always runs at least once. It prints `try 5`, `tries` becomes `6`, and then `6 < 3` is false, so the loop stops. Finally `6` is printed. A `while` with the same condition wouldn't run at all.",
+      "es": "`do...while` comprueba la condición al final, así que su bloque se ejecuta siempre al menos una vez. Muestra `try 5`, `tries` pasa a `6` y entonces `6 < 3` es falso, así que el bucle para. Por último se muestra `6`. Un `while` con la misma condición no se ejecutaría ninguna vez."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "try 5\n6"
+    }
+  },
+  {
+    "id": "s4-q025",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "while",
+      "increment",
+      "truthy"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let count = 3;\nlet out = \"\";\nwhile (count--) {\n  out += count;\n}\nconsole.log(out);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "321",
+          "es": "321"
+        },
+        "why": {
+          "en": "`count--` returns the old value but subtracts 1 straight away, so inside the block `count` is already one less.",
+          "es": "`count--` devuelve el valor antiguo pero resta 1 enseguida, así que dentro del bloque `count` ya vale uno menos."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "210",
+          "es": "210"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "3210",
+          "es": "3210"
+        },
+        "why": {
+          "en": "When `count--` returns `0`, the condition is falsy and the block doesn't run.",
+          "es": "Cuando `count--` devuelve `0`, la condición es falsy y el bloque no se ejecuta."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "21",
+          "es": "21"
+        },
+        "why": {
+          "en": "The condition `1` (truthy) still lets the block run once more, with `count` already at `0`.",
+          "es": "La condición `1` (truthy) todavía deja que el bloque se ejecute una vez más, con `count` ya a `0`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`count--` gives the current value to the condition and then subtracts 1. Round 1: condition `3`, `count` is `2` → `\"2\"`. Round 2: condition `2`, `count` `1` → `\"21\"`. Round 3: condition `1`, `count` `0` → `\"210\"`. Then the condition is `0`, which is falsy, and the loop stops.",
+      "es": "`count--` da el valor actual a la condición y después resta 1. Vuelta 1: condición `3`, `count` vale `2` → `\"2\"`. Vuelta 2: condición `2`, `count` `1` → `\"21\"`. Vuelta 3: condición `1`, `count` `0` → `\"210\"`. Después la condición es `0`, que es falsy, y el bucle para."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "210"
+    }
+  },
+  {
+    "id": "s4-q026",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "while",
+      "break",
+      "arrays"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let numbers = [4, 9, 15, 22, 30];\nlet i = 0;\nwhile (i < numbers.length) {\n  if (numbers[i] > 10) {\n    break;\n  }\n  i++;\n}\nconsole.log(i, numbers[i]);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "3 22",
+          "es": "3 22"
+        },
+        "why": {
+          "en": "`break` leaves the loop before `i++`, so `i` stays at the position of `15`.",
+          "es": "`break` sale del bucle antes de `i++`, así que `i` se queda en la posición del `15`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "5 undefined",
+          "es": "5 undefined"
+        },
+        "why": {
+          "en": "The loop doesn't reach the end: `break` stops it at the first number greater than 10.",
+          "es": "El bucle no llega al final: `break` lo para en el primer número mayor que 10."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1 9",
+          "es": "1 9"
+        },
+        "why": {
+          "en": "`9` isn't greater than `10`, so the loop goes on to the next position.",
+          "es": "`9` no es mayor que `10`, así que el bucle sigue con la posición siguiente."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "2 15",
+          "es": "2 15"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "The loop looks for the first number greater than 10. At `i = 2`, `numbers[2]` is `15`, so `break` ends the loop straight away, before `i++`. After the loop, `i` is `2` and `numbers[2]` is `15`.",
+      "es": "El bucle busca el primer número mayor que 10. Con `i = 2`, `numbers[2]` vale `15`, así que `break` termina el bucle enseguida, antes de `i++`. Después del bucle, `i` vale `2` y `numbers[2]` vale `15`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "2 15"
+    }
+  },
+  {
+    "id": "s4-q027",
+    "section": 4,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "while",
+      "continue",
+      "infinite-loop"
+    ],
+    "courseRef": "05_Bucles",
+    "prompt": {
+      "en": "Which of these loops never ends?",
+      "es": "¿Cuál de estos bucles no termina nunca?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`let i = 0; while (i < 3) { if (i === 1) continue; i++; }`",
+          "es": "`let i = 0; while (i < 3) { if (i === 1) continue; i++; }`"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`let i = 0; while (i < 3) { i++; }`",
+          "es": "`let i = 0; while (i < 3) { i++; }`"
+        },
+        "why": {
+          "en": "`i` goes up to `3`, then `3 < 3` is false and the loop ends.",
+          "es": "`i` sube hasta `3`; entonces `3 < 3` es falso y el bucle termina."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`let i = 0; do { i++; } while (i < 3);`",
+          "es": "`let i = 0; do { i++; } while (i < 3);`"
+        },
+        "why": {
+          "en": "The block increases `i` every round, so after three rounds `3 < 3` is false.",
+          "es": "El bloque aumenta `i` en cada vuelta, así que tras tres vueltas `3 < 3` es falso."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`let i = 5; while (i < 3) { i--; }`",
+          "es": "`let i = 5; while (i < 3) { i--; }`"
+        },
+        "why": {
+          "en": "`5 < 3` is false from the start, so the block never runs and the loop ends immediately.",
+          "es": "`5 < 3` es falso desde el principio, así que el bloque no se ejecuta nunca y el bucle termina enseguida."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "When `i` reaches `1`, `continue` jumps straight back to the condition and skips `i++`. So `i` stays at `1` forever and `1 < 3` is always true. In a `while`, put the update before any `continue`. (A `for` doesn't have this problem: its update runs even after `continue`.)",
+      "es": "Cuando `i` llega a `1`, `continue` vuelve directamente a la condición y se salta `i++`. Así que `i` se queda en `1` para siempre y `1 < 3` siempre es verdadero. En un `while`, pon la actualización antes de cualquier `continue`. (Un `for` no tiene este problema: su actualización se ejecuta aunque haya un `continue`.)"
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q028",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "while",
+      "scope"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let total = 0;\nwhile (total < 10) {\n  let step = 4;\n  total += step;\n}\nconsole.log(total, step);",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `12 4`",
+          "es": "Muestra `12 4`"
+        },
+        "why": {
+          "en": "`step` was declared with `let` inside the loop block, so it doesn't exist outside it.",
+          "es": "`step` se declaró con `let` dentro del bloque del bucle, así que fuera de él no existe."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `12 undefined`",
+          "es": "Muestra `12 undefined`"
+        },
+        "why": {
+          "en": "That would happen with `var`. A `let` variable used outside its block throws an error instead.",
+          "es": "Eso pasaría con `var`. Una variable `let` usada fuera de su bloque lanza un error."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `ReferenceError` on line 6",
+          "es": "Un `ReferenceError` en la línea 6"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "The loop never ends",
+          "es": "El bucle no termina nunca"
+        },
+        "why": {
+          "en": "`total` grows by 4 every round (4, 8, 12), so `total < 10` becomes false.",
+          "es": "`total` crece 4 en cada vuelta (4, 8, 12), así que `total < 10` acaba siendo falso."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "The loop runs three times (`total` is 4, 8 and 12) and ends. But `step` was declared with `let` inside the `{ }` of the `while`, so it only exists there. On line 6 it's unknown: `ReferenceError: step is not defined`.",
+      "es": "El bucle se ejecuta tres veces (`total` vale 4, 8 y 12) y termina. Pero `step` se declaró con `let` dentro de las `{ }` del `while`, así que solo existe ahí. En la línea 6 no se conoce: `ReferenceError: step is not defined`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "ReferenceError",
+      "line": 6
+    }
+  },
+  {
+    "id": "s4-q029",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 1,
+    "tags": [
+      "do-while"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let k = 1;\ndo {\n  console.log(k);\n  k++;\n} while (___);",
+    "prompt": {
+      "en": "Fill the gap so that the code prints `1`, `2` and `3`, one per line.",
+      "es": "Completa el hueco para que el código muestre `1`, `2` y `3`, uno por línea."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "k < 3",
+          "es": "k < 3"
+        },
+        "why": {
+          "en": "When `k` reaches `3`, `3 < 3` is false, so `3` is never printed.",
+          "es": "Cuando `k` llega a `3`, `3 < 3` es falso, así que `3` no llega a mostrarse."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "k <= 3",
+          "es": "k <= 3"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "k > 3",
+          "es": "k > 3"
+        },
+        "why": {
+          "en": "The block runs once (prints `1`), then `2 > 3` is false and the loop stops.",
+          "es": "El bloque se ejecuta una vez (muestra `1`); después `2 > 3` es falso y el bucle para."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "k <= 4",
+          "es": "k <= 4"
+        },
+        "why": {
+          "en": "This also prints `4`: when `k` is `4`, `4 <= 4` is still true.",
+          "es": "Así también se muestra `4`: cuando `k` vale `4`, `4 <= 4` sigue siendo verdadero."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "The condition is checked after `k++`. After printing `3`, `k` is `4` and `4 <= 3` is false, so the loop stops. With `k <= 3` the block runs for `k` = 1, 2 and 3.",
+      "es": "La condición se comprueba después de `k++`. Tras mostrar `3`, `k` vale `4` y `4 <= 3` es falso, así que el bucle para. Con `k <= 3`, el bloque se ejecuta para `k` = 1, 2 y 3."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "1\n2\n3"
+    }
+  },
+  {
+    "id": "s4-q030",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "while",
+      "break",
+      "nested"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let out = \"\";\nlet row = 1;\nwhile (row <= 3) {\n  let col = 1;\n  while (col <= 3) {\n    if (col > row) break;\n    out += col;\n    col++;\n  }\n  out += \"|\";\n  row++;\n}\nconsole.log(out);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "1|",
+          "es": "1|"
+        },
+        "why": {
+          "en": "`break` only leaves the inner loop. The outer loop keeps going with `row` = 2 and 3.",
+          "es": "`break` solo sale del bucle de dentro. El de fuera sigue con `row` = 2 y 3."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "123|123|123|",
+          "es": "123|123|123|"
+        },
+        "why": {
+          "en": "The `break` stops the inner loop as soon as `col` is greater than `row`.",
+          "es": "El `break` para el bucle de dentro en cuanto `col` es mayor que `row`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1|2|3|",
+          "es": "1|2|3|"
+        },
+        "why": {
+          "en": "The inner loop starts again at `col = 1` in every row, so each row adds `1`, `12`, `123`.",
+          "es": "El bucle de dentro vuelve a empezar en `col = 1` en cada fila, así que cada fila añade `1`, `12`, `123`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "1|12|123|",
+          "es": "1|12|123|"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "In nested loops, `break` only stops the loop it's written in (here, the inner one). For each `row`, the inner loop adds the numbers from 1 to `row` and then `break` stops it. After that, the outer loop adds `|` and continues: `1|`, `12|`, `123|`.",
+      "es": "En bucles anidados, `break` solo para el bucle en el que está escrito (aquí, el de dentro). Para cada `row`, el bucle de dentro añade los números del 1 al valor de `row` y después `break` lo para. Luego el bucle de fuera añade `|` y continúa: `1|`, `12|`, `123|`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "1|12|123|"
+    }
+  },
+  {
+    "id": "s4-q031",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "while",
+      "continue",
+      "strings"
+    ],
+    "courseRef": "04_Condicionales",
+    "code": "let text = \"a-b-c\";\nlet clean = \"\";\nlet i = 0;\nwhile (i < text.length) {\n  let ch = text[i];\n  i++;\n  if (ch === \"-\") ___;\n  clean += ch;\n}\nconsole.log(clean);",
+    "prompt": {
+      "en": "Fill the gap so that the code prints `abc`.",
+      "es": "Completa el hueco para que el código muestre `abc`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "break",
+          "es": "break"
+        },
+        "why": {
+          "en": "`break` ends the whole loop at the first `-`, so only `a` is printed.",
+          "es": "`break` termina todo el bucle en el primer `-`, así que solo se muestra `a`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "i++",
+          "es": "i++"
+        },
+        "why": {
+          "en": "`i++` skips the next character but doesn't stop the `-` from being added: it prints `a--`.",
+          "es": "`i++` se salta el carácter siguiente, pero no evita que se añada el `-`: muestra `a--`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "clean += ch",
+          "es": "clean += ch"
+        },
+        "why": {
+          "en": "This adds the `-` twice instead of skipping it: it prints `a--b--c`.",
+          "es": "Así el `-` se añade dos veces en vez de saltárselo: muestra `a--b--c`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "continue",
+          "es": "continue"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`continue` skips the rest of the current round and goes back to the condition. When `ch` is `-`, the line `clean += ch` is skipped. Here it's safe because `i++` runs before the `continue`, so the loop always moves forward.",
+      "es": "`continue` se salta el resto de la vuelta actual y vuelve a la condición. Cuando `ch` es `-`, la línea `clean += ch` se salta. Aquí no hay peligro porque `i++` se ejecuta antes del `continue`, así que el bucle siempre avanza."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "abc"
+    }
+  },
+  {
+    "id": "s4-q032",
+    "section": 4,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 1,
+    "tags": [
+      "break",
+      "continue"
+    ],
+    "courseRef": "04_Condicionales",
+    "prompt": {
+      "en": "Which statements about `break` and `continue` are true? (Choose two.)",
+      "es": "¿Qué afirmaciones sobre `break` y `continue` son verdaderas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`continue` starts the loop again from its first iteration",
+          "es": "`continue` vuelve a empezar el bucle desde la primera iteración"
+        },
+        "why": {
+          "en": "`continue` doesn't reset anything: the counter keeps its value and the loop goes on with the next iteration.",
+          "es": "`continue` no reinicia nada: el contador conserva su valor y el bucle sigue con la iteración siguiente."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `break` inside an inner loop also ends the outer loop",
+          "es": "Un `break` dentro de un bucle interior también termina el bucle exterior"
+        },
+        "why": {
+          "en": "`break` only ends the loop (or `switch`) it's written in. The outer loop keeps going.",
+          "es": "`break` solo termina el bucle (o el `switch`) en el que está escrito. El bucle exterior sigue."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`break` ends the loop and the program continues after it",
+          "es": "`break` termina el bucle y el programa sigue después de él"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`break` can only be used in `while` loops",
+          "es": "`break` solo se puede usar en bucles `while`"
+        },
+        "why": {
+          "en": "`break` works in every loop (`for`, `while`, `do...while`, `for...in`, `for...of`) and in `switch`.",
+          "es": "`break` funciona en todos los bucles (`for`, `while`, `do...while`, `for...in`, `for...of`) y en `switch`."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`continue` skips the rest of the current iteration and moves on to the next one",
+          "es": "`continue` se salta el resto de la iteración actual y pasa a la siguiente"
+        }
+      }
+    ],
+    "answer": [
+      "C",
+      "E"
+    ],
+    "explanation": {
+      "en": "`break` leaves the loop completely; `continue` only abandons the current iteration and the loop goes on with the next one. Both affect only the loop they're written in.",
+      "es": "`break` sale del bucle por completo; `continue` solo abandona la iteración actual y el bucle sigue con la siguiente. Los dos afectan solo al bucle en el que están escritos."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q033",
+    "section": 4,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 2,
+    "tags": [
+      "while",
+      "iteration"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let level = 1;\nlet xp = 0;\nwhile (xp < 100) {\n  xp += 30;\n  level++;\n}\nconsole.log(level, xp);",
+    "prompt": {
+      "en": "How many times does the body of the loop run?",
+      "es": "¿Cuántas veces se ejecuta el cuerpo del bucle?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "4",
+          "es": "4"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "After three rounds `xp` is `90`, and `90 < 100` is still true, so there's one more round.",
+          "es": "Tras tres vueltas, `xp` vale `90`, y `90 < 100` sigue siendo verdadero, así que hay una vuelta más."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "5",
+          "es": "5"
+        },
+        "why": {
+          "en": "`5` is the final value of `level`, which started at `1`, not the number of rounds.",
+          "es": "`5` es el valor final de `level`, que empezaba en `1`, no el número de vueltas."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It never ends",
+          "es": "No termina nunca"
+        },
+        "why": {
+          "en": "`xp` grows by 30 in every round, so it eventually reaches `100` or more.",
+          "es": "`xp` crece 30 en cada vuelta, así que acaba llegando a `100` o más."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`xp` takes the values 30, 60, 90 and 120. The condition is checked before each round: with `90` it's still true, with `120` it's false. That's 4 rounds, and the code prints `5 120` (`level` started at 1).",
+      "es": "`xp` toma los valores 30, 60, 90 y 120. La condición se comprueba antes de cada vuelta: con `90` sigue siendo verdadera; con `120`, falsa. Son 4 vueltas, y el código muestra `5 120` (`level` empezaba en 1)."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "5 120"
+    }
+  },
+  {
+    "id": "s4-q034",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "for"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let s = \"\";\nfor (let i = 0; i < 5; i += 2) {\n  s += i;\n}\nconsole.log(s);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "0246",
+          "es": "0246"
+        },
+        "why": {
+          "en": "When `i` is `6`, `6 < 5` is false, so `6` is never added.",
+          "es": "Cuando `i` vale `6`, `6 < 5` es falso, así que el `6` no se añade."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "02",
+          "es": "02"
+        },
+        "why": {
+          "en": "`4 < 5` is still true, so `4` is added too.",
+          "es": "`4 < 5` sigue siendo verdadero, así que también se añade el `4`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "024",
+          "es": "024"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "6",
+          "es": "6"
+        },
+        "why": {
+          "en": "`s` is a string, so `s += i` joins the digits instead of adding them up.",
+          "es": "`s` es un string, así que `s += i` une los dígitos en vez de sumarlos."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`i` starts at 0 and grows by 2 each round: 0, 2, 4. When it becomes `6`, `6 < 5` is false and the loop ends. As `s` is a string, `+=` joins the numbers: `\"024\"`.",
+      "es": "`i` empieza en 0 y crece de 2 en 2 en cada vuelta: 0, 2, 4. Cuando pasa a `6`, `6 < 5` es falso y el bucle termina. Como `s` es un string, `+=` une los números: `\"024\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "024"
+    }
+  },
+  {
+    "id": "s4-q035",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for",
+      "off-by-one",
+      "arrays"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let colors = [\"red\", \"green\", \"blue\"];\nfor (let i = 0; i <= colors.length; i++) {\n  console.log(colors[i]);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "red\ngreen\nblue",
+          "es": "red\ngreen\nblue"
+        },
+        "why": {
+          "en": "With `<=` the loop also runs for `i = 3`, one position past the end of the array.",
+          "es": "Con `<=` el bucle también se ejecuta con `i = 3`, una posición más allá del final del array."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "red\ngreen\nblue\nundefined",
+          "es": "red\ngreen\nblue\nundefined"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "red\ngreen\nblue\nRangeError",
+          "es": "red\ngreen\nblue\nRangeError"
+        },
+        "why": {
+          "en": "Reading a position that doesn't exist isn't an error in JavaScript: it just gives `undefined`.",
+          "es": "Leer una posición que no existe no es un error en JavaScript: simplemente da `undefined`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "red\ngreen",
+          "es": "red\ngreen"
+        },
+        "why": {
+          "en": "`i` starts at `0`, so all three colours are printed before the extra round.",
+          "es": "`i` empieza en `0`, así que se muestran los tres colores antes de la vuelta de más."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "The array has 3 elements, at positions 0, 1 and 2, and `colors.length` is `3`. With `i <= colors.length` the loop also runs with `i = 3`, and `colors[3]` doesn't exist, so `undefined` is printed. This is the classic off-by-one error: to visit each element exactly once, use `i < colors.length`.",
+      "es": "El array tiene 3 elementos, en las posiciones 0, 1 y 2, y `colors.length` vale `3`. Con `i <= colors.length` el bucle también se ejecuta con `i = 3`, y `colors[3]` no existe, así que se muestra `undefined`. Es el típico error por uno (off-by-one): para pasar por cada elemento una sola vez, usa `i < colors.length`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "red\ngreen\nblue\nundefined"
+    }
+  },
+  {
+    "id": "s4-q036",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "for",
+      "scope"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "for (var i = 0; i < 3; i++) {}\nconsole.log(i);\nfor (let j = 0; j < 3; j++) {}\nconsole.log(j);",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `3` and then `3`",
+          "es": "Muestra `3` y después `3`"
+        },
+        "why": {
+          "en": "`j` was declared with `let` in the `for`, so it only exists inside that loop.",
+          "es": "`j` se declaró con `let` en el `for`, así que solo existe dentro de ese bucle."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `2` and then `2`",
+          "es": "Muestra `2` y después `2`"
+        },
+        "why": {
+          "en": "The loop stops when the condition is false, that is, when `i` is already `3`. And `j` doesn't exist outside its loop.",
+          "es": "El bucle para cuando la condición es falsa, es decir, cuando `i` ya vale `3`. Y `j` no existe fuera de su bucle."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "It prints `3`, and then a `ReferenceError` is thrown on line 4",
+          "es": "Muestra `3` y después se lanza un `ReferenceError` en la línea 4"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 2",
+          "es": "Se lanza un `ReferenceError` en la línea 2"
+        },
+        "why": {
+          "en": "`var` ignores the block of the loop, so `i` still exists after it, with the value `3`.",
+          "es": "`var` no respeta el bloque del bucle, así que `i` sigue existiendo después, con el valor `3`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "A `var` declared in a `for` still exists after the loop, with the value that ended it (`3`, because `3 < 3` is false). A `let` declared in a `for` only exists inside the loop, so `console.log(j)` on line 4 throws `ReferenceError: j is not defined`.",
+      "es": "Una variable `var` declarada en un `for` sigue existiendo después del bucle, con el valor que lo terminó (`3`, porque `3 < 3` es falso). Una `let` declarada en un `for` solo existe dentro del bucle, así que `console.log(j)` en la línea 4 lanza `ReferenceError: j is not defined`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "ReferenceError",
+      "line": 4,
+      "match": "line"
+    }
+  },
+  {
+    "id": "s4-q037",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "for"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let out = [];\nfor (let i = 1; i < 20; ___) {\n  out.push(i);\n}\nconsole.log(out.join(\",\"));",
+    "prompt": {
+      "en": "Fill the gap so that the code prints `1,2,4,8,16`.",
+      "es": "Completa el hueco para que el código muestre `1,2,4,8,16`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "i += 2",
+          "es": "i += 2"
+        },
+        "why": {
+          "en": "Adding 2 each time gives 1, 3, 5… (the odd numbers), not powers of 2.",
+          "es": "Sumar 2 cada vez da 1, 3, 5… (los impares), no potencias de 2."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "i++",
+          "es": "i++"
+        },
+        "why": {
+          "en": "`i++` adds 1, so every number from 1 to 19 is pushed.",
+          "es": "`i++` suma 1, así que se añaden todos los números del 1 al 19."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "i *= 2",
+          "es": "i *= 2"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "i += 3",
+          "es": "i += 3"
+        },
+        "why": {
+          "en": "Adding 3 gives 1, 4, 7, 10…, not values that double each time.",
+          "es": "Sumar 3 da 1, 4, 7, 10…, no valores que se doblan cada vez."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "Each value is double the previous one, so the update must be `i *= 2` (the same as `i = i * 2`). `i` takes 1, 2, 4, 8 and 16; then `32 < 20` is false and the loop ends.",
+      "es": "Cada valor es el doble del anterior, así que la actualización tiene que ser `i *= 2` (lo mismo que `i = i * 2`). `i` toma 1, 2, 4, 8 y 16; después `32 < 20` es falso y el bucle termina."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "1,2,4,8,16"
+    }
+  },
+  {
+    "id": "s4-q038",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "for",
+      "nested"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let pairs = 0;\nfor (let i = 1; i <= 3; i++) {\n  for (let j = i; j <= 3; j++) {\n    pairs++;\n  }\n}\nconsole.log(pairs);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "9",
+          "es": "9"
+        },
+        "why": {
+          "en": "That would happen if the inner loop always started at 1. Here it starts at `i`, so it does fewer rounds each time.",
+          "es": "Eso pasaría si el bucle de dentro empezara siempre en 1. Aquí empieza en `i`, así que cada vez da menos vueltas."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "`pairs++` is in the inner loop, so it runs several times for each value of `i`.",
+          "es": "`pairs++` está en el bucle de dentro, así que se ejecuta varias veces por cada valor de `i`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "4",
+          "es": "4"
+        },
+        "why": {
+          "en": "Count the inner rounds for each `i`: 3, then 2, then 1.",
+          "es": "Cuenta las vueltas de dentro para cada `i`: 3, después 2 y después 1."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "6",
+          "es": "6"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "The inner loop runs from `j = i` to 3. With `i = 1` it does 3 rounds (j = 1, 2, 3), with `i = 2` it does 2, and with `i = 3` it does 1. In total `pairs++` runs 3 + 2 + 1 = 6 times.",
+      "es": "El bucle de dentro va de `j = i` hasta 3. Con `i = 1` da 3 vueltas (j = 1, 2, 3); con `i = 2`, 2, y con `i = 3`, 1. En total `pairs++` se ejecuta 3 + 2 + 1 = 6 veces."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "6"
+    }
+  },
+  {
+    "id": "s4-q039",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "for",
+      "continue"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let result = \"\";\nfor (let i = 1; i <= 6; i++) {\n  if (i % 3 === 0) continue;\n  result += i;\n}\nconsole.log(result);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "12",
+          "es": "12"
+        },
+        "why": {
+          "en": "`continue` doesn't stop the loop: it only skips that round, and the loop goes on with `i = 4`.",
+          "es": "`continue` no para el bucle: solo se salta esa vuelta, y el bucle sigue con `i = 4`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "36",
+          "es": "36"
+        },
+        "why": {
+          "en": "It's the other way round: `continue` skips the multiples of 3, so they're the ones that are not added.",
+          "es": "Es al revés: `continue` se salta los múltiplos de 3, así que son esos los que no se añaden."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1245",
+          "es": "1245"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "123456",
+          "es": "123456"
+        },
+        "why": {
+          "en": "When `i % 3 === 0` (for 3 and 6), `continue` skips the line that adds the number.",
+          "es": "Cuando `i % 3 === 0` (con 3 y 6), `continue` se salta la línea que añade el número."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "For 3 and 6, `i % 3 === 0` is true and `continue` jumps to the next round without running `result += i`. In a `for`, the update `i++` still runs after `continue`. The other numbers are added: `\"1245\"`.",
+      "es": "Con 3 y 6, `i % 3 === 0` es verdadero y `continue` salta a la vuelta siguiente sin ejecutar `result += i`. En un `for`, la actualización `i++` se ejecuta igualmente después de `continue`. Los demás números se añaden: `\"1245\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "1245"
+    }
+  },
+  {
+    "id": "s4-q040",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "for",
+      "const"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let letters = [\"x\", \"y\", \"z\"];\nfor (const i = 0; i < letters.length; i++) {\n  console.log(letters[i]);\n}",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `x`, `y` and `z`",
+          "es": "Muestra `x`, `y` y `z`"
+        },
+        "why": {
+          "en": "`i++` tries to change `i`, and a `const` can't be reassigned.",
+          "es": "`i++` intenta cambiar `i`, y una `const` no se puede reasignar."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `SyntaxError` before anything is printed",
+          "es": "Un `SyntaxError` antes de mostrar nada"
+        },
+        "why": {
+          "en": "`const` in the first part of a `for` is valid syntax. The problem only appears when `i++` runs.",
+          "es": "`const` en la primera parte de un `for` es sintaxis válida. El problema solo aparece cuando se ejecuta `i++`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "It prints `x`, and then a `TypeError` is thrown on line 2",
+          "es": "Muestra `x` y después se lanza un `TypeError` en la línea 2"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `x` forever",
+          "es": "Muestra `x` sin parar"
+        },
+        "why": {
+          "en": "`i` can't stay at `0` silently: trying to change a `const` throws an error and stops the program.",
+          "es": "`i` no puede quedarse en `0` sin más: intentar cambiar una `const` lanza un error y para el programa."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "The first round runs normally and prints `x`. Then `i++` tries to change `i`, which is a `const`, and throws `TypeError: Assignment to constant variable.` on line 2. In a classic `for`, the counter must be declared with `let`.",
+      "es": "La primera vuelta se ejecuta con normalidad y muestra `x`. Después, `i++` intenta cambiar `i`, que es una `const`, y lanza `TypeError: Assignment to constant variable.` en la línea 2. En un `for` clásico, el contador se declara con `let`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "TypeError",
+      "line": 2
+    }
+  },
+  {
+    "id": "s4-q041",
+    "section": 4,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "for",
+      "off-by-one"
+    ],
+    "courseRef": "05_Bucles",
+    "prompt": {
+      "en": "Which loops print `0`, `1` and `2`, one per line and in that order? (Choose two.)",
+      "es": "¿Qué bucles muestran `0`, `1` y `2`, uno por línea y en ese orden? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`for (let i = 0; i <= 3; i++) console.log(i);`",
+          "es": "`for (let i = 0; i <= 3; i++) console.log(i);`"
+        },
+        "why": {
+          "en": "With `<=` the loop also runs for `i = 3`, so it prints `3` too.",
+          "es": "Con `<=` el bucle también se ejecuta con `i = 3`, así que muestra también `3`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`for (let i = 0; i < 3; i++) console.log(i);`",
+          "es": "`for (let i = 0; i < 3; i++) console.log(i);`"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`for (let i = 2; i >= 0; i--) console.log(i);`",
+          "es": "`for (let i = 2; i >= 0; i--) console.log(i);`"
+        },
+        "why": {
+          "en": "It prints the right numbers but in reverse order: `2`, `1`, `0`.",
+          "es": "Muestra los números correctos, pero al revés: `2`, `1`, `0`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`for (let i = 1; i <= 3; i++) console.log(i - 1);`",
+          "es": "`for (let i = 1; i <= 3; i++) console.log(i - 1);`"
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`for (let i = 0; i < 3; i += 2) console.log(i);`",
+          "es": "`for (let i = 0; i < 3; i += 2) console.log(i);`"
+        },
+        "why": {
+          "en": "`i += 2` jumps from `0` to `2`, so `1` is never printed.",
+          "es": "`i += 2` salta de `0` a `2`, así que `1` no se muestra."
+        }
+      }
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": {
+      "en": "`i < 3` starting at 0 gives 0, 1, 2. Starting at 1 with `i <= 3` gives 1, 2, 3, and printing `i - 1` turns them into 0, 1, 2. Both loops do 3 rounds; the others do a different number of rounds or go in a different order.",
+      "es": "`i < 3` empezando en 0 da 0, 1, 2. Empezando en 1 con `i <= 3` da 1, 2, 3, y al mostrar `i - 1` se convierten en 0, 1, 2. Los dos bucles dan 3 vueltas; los demás dan otro número de vueltas o van en otro orden."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q042",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "for",
+      "nested",
+      "arrays"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let grid = [\n  [1, 2, 3],\n  [4, 5, 6]\n];\nlet sum = 0;\nfor (let r = 0; r < grid.length; r++) {\n  for (let c = 0; c < grid[r].length; c++) {\n    if (r === c) sum += grid[r][c];\n  }\n}\nconsole.log(sum);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "6",
+          "es": "6"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "21",
+          "es": "21"
+        },
+        "why": {
+          "en": "That's the sum of every number. The `if` only adds the cells where the row and the column are equal.",
+          "es": "Esa es la suma de todos los números. El `if` solo suma las celdas en las que la fila y la columna coinciden."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "`r === c` is also true for row 1, column 1, which holds `5`.",
+          "es": "`r === c` también se cumple en la fila 1, columna 1, donde está el `5`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "15",
+          "es": "15"
+        },
+        "why": {
+          "en": "`grid[1][1]` is `5` and `grid[0][0]` is `1`. There's no position `[2][2]`: `grid` only has 2 rows.",
+          "es": "`grid[1][1]` vale `5` y `grid[0][0]` vale `1`. No existe la posición `[2][2]`: `grid` solo tiene 2 filas."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "The outer loop goes through the rows (`r` = 0, 1) and the inner one through the columns of each row (`c` = 0, 1, 2). Only `grid[0][0]` (1) and `grid[1][1]` (5) have `r === c`, so `sum` is `6`.",
+      "es": "El bucle de fuera recorre las filas (`r` = 0, 1) y el de dentro, las columnas de cada fila (`c` = 0, 1, 2). Solo `grid[0][0]` (1) y `grid[1][1]` (5) cumplen `r === c`, así que `sum` vale `6`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "6"
+    }
+  },
+  {
+    "id": "s4-q043",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for",
+      "break"
+    ],
+    "courseRef": "05_Bucles",
+    "code": "let n = 0;\nfor (;;) {\n  n += 5;\n  if (n > 12) break;\n}\nconsole.log(n);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "10",
+          "es": "10"
+        },
+        "why": {
+          "en": "With `n = 10`, `10 > 12` is false, so the loop adds 5 once more before stopping.",
+          "es": "Con `n = 10`, `10 > 12` es falso, así que el bucle suma 5 una vez más antes de parar."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "12",
+          "es": "12"
+        },
+        "why": {
+          "en": "`n` grows in steps of 5 (5, 10, 15), so it never takes the value `12`.",
+          "es": "`n` crece de 5 en 5 (5, 10, 15), así que nunca vale `12`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "The three parts of a `for` are optional, so `for (;;)` is valid: it's a loop with no condition.",
+          "es": "Las tres partes de un `for` son opcionales, así que `for (;;)` es válido: es un bucle sin condición."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "15",
+          "es": "15"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`for (;;)` has no start, no condition and no update, so it would repeat forever. Here `break` stops it: `n` takes 5, 10 and 15, and `15 > 12` ends the loop. The two semicolons are still required.",
+      "es": "`for (;;)` no tiene inicio, ni condición, ni actualización, así que se repetiría para siempre. Aquí lo para `break`: `n` toma 5, 10 y 15, y `15 > 12` termina el bucle. Los dos puntos y coma siguen siendo obligatorios."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "15"
+    }
+  },
+  {
+    "id": "s4-q044",
+    "section": 4,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 1,
+    "tags": [
+      "for"
+    ],
+    "courseRef": "05_Bucles",
+    "prompt": {
+      "en": "In `for (let i = 0; i < 3; i++) { … }`, when does `i++` run?",
+      "es": "En `for (let i = 0; i < 3; i++) { … }`, ¿cuándo se ejecuta `i++`?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Before each iteration, before the block",
+          "es": "Antes de cada iteración, antes del bloque"
+        },
+        "why": {
+          "en": "If it ran first, the first iteration would use `i = 1` instead of `0`.",
+          "es": "Si se ejecutara primero, la primera iteración usaría `i = 1` en vez de `0`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Only once, when the loop starts",
+          "es": "Solo una vez, cuando empieza el bucle"
+        },
+        "why": {
+          "en": "That's the first part, `let i = 0`. The third part runs after every iteration.",
+          "es": "Eso es la primera parte, `let i = 0`. La tercera parte se ejecuta después de cada iteración."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "After each iteration, before the condition is checked again",
+          "es": "Después de cada iteración, antes de volver a comprobar la condición"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Only when the condition becomes false",
+          "es": "Solo cuando la condición pasa a ser falsa"
+        },
+        "why": {
+          "en": "When the condition is false the loop ends; the update is what makes the condition change.",
+          "es": "Cuando la condición es falsa el bucle termina; la actualización es justo lo que hace que la condición cambie."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "A `for` works in this order: the start (`let i = 0`) runs once; then the condition is checked; if it's true the block runs, then the update (`i++`), and back to the condition. When the condition is false the loop ends.",
+      "es": "Un `for` funciona en este orden: el inicio (`let i = 0`) se ejecuta una vez; después se comprueba la condición; si es verdadera, se ejecuta el bloque, luego la actualización (`i++`) y se vuelve a la condición. Cuando la condición es falsa, el bucle termina."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q045",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "for-in",
+      "objects"
+    ],
+    "courseRef": "10_Objetos",
+    "code": "let pet = { name: \"Rex\", age: 4 };\nfor (let key in pet) {\n  console.log(key);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Rex\n4",
+          "es": "Rex\n4"
+        },
+        "why": {
+          "en": "`for...in` gives you the keys (property names), not the values. For the values you'd write `pet[key]`.",
+          "es": "`for...in` te da las claves (los nombres de las propiedades), no los valores. Para los valores escribirías `pet[key]`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "name\nage",
+          "es": "name\nage"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "name: Rex\nage: 4",
+          "es": "name: Rex\nage: 4"
+        },
+        "why": {
+          "en": "The loop only prints `key`. To get `name: Rex` you'd have to join the key and `pet[key]`.",
+          "es": "El bucle solo muestra `key`. Para obtener `name: Rex` habría que unir la clave y `pet[key]`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "TypeError",
+          "es": "TypeError"
+        },
+        "why": {
+          "en": "`for...in` is made for objects, so there's no error. The one that fails with plain objects is `for...of`.",
+          "es": "`for...in` está pensado para objetos, así que no hay error. El que falla con objetos normales es `for...of`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`for...in` goes through the keys of an object. In each round `key` holds one property name as a string: first `\"name\"`, then `\"age\"`.",
+      "es": "`for...in` recorre las claves de un objeto. En cada vuelta, `key` contiene el nombre de una propiedad como string: primero `\"name\"` y después `\"age\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "name\nage"
+    }
+  },
+  {
+    "id": "s4-q046",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for-in",
+      "objects"
+    ],
+    "courseRef": "10_Objetos",
+    "code": "let book = { title: \"Dune\", pages: 412 };\nfor (let key in book) {\n  console.log(book.key);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "undefined\nundefined",
+          "es": "undefined\nundefined"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Dune\n412",
+          "es": "Dune\n412"
+        },
+        "why": {
+          "en": "`book.key` looks for a property literally called `key`, not for the property whose name is stored in `key`.",
+          "es": "`book.key` busca una propiedad que se llame literalmente `key`, no la propiedad cuyo nombre está guardado en `key`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "title\npages",
+          "es": "title\npages"
+        },
+        "why": {
+          "en": "The loop prints `book.key`, not `key`.",
+          "es": "El bucle muestra `book.key`, no `key`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "ReferenceError",
+          "es": "ReferenceError"
+        },
+        "why": {
+          "en": "Reading a property that doesn't exist isn't an error: it gives `undefined`.",
+          "es": "Leer una propiedad que no existe no es un error: da `undefined`."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "With dot notation, the name after the dot is taken literally: `book.key` means «the property called `key`», which doesn't exist, so it's `undefined` in both rounds. To use the name stored in a variable you need square brackets: `book[key]`.",
+      "es": "Con la notación de punto, el nombre que va detrás del punto se toma al pie de la letra: `book.key` significa «la propiedad que se llama `key`», que no existe, así que da `undefined` en las dos vueltas. Para usar el nombre guardado en una variable hacen falta corchetes: `book[key]`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "undefined\nundefined"
+    }
+  },
+  {
+    "id": "s4-q047",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "for-in",
+      "arrays"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let nums = [10, 20, 30];\nlet total = 0;\nfor (let i in nums) {\n  total += i;\n}\nconsole.log(total);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "60",
+          "es": "60"
+        },
+        "why": {
+          "en": "`for...in` gives the positions, not the values, so `10`, `20` and `30` are never added.",
+          "es": "`for...in` da las posiciones, no los valores, así que `10`, `20` y `30` no se suman nunca."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "The positions are `\"0\"`, `\"1\"` and `\"2\"`, but as strings: `+` joins them instead of adding them.",
+          "es": "Las posiciones son `\"0\"`, `\"1\"` y `\"2\"`, pero como strings: `+` las une en vez de sumarlas."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "0012",
+          "es": "0012"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "012",
+          "es": "012"
+        },
+        "why": {
+          "en": "`total` starts as the number `0`, and that `0` stays at the front: `0 + \"0\"` is already `\"00\"`.",
+          "es": "`total` empieza siendo el número `0`, y ese `0` se queda delante: `0 + \"0\"` ya da `\"00\"`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "With an array, `for...in` gives the indexes, and it gives them as strings: `\"0\"`, `\"1\"`, `\"2\"`. So `0 + \"0\"` is `\"00\"` (number + string joins), then `\"001\"` and `\"0012\"`. To go through the values of an array, use `for...of` or a classic `for`.",
+      "es": "Con un array, `for...in` da los índices, y los da como strings: `\"0\"`, `\"1\"`, `\"2\"`. Así que `0 + \"0\"` da `\"00\"` (número + string se unen), luego `\"001\"` y `\"0012\"`. Para recorrer los valores de un array, usa `for...of` o un `for` clásico."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "0012"
+    }
+  },
+  {
+    "id": "s4-q048",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 1,
+    "tags": [
+      "trap",
+      "for-in",
+      "objects"
+    ],
+    "courseRef": "10_Objetos",
+    "code": "let cart = { apples: 3, pears: 2, plums: 5 };\nlet items = 0;\nfor (let fruit ___ cart) {\n  items += cart[fruit];\n}\nconsole.log(items);",
+    "prompt": {
+      "en": "Fill the gap so that the code prints `10`.",
+      "es": "Completa el hueco para que el código muestre `10`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "of",
+          "es": "of"
+        },
+        "why": {
+          "en": "A plain object isn't iterable, so `for...of` throws `TypeError: cart is not iterable`.",
+          "es": "Un objeto normal no es iterable, así que `for...of` lanza `TypeError: cart is not iterable`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "from",
+          "es": "from"
+        },
+        "why": {
+          "en": "`from` isn't valid in a `for`: it's a `SyntaxError`.",
+          "es": "`from` no es válido en un `for`: da `SyntaxError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "=",
+          "es": "="
+        },
+        "why": {
+          "en": "`for (let fruit = cart)` is missing the condition and the update of a classic `for`: it's a `SyntaxError`.",
+          "es": "A `for (let fruit = cart)` le faltan la condición y la actualización de un `for` clásico: da `SyntaxError`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "in",
+          "es": "in"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "To go through the keys of an object you use `for...in`. `fruit` takes `\"apples\"`, `\"pears\"` and `\"plums\"`, and `cart[fruit]` gives 3, 2 and 5, which add up to `10`.",
+      "es": "Para recorrer las claves de un objeto se usa `for...in`. `fruit` toma `\"apples\"`, `\"pears\"` y `\"plums\"`, y `cart[fruit]` da 3, 2 y 5, que suman `10`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "10"
+    }
+  },
+  {
+    "id": "s4-q049",
+    "section": 4,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "for-in"
+    ],
+    "courseRef": "10_Objetos",
+    "prompt": {
+      "en": "Which statements about `for...in` are true? (Choose two.)",
+      "es": "¿Qué afirmaciones sobre `for...in` son verdaderas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It goes through the keys (property names) of an object",
+          "es": "Recorre las claves (los nombres de las propiedades) de un objeto"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "With an array, the loop variable gets the indexes as strings (`\"0\"`, `\"1\"`…)",
+          "es": "Con un array, la variable del bucle recibe los índices como strings (`\"0\"`, `\"1\"`…)"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "With an array, it gives the values, just like `for...of`",
+          "es": "Con un array, da los valores, igual que `for...of`"
+        },
+        "why": {
+          "en": "With an array, `for...in` gives the indexes, not the values.",
+          "es": "Con un array, `for...in` da los índices, no los valores."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It can only be used with arrays, not with objects",
+          "es": "Solo se puede usar con arrays, no con objetos"
+        },
+        "why": {
+          "en": "It's the opposite: `for...in` is meant for objects. With arrays it works, but `for...of` is the better choice.",
+          "es": "Es al revés: `for...in` está pensado para objetos. Con arrays funciona, pero es mejor `for...of`."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "It always goes through the keys in alphabetical order",
+          "es": "Siempre recorre las claves en orden alfabético"
+        },
+        "why": {
+          "en": "Text keys come out in the order they were added to the object, not alphabetically.",
+          "es": "Las claves de texto salen en el orden en que se añadieron al objeto, no por orden alfabético."
+        }
+      }
+    ],
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": {
+      "en": "`for...in` goes through the keys of an object. Arrays are objects too, so it also works with them, but it gives the indexes as strings, which often causes bugs. For the values of an array, `for...of` is the right loop.",
+      "es": "`for...in` recorre las claves de un objeto. Los arrays también son objetos, así que con ellos también funciona, pero da los índices como strings, lo que suele provocar fallos. Para los valores de un array, el bucle adecuado es `for...of`."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s4-q050",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "for-in",
+      "objects",
+      "if"
+    ],
+    "courseRef": "10_Objetos",
+    "code": "let scores = { ana: 7, luis: 4, eva: 9 };\nlet passed = [];\nfor (let name in scores) {\n  if (scores[name] >= 5) {\n    passed.push(name);\n  }\n}\nconsole.log(passed.join(\", \"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "ana, eva",
+          "es": "ana, eva"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "7, 9",
+          "es": "7, 9"
+        },
+        "why": {
+          "en": "The code pushes `name` (the key), not `scores[name]` (the value).",
+          "es": "El código añade `name` (la clave), no `scores[name]` (el valor)."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "ana, luis, eva",
+          "es": "ana, luis, eva"
+        },
+        "why": {
+          "en": "`scores.luis` is `4`, and `4 >= 5` is false, so `luis` isn't added.",
+          "es": "`scores.luis` vale `4`, y `4 >= 5` es falso, así que `luis` no se añade."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "luis",
+          "es": "luis"
+        },
+        "why": {
+          "en": "The condition keeps the scores of 5 or more, so `luis` (4) is the one left out.",
+          "es": "La condición se queda con las notas de 5 o más, así que `luis` (4) es el que se queda fuera."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`name` takes each key in turn, and `scores[name]` gives its value. Only `ana` (7) and `eva` (9) have 5 or more, so they're the ones pushed into `passed`, which is printed joined with `\", \"`.",
+      "es": "`name` toma cada clave por turnos, y `scores[name]` da su valor. Solo `ana` (7) y `eva` (9) tienen 5 o más, así que son las que se añaden a `passed`, que se muestra unido con `\", \"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "ana, eva"
+    }
+  },
+  {
+    "id": "s4-q051",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for-in",
+      "objects"
+    ],
+    "courseRef": "10_Objetos",
+    "code": "let user = {\n  name: \"Ana\",\n  address: { city: \"Vigo\", zip: \"36201\" }\n};\nlet count = 0;\nfor (let key in user) {\n  count++;\n}\nconsole.log(count);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "`for...in` doesn't go inside nested objects: `address` counts as one key.",
+          "es": "`for...in` no entra en los objetos anidados: `address` cuenta como una sola clave."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "4",
+          "es": "4"
+        },
+        "why": {
+          "en": "`for...in` only counts the keys of `user` itself, not the ones inside `address`.",
+          "es": "`for...in` solo cuenta las claves del propio `user`, no las de dentro de `address`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "2",
+          "es": "2"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "`user` has two keys, `name` and `address`, so the loop runs twice.",
+          "es": "`user` tiene dos claves, `name` y `address`, así que el bucle da dos vueltas."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`for...in` only goes through the keys of the object you give it: `name` and `address`. The value of `address` is another object, but its keys (`city` and `zip`) aren't visited. So `count` is `2`.",
+      "es": "`for...in` solo recorre las claves del objeto que le das: `name` y `address`. El valor de `address` es otro objeto, pero sus claves (`city` y `zip`) no se recorren. Así que `count` vale `2`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "2"
+    }
+  },
+  {
+    "id": "s4-q052",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for-in",
+      "const"
+    ],
+    "courseRef": "10_Objetos",
+    "code": "const prices = { tea: 2, cake: 3 };\nfor (const item in prices) {\n  console.log(item + \": \" + prices[item]);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "tea: 2\ncake: 3",
+          "es": "tea: 2\ncake: 3"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "tea: 2\nTypeError",
+          "es": "tea: 2\nTypeError"
+        },
+        "why": {
+          "en": "In `for...in` (and `for...of`) each round creates a new `item`, so `const` is never reassigned.",
+          "es": "En `for...in` (y en `for...of`) cada vuelta crea un `item` nuevo, así que la `const` nunca se reasigna."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "TypeError",
+          "es": "TypeError"
+        },
+        "why": {
+          "en": "Declaring the loop variable with `const` is allowed in `for...in`. It's in a classic `for` with `i++` where it fails.",
+          "es": "Declarar la variable del bucle con `const` está permitido en `for...in`. Donde falla es en un `for` clásico con `i++`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "item: undefined\nitem: undefined",
+          "es": "item: undefined\nitem: undefined"
+        },
+        "why": {
+          "en": "`item` is a variable, so `item + \": \"` uses its value (`\"tea\"`, `\"cake\"`), and `prices[item]` uses brackets correctly.",
+          "es": "`item` es una variable, así que `item + \": \"` usa su valor (`\"tea\"`, `\"cake\"`), y `prices[item]` usa bien los corchetes."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "In `for...in`, each round gets a brand-new `item` with the next key; it isn't changed with `++` like the counter of a classic `for`. That's why `const` works here. The code prints each key with its value.",
+      "es": "En `for...in`, cada vuelta recibe un `item` nuevo con la clave siguiente; no se cambia con `++` como el contador de un `for` clásico. Por eso aquí `const` funciona. El código muestra cada clave con su valor."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "tea: 2\ncake: 3"
+    }
+  },
+  {
+    "id": "s4-q053",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "for-of",
+      "arrays"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let fruits = [\"apple\", \"kiwi\", \"fig\"];\nfor (let fruit of fruits) {\n  console.log(fruit.length);\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "0\n1\n2",
+          "es": "0\n1\n2"
+        },
+        "why": {
+          "en": "`for...of` gives the values, not the positions. The positions are what `for...in` gives.",
+          "es": "`for...of` da los valores, no las posiciones. Las posiciones son lo que da `for...in`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "`fruit.length` is the length of each word, printed once per element, not the length of the array.",
+          "es": "`fruit.length` es la longitud de cada palabra, que se muestra una vez por elemento, no la longitud del array."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "5\n4\n3",
+          "es": "5\n4\n3"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "apple\nkiwi\nfig",
+          "es": "apple\nkiwi\nfig"
+        },
+        "why": {
+          "en": "The loop prints `fruit.length`, the number of letters, not the word itself.",
+          "es": "El bucle muestra `fruit.length`, el número de letras, no la palabra."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`for...of` goes through the values of the array: `fruit` is `\"apple\"`, then `\"kiwi\"`, then `\"fig\"`. Each time it prints the number of letters: 5, 4 and 3.",
+      "es": "`for...of` recorre los valores del array: `fruit` vale `\"apple\"`, luego `\"kiwi\"` y luego `\"fig\"`. Cada vez se muestra su número de letras: 5, 4 y 3."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "5\n4\n3"
+    }
+  },
+  {
+    "id": "s4-q054",
+    "section": 4,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for-of",
+      "objects"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let car = { brand: \"Seat\", year: 2020 };\nfor (let value of car) {\n  console.log(value);\n}",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A `TypeError` on line 2: `car` is not iterable",
+          "es": "Un `TypeError` en la línea 2: `car` no es iterable"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `Seat` and `2020`",
+          "es": "Muestra `Seat` y `2020`"
+        },
+        "why": {
+          "en": "`for...of` doesn't work with plain objects: they aren't iterable.",
+          "es": "`for...of` no funciona con objetos normales: no son iterables."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "It prints `brand` and `year`",
+          "es": "Muestra `brand` y `year`"
+        },
+        "why": {
+          "en": "That's what `for...in` would print. `for...of` can't go through a plain object.",
+          "es": "Eso es lo que mostraría `for...in`. `for...of` no puede recorrer un objeto normal."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `SyntaxError` on line 2",
+          "es": "Un `SyntaxError` en la línea 2"
+        },
+        "why": {
+          "en": "The syntax is correct. The problem appears when the loop starts and finds an object it can't go through.",
+          "es": "La sintaxis es correcta. El problema aparece cuando el bucle empieza y se encuentra un objeto que no puede recorrer."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`for...of` only works with iterable values: arrays, strings and a few others. A plain object isn't iterable, so line 2 throws `TypeError: car is not iterable`. For the keys of an object, use `for...in`.",
+      "es": "`for...of` solo funciona con valores iterables: arrays, strings y algunos más. Un objeto normal no es iterable, así que la línea 2 lanza `TypeError: car is not iterable`. Para las claves de un objeto, usa `for...in`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "TypeError",
+      "line": 2
+    }
+  },
+  {
+    "id": "s4-q055",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for-of",
+      "arrays"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let marks = [5, 6, 7];\nfor (let m of marks) {\n  m = m * 10;\n}\nconsole.log(marks.join(\" \"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "50 60 70",
+          "es": "50 60 70"
+        },
+        "why": {
+          "en": "`m` is a copy of each number. Changing `m` doesn't change the array.",
+          "es": "`m` es una copia de cada número. Cambiar `m` no cambia el array."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "5 6 7",
+          "es": "5 6 7"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "TypeError",
+          "es": "TypeError"
+        },
+        "why": {
+          "en": "`m` is declared with `let`, so it can be reassigned inside the loop without any error.",
+          "es": "`m` se declara con `let`, así que se puede reasignar dentro del bucle sin ningún error."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "70",
+          "es": "70"
+        },
+        "why": {
+          "en": "The array keeps its three numbers, and `join(\" \")` prints them all separated by spaces.",
+          "es": "El array conserva sus tres números, y `join(\" \")` los muestra todos separados por espacios."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "In each round `m` receives the value of one element, but it's a separate variable. `m = m * 10` only changes `m`, not `marks`. To change the array you need the position: `for (let i = 0; i < marks.length; i++) marks[i] *= 10;`.",
+      "es": "En cada vuelta, `m` recibe el valor de un elemento, pero es una variable aparte. `m = m * 10` solo cambia `m`, no `marks`. Para cambiar el array necesitas la posición: `for (let i = 0; i < marks.length; i++) marks[i] *= 10;`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "5 6 7"
+    }
+  },
+  {
+    "id": "s4-q056",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "for-of",
+      "strings"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let word = \"banana\";\nlet count = 0;\nfor (let letter of word) {\n  if (letter === \"a\") count++;\n}\nconsole.log(count);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "6",
+          "es": "6"
+        },
+        "why": {
+          "en": "`count++` only runs when the letter is `\"a\"`, not for every letter.",
+          "es": "`count++` solo se ejecuta cuando la letra es `\"a\"`, no con todas las letras."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "The loop doesn't stop at the first `\"a\"`: there's no `break`, so it checks every letter.",
+          "es": "El bucle no se para en la primera `\"a\"`: no hay `break`, así que revisa todas las letras."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "TypeError",
+          "es": "TypeError"
+        },
+        "why": {
+          "en": "Strings are iterable, so `for...of` can go through them letter by letter.",
+          "es": "Los strings son iterables, así que `for...of` puede recorrerlos letra a letra."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "Strings are iterable, so `for...of` gives one character in each round: `b`, `a`, `n`, `a`, `n`, `a`. The `if` counts the `a`s: there are 3.",
+      "es": "Los strings son iterables, así que `for...of` da un carácter en cada vuelta: `b`, `a`, `n`, `a`, `n`, `a`. El `if` cuenta las `a`: hay 3."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "3"
+    }
+  },
+  {
+    "id": "s4-q057",
+    "section": 4,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "for-of",
+      "break"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let nums = [7, 3, 8, 5, 10];\nlet found;\nfor (let n of nums) {\n  if (n % 2 === 0) {\n    found = n;\n    ___\n  }\n}\nconsole.log(found);",
+    "prompt": {
+      "en": "Fill the gap so that the code prints the first even number, `8`.",
+      "es": "Completa el hueco para que el código muestre el primer número par, `8`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "continue;",
+          "es": "continue;"
+        },
+        "why": {
+          "en": "`continue` only skips to the next round, so the loop goes on and `found` ends up as `10`, the last even number.",
+          "es": "`continue` solo salta a la vuelta siguiente, así que el bucle sigue y `found` acaba valiendo `10`, el último par."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "found++;",
+          "es": "found++;"
+        },
+        "why": {
+          "en": "The loop doesn't stop: `found` becomes `9`, and later `10` and `11`.",
+          "es": "El bucle no se para: `found` pasa a `9` y después a `10` y `11`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "nums = [];",
+          "es": "nums = [];"
+        },
+        "why": {
+          "en": "Giving `nums` a new array doesn't affect the loop, which keeps going through the original one. `found` ends up as `10`.",
+          "es": "Darle a `nums` un array nuevo no afecta al bucle, que sigue recorriendo el original. `found` acaba valiendo `10`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "break;",
+          "es": "break;"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`break` stops the loop as soon as the first even number is found, so `found` keeps the value `8`. Without `break`, the loop would go on and `found` would be overwritten by `10`.",
+      "es": "`break` para el bucle en cuanto se encuentra el primer número par, así que `found` se queda con el valor `8`. Sin `break`, el bucle seguiría y `found` se sobrescribiría con `10`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "8"
+    }
+  },
+  {
+    "id": "s4-q058",
+    "section": 4,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for-of",
+      "for-in",
+      "arrays"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let list = [\"a\", \"b\", \"c\"];",
+    "prompt": {
+      "en": "Which of these loops print `a`, `b` and `c`, one per line, when added after this code? (Choose two.)",
+      "es": "¿Cuáles de estos bucles muestran `a`, `b` y `c`, uno por línea, si se añaden después de este código? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`for (let x in list) console.log(x);`",
+          "es": "`for (let x in list) console.log(x);`"
+        },
+        "why": {
+          "en": "`for...in` gives the indexes, so it prints `0`, `1` and `2`.",
+          "es": "`for...in` da los índices, así que muestra `0`, `1` y `2`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`for (let x of list) console.log(x);`",
+          "es": "`for (let x of list) console.log(x);`"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`for (let x of list) console.log(list[x]);`",
+          "es": "`for (let x of list) console.log(list[x]);`"
+        },
+        "why": {
+          "en": "Here `x` is already the value (`\"a\"`…), so `list[\"a\"]` doesn't exist and it prints `undefined` three times.",
+          "es": "Aquí `x` ya es el valor (`\"a\"`…), así que `list[\"a\"]` no existe y muestra `undefined` tres veces."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`for (let x of list.length) console.log(x);`",
+          "es": "`for (let x of list.length) console.log(x);`"
+        },
+        "why": {
+          "en": "`list.length` is the number `3`, and a number isn't iterable: `TypeError`.",
+          "es": "`list.length` es el número `3`, y un número no es iterable: `TypeError`."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`for (let x in list) console.log(list[x]);`",
+          "es": "`for (let x in list) console.log(list[x]);`"
+        }
+      }
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": {
+      "en": "`for...of` gives the values directly. `for...in` gives the indexes (`\"0\"`, `\"1\"`, `\"2\"`), so you get the value with `list[x]`. Both work for printing, but with arrays `for...of` is simpler and safer.",
+      "es": "`for...of` da los valores directamente. `for...in` da los índices (`\"0\"`, `\"1\"`, `\"2\"`), así que el valor se obtiene con `list[x]`. Los dos sirven para mostrarlos, pero con arrays `for...of` es más sencillo y seguro."
+    },
+    "verify": {
+      "kind": "value",
+      "expr": "list.length",
+      "expected": "3"
+    }
+  },
+  {
+    "id": "s4-q059",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "for-of",
+      "nested",
+      "continue"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let table = [[1, 2], [3], [4, 5, 6]];\nlet total = 0;\nfor (let row of table) {\n  for (let cell of row) {\n    if (cell % 2 === 0) continue;\n    total += cell;\n  }\n}\nconsole.log(total);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "9",
+          "es": "9"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "21",
+          "es": "21"
+        },
+        "why": {
+          "en": "`continue` skips the even numbers, so they aren't added.",
+          "es": "`continue` se salta los números pares, así que no se suman."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "12",
+          "es": "12"
+        },
+        "why": {
+          "en": "That's the sum of the even numbers (2 + 4 + 6). `continue` skips them, so the odd ones are added.",
+          "es": "Esa es la suma de los pares (2 + 4 + 6). `continue` se los salta, así que se suman los impares."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "`continue` only skips one round of the inner loop; it doesn't end any loop.",
+          "es": "`continue` solo se salta una vuelta del bucle de dentro; no termina ningún bucle."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "The outer loop gives each row (an array) and the inner one each number in it. `continue` skips the even numbers, so only the odd ones are added: 1 + 3 + 5 = 9.",
+      "es": "El bucle de fuera da cada fila (un array) y el de dentro, cada número de esa fila. `continue` se salta los pares, así que solo se suman los impares: 1 + 3 + 5 = 9."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "9"
+    }
+  },
+  {
+    "id": "s4-q060",
+    "section": 4,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "for-of",
+      "objects",
+      "if"
+    ],
+    "courseRef": "06_Arrays",
+    "code": "let team = [\n  { name: \"Ana\", goals: 2 },\n  { name: \"Leo\", goals: 0 },\n  { name: \"Eva\", goals: 3 }\n];\nlet best = team[0];\nfor (let player of team) {\n  if (player.goals > best.goals) {\n    best = player;\n  }\n}\nconsole.log(best.name);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Ana",
+          "es": "Ana"
+        },
+        "why": {
+          "en": "`best` starts with Ana, but Eva has more goals (3 > 2), so `best` changes.",
+          "es": "`best` empieza siendo Ana, pero Eva tiene más goles (3 > 2), así que `best` cambia."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "The code prints `best.name`, not `best.goals`.",
+          "es": "El código muestra `best.name`, no `best.goals`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Leo",
+          "es": "Leo"
+        },
+        "why": {
+          "en": "Leo has `0` goals, which is never greater than the current best.",
+          "es": "Leo tiene `0` goles, que nunca es más que el mejor de ese momento."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Eva",
+          "es": "Eva"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`player` is each object of the array in turn. `best` starts as Ana (2 goals); Leo (0) doesn't beat her; Eva (3) does, so `best` becomes Eva and the code prints her name.",
+      "es": "`player` es cada objeto del array por turnos. `best` empieza siendo Ana (2 goles); Leo (0) no la supera; Eva (3) sí, así que `best` pasa a ser Eva y el código muestra su nombre."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Eva"
+    }
+  }
+]

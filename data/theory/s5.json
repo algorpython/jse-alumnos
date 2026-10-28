@@ -1,0 +1,199 @@
+{
+  "section": 5,
+  "title": {
+    "en": "Functions",
+    "es": "Funciones"
+  },
+  "readingMinutes": 5,
+  "intro": {
+    "en": "The key ideas of this section. Press “Run this code” on any example to try it.",
+    "es": "Las ideas clave de esta sección. Pulsa «Ejecutar este código» en cualquier ejemplo para probarlo."
+  },
+  "blocks": [
+    {
+      "heading": {
+        "en": "Declare, call and `return`",
+        "es": "Declarar, llamar y `return`"
+      },
+      "body": {
+        "en": "A function is a reusable block of code. Declare it once with `function`, a name, the parameters in `( )` and the body in `{ }`, then call it with `name(arguments)`.\n`return` gives a value back to the caller and ends the function. Without `return`, the call gives back `undefined`.",
+        "es": "Una función es un bloque de código reutilizable. Se declara una vez con `function`, un nombre, los parámetros entre `( )` y el cuerpo entre `{ }`, y después se llama con `name(arguments)`.\n`return` devuelve un valor a quien la ha llamado y termina la función. Sin `return`, la llamada devuelve `undefined`."
+      },
+      "example": {
+        "code": "function area(width, height) {\n  return width * height;\n}\nconsole.log(area(3, 4));",
+        "output": "12"
+      }
+    },
+    {
+      "heading": {
+        "en": "Parameters, arguments and default values",
+        "es": "Parámetros, argumentos y valores por defecto"
+      },
+      "body": {
+        "en": "Parameters are the names in the definition; arguments are the values in the call, matched in order. A missing argument is `undefined`; an extra one is ignored.\nA default parameter (`b = 1`) is used when the argument is missing or `undefined`.",
+        "es": "Los parámetros son los nombres de la definición; los argumentos, los valores de la llamada, y se emparejan por orden. Un argumento que falta vale `undefined`; uno que sobra se ignora.\nUn parámetro por defecto (`b = 1`) se usa cuando falta el argumento o vale `undefined`."
+      },
+      "example": {
+        "code": "function multiply(a, b = 1) {\n  return a * b;\n}\nconsole.log(multiply(5), multiply(5, 2));",
+        "output": "5 10"
+      }
+    },
+    {
+      "heading": {
+        "en": "Local variables, global variables and shadowing",
+        "es": "Variables locales, globales y sombreado"
+      },
+      "body": {
+        "en": "Variables declared inside a function are local: they only exist during the call. A function can read and change global variables, and it reads their value when it runs. If it declares a local variable with the same name, that one shadows the global one.\nFunction declarations are hoisted: you can call them before their line.",
+        "es": "Las variables declaradas dentro de una función son locales: solo existen durante la llamada. Una función puede leer y cambiar las variables globales, y lee su valor cuando se ejecuta. Si declara una variable local con el mismo nombre, esa sombrea a la global.\nLas declaraciones de función se elevan (hoisting): se pueden llamar antes de su línea."
+      },
+      "example": {
+        "code": "let name = \"global\";\nfunction show() {\n  let name = \"local\";\n  return name;\n}\nconsole.log(show(), name);",
+        "output": "local global"
+      }
+    },
+    {
+      "heading": {
+        "en": "Function expressions and functions as values",
+        "es": "Expresiones de función y funciones como valores"
+      },
+      "body": {
+        "en": "Functions are values: you can store them in variables, arrays or objects, pass them to other functions and return them. A function expression is written where a value goes: `const f = function () { … };`.\nWithout `()` you refer to the function; with `()` you call it.",
+        "es": "Las funciones son valores: se pueden guardar en variables, arrays u objetos, pasar a otras funciones y devolver. Una expresión de función se escribe donde va un valor: `const f = function () { … };`.\nSin `()` te refieres a la función; con `()` la llamas."
+      },
+      "example": {
+        "code": "const double = function (n) { return n * 2; };\nconst copy = double;\nconsole.log(copy(4), typeof copy);",
+        "output": "8 function"
+      }
+    },
+    {
+      "heading": {
+        "en": "Arrow functions",
+        "es": "Funciones flecha"
+      },
+      "body": {
+        "en": "An arrow function is a shorter way to write a function expression: `(a, b) => a + b`. With one parameter the parentheses are optional; with none or several, they are required.\nWithout braces, the expression after `=>` is returned automatically. With braces you need `return`.",
+        "es": "Una función flecha es una forma más corta de escribir una expresión de función: `(a, b) => a + b`. Con un parámetro los paréntesis son opcionales; sin parámetros o con varios, son obligatorios.\nSin llaves, la expresión que va después de `=>` se devuelve automáticamente. Con llaves hace falta `return`."
+      },
+      "example": {
+        "code": "const add = (a, b) => a + b;\nconst half = n => n / 2;\nconst hi = () => \"Hi!\";\nconsole.log(add(2, 3), half(8), hi());",
+        "output": "5 4 Hi!"
+      }
+    },
+    {
+      "heading": {
+        "en": "Recursion",
+        "es": "Recursividad"
+      },
+      "body": {
+        "en": "A recursive function calls itself. It needs a base case that returns without calling again, and a recursive call that gets closer to that base case each time (for example, with `n - 1`).",
+        "es": "Una función recursiva se llama a sí misma. Necesita un caso base que devuelva un valor sin volver a llamarse y una llamada recursiva que se acerque a ese caso base cada vez (por ejemplo, con `n - 1`)."
+      },
+      "example": {
+        "code": "function factorial(n) {\n  if (n === 1) return 1;\n  return n * factorial(n - 1);\n}\nconsole.log(factorial(5));",
+        "output": "120"
+      }
+    },
+    {
+      "heading": {
+        "en": "Callbacks, `setTimeout` and `setInterval`",
+        "es": "Callbacks, `setTimeout` y `setInterval`"
+      },
+      "body": {
+        "en": "A callback is a function passed to another function, which calls it later. `setTimeout(callback, ms)` runs it once after `ms` milliseconds; `setInterval(callback, ms)` repeats it until `clearInterval(id)`.\nNeither stops the program: the rest of the code keeps running and the callbacks come later.",
+        "es": "Un callback es una función que se pasa a otra función, que la llama más tarde. `setTimeout(callback, ms)` la ejecuta una vez pasados `ms` milisegundos; `setInterval(callback, ms)` la repite hasta `clearInterval(id)`.\nNinguna de las dos para el programa: el resto del código sigue ejecutándose y los callbacks llegan después."
+      },
+      "example": {
+        "code": "let n = 0;\nconst id = setInterval(() => {\n  n++;\n  console.log(\"tick \" + n);\n  if (n === 2) clearInterval(id);\n}, 100);\nconsole.log(\"start\");",
+        "output": "start\ntick 1\ntick 2"
+      }
+    }
+  ],
+  "traps": [
+    {
+      "title": {
+        "en": "Printing is not returning",
+        "es": "Mostrar no es devolver"
+      },
+      "body": {
+        "en": "A `console.log` inside the function only shows the value. Without `return`, the call gives back `undefined`.",
+        "es": "Un `console.log` dentro de la función solo muestra el valor. Sin `return`, la llamada devuelve `undefined`."
+      },
+      "example": {
+        "code": "function double(n) {\n  console.log(n * 2);\n}\nconsole.log(double(3));",
+        "output": "6\nundefined"
+      }
+    },
+    {
+      "title": {
+        "en": "Arrow function with braces and no `return`",
+        "es": "Función flecha con llaves y sin `return`"
+      },
+      "body": {
+        "en": "Braces after `=>` open a normal body, so nothing is returned automatically. To return an object directly, wrap it in parentheses: `() => ({ a: 1 })`.",
+        "es": "Las llaves después de `=>` abren un cuerpo normal, así que no se devuelve nada automáticamente. Para devolver un objeto directamente, ponlo entre paréntesis: `() => ({ a: 1 })`."
+      },
+      "example": {
+        "code": "const add = (a, b) => { a + b; };\nconsole.log(add(2, 3));",
+        "output": "undefined"
+      }
+    },
+    {
+      "title": {
+        "en": "Calling a `const` function before its line",
+        "es": "Llamar a una función `const` antes de su línea"
+      },
+      "body": {
+        "en": "Only function declarations are hoisted. A function expression or an arrow function stored in `let` or `const` can't be used before its line.",
+        "es": "Solo se elevan las declaraciones de función. Una expresión de función o una función flecha guardada en `let` o `const` no se puede usar antes de su línea."
+      },
+      "example": {
+        "code": "console.log(triple(2));\nconst triple = (n) => n * 3;",
+        "errorType": "ReferenceError"
+      }
+    },
+    {
+      "title": {
+        "en": "`fn()` instead of `fn` when passing a callback",
+        "es": "`fn()` en vez de `fn` al pasar un callback"
+      },
+      "body": {
+        "en": "With parentheses you run the function right away and pass its result. To pass the function, write only its name: `setTimeout(beep, 500)`.",
+        "es": "Con paréntesis ejecutas la función en ese momento y pasas su resultado. Para pasar la función, escribe solo su nombre: `setTimeout(beep, 500)`."
+      },
+      "example": {
+        "code": "function beep() { console.log(\"beep\"); }\nfunction runTwice(fn) { fn(); fn(); }\nrunTwice(beep());",
+        "output": "beep",
+        "errorType": "TypeError"
+      }
+    },
+    {
+      "title": {
+        "en": "Recursion without a base case",
+        "es": "Recursividad sin caso base"
+      },
+      "body": {
+        "en": "If the base case is missing or never reached, the function calls itself until the call stack is full: `RangeError: Maximum call stack size exceeded`.",
+        "es": "Si falta el caso base o nunca se llega a él, la función se llama hasta que se llena la pila de llamadas: `RangeError: Maximum call stack size exceeded`."
+      },
+      "example": {
+        "code": "function countDown(n) { return countDown(n - 1); }\ncountDown(3);",
+        "errorType": "RangeError"
+      }
+    },
+    {
+      "title": {
+        "en": "`setTimeout` with `0` doesn't run immediately",
+        "es": "`setTimeout` con `0` no se ejecuta en el momento"
+      },
+      "body": {
+        "en": "The callback waits until the current code has finished, so the lines after it run first.",
+        "es": "El callback espera a que termine el código actual, así que las líneas que van detrás se ejecutan antes."
+      },
+      "example": {
+        "code": "setTimeout(() => console.log(\"later\"), 0);\nconsole.log(\"now\");",
+        "output": "now\nlater"
+      }
+    }
+  ]
+}

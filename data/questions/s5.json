@@ -1,0 +1,4238 @@
+[
+  {
+    "id": "s5-q001",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "functions",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function greet(name) {\n  return \"Hi, \" + name;\n}\nconsole.log(greet(\"Ana\"));\nconsole.log(greet(\"Leo\"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Hi, Ana\nHi, Leo",
+          "es": "Hi, Ana\nHi, Leo"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Hi, name\nHi, name",
+          "es": "Hi, name\nHi, name"
+        },
+        "why": {
+          "en": "`name` is a parameter: on each call it holds the value passed in, not the text \"name\".",
+          "es": "`name` es un parámetro: en cada llamada guarda el valor que se le pasa, no el texto \"name\"."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Hi, Ana",
+          "es": "Hi, Ana"
+        },
+        "why": {
+          "en": "The function is called twice, so there are two `console.log` calls and two lines.",
+          "es": "La función se llama dos veces, así que hay dos `console.log` y dos líneas."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Hi, Leo\nHi, Leo",
+          "es": "Hi, Leo\nHi, Leo"
+        },
+        "why": {
+          "en": "Each call is independent. The first call receives `\"Ana\"` and the second one `\"Leo\"`.",
+          "es": "Cada llamada es independiente. La primera recibe `\"Ana\"` y la segunda, `\"Leo\"`."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "The function is declared once and called twice. On each call the parameter `name` takes the value of the argument (`\"Ana\"`, then `\"Leo\"`), and `return` gives back the joined text, which `console.log` prints.",
+      "es": "La función se declara una vez y se llama dos veces. En cada llamada, el parámetro `name` toma el valor del argumento (`\"Ana\"` y después `\"Leo\"`), y `return` devuelve el texto unido, que `console.log` muestra."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Hi, Ana\nHi, Leo"
+    }
+  },
+  {
+    "id": "s5-q002",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "functions",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function double(n) {\n  console.log(n * 2);\n}\nlet result = double(4);\nconsole.log(result);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "undefined\n8",
+          "es": "undefined\n8"
+        },
+        "why": {
+          "en": "Line 4 runs `double(4)` first, which prints `8`. Only after that is `result` printed.",
+          "es": "La línea 4 ejecuta primero `double(4)`, que muestra `8`. Solo después se muestra `result`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "8",
+          "es": "8"
+        },
+        "why": {
+          "en": "There are two `console.log` calls that run: the one inside the function and the one on the last line.",
+          "es": "Se ejecutan dos `console.log`: el de dentro de la función y el de la última línea."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "8\n8",
+          "es": "8\n8"
+        },
+        "why": {
+          "en": "`double` prints `8`, but it doesn't return anything. Printing a value is not the same as returning it.",
+          "es": "`double` muestra `8`, pero no devuelve nada. Mostrar un valor no es lo mismo que devolverlo."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "8\nundefined",
+          "es": "8\nundefined"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`double(4)` prints `8` with its own `console.log`, but it has no `return`, so the call gives back `undefined`. That `undefined` is stored in `result` and printed on the last line.",
+      "es": "`double(4)` muestra `8` con su propio `console.log`, pero no tiene `return`, así que la llamada devuelve `undefined`. Ese `undefined` se guarda en `result` y se muestra en la última línea."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "8\nundefined"
+    }
+  },
+  {
+    "id": "s5-q003",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function check(age) {\n  return age >= 18;\n  console.log(\"Checked!\");\n}\nconsole.log(check(20));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "true\nChecked!",
+          "es": "true\nChecked!"
+        },
+        "why": {
+          "en": "Nothing after `return` runs, so `\"Checked!\"` is never printed.",
+          "es": "Después de `return` no se ejecuta nada, así que `\"Checked!\"` no se muestra nunca."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Checked!\ntrue",
+          "es": "Checked!\ntrue"
+        },
+        "why": {
+          "en": "Line 3 never runs: `return` ends the function on line 2.",
+          "es": "La línea 3 no se ejecuta nunca: `return` termina la función en la línea 2."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "true",
+          "es": "true"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "20",
+          "es": "20"
+        },
+        "why": {
+          "en": "The function returns the result of `age >= 18`, which is a boolean, not the age.",
+          "es": "La función devuelve el resultado de `age >= 18`, que es un booleano, no la edad."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`return` gives back a value and ends the function straight away. `20 >= 18` is `true`, so the call returns `true`. The `console.log` on line 3 is dead code: it is never reached.",
+      "es": "`return` devuelve un valor y termina la función en ese momento. `20 >= 18` es `true`, así que la llamada devuelve `true`. El `console.log` de la línea 3 es código muerto: nunca se llega a él."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "true"
+    }
+  },
+  {
+    "id": "s5-q004",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "parameters"
+    ],
+    "courseRef": "07_Funciones/101_Funciones.html",
+    "code": "function add(a, b) {\n  return a + b;\n}\nconsole.log(add(5));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "TypeError",
+          "es": "TypeError"
+        },
+        "why": {
+          "en": "Calling a function with fewer arguments is allowed in JavaScript. It doesn't throw an error.",
+          "es": "En JavaScript se puede llamar a una función con menos argumentos. No lanza ningún error."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "5",
+          "es": "5"
+        },
+        "why": {
+          "en": "A missing argument is not treated as `0`. `b` is `undefined`.",
+          "es": "Un argumento que falta no se trata como `0`. `b` vale `undefined`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "5undefined",
+          "es": "5undefined"
+        },
+        "why": {
+          "en": "`+` only joins text when one value is a string. Here both are non-strings, so it tries to add numbers.",
+          "es": "`+` solo une texto cuando uno de los valores es un string. Aquí ninguno lo es, así que intenta sumar números."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "NaN",
+          "es": "NaN"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "Only one argument is passed, so `a` is `5` and `b` is `undefined`. `5 + undefined` is a numeric addition with a value that isn't a number, so the result is `NaN` (Not a Number).",
+      "es": "Solo se pasa un argumento, así que `a` vale `5` y `b` vale `undefined`. `5 + undefined` es una suma numérica con un valor que no es un número, así que el resultado es `NaN` (Not a Number)."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "NaN"
+    }
+  },
+  {
+    "id": "s5-q005",
+    "section": 5,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 1,
+    "tags": [
+      "parameters"
+    ],
+    "courseRef": "07_Funciones/101_Funciones.html",
+    "code": "function area(width, height) {\n  return width * height;\n}\nconsole.log(area(2, 3, 4));",
+    "prompt": {
+      "en": "The function has two parameters, but it is called with three arguments. What happens?",
+      "es": "La función tiene dos parámetros, pero se llama con tres argumentos. ¿Qué ocurre?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "The extra argument is ignored and `6` is printed",
+          "es": "El argumento que sobra se ignora y se muestra `6`"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `TypeError` is thrown because there are too many arguments",
+          "es": "Se lanza un `TypeError` porque hay demasiados argumentos"
+        },
+        "why": {
+          "en": "JavaScript doesn't check how many arguments you pass. Extra ones don't cause an error.",
+          "es": "JavaScript no comprueba cuántos argumentos se pasan. Los que sobran no dan error."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`24` is printed, because all the arguments are multiplied",
+          "es": "Se muestra `24`, porque se multiplican todos los argumentos"
+        },
+        "why": {
+          "en": "The body only uses `width` and `height`. The `4` has no parameter to go into.",
+          "es": "El cuerpo solo usa `width` y `height`. El `4` no tiene ningún parámetro donde guardarse."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`12` is printed, because the last argument replaces `width`",
+          "es": "Se muestra `12`, porque el último argumento sustituye a `width`"
+        },
+        "why": {
+          "en": "Arguments are matched to parameters in order: `2` goes to `width` and `3` to `height`.",
+          "es": "Los argumentos se asignan a los parámetros por orden: `2` va a `width` y `3` a `height`."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "Arguments fill the parameters in order: `width` is `2` and `height` is `3`. The third argument has no parameter, so the function simply doesn't use it. The result is `2 * 3`, which is `6`.",
+      "es": "Los argumentos rellenan los parámetros por orden: `width` vale `2` y `height` vale `3`. El tercer argumento no tiene parámetro, así que la función no lo usa. El resultado es `2 * 3`, es decir, `6`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "6"
+    }
+  },
+  {
+    "id": "s5-q006",
+    "section": 5,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 1,
+    "tags": [
+      "parameters",
+      "functions"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "prompt": {
+      "en": "Look at `function square(n) { return n * n; }` and the call `square(7)`. Which statement is correct?",
+      "es": "Fíjate en `function square(n) { return n * n; }` y en la llamada `square(7)`. ¿Qué afirmación es correcta?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`n` and `7` are both parameters",
+          "es": "`n` y `7` son los dos parámetros"
+        },
+        "why": {
+          "en": "`7` is a value passed in the call, so it's an argument, not a parameter.",
+          "es": "`7` es un valor que se pasa en la llamada, así que es un argumento, no un parámetro."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`n` is the parameter and `7` is the argument",
+          "es": "`n` es el parámetro y `7` es el argumento"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`n` is the argument and `7` is the parameter",
+          "es": "`n` es el argumento y `7` es el parámetro"
+        },
+        "why": {
+          "en": "It's the other way round: the parameter is the name in the definition, and the argument is the value in the call.",
+          "es": "Es al revés: el parámetro es el nombre de la definición y el argumento es el valor de la llamada."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`square` is the parameter and `n` is the return value",
+          "es": "`square` es el parámetro y `n` es el valor de retorno"
+        },
+        "why": {
+          "en": "`square` is the name of the function. The return value is the result of `n * n`.",
+          "es": "`square` es el nombre de la función. El valor de retorno es el resultado de `n * n`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "A parameter is the name written in the function's definition (`n`). An argument is the actual value you pass when you call it (`7`). During the call, `n` holds `7`, so `square(7)` returns `49`.",
+      "es": "Un parámetro es el nombre que se escribe en la definición de la función (`n`). Un argumento es el valor real que se pasa al llamarla (`7`). Durante la llamada, `n` vale `7`, así que `square(7)` devuelve `49`."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q007",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 1,
+    "tags": [
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function triple(n) {\n  ___ n * 3;\n}\nconsole.log(triple(5));",
+    "prompt": {
+      "en": "What completes the gap so that the code prints `15`?",
+      "es": "¿Qué completa el hueco para que el código muestre `15`?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "return",
+          "es": "return"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "result =",
+          "es": "result ="
+        },
+        "why": {
+          "en": "This stores the value in a variable, but the function still returns nothing, so `undefined` is printed.",
+          "es": "Así se guarda el valor en una variable, pero la función sigue sin devolver nada, así que se muestra `undefined`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "print",
+          "es": "print"
+        },
+        "why": {
+          "en": "`print` isn't a JavaScript keyword. `print n * 3;` is a `SyntaxError`.",
+          "es": "`print` no es una palabra clave de JavaScript. `print n * 3;` es un `SyntaxError`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "console.log",
+          "es": "console.log"
+        },
+        "why": {
+          "en": "`console.log n * 3;` without parentheses is a `SyntaxError`. And even with them, printing is not returning.",
+          "es": "`console.log n * 3;` sin paréntesis es un `SyntaxError`. Y aunque los tuviera, mostrar no es devolver."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`return` sends a value back to the place where the function was called. `triple(5)` returns `5 * 3`, which is `15`, and `console.log` prints it.",
+      "es": "`return` envía un valor de vuelta al lugar donde se llamó a la función. `triple(5)` devuelve `5 * 3`, que es `15`, y `console.log` lo muestra."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "15"
+    }
+  },
+  {
+    "id": "s5-q008",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "return",
+      "functions"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function sign(n) {\n  if (n > 0) {\n    return \"positive\";\n  }\n  if (n < 0) {\n    return \"negative\";\n  }\n  return \"zero\";\n}\nconsole.log(sign(-3), sign(0));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "negative\nzero",
+          "es": "negative\nzero"
+        },
+        "why": {
+          "en": "Both values are in the same `console.log`, separated by a comma, so they go on one line with a space.",
+          "es": "Los dos valores van en el mismo `console.log`, separados por una coma, así que salen en una línea con un espacio."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "zero zero",
+          "es": "zero zero"
+        },
+        "why": {
+          "en": "For `-3`, `n < 0` is `true`, so it returns `\"negative\"` before reaching `return \"zero\"`.",
+          "es": "Con `-3`, `n < 0` es `true`, así que devuelve `\"negative\"` antes de llegar a `return \"zero\"`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "negative positive",
+          "es": "negative positive"
+        },
+        "why": {
+          "en": "`0 > 0` is `false`, so `sign(0)` doesn't return `\"positive\"`. It reaches the last `return`.",
+          "es": "`0 > 0` es `false`, así que `sign(0)` no devuelve `\"positive\"`. Llega al último `return`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "negative zero",
+          "es": "negative zero"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "A function can have several `return` statements, but only the first one reached runs, and it ends the function. `sign(-3)` stops at `return \"negative\"`; `sign(0)` passes both `if` checks and reaches `return \"zero\"`. `console.log` with a comma prints both values on one line.",
+      "es": "Una función puede tener varios `return`, pero solo se ejecuta el primero al que se llega, y termina la función. `sign(-3)` se para en `return \"negative\"`; `sign(0)` pasa los dos `if` y llega a `return \"zero\"`. `console.log` con una coma muestra los dos valores en la misma línea."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "negative zero"
+    }
+  },
+  {
+    "id": "s5-q009",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function getColor() {\n  return\n    \"blue\";\n}\nconsole.log(getColor());",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "blue",
+          "es": "blue"
+        },
+        "why": {
+          "en": "It looks like it returns `\"blue\"`, but the line break after `return` ends the statement.",
+          "es": "Parece que devuelve `\"blue\"`, pero el salto de línea después de `return` termina la instrucción."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "\"blue\"",
+          "es": "\"blue\""
+        },
+        "why": {
+          "en": "`console.log` doesn't add quotes to strings, and anyway `\"blue\"` is never returned.",
+          "es": "`console.log` no pone comillas a los strings y, de todos modos, `\"blue\"` nunca se devuelve."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "The code is valid. JavaScript adds a `;` after `return`, and the `\"blue\";` line is simply never reached.",
+          "es": "El código es válido. JavaScript añade un `;` después de `return`, y a la línea `\"blue\";` simplemente nunca se llega."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "When `return` is followed by a line break, JavaScript automatically puts a `;` right after it, so the code is read as `return;`. The function returns `undefined`. The value you want to return must start on the same line as `return`.",
+      "es": "Cuando `return` va seguido de un salto de línea, JavaScript pone automáticamente un `;` justo detrás, así que el código se lee como `return;`. La función devuelve `undefined`. El valor que quieres devolver tiene que empezar en la misma línea que `return`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "undefined"
+    }
+  },
+  {
+    "id": "s5-q010",
+    "section": 5,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "prompt": {
+      "en": "Which two statements about `return` are true? (Choose two.)",
+      "es": "¿Qué dos afirmaciones sobre `return` son ciertas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`return a, b;` gives back two values at once",
+          "es": "`return a, b;` devuelve dos valores a la vez"
+        },
+        "why": {
+          "en": "A function returns a single value. With the comma, only `b` is returned. To give back several values, return an array or an object.",
+          "es": "Una función devuelve un solo valor. Con la coma, solo se devuelve `b`. Para devolver varios valores, devuelve un array o un objeto."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`return` can only be written on the last line of a function",
+          "es": "`return` solo se puede escribir en la última línea de una función"
+        },
+        "why": {
+          "en": "`return` can go anywhere in the body, for example inside an `if`, to finish early.",
+          "es": "`return` puede ir en cualquier parte del cuerpo, por ejemplo dentro de un `if`, para terminar antes."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A function can't be called unless it has a `return`",
+          "es": "No se puede llamar a una función si no tiene `return`"
+        },
+        "why": {
+          "en": "Any function can be called. Without `return`, the call simply gives back `undefined`.",
+          "es": "Se puede llamar a cualquier función. Sin `return`, la llamada simplemente devuelve `undefined`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`return` ends the function immediately",
+          "es": "`return` termina la función en ese momento"
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "A function can contain several `return` statements, but each call runs at most one of them",
+          "es": "Una función puede tener varios `return`, pero en cada llamada se ejecuta como mucho uno"
+        }
+      }
+    ],
+    "answer": [
+      "D",
+      "E"
+    ],
+    "explanation": {
+      "en": "`return` gives back one value and stops the function right there, so if a function has several `return` statements (for example, in different `if` branches), only the first one reached runs. To return several values you put them in an array or an object.",
+      "es": "`return` devuelve un valor y para la función en ese punto, así que si una función tiene varios `return` (por ejemplo, en distintas ramas de un `if`), solo se ejecuta el primero al que se llega. Para devolver varios valores se meten en un array o en un objeto."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q011",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "functions",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function square(n) {\n  return n * n;\n}\nfunction sumOfSquares(a, b) {\n  return ___;\n}\nconsole.log(sumOfSquares(2, 3));",
+    "prompt": {
+      "en": "`sumOfSquares(2, 3)` should print `13` (4 + 9). What completes the gap?",
+      "es": "`sumOfSquares(2, 3)` debe mostrar `13` (4 + 9). ¿Qué completa el hueco?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "square(a) + b",
+          "es": "square(a) + b"
+        },
+        "why": {
+          "en": "Only `a` is squared: `4 + 3` is `7`.",
+          "es": "Solo se eleva al cuadrado `a`: `4 + 3` es `7`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "square(a) + square(b)",
+          "es": "square(a) + square(b)"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "square(a, b)",
+          "es": "square(a, b)"
+        },
+        "why": {
+          "en": "`square` has one parameter, so the extra `b` is ignored and the result is `4`.",
+          "es": "`square` tiene un parámetro, así que la `b` que sobra se ignora y el resultado es `4`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "square(a + b)",
+          "es": "square(a + b)"
+        },
+        "why": {
+          "en": "This squares the sum: `(2 + 3) * (2 + 3)` is `25`.",
+          "es": "Así se eleva al cuadrado la suma: `(2 + 3) * (2 + 3)` es `25`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "A function can call other functions. `square(a)` returns `4` and `square(b)` returns `9`; `sumOfSquares` adds both results and returns `13`. Splitting the work into small functions makes the code easier to read and reuse.",
+      "es": "Una función puede llamar a otras funciones. `square(a)` devuelve `4` y `square(b)` devuelve `9`; `sumOfSquares` suma los dos resultados y devuelve `13`. Dividir el trabajo en funciones pequeñas hace que el código sea más fácil de leer y de reutilizar."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "13"
+    }
+  },
+  {
+    "id": "s5-q012",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "return"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function getUser() {\n  let name = \"Ana\";\n}\nlet user = getUser();\nconsole.log(user.length);",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `undefined`",
+          "es": "Muestra `undefined`"
+        },
+        "why": {
+          "en": "`user` is `undefined`, and you can't read a property of `undefined`: it throws an error instead of printing.",
+          "es": "`user` vale `undefined`, y no se puede leer una propiedad de `undefined`: lanza un error en vez de mostrar algo."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `TypeError` is thrown on line 5",
+          "es": "Se lanza un `TypeError` en la línea 5"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 4",
+          "es": "Se lanza un `ReferenceError` en la línea 4"
+        },
+        "why": {
+          "en": "`getUser` exists and the call works. The problem is the value it gives back.",
+          "es": "`getUser` existe y la llamada funciona. El problema es el valor que devuelve."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `3`",
+          "es": "Muestra `3`"
+        },
+        "why": {
+          "en": "`getUser` creates `name` but never returns it, so `user` is not `\"Ana\"`.",
+          "es": "`getUser` crea `name` pero nunca la devuelve, así que `user` no es `\"Ana\"`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`getUser` has no `return`, so `getUser()` gives back `undefined` and `user` is `undefined`. On line 5, reading `user.length` throws `TypeError: Cannot read properties of undefined`. The fix is `return name;` inside the function.",
+      "es": "`getUser` no tiene `return`, así que `getUser()` devuelve `undefined` y `user` vale `undefined`. En la línea 5, leer `user.length` lanza `TypeError: Cannot read properties of undefined`. Se arregla con `return name;` dentro de la función."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "TypeError",
+      "line": 5
+    }
+  },
+  {
+    "id": "s5-q013",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "default-parameters"
+    ],
+    "courseRef": "07_Funciones/99_Funciones.html",
+    "code": "function welcome(name = \"guest\") {\n  return \"Welcome, \" + name;\n}\nconsole.log(welcome(undefined));\nconsole.log(welcome(null));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Welcome, undefined\nWelcome, null",
+          "es": "Welcome, undefined\nWelcome, null"
+        },
+        "why": {
+          "en": "Passing `undefined` counts as not passing anything, so the default `\"guest\"` is used.",
+          "es": "Pasar `undefined` cuenta como no pasar nada, así que se usa el valor por defecto `\"guest\"`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Welcome, guest\nWelcome, null",
+          "es": "Welcome, guest\nWelcome, null"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Welcome, guest\nWelcome, guest",
+          "es": "Welcome, guest\nWelcome, guest"
+        },
+        "why": {
+          "en": "The default value is only used when the argument is missing or `undefined`. `null` is a real value, so it's used.",
+          "es": "El valor por defecto solo se usa cuando falta el argumento o es `undefined`. `null` es un valor de verdad, así que se usa."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Welcome, \nWelcome, ",
+          "es": "Welcome, \nWelcome, "
+        },
+        "why": {
+          "en": "Neither `undefined` nor `null` becomes an empty string here.",
+          "es": "Ni `undefined` ni `null` se convierten aquí en un string vacío."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "A default parameter (`name = \"guest\"`) only kicks in when the argument is missing or is exactly `undefined`. `welcome(undefined)` uses `\"guest\"`, but `null` is a value you passed on purpose, so `name` is `null` and the text becomes `\"Welcome, null\"`.",
+      "es": "Un parámetro por defecto (`name = \"guest\"`) solo actúa cuando falta el argumento o vale exactamente `undefined`. `welcome(undefined)` usa `\"guest\"`, pero `null` es un valor que se pasa a propósito, así que `name` vale `null` y el texto queda `\"Welcome, null\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Welcome, guest\nWelcome, null"
+    }
+  },
+  {
+    "id": "s5-q014",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 1,
+    "tags": [
+      "scope"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "function makeTotal() {\n  let total = 10 + 5;\n  return total;\n}\nmakeTotal();\nconsole.log(total);",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A `SyntaxError` is thrown on line 2",
+          "es": "Se lanza un `SyntaxError` en la línea 2"
+        },
+        "why": {
+          "en": "Line 2 is a normal declaration. The code is written correctly.",
+          "es": "La línea 2 es una declaración normal. El código está bien escrito."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 6",
+          "es": "Se lanza un `ReferenceError` en la línea 6"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "It prints `undefined`",
+          "es": "Muestra `undefined`"
+        },
+        "why": {
+          "en": "There's no `total` outside the function at all, so it can't even be `undefined`: it's an error.",
+          "es": "Fuera de la función no hay ninguna `total`, así que ni siquiera puede valer `undefined`: es un error."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `15`",
+          "es": "Muestra `15`"
+        },
+        "why": {
+          "en": "`total` is a local variable: it only exists inside `makeTotal`. The returned `15` isn't stored anywhere.",
+          "es": "`total` es una variable local: solo existe dentro de `makeTotal`. El `15` que se devuelve no se guarda en ningún sitio."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "Variables declared inside a function are local: they only exist while the function runs and can't be used outside. On line 6 there is no `total` in the global scope, so you get `ReferenceError: total is not defined`. To use the result, store it: `let total = makeTotal();`.",
+      "es": "Las variables declaradas dentro de una función son locales: solo existen mientras se ejecuta la función y no se pueden usar fuera. En la línea 6 no hay ninguna `total` en el ámbito global, así que se obtiene `ReferenceError: total is not defined`. Para usar el resultado, hay que guardarlo: `let total = makeTotal();`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "ReferenceError",
+      "line": 6
+    }
+  },
+  {
+    "id": "s5-q015",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "scope",
+      "global-variables"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "let count = 0;\nfunction addOne() {\n  count = count + 1;\n}\naddOne();\naddOne();\nconsole.log(count);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "The function is called twice, and each call adds 1 to the same global `count`.",
+          "es": "La función se llama dos veces, y cada llamada suma 1 a la misma `count` global."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "2",
+          "es": "2"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "0",
+          "es": "0"
+        },
+        "why": {
+          "en": "Inside `addOne` there is no `let`, so `count` is the global variable, and the function changes it.",
+          "es": "Dentro de `addOne` no hay `let`, así que `count` es la variable global, y la función la cambia."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "`count` starts at `0` and is never set to `undefined`.",
+          "es": "`count` empieza en `0` y nunca pasa a valer `undefined`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "A function can read and change variables from outside (global variables). `addOne` doesn't declare its own `count`, so `count = count + 1` changes the global one. After two calls it's `2`.",
+      "es": "Una función puede leer y cambiar variables de fuera (variables globales). `addOne` no declara su propia `count`, así que `count = count + 1` cambia la global. Después de dos llamadas vale `2`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "2"
+    }
+  },
+  {
+    "id": "s5-q016",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "shadowing",
+      "scope"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "let level = 1;\nfunction play() {\n  let level = 5;\n  level++;\n  return level;\n}\nplay();\nconsole.log(level);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "5",
+          "es": "5"
+        },
+        "why": {
+          "en": "`let level = 5` creates a new local variable. The global `level` keeps its own value.",
+          "es": "`let level = 5` crea una variable local nueva. La `level` global conserva su valor."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "2",
+          "es": "2"
+        },
+        "why": {
+          "en": "`level++` acts on the local `level` (from 5 to 6), not on the global one.",
+          "es": "`level++` actúa sobre la `level` local (de 5 a 6), no sobre la global."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "1",
+          "es": "1"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "6",
+          "es": "6"
+        },
+        "why": {
+          "en": "`6` is what `play()` returns, but that value is not stored, and the last line prints the global `level`.",
+          "es": "`6` es lo que devuelve `play()`, pero ese valor no se guarda, y la última línea muestra la `level` global."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "Inside `play`, `let level = 5` declares a local variable with the same name as the global one: it shadows (hides) it. Everything inside the function, including `level++`, uses the local one. The global `level` is still `1`, and the returned `6` is lost because `play()` isn't stored anywhere.",
+      "es": "Dentro de `play`, `let level = 5` declara una variable local con el mismo nombre que la global: la sombrea (la tapa). Todo lo de dentro de la función, también `level++`, usa la local. La `level` global sigue valiendo `1`, y el `6` que se devuelve se pierde porque `play()` no se guarda en ningún sitio."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "1"
+    }
+  },
+  {
+    "id": "s5-q017",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "parameters",
+      "arrays"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "function addItem(list) {\n  list.push(\"milk\");\n}\nlet cart = [\"bread\"];\naddItem(cart);\nconsole.log(cart.length);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "2",
+          "es": "2"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "1",
+          "es": "1"
+        },
+        "why": {
+          "en": "An array is passed by reference: `list` and `cart` are the same array, so `push` changes `cart` too.",
+          "es": "Un array se pasa por referencia: `list` y `cart` son el mismo array, así que `push` también cambia `cart`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "`cart.length` is a number. The function returns nothing, but the result of the call isn't printed here.",
+          "es": "`cart.length` es un número. La función no devuelve nada, pero aquí no se muestra el resultado de la llamada."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "Only one element is added: `\"bread\"` plus `\"milk\"` makes 2.",
+          "es": "Solo se añade un elemento: `\"bread\"` más `\"milk\"` hacen 2."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "When you pass an array (or an object) to a function, the parameter points to the same array, not to a copy. `list.push(\"milk\")` changes the array that `cart` also refers to, so `cart` now has 2 elements.",
+      "es": "Cuando pasas un array (o un objeto) a una función, el parámetro apunta al mismo array, no a una copia. `list.push(\"milk\")` cambia el array al que también apunta `cart`, así que ahora `cart` tiene 2 elementos."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "2"
+    }
+  },
+  {
+    "id": "s5-q018",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "parameters",
+      "arrays"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "function update(num, arr) {\n  num = 0;\n  arr[0] = 0;\n}\nlet a = 5;\nlet b = [5];\nupdate(a, b);\nconsole.log(a, b[0]);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "5 0",
+          "es": "5 0"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "0 0",
+          "es": "0 0"
+        },
+        "why": {
+          "en": "`num` gets a copy of the number in `a`. Changing `num` doesn't change `a`.",
+          "es": "`num` recibe una copia del número de `a`. Cambiar `num` no cambia `a`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "5 5",
+          "es": "5 5"
+        },
+        "why": {
+          "en": "`arr` and `b` are the same array, so `arr[0] = 0` changes `b[0]`.",
+          "es": "`arr` y `b` son el mismo array, así que `arr[0] = 0` cambia `b[0]`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "0 5",
+          "es": "0 5"
+        },
+        "why": {
+          "en": "It's the other way round: the number stays the same and the array changes.",
+          "es": "Es al revés: el número no cambia y el array sí."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "A primitive value (like a number) is copied into the parameter, so `num = 0` only changes the local copy and `a` stays `5`. An array is passed by reference: `arr` and `b` point to the same array, so `arr[0] = 0` is visible through `b`.",
+      "es": "Un valor primitivo (como un número) se copia en el parámetro, así que `num = 0` solo cambia la copia local y `a` sigue valiendo `5`. Un array se pasa por referencia: `arr` y `b` apuntan al mismo array, así que `arr[0] = 0` se ve también desde `b`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "5 0"
+    }
+  },
+  {
+    "id": "s5-q019",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "hoisting",
+      "functions"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "console.log(half(10));\nfunction half(n) {\n  return n / 2;\n}",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "5",
+          "es": "5"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "ReferenceError",
+          "es": "ReferenceError"
+        },
+        "why": {
+          "en": "That would happen with a function stored in a `let` or `const`. Function declarations are hoisted.",
+          "es": "Eso pasaría con una función guardada en un `let` o un `const`. Las declaraciones de función se elevan (hoisting)."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "A function declaration is ready before the code runs, so the call works and returns `5`.",
+          "es": "Una declaración de función está lista antes de que se ejecute el código, así que la llamada funciona y devuelve `5`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "NaN",
+          "es": "NaN"
+        },
+        "why": {
+          "en": "`n` gets the argument `10`, so `n / 2` is a normal division.",
+          "es": "`n` recibe el argumento `10`, así que `n / 2` es una división normal."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "Function declarations (`function name() { … }`) are hoisted: JavaScript registers them before running any line, so you can call them before the line where they're written. `half(10)` returns `5`.",
+      "es": "Las declaraciones de función (`function name() { … }`) se elevan (hoisting): JavaScript las registra antes de ejecutar ninguna línea, así que se pueden llamar antes de la línea donde están escritas. `half(10)` devuelve `5`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "5"
+    }
+  },
+  {
+    "id": "s5-q020",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "hoisting",
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "code": "console.log(half(10));\nconst half = (n) => n / 2;",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A `TypeError` is thrown on line 1",
+          "es": "Se lanza un `TypeError` en la línea 1"
+        },
+        "why": {
+          "en": "That's what happens with `var half = …`: `half` would be `undefined`, and calling `undefined` is a `TypeError`. With `const` you can't even read `half`.",
+          "es": "Eso es lo que pasa con `var half = …`: `half` valdría `undefined`, y llamar a `undefined` es un `TypeError`. Con `const` ni siquiera se puede leer `half`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `5`",
+          "es": "Muestra `5`"
+        },
+        "why": {
+          "en": "Only function declarations can be called before their line. This function is stored in a `const`.",
+          "es": "Solo las declaraciones de función se pueden llamar antes de su línea. Esta función está guardada en un `const`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 1",
+          "es": "Se lanza un `ReferenceError` en la línea 1"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `undefined`",
+          "es": "Muestra `undefined`"
+        },
+        "why": {
+          "en": "A `const` can't be read before its line at all, so nothing is printed.",
+          "es": "Un `const` no se puede leer de ninguna forma antes de su línea, así que no se muestra nada."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`half` is an arrow function stored in a `const`. Like any `const`, it can't be used before its line: line 1 throws `ReferenceError: Cannot access 'half' before initialization`. Only function declarations can be called before they appear in the code.",
+      "es": "`half` es una función flecha guardada en un `const`. Como cualquier `const`, no se puede usar antes de su línea: la línea 1 lanza `ReferenceError: Cannot access 'half' before initialization`. Solo las declaraciones de función se pueden llamar antes de aparecer en el código."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "ReferenceError",
+      "line": 1
+    }
+  },
+  {
+    "id": "s5-q021",
+    "section": 5,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 3,
+    "tags": [
+      "scope",
+      "functions"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "let base = 10;\nfunction calc() {\n  let bonus = 5;\n  function show() {\n    console.log(base + bonus);\n  }\n  show();\n}\ncalc();",
+    "prompt": {
+      "en": "Which two statements about this code are true? (Choose two.)",
+      "es": "¿Qué dos afirmaciones sobre este código son ciertas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`base` is a local variable of `calc`",
+          "es": "`base` es una variable local de `calc`"
+        },
+        "why": {
+          "en": "`base` is declared outside any function, so it's a global variable.",
+          "es": "`base` está declarada fuera de cualquier función, así que es una variable global."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`show()` could also be called on the last line, after `calc()`",
+          "es": "`show()` también se podría llamar en la última línea, después de `calc()`"
+        },
+        "why": {
+          "en": "`show` is declared inside `calc`, so it's local to `calc` too. Outside, it doesn't exist.",
+          "es": "`show` está declarada dentro de `calc`, así que también es local de `calc`. Fuera, no existe."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Running the code prints `15`",
+          "es": "Al ejecutar el código se muestra `15`"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`bonus` could also be printed on the last line, after `calc()`",
+          "es": "`bonus` también se podría mostrar en la última línea, después de `calc()`"
+        },
+        "why": {
+          "en": "`bonus` is local to `calc`. Outside it, using `bonus` throws a `ReferenceError`.",
+          "es": "`bonus` es local de `calc`. Fuera de ella, usar `bonus` lanza un `ReferenceError`."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`show` can read both `base` and `bonus`",
+          "es": "`show` puede leer tanto `base` como `bonus`"
+        }
+      }
+    ],
+    "answer": [
+      "C",
+      "E"
+    ],
+    "explanation": {
+      "en": "An inner function can use the variables of the functions around it and the global ones: `show` reads `bonus` (from `calc`) and `base` (global), so it prints `15`. It doesn't work the other way: what's declared inside `calc` (`bonus` and `show`) can't be used outside it.",
+      "es": "Una función interior puede usar las variables de las funciones que la rodean y las globales: `show` lee `bonus` (de `calc`) y `base` (global), así que muestra `15`. Al revés no funciona: lo que se declara dentro de `calc` (`bonus` y `show`) no se puede usar fuera de ella."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "15"
+    }
+  },
+  {
+    "id": "s5-q022",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "scope",
+      "global-variables"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "let rate = 2;\nfunction price(n) {\n  return n * rate;\n}\nrate = 3;\nconsole.log(price(10));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "30",
+          "es": "30"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "NaN",
+          "es": "NaN"
+        },
+        "why": {
+          "en": "`rate` is a global variable with a number, so the function can use it without problems.",
+          "es": "`rate` es una variable global con un número, así que la función la puede usar sin problemas."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "10",
+          "es": "10"
+        },
+        "why": {
+          "en": "The function returns `n * rate`, not just `n`.",
+          "es": "La función devuelve `n * rate`, no solo `n`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "20",
+          "es": "20"
+        },
+        "why": {
+          "en": "The function doesn't keep the value `rate` had when it was declared. It reads `rate` when it's called.",
+          "es": "La función no guarda el valor que tenía `rate` al declararla. Lee `rate` en el momento en que se la llama."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "A function reads outer variables at the moment it runs, not when it's written. `price(10)` is called after `rate = 3`, so it returns `10 * 3`, which is `30`.",
+      "es": "Una función lee las variables de fuera en el momento en que se ejecuta, no cuando se escribe. `price(10)` se llama después de `rate = 3`, así que devuelve `10 * 3`, es decir, `30`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "30"
+    }
+  },
+  {
+    "id": "s5-q023",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "shadowing",
+      "scope"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "let msg = \"hello\";\nfunction shout() {\n  ___ msg = \"HEY\";\n  return msg;\n}\nshout();\nconsole.log(msg);",
+    "prompt": {
+      "en": "Complete the gap so that `shout` uses its own local `msg` and the last line prints `hello`.",
+      "es": "Completa el hueco para que `shout` use su propia `msg` local y la última línea muestre `hello`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "return",
+          "es": "return"
+        },
+        "why": {
+          "en": "`return msg = \"HEY\";` changes the global `msg` before returning, so `HEY` is printed.",
+          "es": "`return msg = \"HEY\";` cambia la `msg` global antes de devolverla, así que se muestra `HEY`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "public",
+          "es": "public"
+        },
+        "why": {
+          "en": "`public` is used in other languages like Java, but here `public msg = …` is a `SyntaxError`.",
+          "es": "`public` se usa en otros lenguajes como Java, pero aquí `public msg = …` es un `SyntaxError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "let",
+          "es": "let"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "global",
+          "es": "global"
+        },
+        "why": {
+          "en": "`global` isn't a keyword in JavaScript: `global msg = …` is a `SyntaxError`.",
+          "es": "`global` no es una palabra clave de JavaScript: `global msg = …` es un `SyntaxError`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "With `let`, `msg` inside `shout` is a new local variable that shadows the global one. The function changes and returns its own `msg`, and the global `msg` keeps `\"hello\"`. Without `let`, the assignment would change the global variable.",
+      "es": "Con `let`, la `msg` de dentro de `shout` es una variable local nueva que sombrea a la global. La función cambia y devuelve su propia `msg`, y la `msg` global conserva `\"hello\"`. Sin `let`, la asignación cambiaría la variable global."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "hello"
+    }
+  },
+  {
+    "id": "s5-q024",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "shadowing",
+      "hoisting"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "let score = 10;\nfunction show() {\n  console.log(score);\n  let score = 20;\n}\nshow();",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `undefined`",
+          "es": "Muestra `undefined`"
+        },
+        "why": {
+          "en": "That's what `var score` would print. A `let` can't be used before its line.",
+          "es": "Eso es lo que mostraría `var score`. Un `let` no se puede usar antes de su línea."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `20`",
+          "es": "Muestra `20`"
+        },
+        "why": {
+          "en": "Line 3 runs before line 4, so the value `20` hasn't been assigned yet.",
+          "es": "La línea 3 se ejecuta antes que la 4, así que el valor `20` todavía no se ha asignado."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 3",
+          "es": "Se lanza un `ReferenceError` en la línea 3"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `10`",
+          "es": "Muestra `10`"
+        },
+        "why": {
+          "en": "Because of the `let score` on line 4, every `score` inside `show` refers to the local one, even before that line.",
+          "es": "Por el `let score` de la línea 4, toda `score` dentro de `show` es la local, también antes de esa línea."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "The local `let score` shadows the global `score` in the whole body of `show`, not only from line 4 on. On line 3 the local variable exists but hasn't got its value yet, so reading it throws `ReferenceError: Cannot access 'score' before initialization`.",
+      "es": "La `let score` local sombrea a la `score` global en todo el cuerpo de `show`, no solo a partir de la línea 4. En la línea 3 la variable local ya existe pero aún no tiene valor, así que leerla lanza `ReferenceError: Cannot access 'score' before initialization`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "ReferenceError",
+      "line": 3
+    }
+  },
+  {
+    "id": "s5-q025",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "first-class",
+      "function-expression"
+    ],
+    "courseRef": "07_Funciones/111_Funciones_Callback.html",
+    "code": "function shout(text) {\n  return text.toUpperCase() + \"!\";\n}\nconst yell = shout;\nconsole.log(yell(\"hey\"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "HEY!",
+          "es": "HEY!"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "`shout` has a `return`, so the call gives back the text.",
+          "es": "`shout` tiene `return`, así que la llamada devuelve el texto."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "hey!",
+          "es": "hey!"
+        },
+        "why": {
+          "en": "`yell` is the same function as `shout`, so it also runs `toUpperCase()`.",
+          "es": "`yell` es la misma función que `shout`, así que también ejecuta `toUpperCase()`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "TypeError",
+          "es": "TypeError"
+        },
+        "why": {
+          "en": "`const yell = shout;` (without parentheses) stores the function itself, so `yell` can be called.",
+          "es": "`const yell = shout;` (sin paréntesis) guarda la propia función, así que `yell` se puede llamar."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "In JavaScript, functions are values. `const yell = shout;` (without `()`) copies a reference to the function into `yell`, so `yell(\"hey\")` runs exactly the same code as `shout(\"hey\")` and returns `\"HEY!\"`.",
+      "es": "En JavaScript, las funciones son valores. `const yell = shout;` (sin `()`) copia en `yell` una referencia a la función, así que `yell(\"hey\")` ejecuta exactamente el mismo código que `shout(\"hey\")` y devuelve `\"HEY!\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "HEY!"
+    }
+  },
+  {
+    "id": "s5-q026",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "first-class"
+    ],
+    "courseRef": "07_Funciones/100_Funciones.html",
+    "code": "function getTen() {\n  return 10;\n}\nconst a = getTen;\nconst b = getTen();\nconsole.log(typeof a, typeof b);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "function function",
+          "es": "function function"
+        },
+        "why": {
+          "en": "`getTen()` with parentheses runs the function, so `b` stores its result, `10`.",
+          "es": "`getTen()` con paréntesis ejecuta la función, así que `b` guarda su resultado, `10`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "function number",
+          "es": "function number"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "number number",
+          "es": "number number"
+        },
+        "why": {
+          "en": "`a` stores the function itself (no `()`), so it isn't a number.",
+          "es": "`a` guarda la propia función (sin `()`), así que no es un número."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "object number",
+          "es": "object number"
+        },
+        "why": {
+          "en": "Functions are a special kind of object, but `typeof` returns `\"function\"` for them.",
+          "es": "Las funciones son un tipo especial de objeto, pero `typeof` devuelve `\"function\"` para ellas."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "The parentheses make the difference. `getTen` (without `()`) is the function itself, so `typeof a` is `\"function\"`. `getTen()` runs it and gives back `10`, so `typeof b` is `\"number\"`.",
+      "es": "Los paréntesis marcan la diferencia. `getTen` (sin `()`) es la propia función, así que `typeof a` es `\"function\"`. `getTen()` la ejecuta y devuelve `10`, así que `typeof b` es `\"number\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "function number"
+    }
+  },
+  {
+    "id": "s5-q027",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "first-class",
+      "function-expression",
+      "objects"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "const ops = {\n  add: function (a, b) { return a + b; },\n  sub: function (a, b) { return a - b; }\n};\nconsole.log(___(10, 4));",
+    "prompt": {
+      "en": "The code should print `6`. What completes the gap?",
+      "es": "El código debe mostrar `6`. ¿Qué completa el hueco?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "ops[sub]",
+          "es": "ops[sub]"
+        },
+        "why": {
+          "en": "Without quotes, `sub` is read as a variable that doesn't exist: `ReferenceError`. It would work with `ops[\"sub\"]`.",
+          "es": "Sin comillas, `sub` se lee como una variable que no existe: `ReferenceError`. Funcionaría con `ops[\"sub\"]`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "ops.sub()",
+          "es": "ops.sub()"
+        },
+        "why": {
+          "en": "`ops.sub()` calls the function without arguments (it returns `NaN`), and then `NaN(10, 4)` is a `TypeError`.",
+          "es": "`ops.sub()` llama a la función sin argumentos (devuelve `NaN`), y después `NaN(10, 4)` es un `TypeError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "sub",
+          "es": "sub"
+        },
+        "why": {
+          "en": "`sub` is a property of `ops`, not a variable. On its own it throws a `ReferenceError`.",
+          "es": "`sub` es una propiedad de `ops`, no una variable. Sola, lanza un `ReferenceError`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "ops.sub",
+          "es": "ops.sub"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "Functions can be stored anywhere a value can, including object properties. `ops.sub` is the function stored in `sub`, and `ops.sub(10, 4)` calls it and returns `10 - 4`, which is `6`.",
+      "es": "Las funciones se pueden guardar en cualquier sitio donde cabe un valor, también en las propiedades de un objeto. `ops.sub` es la función guardada en `sub`, y `ops.sub(10, 4)` la llama y devuelve `10 - 4`, es decir, `6`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "6"
+    }
+  },
+  {
+    "id": "s5-q028",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "first-class",
+      "function-expression"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "function multiplier(factor) {\n  return function (n) {\n    return n * factor;\n  };\n}\nconst triple = multiplier(3);\nconsole.log(triple(5));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "NaN",
+          "es": "NaN"
+        },
+        "why": {
+          "en": "The inner function still remembers `factor` (`3`) after `multiplier` has finished.",
+          "es": "La función interior sigue recordando `factor` (`3`) después de que `multiplier` haya terminado."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "3",
+          "es": "3"
+        },
+        "why": {
+          "en": "`multiplier(3)` doesn't return `3`: it returns a new function, and that one is called with `5`.",
+          "es": "`multiplier(3)` no devuelve `3`: devuelve una función nueva, y es esa la que se llama con `5`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "15",
+          "es": "15"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "8",
+          "es": "8"
+        },
+        "why": {
+          "en": "The inner function multiplies `n` by `factor`. It doesn't add them.",
+          "es": "La función interior multiplica `n` por `factor`. No los suma."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "A function can return another function. `multiplier(3)` returns a function expression that multiplies its argument by `factor`. That inner function keeps access to `factor`, which is `3`, even after `multiplier` has finished. So `triple(5)` returns `15`.",
+      "es": "Una función puede devolver otra función. `multiplier(3)` devuelve una expresión de función que multiplica su argumento por `factor`. Esa función interior sigue teniendo acceso a `factor`, que vale `3`, aunque `multiplier` ya haya terminado. Por eso `triple(5)` devuelve `15`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "15"
+    }
+  },
+  {
+    "id": "s5-q029",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "first-class",
+      "return"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "function makeGreeter() {\n  function greeter() {\n    return \"Hi!\";\n  }\n}\nconst hello = makeGreeter();\nconsole.log(hello());",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A `TypeError` is thrown on line 7",
+          "es": "Se lanza un `TypeError` en la línea 7"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "It prints `Hi!`",
+          "es": "Muestra `Hi!`"
+        },
+        "why": {
+          "en": "`makeGreeter` declares `greeter` but doesn't return it, so `hello` doesn't get the function.",
+          "es": "`makeGreeter` declara `greeter` pero no la devuelve, así que `hello` no recibe la función."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "It prints `undefined`",
+          "es": "Muestra `undefined`"
+        },
+        "why": {
+          "en": "`hello` is `undefined`, and calling it with `()` throws an error before anything is printed.",
+          "es": "`hello` vale `undefined`, y llamarla con `()` lanza un error antes de mostrar nada."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 6",
+          "es": "Se lanza un `ReferenceError` en la línea 6"
+        },
+        "why": {
+          "en": "`makeGreeter` exists, so line 6 works. The problem is what it gives back.",
+          "es": "`makeGreeter` existe, así que la línea 6 funciona. El problema es lo que devuelve."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`makeGreeter` has no `return`, so `hello` is `undefined`. On line 7, `hello()` tries to call `undefined` as if it were a function: `TypeError: hello is not a function`. The fix is to add `return greeter;` at the end of `makeGreeter`.",
+      "es": "`makeGreeter` no tiene `return`, así que `hello` vale `undefined`. En la línea 7, `hello()` intenta llamar a `undefined` como si fuera una función: `TypeError: hello is not a function`. Se arregla añadiendo `return greeter;` al final de `makeGreeter`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "TypeError",
+      "line": 7
+    }
+  },
+  {
+    "id": "s5-q030",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "first-class",
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/111_Funciones_Callback.html",
+    "code": "function runTwice(fn) {\n  fn();\n  fn();\n}\nfunction beep() {\n  console.log(\"beep\");\n}\nrunTwice(___);",
+    "prompt": {
+      "en": "Complete the gap so that the code prints `beep` twice.",
+      "es": "Completa el hueco para que el código muestre `beep` dos veces."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "beep()",
+          "es": "beep()"
+        },
+        "why": {
+          "en": "`beep()` runs `beep` once right away and passes its result, `undefined`. Then `fn()` throws a `TypeError`.",
+          "es": "`beep()` ejecuta `beep` una vez en ese momento y pasa su resultado, `undefined`. Después `fn()` lanza un `TypeError`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "fn",
+          "es": "fn"
+        },
+        "why": {
+          "en": "`fn` only exists inside `runTwice`. Outside, it's a `ReferenceError`.",
+          "es": "`fn` solo existe dentro de `runTwice`. Fuera, es un `ReferenceError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "\"beep\"",
+          "es": "\"beep\""
+        },
+        "why": {
+          "en": "That passes a string, not a function. `fn()` then throws `TypeError: fn is not a function`.",
+          "es": "Así se pasa un string, no una función. Después `fn()` lanza `TypeError: fn is not a function`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "beep",
+          "es": "beep"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "To pass a function to another function, write its name without parentheses: `runTwice(beep)`. Inside, `fn` is `beep`, and `fn()` calls it each time. With `beep()` you would pass the result of calling it, not the function.",
+      "es": "Para pasar una función a otra función, escribe su nombre sin paréntesis: `runTwice(beep)`. Dentro, `fn` es `beep`, y `fn()` la llama cada vez. Con `beep()` pasarías el resultado de llamarla, no la función."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "beep\nbeep"
+    }
+  },
+  {
+    "id": "s5-q031",
+    "section": 5,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "function-expression"
+    ],
+    "courseRef": "07_Funciones",
+    "prompt": {
+      "en": "Which two lines create a function expression? (Choose two.)",
+      "es": "¿Qué dos líneas crean una expresión de función? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`const h = f();`",
+          "es": "`const h = f();`"
+        },
+        "why": {
+          "en": "This calls `f` and stores its result. It doesn't create any function.",
+          "es": "Así se llama a `f` y se guarda su resultado. No se crea ninguna función."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`let g = function named() { return 2; };`",
+          "es": "`let g = function named() { return 2; };`"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`f();`",
+          "es": "`f();`"
+        },
+        "why": {
+          "en": "This is a function call, not a definition.",
+          "es": "Es una llamada a una función, no una definición."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`function f() { return 1; }`",
+          "es": "`function f() { return 1; }`"
+        },
+        "why": {
+          "en": "This is a function declaration: it starts with the keyword `function` as a statement of its own.",
+          "es": "Es una declaración de función: empieza con la palabra clave `function` como instrucción independiente."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`const f = function () { return 1; };`",
+          "es": "`const f = function () { return 1; };`"
+        }
+      }
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": {
+      "en": "A function expression is a function written where a value is expected, usually on the right of `=`. It can be anonymous (`function () { … }`) or have a name (`function named() { … }`). A line that starts with `function` is a declaration, and `f()` is just a call.",
+      "es": "Una expresión de función es una función escrita donde se espera un valor, normalmente a la derecha de un `=`. Puede ser anónima (`function () { … }`) o tener nombre (`function named() { … }`). Una línea que empieza por `function` es una declaración, y `f()` es solo una llamada."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q032",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "first-class",
+      "function-expression",
+      "arrays"
+    ],
+    "courseRef": "07_Funciones",
+    "code": "const steps = [\n  function (n) { return n + 1; },\n  function (n) { return n * 2; }\n];\nlet value = 3;\nfor (const step of steps) {\n  value = step(value);\n}\nconsole.log(value);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "4",
+          "es": "4"
+        },
+        "why": {
+          "en": "The loop runs both functions, and each one receives the result of the previous one.",
+          "es": "El bucle ejecuta las dos funciones, y cada una recibe el resultado de la anterior."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "8",
+          "es": "8"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "7",
+          "es": "7"
+        },
+        "why": {
+          "en": "That's doubling first and adding 1 later. The array runs the functions in order: first `+ 1`, then `* 2`.",
+          "es": "Eso es doblar primero y sumar 1 después. El array ejecuta las funciones por orden: primero `+ 1` y después `* 2`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "6",
+          "es": "6"
+        },
+        "why": {
+          "en": "Each step uses the updated `value`, not the original `3` again.",
+          "es": "Cada paso usa `value` actualizado, no otra vez el `3` original."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "An array can hold functions like any other value. The loop takes each function in order and calls it with the current `value`: first `3 + 1` gives `4`, then `4 * 2` gives `8`.",
+      "es": "Un array puede guardar funciones como cualquier otro valor. El bucle toma cada función por orden y la llama con el `value` actual: primero `3 + 1` da `4` y después `4 * 2` da `8`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "8"
+    }
+  },
+  {
+    "id": "s5-q033",
+    "section": 5,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 1,
+    "tags": [
+      "first-class"
+    ],
+    "courseRef": "07_Funciones/111_Funciones_Callback.html",
+    "prompt": {
+      "en": "In JavaScript, functions are «first-class» values. What does that mean?",
+      "es": "En JavaScript, las funciones son valores «de primera clase». ¿Qué significa eso?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "They can only be called once, the first time the code reaches them",
+          "es": "Solo se pueden llamar una vez: la primera vez que el código llega a ellas"
+        },
+        "why": {
+          "en": "A function can be called as many times as you want. That's the point of reusing code.",
+          "es": "Una función se puede llamar tantas veces como quieras. Para eso sirve reutilizar código."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "They must be declared at the top of the file, before any other code",
+          "es": "Tienen que declararse al principio del archivo, antes que el resto del código"
+        },
+        "why": {
+          "en": "Functions can be declared anywhere: in the middle of the file, inside other functions or inside objects.",
+          "es": "Las funciones se pueden declarar en cualquier sitio: en mitad del archivo, dentro de otras funciones o dentro de objetos."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "They always run before the rest of the code, as soon as the script starts",
+          "es": "Siempre se ejecutan antes que el resto del código, en cuanto empieza el script"
+        },
+        "why": {
+          "en": "A function only runs when it's called. Hoisting lets you call declarations early, but it doesn't run them.",
+          "es": "Una función solo se ejecuta cuando se la llama. El hoisting permite llamar antes a las declaraciones, pero no las ejecuta."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "They can be stored in variables, passed as arguments and returned, like any other value",
+          "es": "Se pueden guardar en variables, pasar como argumentos y devolver, como cualquier otro valor"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "«First-class» means functions are treated like any other value: you can store them in a variable (`const f = function () {};`), put them in arrays or objects, pass them to another function (callbacks) and return them from a function.",
+      "es": "«De primera clase» significa que las funciones se tratan como cualquier otro valor: se pueden guardar en una variable (`const f = function () {};`), meter en arrays u objetos, pasar a otra función (callbacks) y devolver desde una función."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q034",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "recursion"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "code": "function factorial(n) {\n  if (n === 1) {\n    return 1;\n  }\n  return n * factorial(n - 1);\n}\nconsole.log(factorial(4));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "10",
+          "es": "10"
+        },
+        "why": {
+          "en": "That's `4 + 3 + 2 + 1`. The function multiplies: `4 * 3 * 2 * 1`.",
+          "es": "Eso es `4 + 3 + 2 + 1`. La función multiplica: `4 * 3 * 2 * 1`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "4",
+          "es": "4"
+        },
+        "why": {
+          "en": "The function doesn't stop at the first call: it calls itself until `n` is `1`.",
+          "es": "La función no se para en la primera llamada: se llama a sí misma hasta que `n` vale `1`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "24",
+          "es": "24"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "12",
+          "es": "12"
+        },
+        "why": {
+          "en": "That's only `4 * 3`. The calls continue down to `factorial(1)`: `4 * 3 * 2 * 1`.",
+          "es": "Eso es solo `4 * 3`. Las llamadas siguen hasta `factorial(1)`: `4 * 3 * 2 * 1`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`factorial` is recursive: it calls itself with a smaller number until it reaches the base case `n === 1`. `factorial(4)` = `4 * factorial(3)` = `4 * 3 * factorial(2)` = `4 * 3 * 2 * factorial(1)` = `4 * 3 * 2 * 1` = `24`.",
+      "es": "`factorial` es recursiva: se llama a sí misma con un número menor hasta llegar al caso base `n === 1`. `factorial(4)` = `4 * factorial(3)` = `4 * 3 * factorial(2)` = `4 * 3 * 2 * factorial(1)` = `4 * 3 * 2 * 1` = `24`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "24"
+    }
+  },
+  {
+    "id": "s5-q035",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "recursion"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "code": "function show(n) {\n  if (n === 0) return;\n  console.log(\"in \" + n);\n  show(n - 1);\n  console.log(\"out \" + n);\n}\nshow(2);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "in 2\nin 1\nin 0\nout 0\nout 1\nout 2",
+          "es": "in 2\nin 1\nin 0\nout 0\nout 1\nout 2"
+        },
+        "why": {
+          "en": "`show(0)` returns on line 2, before any `console.log`, so it prints nothing.",
+          "es": "`show(0)` sale en la línea 2, antes de cualquier `console.log`, así que no muestra nada."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "in 2\nin 1\nout 1\nout 2",
+          "es": "in 2\nin 1\nout 1\nout 2"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "in 2\nout 2\nin 1\nout 1",
+          "es": "in 2\nout 2\nin 1\nout 1"
+        },
+        "why": {
+          "en": "`show(1)` is called before `\"out 2\"` is printed, and it has to finish first.",
+          "es": "`show(1)` se llama antes de mostrar `\"out 2\"`, y tiene que terminar primero."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "in 2\nin 1\nout 2\nout 1",
+          "es": "in 2\nin 1\nout 2\nout 1"
+        },
+        "why": {
+          "en": "The last call to start is the first to finish, so `\"out 1\"` comes before `\"out 2\"`.",
+          "es": "La última llamada en empezar es la primera en terminar, así que `\"out 1\"` va antes que `\"out 2\"`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "Each call waits for the recursive call inside it to finish before going on. `show(2)` prints `in 2` and calls `show(1)`, which prints `in 1` and calls `show(0)`, which stops at the base case. Then `show(1)` continues (`out 1`) and finally `show(2)` (`out 2`).",
+      "es": "Cada llamada espera a que termine la llamada recursiva de dentro antes de seguir. `show(2)` muestra `in 2` y llama a `show(1)`, que muestra `in 1` y llama a `show(0)`, que se para en el caso base. Después continúa `show(1)` (`out 1`) y por último `show(2)` (`out 2`)."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "in 2\nin 1\nout 1\nout 2"
+    }
+  },
+  {
+    "id": "s5-q036",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "recursion"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "code": "function sumTo(n) {\n  return n + sumTo(n - 1);\n}\nconsole.log(sumTo(3));",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A `SyntaxError` is thrown, because a function can't call itself",
+          "es": "Se lanza un `SyntaxError`, porque una función no puede llamarse a sí misma"
+        },
+        "why": {
+          "en": "A function can call itself: that's recursion. The code is written correctly.",
+          "es": "Una función sí puede llamarse a sí misma: eso es la recursividad. El código está bien escrito."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "The program keeps running forever and never ends",
+          "es": "El programa sigue ejecutándose para siempre y no termina nunca"
+        },
+        "why": {
+          "en": "Each call takes up space in the call stack. When it's full, JavaScript stops the program with an error.",
+          "es": "Cada llamada ocupa sitio en la pila de llamadas. Cuando se llena, JavaScript para el programa con un error."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `RangeError` is thrown: the maximum call stack size is exceeded",
+          "es": "Se lanza un `RangeError`: se supera el tamaño máximo de la pila de llamadas"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `6`",
+          "es": "Muestra `6`"
+        },
+        "why": {
+          "en": "Nothing tells the function to stop at `0`, so it never adds up to `6`.",
+          "es": "Nada le dice a la función que se pare en `0`, así que nunca llega a sumar `6`."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "`sumTo` has no base case, so it keeps calling itself: `sumTo(2)`, `sumTo(1)`, `sumTo(0)`, `sumTo(-1)`… Every call waiting to finish takes space in the call stack, and when the stack is full JavaScript throws `RangeError: Maximum call stack size exceeded`. The fix is a base case such as `if (n === 0) return 0;`.",
+      "es": "`sumTo` no tiene caso base, así que se llama a sí misma sin parar: `sumTo(2)`, `sumTo(1)`, `sumTo(0)`, `sumTo(-1)`… Cada llamada que espera a terminar ocupa sitio en la pila de llamadas, y cuando la pila se llena JavaScript lanza `RangeError: Maximum call stack size exceeded`. Se arregla con un caso base como `if (n === 0) return 0;`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "RangeError",
+      "line": 2
+    }
+  },
+  {
+    "id": "s5-q037",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "recursion"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "code": "function sumTo(n) {\n  if (___) {\n    return 0;\n  }\n  return n + sumTo(n - 1);\n}\nconsole.log(sumTo(4));",
+    "prompt": {
+      "en": "Complete the base case so that the code prints `10` (4 + 3 + 2 + 1).",
+      "es": "Completa el caso base para que el código muestre `10` (4 + 3 + 2 + 1)."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "n > 0",
+          "es": "n > 0"
+        },
+        "why": {
+          "en": "`4 > 0` is already `true` on the first call, so it returns `0` straight away.",
+          "es": "`4 > 0` ya es `true` en la primera llamada, así que devuelve `0` directamente."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "n === 5",
+          "es": "n === 5"
+        },
+        "why": {
+          "en": "`n` goes down from `4`, so it never reaches `5`. With no real base case, you get a `RangeError`.",
+          "es": "`n` baja desde `4`, así que nunca llega a `5`. Sin un caso base de verdad, se obtiene un `RangeError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "n === 1",
+          "es": "n === 1"
+        },
+        "why": {
+          "en": "It stops one step too early and returns `0` instead of `1` there: the result is `9`.",
+          "es": "Se para un paso antes y ahí devuelve `0` en vez de `1`: el resultado es `9`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "n === 0",
+          "es": "n === 0"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "The base case is the condition that stops the recursion. Each call lowers `n` by 1, so the sum must stop at `0`: `sumTo(4)` = `4 + 3 + 2 + 1 + 0` = `10`.",
+      "es": "El caso base es la condición que detiene la recursividad. Cada llamada baja `n` en 1, así que la suma tiene que pararse en `0`: `sumTo(4)` = `4 + 3 + 2 + 1 + 0` = `10`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "10"
+    }
+  },
+  {
+    "id": "s5-q038",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "recursion",
+      "strings"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "code": "function reverse(text) {\n  if (text === \"\") {\n    return \"\";\n  }\n  return reverse(text.slice(1)) + text[0];\n}\nconsole.log(reverse(\"abc\"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "a",
+          "es": "a"
+        },
+        "why": {
+          "en": "The function doesn't return only the first letter: it joins the results of all the calls.",
+          "es": "La función no devuelve solo la primera letra: une los resultados de todas las llamadas."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "cba",
+          "es": "cba"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "bca",
+          "es": "bca"
+        },
+        "why": {
+          "en": "That's only one step (moving `a` to the end). The rest `\"bc\"` is also reversed by the recursive call.",
+          "es": "Eso es solo un paso (mover la `a` al final). El resto, `\"bc\"`, también lo invierte la llamada recursiva."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "abc",
+          "es": "abc"
+        },
+        "why": {
+          "en": "Each call puts the first letter at the end, after the reversed rest, so the order is flipped.",
+          "es": "Cada llamada pone la primera letra al final, detrás del resto ya invertido, así que el orden se da la vuelta."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`reverse(\"abc\")` = `reverse(\"bc\") + \"a\"`; `reverse(\"bc\")` = `reverse(\"c\") + \"b\"`; `reverse(\"c\")` = `reverse(\"\") + \"c\"`, and the base case returns `\"\"`. Putting it together: `\"\" + \"c\" + \"b\" + \"a\"` = `\"cba\"`.",
+      "es": "`reverse(\"abc\")` = `reverse(\"bc\") + \"a\"`; `reverse(\"bc\")` = `reverse(\"c\") + \"b\"`; `reverse(\"c\")` = `reverse(\"\") + \"c\"`, y el caso base devuelve `\"\"`. Juntándolo todo: `\"\" + \"c\" + \"b\" + \"a\"` = `\"cba\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "cba"
+    }
+  },
+  {
+    "id": "s5-q039",
+    "section": 5,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 1,
+    "tags": [
+      "recursion"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "prompt": {
+      "en": "Which two things does a recursive function need so that it works and stops? (Choose two.)",
+      "es": "¿Qué dos cosas necesita una función recursiva para funcionar y terminar? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A base case: a condition that returns without calling the function again",
+          "es": "Un caso base: una condición que devuelve un valor sin volver a llamar a la función"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `setTimeout` so that it doesn't run forever",
+          "es": "Un `setTimeout` para que no se ejecute para siempre"
+        },
+        "why": {
+          "en": "`setTimeout` only delays code. What stops recursion is the base case.",
+          "es": "`setTimeout` solo retrasa el código. Lo que detiene la recursividad es el caso base."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A recursive call that gets closer to the base case each time",
+          "es": "Una llamada recursiva que se acerque al caso base cada vez"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A global variable to count the calls",
+          "es": "Una variable global para contar las llamadas"
+        },
+        "why": {
+          "en": "The values travel through the parameters. A counter can be useful, but it isn't required.",
+          "es": "Los valores viajan por los parámetros. Un contador puede ser útil, pero no es obligatorio."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "A `for` or `while` loop inside the function",
+          "es": "Un bucle `for` o `while` dentro de la función"
+        },
+        "why": {
+          "en": "Recursion repeats work by calling itself. It doesn't need a loop.",
+          "es": "La recursividad repite el trabajo llamándose a sí misma. No necesita ningún bucle."
+        }
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "en": "Every recursive function needs a base case (when to stop) and a recursive call that moves towards it, for example with `n - 1`. If the calls never reach the base case, the function never stops calling itself and ends in a `RangeError`.",
+      "es": "Toda función recursiva necesita un caso base (cuándo parar) y una llamada recursiva que avance hacia él, por ejemplo con `n - 1`. Si las llamadas nunca llegan al caso base, la función no deja de llamarse y acaba en un `RangeError`."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q040",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "recursion",
+      "return"
+    ],
+    "courseRef": "07_Funciones/105_Funciones_recursivas.html",
+    "code": "function sumTo(n) {\n  if (n === 0) {\n    return 0;\n  }\n  n + sumTo(n - 1);\n}\nconsole.log(sumTo(3));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "6",
+          "es": "6"
+        },
+        "why": {
+          "en": "Line 5 calculates something, but without `return` the result is thrown away.",
+          "es": "La línea 5 calcula algo, pero sin `return` el resultado se pierde."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "0",
+          "es": "0"
+        },
+        "why": {
+          "en": "Only the deepest call, `sumTo(0)`, returns `0`. The first call, `sumTo(3)`, returns nothing.",
+          "es": "Solo la llamada más profunda, `sumTo(0)`, devuelve `0`. La primera, `sumTo(3)`, no devuelve nada."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "NaN",
+          "es": "NaN"
+        },
+        "why": {
+          "en": "The value printed is what `sumTo(3)` returns, and it never reaches a `return` with a value.",
+          "es": "Lo que se muestra es lo que devuelve `sumTo(3)`, y esa llamada nunca llega a un `return` con valor."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "The recursive line is missing `return`. `sumTo(3)` calculates `n + sumTo(n - 1)` but doesn't give it back, so the call ends without `return` and returns `undefined`. It should be `return n + sumTo(n - 1);`.",
+      "es": "A la línea recursiva le falta `return`. `sumTo(3)` calcula `n + sumTo(n - 1)` pero no lo devuelve, así que la llamada termina sin `return` y devuelve `undefined`. Debería ser `return n + sumTo(n - 1);`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "undefined"
+    }
+  },
+  {
+    "id": "s5-q041",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "recursion"
+    ],
+    "courseRef": "07_Funciones/108_Funciones_recursivas.html",
+    "code": "let calls = 0;\nfunction power(base, exp) {\n  calls++;\n  if (exp === 0) return 1;\n  return base * power(base, exp - 1);\n}\nconsole.log(power(2, 3), calls);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "8 3",
+          "es": "8 3"
+        },
+        "why": {
+          "en": "There are 4 calls: `exp` is `3`, `2`, `1` and `0`. The call with `0` also adds 1 to `calls`.",
+          "es": "Hay 4 llamadas: `exp` vale `3`, `2`, `1` y `0`. La llamada con `0` también suma 1 a `calls`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "6 3",
+          "es": "6 3"
+        },
+        "why": {
+          "en": "The function multiplies `2` three times (`2 * 2 * 2`), it doesn't do `2 * 3`.",
+          "es": "La función multiplica `2` tres veces (`2 * 2 * 2`), no hace `2 * 3`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "8 0",
+          "es": "8 0"
+        },
+        "why": {
+          "en": "`power(2, 3)` runs before `calls` is read, because arguments are evaluated from left to right.",
+          "es": "`power(2, 3)` se ejecuta antes de leer `calls`, porque los argumentos se evalúan de izquierda a derecha."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "8 4",
+          "es": "8 4"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`power(2, 3)` = `2 * power(2, 2)` = `2 * 2 * power(2, 1)` = `2 * 2 * 2 * power(2, 0)` = `8`. The function runs four times (with `exp` equal to 3, 2, 1 and 0), and each call adds 1 to the global `calls`.",
+      "es": "`power(2, 3)` = `2 * power(2, 2)` = `2 * 2 * power(2, 1)` = `2 * 2 * 2 * power(2, 0)` = `8`. La función se ejecuta cuatro veces (con `exp` igual a 3, 2, 1 y 0), y cada llamada suma 1 a la variable global `calls`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "8 4"
+    }
+  },
+  {
+    "id": "s5-q042",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/111_Funciones_Callback.html",
+    "code": "function processNumber(n, callback) {\n  return callback(n);\n}\nconsole.log(processNumber(5, 10));",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A `ReferenceError` is thrown on line 4",
+          "es": "Se lanza un `ReferenceError` en la línea 4"
+        },
+        "why": {
+          "en": "Every name on line 4 exists. The call itself works; the problem is inside the function.",
+          "es": "Todos los nombres de la línea 4 existen. La llamada funciona; el problema está dentro de la función."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `TypeError` is thrown on line 2",
+          "es": "Se lanza un `TypeError` en la línea 2"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "It prints `15`",
+          "es": "Muestra `15`"
+        },
+        "why": {
+          "en": "`processNumber` doesn't add its arguments: it calls `callback`, and `10` isn't a function.",
+          "es": "`processNumber` no suma sus argumentos: llama a `callback`, y `10` no es una función."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "It prints `10`",
+          "es": "Muestra `10`"
+        },
+        "why": {
+          "en": "`callback(n)` doesn't give back `callback`: it tries to call it, and that fails.",
+          "es": "`callback(n)` no devuelve `callback`: intenta llamarlo, y eso falla."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`processNumber` expects a callback: a function it will call. Here it receives the number `10`, so on line 2 `callback(n)` tries to call a number and throws `TypeError: callback is not a function`. A valid call would be `processNumber(5, (x) => x + 10)`.",
+      "es": "`processNumber` espera un callback: una función a la que llamará. Aquí recibe el número `10`, así que en la línea 2 `callback(n)` intenta llamar a un número y lanza `TypeError: callback is not a function`. Una llamada válida sería `processNumber(5, (x) => x + 10)`."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "TypeError",
+      "line": 2
+    }
+  },
+  {
+    "id": "s5-q043",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/111_Funciones_Callback.html",
+    "code": "function each(list, action) {\n  for (let i = 0; i < list.length; i++) {\n    action(list[i], i);\n  }\n}\neach([\"a\", \"b\"], function (item, index) {\n  console.log(index + \":\" + item);\n});",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "0:a\n1:b",
+          "es": "0:a\n1:b"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "a:0\nb:1",
+          "es": "a:0\nb:1"
+        },
+        "why": {
+          "en": "The callback prints `index` first and then `item`.",
+          "es": "El callback muestra primero `index` y después `item`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "0:a",
+          "es": "0:a"
+        },
+        "why": {
+          "en": "`each` calls the callback once for every element, so it runs twice.",
+          "es": "`each` llama al callback una vez por cada elemento, así que se ejecuta dos veces."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "1:a\n2:b",
+          "es": "1:a\n2:b"
+        },
+        "why": {
+          "en": "Indexes start at `0`, and `each` passes `i` as it is.",
+          "es": "Los índices empiezan en `0`, y `each` pasa `i` tal cual."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "The anonymous function is a callback: `each` receives it as `action` and calls it once per element with `(list[i], i)`. Those arguments arrive in the parameters `item` and `index`, so it prints `0:a` and `1:b`.",
+      "es": "La función anónima es un callback: `each` la recibe como `action` y la llama una vez por elemento con `(list[i], i)`. Esos argumentos llegan a los parámetros `item` e `index`, así que muestra `0:a` y `1:b`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "0:a\n1:b"
+    }
+  },
+  {
+    "id": "s5-q044",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "timers",
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "code": "setTimeout(() => console.log(\"one\"), 300);\nsetTimeout(() => console.log(\"two\"), 100);\nsetTimeout(() => console.log(\"three\"), 200);",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "three\ntwo\none",
+          "es": "three\ntwo\none"
+        },
+        "why": {
+          "en": "The callback with the shortest delay (100 ms) runs first, and that's `\"two\"`.",
+          "es": "Primero se ejecuta el callback con menos espera (100 ms), que es `\"two\"`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "one\ntwo\nthree",
+          "es": "one\ntwo\nthree"
+        },
+        "why": {
+          "en": "That's the order in the code, but each callback runs when its time is up, not in order of writing.",
+          "es": "Es el orden del código, pero cada callback se ejecuta cuando se cumple su tiempo, no por orden de escritura."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "one",
+          "es": "one"
+        },
+        "why": {
+          "en": "Each `setTimeout` schedules its own callback, so the three of them run.",
+          "es": "Cada `setTimeout` programa su propio callback, así que se ejecutan los tres."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "two\nthree\none",
+          "es": "two\nthree\none"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`setTimeout(callback, ms)` schedules the callback to run after at least `ms` milliseconds and goes on immediately. The three timers start almost at the same time, so they finish in order of delay: 100 ms (`two`), 200 ms (`three`) and 300 ms (`one`).",
+      "es": "`setTimeout(callback, ms)` programa el callback para que se ejecute dentro de al menos `ms` milisegundos y sigue en el momento. Los tres temporizadores empiezan casi a la vez, así que terminan por orden de espera: 100 ms (`two`), 200 ms (`three`) y 300 ms (`one`)."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "two\nthree\none"
+    }
+  },
+  {
+    "id": "s5-q045",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "timers",
+      "loops"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "code": "for (let i = 1; i <= 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\nconsole.log(\"done\");",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "done\n3\n3\n3",
+          "es": "done\n3\n3\n3"
+        },
+        "why": {
+          "en": "Each callback remembers the `i` of its own turn: 1, 2 and 3.",
+          "es": "Cada callback recuerda la `i` de su propia vuelta: 1, 2 y 3."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "done\n1\n2\n3",
+          "es": "done\n1\n2\n3"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "done\n4\n4\n4",
+          "es": "done\n4\n4\n4"
+        },
+        "why": {
+          "en": "That would happen with `var i`. With `let`, each turn of the loop has its own `i`.",
+          "es": "Eso pasaría con `var i`. Con `let`, cada vuelta del bucle tiene su propia `i`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "1\n2\n3\ndone",
+          "es": "1\n2\n3\ndone"
+        },
+        "why": {
+          "en": "Even with a delay of `0`, the callbacks wait until the current code has finished, so `done` comes first.",
+          "es": "Aunque la espera sea `0`, los callbacks esperan a que termine el código actual, así que `done` sale primero."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "`setTimeout` with `0` doesn't run the callback immediately: it schedules it for after the current code. The loop finishes, `done` is printed, and then the three callbacks run. Because `i` is declared with `let`, each callback keeps the `i` of its turn: `1`, `2` and `3`.",
+      "es": "`setTimeout` con `0` no ejecuta el callback en el momento: lo programa para después del código actual. Termina el bucle, se muestra `done` y después se ejecutan los tres callbacks. Como `i` se declara con `let`, cada callback conserva la `i` de su vuelta: `1`, `2` y `3`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "done\n1\n2\n3"
+    }
+  },
+  {
+    "id": "s5-q046",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "timers"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "code": "let ticks = 0;\nconst id = setInterval(() => {\n  ticks++;\n  console.log(\"tick \" + ticks);\n  if (ticks === 3) {\n    clearInterval(id);\n  }\n}, 100);\nconsole.log(\"start\");",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "tick 1\ntick 2\ntick 3\nstart",
+          "es": "tick 1\ntick 2\ntick 3\nstart"
+        },
+        "why": {
+          "en": "`setInterval` doesn't block the program: `start` is printed before the first tick (after 100 ms).",
+          "es": "`setInterval` no bloquea el programa: `start` se muestra antes del primer tick (a los 100 ms)."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "start\ntick 1",
+          "es": "start\ntick 1"
+        },
+        "why": {
+          "en": "`setInterval` repeats the callback every 100 ms until `clearInterval` stops it.",
+          "es": "`setInterval` repite el callback cada 100 ms hasta que `clearInterval` lo para."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "start\ntick 1\ntick 2\ntick 3\ntick 4",
+          "es": "start\ntick 1\ntick 2\ntick 3\ntick 4"
+        },
+        "why": {
+          "en": "`clearInterval(id)` runs on the third tick, so there is no fourth one.",
+          "es": "`clearInterval(id)` se ejecuta en el tercer tick, así que no hay un cuarto."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "start\ntick 1\ntick 2\ntick 3",
+          "es": "start\ntick 1\ntick 2\ntick 3"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`setInterval(callback, 100)` runs the callback every 100 ms and returns an id. The main code goes on and prints `start` first. Then come the ticks; on the third one, `clearInterval(id)` cancels the interval, so it stops at `tick 3`.",
+      "es": "`setInterval(callback, 100)` ejecuta el callback cada 100 ms y devuelve un identificador. El código principal sigue y muestra primero `start`. Después llegan los ticks; en el tercero, `clearInterval(id)` cancela el intervalo, así que se para en `tick 3`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "start\ntick 1\ntick 2\ntick 3"
+    }
+  },
+  {
+    "id": "s5-q047",
+    "section": 5,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "timers",
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "prompt": {
+      "en": "You want the function `hello` to run once, 1 second from now. Which line does it?",
+      "es": "Quieres que la función `hello` se ejecute una vez dentro de 1 segundo. ¿Qué línea lo hace?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "`setTimeout(1000, hello);`",
+          "es": "`setTimeout(1000, hello);`"
+        },
+        "why": {
+          "en": "The order is wrong: first the function, then the delay.",
+          "es": "El orden está mal: primero va la función y después la espera."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`setTimeout(hello(), 1000);`",
+          "es": "`setTimeout(hello(), 1000);`"
+        },
+        "why": {
+          "en": "`hello()` runs `hello` right now and passes its result to `setTimeout`, not the function.",
+          "es": "`hello()` ejecuta `hello` en ese momento y le pasa a `setTimeout` su resultado, no la función."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`setInterval(hello, 1000);`",
+          "es": "`setInterval(hello, 1000);`"
+        },
+        "why": {
+          "en": "`setInterval` repeats `hello` every second until it's stopped. You only want it once.",
+          "es": "`setInterval` repite `hello` cada segundo hasta que se para. Tú solo la quieres una vez."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`setTimeout(hello, 1000);`",
+          "es": "`setTimeout(hello, 1000);`"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`setTimeout` receives the function to run (without parentheses) and the delay in milliseconds: 1 second is `1000`. With `hello()` you would call the function immediately and pass its result instead of the function.",
+      "es": "`setTimeout` recibe la función que hay que ejecutar (sin paréntesis) y la espera en milisegundos: 1 segundo son `1000`. Con `hello()` llamarías a la función en ese momento y pasarías su resultado en vez de la función."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q048",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "timers"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "code": "let n = 0;\nconst timer = setInterval(() => {\n  n++;\n  if (n === 2) {\n    ___(timer);\n  }\n}, 100);\nsetTimeout(() => console.log(n), 500);",
+    "prompt": {
+      "en": "Complete the gap so that the interval stops after two runs and the code prints `2`.",
+      "es": "Completa el hueco para que el intervalo se pare después de dos ejecuciones y el código muestre `2`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "clearInterval",
+          "es": "clearInterval"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "return",
+          "es": "return"
+        },
+        "why": {
+          "en": "`return` only ends this run of the callback. The interval keeps going, and after 500 ms `n` is already `5`.",
+          "es": "`return` solo termina esta ejecución del callback. El intervalo sigue, y a los 500 ms `n` ya vale `5`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "stopInterval",
+          "es": "stopInterval"
+        },
+        "why": {
+          "en": "`stopInterval` doesn't exist in JavaScript: it throws a `ReferenceError`.",
+          "es": "`stopInterval` no existe en JavaScript: lanza un `ReferenceError`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "setInterval",
+          "es": "setInterval"
+        },
+        "why": {
+          "en": "That would start a new interval (with a number instead of a function), not stop the current one.",
+          "es": "Eso intentaría empezar otro intervalo (con un número en vez de una función), no parar el actual."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`setInterval` returns an id, here stored in `timer`. `clearInterval(timer)` uses that id to cancel the interval. After the second run, `n` stays at `2`, and the `setTimeout` prints it after 500 ms.",
+      "es": "`setInterval` devuelve un identificador, aquí guardado en `timer`. `clearInterval(timer)` usa ese identificador para cancelar el intervalo. Después de la segunda ejecución, `n` se queda en `2`, y el `setTimeout` lo muestra a los 500 ms."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "2"
+    }
+  },
+  {
+    "id": "s5-q049",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "timers"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "code": "console.log(\"A\");\nsetTimeout(() => {\n  console.log(\"B\");\n  setTimeout(() => console.log(\"C\"), 0);\n}, 0);\nsetTimeout(() => console.log(\"D\"), 0);\nconsole.log(\"E\");",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A\nE\nD\nB\nC",
+          "es": "A\nE\nD\nB\nC"
+        },
+        "why": {
+          "en": "Timers with the same delay run in the order they were created, and the timer that prints `B` was created before the one that prints `D`.",
+          "es": "Los temporizadores con la misma espera se ejecutan por orden de creación: el que muestra `B` se creó antes que el que muestra `D`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A\nE\nB\nC\nD",
+          "es": "A\nE\nB\nC\nD"
+        },
+        "why": {
+          "en": "The timer for `C` is only created when `B` runs, and by then the one for `D` is already waiting in line.",
+          "es": "El temporizador de `C` se crea cuando se ejecuta `B`, y para entonces el de `D` ya está esperando en la cola."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A\nE\nB\nD\nC",
+          "es": "A\nE\nB\nD\nC"
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A\nB\nC\nD\nE",
+          "es": "A\nB\nC\nD\nE"
+        },
+        "why": {
+          "en": "Callbacks of `setTimeout` never run in the middle of the main code, even with `0`. `E` comes before them.",
+          "es": "Los callbacks de `setTimeout` nunca se ejecutan en mitad del código principal, ni siquiera con `0`. `E` va antes."
+        }
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "en": "First the main code runs completely: `A` and `E`. Then the timers run in the order they were scheduled: `B` (which schedules a new timer for `C`) and `D`. `C` is the last one because its timer was created last.",
+      "es": "Primero se ejecuta todo el código principal: `A` y `E`. Después, los temporizadores por orden de programación: `B` (que programa un temporizador nuevo para `C`) y `D`. `C` es el último porque su temporizador se creó el último."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "A\nE\nB\nD\nC"
+    }
+  },
+  {
+    "id": "s5-q050",
+    "section": 5,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "timers"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "prompt": {
+      "en": "Which two statements about `setTimeout` and `setInterval` are true? (Choose two.)",
+      "es": "¿Qué dos afirmaciones sobre `setTimeout` y `setInterval` son ciertas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "The delay is given in seconds",
+          "es": "La espera se indica en segundos"
+        },
+        "why": {
+          "en": "It's in milliseconds: `1000` means 1 second.",
+          "es": "Va en milisegundos: `1000` es 1 segundo."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "`setTimeout(fn, 0)` runs `fn` before the next line of code",
+          "es": "`setTimeout(fn, 0)` ejecuta `fn` antes de la siguiente línea de código"
+        },
+        "why": {
+          "en": "Even with `0`, the callback waits until the current code has finished.",
+          "es": "Incluso con `0`, el callback espera a que termine el código actual."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "`setTimeout` pauses the whole program until the time is up",
+          "es": "`setTimeout` pausa todo el programa hasta que se cumple el tiempo"
+        },
+        "why": {
+          "en": "The rest of the code keeps running. Only the callback waits.",
+          "es": "El resto del código sigue ejecutándose. Solo espera el callback."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "`setTimeout` runs its callback once, after the delay",
+          "es": "`setTimeout` ejecuta su callback una vez, después de la espera"
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "`setInterval` keeps running its callback until `clearInterval` stops it",
+          "es": "`setInterval` ejecuta su callback una y otra vez hasta que `clearInterval` lo para"
+        }
+      }
+    ],
+    "answer": [
+      "D",
+      "E"
+    ],
+    "explanation": {
+      "en": "Both functions receive a callback and a delay in milliseconds, and neither of them stops the program. `setTimeout` runs the callback once; `setInterval` repeats it every time the delay passes, until you call `clearInterval` with its id.",
+      "es": "Las dos funciones reciben un callback y una espera en milisegundos, y ninguna para el programa. `setTimeout` ejecuta el callback una vez; `setInterval` lo repite cada vez que pasa la espera, hasta que llamas a `clearInterval` con su identificador."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q051",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "callbacks",
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/112_Funciones_Callback.html",
+    "code": "function countIf(list, test) {\n  let count = 0;\n  for (const item of list) {\n    if (test(item)) {\n      count++;\n    }\n  }\n  return count;\n}\nconsole.log(countIf([3, 8, 12, 5], (n) => n > 4));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "3",
+          "es": "3"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "25",
+          "es": "25"
+        },
+        "why": {
+          "en": "The function counts how many elements pass the test. It doesn't add them up.",
+          "es": "La función cuenta cuántos elementos pasan la prueba. No los suma."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "4",
+          "es": "4"
+        },
+        "why": {
+          "en": "`3 > 4` is `false`, so `3` isn't counted.",
+          "es": "`3 > 4` es `false`, así que el `3` no se cuenta."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "2",
+          "es": "2"
+        },
+        "why": {
+          "en": "`5 > 4` is also `true`: the numbers that pass are `8`, `12` and `5`.",
+          "es": "`5 > 4` también es `true`: los números que pasan son `8`, `12` y `5`."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "`countIf` receives an arrow function as a callback (`test`) and calls it with each element. The callback returns `true` for `8`, `12` and `5`, so `count` ends at `3`. The same `countIf` could count anything else just by passing another callback.",
+      "es": "`countIf` recibe una función flecha como callback (`test`) y la llama con cada elemento. El callback devuelve `true` con `8`, `12` y `5`, así que `count` acaba en `3`. La misma `countIf` podría contar cualquier otra cosa con solo pasarle otro callback."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "3"
+    }
+  },
+  {
+    "id": "s5-q052",
+    "section": 5,
+    "bank": "practice",
+    "type": "single",
+    "difficulty": 1,
+    "tags": [
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/111_Funciones_Callback.html",
+    "prompt": {
+      "en": "What is a callback function?",
+      "es": "¿Qué es una función callback?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "A function passed as an argument to another function, which calls it when it needs to",
+          "es": "Una función que se pasa como argumento a otra función, que la llama cuando la necesita"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A function that is always called with `return`",
+          "es": "Una función a la que siempre se llama con `return`"
+        },
+        "why": {
+          "en": "`return` gives back a value; it has nothing to do with what a callback is.",
+          "es": "`return` devuelve un valor; no tiene nada que ver con lo que es un callback."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A function that runs automatically when the page loads",
+          "es": "Una función que se ejecuta automáticamente al cargar la página"
+        },
+        "why": {
+          "en": "A callback only runs when the function that received it decides to call it.",
+          "es": "Un callback solo se ejecuta cuando la función que lo ha recibido decide llamarlo."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A function that calls itself",
+          "es": "Una función que se llama a sí misma"
+        },
+        "why": {
+          "en": "That's a recursive function.",
+          "es": "Eso es una función recursiva."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "A callback is a function you hand to another function so that it calls it later («calls it back»). For example, in `setTimeout(sayHi, 500)`, `sayHi` is a callback: `setTimeout` calls it after 500 ms.",
+      "es": "Un callback es una función que le das a otra función para que la llame más tarde (en inglés, «calls it back»). Por ejemplo, en `setTimeout(sayHi, 500)`, `sayHi` es un callback: `setTimeout` la llama pasados 500 ms."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q053",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "timers",
+      "callbacks"
+    ],
+    "courseRef": "07_Funciones/116_Funciones_Callback.html",
+    "code": "let msg = \"first\";\nsetTimeout(() => console.log(msg), 200);\nmsg = \"second\";",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "first",
+          "es": "first"
+        },
+        "why": {
+          "en": "The callback doesn't save `msg` when the timer is created. It reads it when it runs, 200 ms later.",
+          "es": "El callback no guarda `msg` al crear el temporizador. Lo lee cuando se ejecuta, 200 ms después."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "`msg` has a value the whole time: first `\"first\"` and then `\"second\"`.",
+          "es": "`msg` tiene valor todo el rato: primero `\"first\"` y después `\"second\"`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "first\nsecond",
+          "es": "first\nsecond"
+        },
+        "why": {
+          "en": "There's only one `console.log`, and it runs once.",
+          "es": "Solo hay un `console.log`, y se ejecuta una vez."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "second",
+          "es": "second"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`setTimeout` doesn't run the callback now: it schedules it. The main code goes on and changes `msg` to `\"second\"`. When the callback finally runs, 200 ms later, it reads the current value of `msg`, which is `\"second\"`.",
+      "es": "`setTimeout` no ejecuta el callback ahora: lo programa. El código principal sigue y cambia `msg` a `\"second\"`. Cuando por fin se ejecuta el callback, 200 ms después, lee el valor actual de `msg`, que es `\"second\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "second"
+    }
+  },
+  {
+    "id": "s5-q054",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 1,
+    "tags": [
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "code": "const square = n => n * n;\nconsole.log(square(6));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        },
+        "why": {
+          "en": "Without braces, an arrow function returns the expression after `=>` automatically.",
+          "es": "Sin llaves, una función flecha devuelve automáticamente la expresión que va después de `=>`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "12",
+          "es": "12"
+        },
+        "why": {
+          "en": "The function multiplies `n` by itself (`6 * 6`), it doesn't double it.",
+          "es": "La función multiplica `n` por sí mismo (`6 * 6`), no lo dobla."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "66",
+          "es": "66"
+        },
+        "why": {
+          "en": "`*` multiplies numbers; it doesn't join text.",
+          "es": "`*` multiplica números; no une texto."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "36",
+          "es": "36"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "`n => n * n` is an arrow function with one parameter. With a single parameter the parentheses are optional, and without braces the result of the expression after `=>` is returned automatically. `square(6)` returns `36`.",
+      "es": "`n => n * n` es una función flecha con un parámetro. Con un solo parámetro los paréntesis son opcionales, y sin llaves el resultado de la expresión que va después de `=>` se devuelve automáticamente. `square(6)` devuelve `36`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "36"
+    }
+  },
+  {
+    "id": "s5-q055",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "arrow-functions",
+      "return"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "code": "const add = (a, b) => {\n  a + b;\n};\nconsole.log(add(2, 3));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "5",
+          "es": "5"
+        },
+        "why": {
+          "en": "With braces, the arrow function needs an explicit `return`. `a + b;` is calculated and thrown away.",
+          "es": "Con llaves, la función flecha necesita un `return` explícito. `a + b;` se calcula y se pierde."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "23",
+          "es": "23"
+        },
+        "why": {
+          "en": "`2` and `3` are numbers, so `+` would add them. But in any case nothing is returned.",
+          "es": "`2` y `3` son números, así que `+` los sumaría. Pero, en cualquier caso, no se devuelve nada."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "An arrow function with braces and no `return` is valid code. It just returns `undefined`.",
+          "es": "Una función flecha con llaves y sin `return` es código válido. Simplemente devuelve `undefined`."
+        }
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "en": "The automatic return only works without braces: `(a, b) => a + b`. As soon as you write `{ }`, the body is a normal block and you need `return a + b;`. Without it, the function returns `undefined`.",
+      "es": "La devolución automática solo funciona sin llaves: `(a, b) => a + b`. En cuanto escribes `{ }`, el cuerpo es un bloque normal y necesitas `return a + b;`. Sin él, la función devuelve `undefined`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "undefined"
+    }
+  },
+  {
+    "id": "s5-q056",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 3,
+    "tags": [
+      "trap",
+      "arrow-functions",
+      "objects"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "code": "const makeUser = name => { name: name };\nconsole.log(makeUser(\"Ana\"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "undefined",
+          "es": "undefined"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "SyntaxError",
+          "es": "SyntaxError"
+        },
+        "why": {
+          "en": "It's valid code, although it doesn't do what it seems: `name:` is read as a label inside a block.",
+          "es": "Es código válido, aunque no hace lo que parece: `name:` se lee como una etiqueta dentro de un bloque."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Ana",
+          "es": "Ana"
+        },
+        "why": {
+          "en": "The function doesn't return `name`: inside braces there's no automatic return.",
+          "es": "La función no devuelve `name`: dentro de llaves no hay devolución automática."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "{ name: 'Ana' }",
+          "es": "{ name: 'Ana' }"
+        },
+        "why": {
+          "en": "To JavaScript, the `{` right after `=>` opens the function's body, not an object.",
+          "es": "Para JavaScript, la `{` que va justo detrás de `=>` abre el cuerpo de la función, no un objeto."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "After `=>`, a `{` always starts the function's body, so `{ name: name }` is read as a block with no `return`, and the function returns `undefined`. To return an object directly, wrap it in parentheses: `name => ({ name: name })`.",
+      "es": "Después de `=>`, una `{` siempre abre el cuerpo de la función, así que `{ name: name }` se lee como un bloque sin `return`, y la función devuelve `undefined`. Para devolver un objeto directamente, se pone entre paréntesis: `name => ({ name: name })`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "undefined"
+    }
+  },
+  {
+    "id": "s5-q057",
+    "section": 5,
+    "bank": "practice",
+    "type": "gap",
+    "difficulty": 2,
+    "tags": [
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "code": "const sayHi = ___ \"Hi!\";\nconsole.log(sayHi());",
+    "prompt": {
+      "en": "Complete the arrow function, which has no parameters, so that the code prints `Hi!`.",
+      "es": "Completa la función flecha, que no tiene parámetros, para que el código muestre `Hi!`."
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "() =>",
+          "es": "() =>"
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "() ->",
+          "es": "() ->"
+        },
+        "why": {
+          "en": "The arrow is written `=>` (equals sign and greater-than sign). `->` is a `SyntaxError`.",
+          "es": "La flecha se escribe `=>` (signo igual y signo mayor que). `->` es un `SyntaxError`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "function =>",
+          "es": "function =>"
+        },
+        "why": {
+          "en": "An arrow function doesn't use the word `function`. This is a `SyntaxError`.",
+          "es": "Una función flecha no usa la palabra `function`. Esto es un `SyntaxError`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "=>",
+          "es": "=>"
+        },
+        "why": {
+          "en": "An arrow function always needs something before `=>`. With no parameters, that's an empty `()`.",
+          "es": "Una función flecha siempre necesita algo delante de `=>`. Sin parámetros, eso es un `()` vacío."
+        }
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "en": "An arrow function with no parameters starts with empty parentheses: `() => \"Hi!\"`. Without braces, the value after `=>` is returned, so `sayHi()` gives back `\"Hi!\"`.",
+      "es": "Una función flecha sin parámetros empieza con unos paréntesis vacíos: `() => \"Hi!\"`. Sin llaves, se devuelve el valor que va después de `=>`, así que `sayHi()` devuelve `\"Hi!\"`."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Hi!"
+    }
+  },
+  {
+    "id": "s5-q058",
+    "section": 5,
+    "bank": "practice",
+    "type": "multiple",
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "prompt": {
+      "en": "Which two statements about arrow functions are true? (Choose two.)",
+      "es": "¿Qué dos afirmaciones sobre las funciones flecha son ciertas? (Elige dos.)"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Arrow functions can't receive parameters",
+          "es": "Las funciones flecha no pueden recibir parámetros"
+        },
+        "why": {
+          "en": "They can receive as many as you need, written before `=>`.",
+          "es": "Pueden recibir todos los que necesites, escritos delante de `=>`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "If the body is written between `{ }`, you need `return` to give back a value",
+          "es": "Si el cuerpo va entre `{ }`, hace falta `return` para devolver un valor"
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "With two parameters, the parentheses are optional too: `a, b => a + b`",
+          "es": "Con dos parámetros, los paréntesis también son opcionales: `a, b => a + b`"
+        },
+        "why": {
+          "en": "With two or more parameters, the parentheses are required: `(a, b) => a + b`.",
+          "es": "Con dos o más parámetros, los paréntesis son obligatorios: `(a, b) => a + b`."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "An arrow function stored in a `const` can be called before its line",
+          "es": "Una función flecha guardada en un `const` se puede llamar antes de su línea"
+        },
+        "why": {
+          "en": "Like any `const`, it can't be used before its line: that's a `ReferenceError`.",
+          "es": "Como cualquier `const`, no se puede usar antes de su línea: es un `ReferenceError`."
+        }
+      },
+      {
+        "id": "E",
+        "text": {
+          "en": "With exactly one parameter, the parentheses around it are optional",
+          "es": "Con un solo parámetro, los paréntesis que lo rodean son opcionales"
+        }
+      }
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": {
+      "en": "`n => n * 2` is valid because it has one parameter; with zero or two or more you need parentheses: `() => …`, `(a, b) => …`. Without braces the expression is returned automatically; with braces it's a normal body and you need `return`.",
+      "es": "`n => n * 2` es válida porque tiene un parámetro; con cero, o con dos o más, hacen falta paréntesis: `() => …`, `(a, b) => …`. Sin llaves, la expresión se devuelve automáticamente; con llaves es un cuerpo normal y hace falta `return`."
+    },
+    "verify": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": "s5-q059",
+    "section": 5,
+    "bank": "practice",
+    "type": "output",
+    "difficulty": 2,
+    "tags": [
+      "arrow-functions",
+      "default-parameters"
+    ],
+    "courseRef": "07_Funciones/99_Funciones.html",
+    "code": "const greet = (name = \"friend\") => \"Hi, \" + name;\nconsole.log(greet());\nconsole.log(greet(\"Eva\"));",
+    "prompt": {
+      "en": "What is printed to the console?",
+      "es": "¿Qué se muestra en la consola?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "Hi, undefined\nHi, Eva",
+          "es": "Hi, undefined\nHi, Eva"
+        },
+        "why": {
+          "en": "When the argument is missing, the default value `\"friend\"` is used instead of `undefined`.",
+          "es": "Cuando falta el argumento, se usa el valor por defecto `\"friend\"` en lugar de `undefined`."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "Hi, \nHi, Eva",
+          "es": "Hi, \nHi, Eva"
+        },
+        "why": {
+          "en": "The default value isn't an empty text: it's `\"friend\"`.",
+          "es": "El valor por defecto no es un texto vacío: es `\"friend\"`."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "Hi, friend\nHi, friend",
+          "es": "Hi, friend\nHi, friend"
+        },
+        "why": {
+          "en": "The default value is only used when no argument is passed. `\"Eva\"` replaces it.",
+          "es": "El valor por defecto solo se usa cuando no se pasa argumento. `\"Eva\"` lo sustituye."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "Hi, friend\nHi, Eva",
+          "es": "Hi, friend\nHi, Eva"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "Arrow functions can have default parameters too. `greet()` passes nothing, so `name` takes the default value `\"friend\"`. `greet(\"Eva\")` passes an argument, which replaces the default.",
+      "es": "Las funciones flecha también pueden tener parámetros por defecto. `greet()` no pasa nada, así que `name` toma el valor por defecto `\"friend\"`. `greet(\"Eva\")` pasa un argumento, que sustituye al valor por defecto."
+    },
+    "verify": {
+      "kind": "output",
+      "expected": "Hi, friend\nHi, Eva"
+    }
+  },
+  {
+    "id": "s5-q060",
+    "section": 5,
+    "bank": "practice",
+    "type": "error",
+    "difficulty": 2,
+    "tags": [
+      "arrow-functions"
+    ],
+    "courseRef": "07_Funciones/117_Funciones_flecha.html",
+    "code": "const sum = a, b => a + b;\nconsole.log(sum(1, 2));",
+    "prompt": {
+      "en": "What happens when this code runs?",
+      "es": "¿Qué ocurre al ejecutar este código?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "text": {
+          "en": "It prints `3`",
+          "es": "Muestra `3`"
+        },
+        "why": {
+          "en": "With two parameters, the parentheses are required. Without them, the code can't even be read.",
+          "es": "Con dos parámetros, los paréntesis son obligatorios. Sin ellos, el código ni siquiera se puede leer."
+        }
+      },
+      {
+        "id": "B",
+        "text": {
+          "en": "A `ReferenceError` is thrown, because `a` is not defined",
+          "es": "Se lanza un `ReferenceError`, porque `a` no está definida"
+        },
+        "why": {
+          "en": "The code never starts running: it fails while it's being read, before anything can be undefined.",
+          "es": "El código no llega a ejecutarse: falla al leerlo, antes de que nada pueda estar sin definir."
+        }
+      },
+      {
+        "id": "C",
+        "text": {
+          "en": "A `TypeError` is thrown, because `sum` is not a function",
+          "es": "Se lanza un `TypeError`, porque `sum` no es una función"
+        },
+        "why": {
+          "en": "Line 2 never runs: the error is in how line 1 is written.",
+          "es": "La línea 2 no se ejecuta nunca: el error está en cómo está escrita la línea 1."
+        }
+      },
+      {
+        "id": "D",
+        "text": {
+          "en": "A `SyntaxError` is thrown and nothing runs",
+          "es": "Se lanza un `SyntaxError` y no se ejecuta nada"
+        }
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "en": "With more than one parameter, an arrow function needs parentheses: `(a, b) => a + b`. Without them, JavaScript reads `const sum = a, b …` as two constants, and `b` has no `=` value, so it reports `SyntaxError: Missing initializer in const declaration` before running anything.",
+      "es": "Con más de un parámetro, una función flecha necesita paréntesis: `(a, b) => a + b`. Sin ellos, JavaScript lee `const sum = a, b …` como dos constantes, y `b` no tiene valor con `=`, así que avisa con `SyntaxError: Missing initializer in const declaration` antes de ejecutar nada."
+    },
+    "verify": {
+      "kind": "error",
+      "errorType": "SyntaxError",
+      "line": 1
+    }
+  }
+]

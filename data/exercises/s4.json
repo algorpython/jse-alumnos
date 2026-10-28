@@ -1,0 +1,764 @@
+[
+  {
+    "id": "s4-e001",
+    "section": 4,
+    "difficulty": 1,
+    "tags": [
+      "if",
+      "else-if"
+    ],
+    "courseRef": "04_Condicionales",
+    "title": {
+      "en": "Letter grade",
+      "es": "Nota con letra"
+    },
+    "statement": {
+      "en": "Write a function `grade(score)` that turns a score from 0 to 100 into a letter: `\"A\"` from 90, `\"B\"` from 70, `\"C\"` from 50, and `\"F\"` below 50.\nExamples: `grade(95)` returns `\"A\"`, `grade(70)` returns `\"B\"` and `grade(12)` returns `\"F\"`.",
+      "es": "Escribe una función `grade(score)` que convierta una nota de 0 a 100 en una letra: `\"A\"` a partir de 90, `\"B\"` a partir de 70, `\"C\"` a partir de 50 y `\"F\"` por debajo de 50.\nEjemplos: `grade(95)` devuelve `\"A\"`, `grade(70)` devuelve `\"B\"` y `grade(12)` devuelve `\"F\"`."
+    },
+    "starter": "function grade(score) {\n  // your code here\n}\n\nconsole.log(grade(95));\n",
+    "solution": "function grade(score) {\n  // Check from the highest band down: the first true condition wins.\n  if (score >= 90) {\n    return \"A\";\n  } else if (score >= 70) {\n    return \"B\";\n  } else if (score >= 50) {\n    return \"C\";\n  } else {\n    return \"F\";\n  }\n}\n\nconsole.log(grade(95));\n",
+    "alternatives": [
+      "function grade(score) {\n  if (score < 50) return \"F\";\n  if (score < 70) return \"C\";\n  if (score < 90) return \"B\";\n  return \"A\";\n}\n\nconsole.log(grade(95));\n"
+    ],
+    "tests": [
+      {
+        "call": "grade(95)",
+        "expected": "A"
+      },
+      {
+        "call": "grade(90)",
+        "expected": "A"
+      },
+      {
+        "call": "grade(70)",
+        "expected": "B"
+      },
+      {
+        "call": "grade(69)",
+        "expected": "C"
+      },
+      {
+        "call": "grade(50)",
+        "expected": "C"
+      },
+      {
+        "call": "grade(12)",
+        "expected": "F"
+      },
+      {
+        "output": "A"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Use an `if...else if...else` chain with one condition for each letter.",
+        "es": "Usa una cadena `if...else if...else` con una condición para cada letra."
+      },
+      {
+        "en": "Start with the highest band (`score >= 90`): only the first true condition runs, so the order matters.",
+        "es": "Empieza por la franja más alta (`score >= 90`): solo se ejecuta la primera condición verdadera, así que el orden importa."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "The chain checks the bands from top to bottom. A score of 95 stops at the first condition; 70 fails `>= 90` and stops at `>= 70`. As each `return` ends the function, the `else` parts are optional (see the alternative, which checks from the bottom up with `<`).",
+      "es": "La cadena comprueba las franjas de arriba abajo. Un 95 se queda en la primera condición; un 70 no cumple `>= 90` y se queda en `>= 70`. Como cada `return` termina la función, los `else` son opcionales (mira la alternativa, que comprueba de abajo arriba con `<`)."
+    },
+    "commonMistakes": [
+      {
+        "en": "Putting `score >= 50` first: 95 also passes it, so every score from 50 gets `\"C\"`.",
+        "es": "Poner primero `score >= 50`: el 95 también lo cumple, así que todas las notas desde 50 reciben `\"C\"`."
+      },
+      {
+        "en": "Using `>` instead of `>=`: then `grade(90)` gives `\"B\"` and `grade(70)` gives `\"C\"`.",
+        "es": "Usar `>` en vez de `>=`: entonces `grade(90)` da `\"B\"` y `grade(70)` da `\"C\"`."
+      },
+      {
+        "en": "Using separate `if`s with `console.log` instead of `return`: several letters are printed and the function returns `undefined`.",
+        "es": "Usar `if` separados con `console.log` en vez de `return`: se muestran varias letras y la función devuelve `undefined`."
+      }
+    ]
+  },
+  {
+    "id": "s4-e002",
+    "section": 4,
+    "difficulty": 1,
+    "tags": [
+      "switch",
+      "fallthrough"
+    ],
+    "courseRef": "04_Condicionales",
+    "title": {
+      "en": "Weekday or weekend",
+      "es": "Laborable o fin de semana"
+    },
+    "statement": {
+      "en": "Write a function `dayType(day)` that receives a day as a three-letter text (`\"mon\"`, `\"tue\"`, `\"wed\"`, `\"thu\"`, `\"fri\"`, `\"sat\"` or `\"sun\"`) and returns `\"weekend\"` for Saturday and Sunday, `\"weekday\"` for the other five, and `\"unknown\"` for anything else. Use a `switch`.\nExamples: `dayType(\"sat\")` returns `\"weekend\"` and `dayType(\"wed\")` returns `\"weekday\"`.",
+      "es": "Escribe una función `dayType(day)` que reciba un día como texto de tres letras (`\"mon\"`, `\"tue\"`, `\"wed\"`, `\"thu\"`, `\"fri\"`, `\"sat\"` o `\"sun\"`) y devuelva `\"weekend\"` para el sábado y el domingo, `\"weekday\"` para los otros cinco y `\"unknown\"` para cualquier otra cosa. Usa un `switch`.\nEjemplos: `dayType(\"sat\")` devuelve `\"weekend\"` y `dayType(\"wed\")` devuelve `\"weekday\"`."
+    },
+    "starter": "function dayType(day) {\n  // your code here\n}\n\nconsole.log(dayType(\"sat\"));\n",
+    "solution": "function dayType(day) {\n  switch (day) {\n    // Empty cases fall through to the next one: several values share the same code.\n    case \"sat\":\n    case \"sun\":\n      return \"weekend\";\n    case \"mon\":\n    case \"tue\":\n    case \"wed\":\n    case \"thu\":\n    case \"fri\":\n      return \"weekday\";\n    default:\n      return \"unknown\";\n  }\n}\n\nconsole.log(dayType(\"sat\"));\n",
+    "alternatives": [
+      "function dayType(day) {\n  let type;\n  switch (day) {\n    case \"sat\":\n    case \"sun\":\n      type = \"weekend\";\n      break;\n    case \"mon\":\n    case \"tue\":\n    case \"wed\":\n    case \"thu\":\n    case \"fri\":\n      type = \"weekday\";\n      break;\n    default:\n      type = \"unknown\";\n  }\n  return type;\n}\n\nconsole.log(dayType(\"sat\"));\n"
+    ],
+    "tests": [
+      {
+        "call": "dayType(\"sat\")",
+        "expected": "weekend"
+      },
+      {
+        "call": "dayType(\"sun\")",
+        "expected": "weekend"
+      },
+      {
+        "call": "dayType(\"mon\")",
+        "expected": "weekday"
+      },
+      {
+        "call": "dayType(\"fri\")",
+        "expected": "weekday"
+      },
+      {
+        "call": "dayType(\"Sun\")",
+        "expected": "unknown"
+      },
+      {
+        "call": "dayType(\"holiday\")",
+        "expected": "unknown"
+      },
+      {
+        "output": "weekend"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Write one `case` for each day. Cases with no code fall through to the next one, so you can stack `case \"sat\":` and `case \"sun\":`.",
+        "es": "Escribe un `case` para cada día. Los casos sin código caen en el siguiente, así que puedes apilar `case \"sat\":` y `case \"sun\":`."
+      },
+      {
+        "en": "End each group with `return` (or with `break` if you save the result in a variable), and use `default` for everything else.",
+        "es": "Termina cada grupo con `return` (o con `break` si guardas el resultado en una variable) y usa `default` para todo lo demás."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "Grouped cases are the useful side of fallthrough: `case \"sat\":` has no code, so execution continues into `case \"sun\":` and both return `\"weekend\"`. `return` leaves the function, so no `break` is needed. `switch` compares with `===`, which is why `\"Sun\"` (capital S) goes to `default`.",
+      "es": "Los casos agrupados son el lado útil del fallthrough: `case \"sat\":` no tiene código, así que la ejecución continúa en `case \"sun\":` y los dos devuelven `\"weekend\"`. `return` sale de la función, así que no hace falta `break`. `switch` compara con `===`; por eso `\"Sun\"` (con S mayúscula) va a `default`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Saving the result in a variable and forgetting `break`: `\"sat\"` falls all the way down and ends as `\"unknown\"`.",
+        "es": "Guardar el resultado en una variable y olvidar el `break`: `\"sat\"` cae hasta abajo y acaba siendo `\"unknown\"`."
+      },
+      {
+        "en": "Writing `case \"sat\" || \"sun\":`: that expression is just `\"sat\"`, so Sunday goes to `default`.",
+        "es": "Escribir `case \"sat\" || \"sun\":`: esa expresión es solo `\"sat\"`, así que el domingo va a `default`."
+      },
+      {
+        "en": "Forgetting `default`: unknown days return `undefined` instead of `\"unknown\"`.",
+        "es": "Olvidar `default`: los días desconocidos devuelven `undefined` en vez de `\"unknown\"`."
+      }
+    ]
+  },
+  {
+    "id": "s4-e003",
+    "section": 4,
+    "difficulty": 1,
+    "tags": [
+      "for"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "Add up to n",
+      "es": "Sumar hasta n"
+    },
+    "statement": {
+      "en": "Write a function `sumTo(n)` that returns the sum of all whole numbers from 1 to `n` (both included). If `n` is 0, it returns 0. Use a `for` loop.\nExamples: `sumTo(4)` returns `10` (1 + 2 + 3 + 4) and `sumTo(1)` returns `1`.",
+      "es": "Escribe una función `sumTo(n)` que devuelva la suma de todos los números enteros del 1 al `n` (los dos incluidos). Si `n` es 0, devuelve 0. Usa un bucle `for`.\nEjemplos: `sumTo(4)` devuelve `10` (1 + 2 + 3 + 4) y `sumTo(1)` devuelve `1`."
+    },
+    "starter": "function sumTo(n) {\n  // your code here\n}\n\nconsole.log(sumTo(4));\n",
+    "solution": "function sumTo(n) {\n  let total = 0;\n  // i <= n so that n itself is also added.\n  for (let i = 1; i <= n; i++) {\n    total += i;\n  }\n  return total;\n}\n\nconsole.log(sumTo(4));\n",
+    "alternatives": [
+      "function sumTo(n) {\n  let total = 0;\n  let i = n;\n  while (i > 0) {\n    total += i;\n    i--;\n  }\n  return total;\n}\n\nconsole.log(sumTo(4));\n"
+    ],
+    "tests": [
+      {
+        "call": "sumTo(4)",
+        "expected": 10
+      },
+      {
+        "call": "sumTo(1)",
+        "expected": 1
+      },
+      {
+        "call": "sumTo(0)",
+        "expected": 0
+      },
+      {
+        "call": "sumTo(100)",
+        "expected": 5050
+      },
+      {
+        "output": "10"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Create a variable `total` that starts at `0` before the loop, and return it after the loop.",
+        "es": "Crea una variable `total` que empiece en `0` antes del bucle y devuélvela después del bucle."
+      },
+      {
+        "en": "The loop goes from `1` to `n` included: `for (let i = 1; i <= n; i++)`, and inside it adds `i` to `total`.",
+        "es": "El bucle va del `1` al `n` incluido: `for (let i = 1; i <= n; i++)`, y dentro suma `i` a `total`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`total` is an accumulator: it starts at 0 and the loop adds each number to it. The condition is `i <= n` because `n` must be added too. With `n = 0` the condition is false from the start, the loop doesn't run, and `0` is returned.",
+      "es": "`total` es un acumulador: empieza en 0 y el bucle le va sumando cada número. La condición es `i <= n` porque `n` también se tiene que sumar. Con `n = 0`, la condición es falsa desde el principio, el bucle no se ejecuta y se devuelve `0`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `i < n`: the last number is left out and `sumTo(4)` gives `6`.",
+        "es": "Escribir `i < n`: el último número se queda fuera y `sumTo(4)` da `6`."
+      },
+      {
+        "en": "Declaring `let total = 0` inside the loop: it goes back to 0 in every round.",
+        "es": "Declarar `let total = 0` dentro del bucle: vuelve a 0 en cada vuelta."
+      },
+      {
+        "en": "Putting `return total` inside the loop: the function ends in the first round and returns `1`.",
+        "es": "Poner `return total` dentro del bucle: la función termina en la primera vuelta y devuelve `1`."
+      }
+    ]
+  },
+  {
+    "id": "s4-e004",
+    "section": 4,
+    "difficulty": 2,
+    "tags": [
+      "for-of",
+      "strings",
+      "switch"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "Count the vowels",
+      "es": "Contar las vocales"
+    },
+    "statement": {
+      "en": "Write a function `countVowels(text)` that returns how many vowels (`a`, `e`, `i`, `o`, `u`) there are in `text`. The text is always in lowercase and has no accents. Go through it with `for...of`.\nExamples: `countVowels(\"banana\")` returns `3` and `countVowels(\"sky\")` returns `0`.",
+      "es": "Escribe una función `countVowels(text)` que devuelva cuántas vocales (`a`, `e`, `i`, `o`, `u`) hay en `text`. El texto siempre está en minúsculas y sin tildes. Recórrelo con `for...of`.\nEjemplos: `countVowels(\"banana\")` devuelve `3` y `countVowels(\"sky\")` devuelve `0`."
+    },
+    "starter": "function countVowels(text) {\n  // your code here\n}\n\nconsole.log(countVowels(\"banana\"));\n",
+    "solution": "function countVowels(text) {\n  let count = 0;\n  // for...of gives one character of the string in each round.\n  for (let ch of text) {\n    if (ch === \"a\" || ch === \"e\" || ch === \"i\" || ch === \"o\" || ch === \"u\") {\n      count++;\n    }\n  }\n  return count;\n}\n\nconsole.log(countVowels(\"banana\"));\n",
+    "alternatives": [
+      "function countVowels(text) {\n  let count = 0;\n  for (let ch of text) {\n    switch (ch) {\n      case \"a\":\n      case \"e\":\n      case \"i\":\n      case \"o\":\n      case \"u\":\n        count++;\n    }\n  }\n  return count;\n}\n\nconsole.log(countVowels(\"banana\"));\n",
+      "function countVowels(text) {\n  let count = 0;\n  for (let ch of text) {\n    if (\"aeiou\".includes(ch)) count++;\n  }\n  return count;\n}\n\nconsole.log(countVowels(\"banana\"));\n"
+    ],
+    "tests": [
+      {
+        "call": "countVowels(\"banana\")",
+        "expected": 3
+      },
+      {
+        "call": "countVowels(\"sky\")",
+        "expected": 0
+      },
+      {
+        "call": "countVowels(\"education\")",
+        "expected": 5
+      },
+      {
+        "call": "countVowels(\"\")",
+        "expected": 0
+      },
+      {
+        "output": "3"
+      }
+    ],
+    "hints": [
+      {
+        "en": "`for (let ch of text)` gives you one character in each round. Keep a counter that starts at `0`.",
+        "es": "`for (let ch of text)` te da un carácter en cada vuelta. Lleva un contador que empiece en `0`."
+      },
+      {
+        "en": "Inside the loop, check whether `ch` is a vowel with `||`: `ch === \"a\" || ch === \"e\" || …`. If it is, add 1 to the counter.",
+        "es": "Dentro del bucle, comprueba si `ch` es una vocal con `||`: `ch === \"a\" || ch === \"e\" || …`. Si lo es, suma 1 al contador."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "Strings are iterable, so `for...of` visits them character by character. Each character is compared with the five vowels; the counter only grows when one of the comparisons is true. A `switch` with five stacked cases (alternative) does the same check.",
+      "es": "Los strings son iterables, así que `for...of` los recorre carácter a carácter. Cada carácter se compara con las cinco vocales; el contador solo crece cuando una de las comparaciones es verdadera. Un `switch` con cinco casos apilados (alternativa) hace la misma comprobación."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `ch === \"a\" || \"e\" || \"i\"…`: `\"e\"` on its own is truthy, so every character counts as a vowel.",
+        "es": "Escribir `ch === \"a\" || \"e\" || \"i\"…`: `\"e\"` solo ya es truthy, así que todos los caracteres cuentan como vocal."
+      },
+      {
+        "en": "Using `for...in`: it gives the positions (`\"0\"`, `\"1\"`…), never a letter.",
+        "es": "Usar `for...in`: da las posiciones (`\"0\"`, `\"1\"`…), nunca una letra."
+      },
+      {
+        "en": "Writing `&&` instead of `||`: a character can't be `\"a\"` and `\"e\"` at the same time, so the count is always `0`.",
+        "es": "Escribir `&&` en vez de `||`: un carácter no puede ser `\"a\"` y `\"e\"` a la vez, así que la cuenta siempre da `0`."
+      }
+    ]
+  },
+  {
+    "id": "s4-e005",
+    "section": 4,
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "for",
+      "if",
+      "arrays"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "FizzBuzz",
+      "es": "FizzBuzz"
+    },
+    "statement": {
+      "en": "Write a function `fizzBuzz(n)` that returns an array with one text for each number from 1 to `n`: `\"FizzBuzz\"` if the number is a multiple of 3 and of 5, `\"Fizz\"` if it's only a multiple of 3, `\"Buzz\"` if it's only a multiple of 5, and the number as text otherwise.\nExample: `fizzBuzz(5)` returns `[\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\"]`.",
+      "es": "Escribe una función `fizzBuzz(n)` que devuelva un array con un texto para cada número del 1 al `n`: `\"FizzBuzz\"` si el número es múltiplo de 3 y de 5, `\"Fizz\"` si solo es múltiplo de 3, `\"Buzz\"` si solo es múltiplo de 5, y el número como texto en los demás casos.\nEjemplo: `fizzBuzz(5)` devuelve `[\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\"]`."
+    },
+    "starter": "function fizzBuzz(n) {\n  // your code here\n}\n\nconsole.log(fizzBuzz(5).join(\" \"));\n",
+    "solution": "function fizzBuzz(n) {\n  let result = [];\n  for (let i = 1; i <= n; i++) {\n    // The most specific case (multiple of 3 AND 5) must be checked first.\n    if (i % 3 === 0 && i % 5 === 0) {\n      result.push(\"FizzBuzz\");\n    } else if (i % 3 === 0) {\n      result.push(\"Fizz\");\n    } else if (i % 5 === 0) {\n      result.push(\"Buzz\");\n    } else {\n      result.push(String(i));\n    }\n  }\n  return result;\n}\n\nconsole.log(fizzBuzz(5).join(\" \"));\n",
+    "alternatives": [
+      "function fizzBuzz(n) {\n  let result = [];\n  for (let i = 1; i <= n; i++) {\n    let text = \"\";\n    if (i % 3 === 0) text += \"Fizz\";\n    if (i % 5 === 0) text += \"Buzz\";\n    if (text === \"\") text = String(i);\n    result.push(text);\n  }\n  return result;\n}\n\nconsole.log(fizzBuzz(5).join(\" \"));\n"
+    ],
+    "tests": [
+      {
+        "call": "fizzBuzz(5)",
+        "expected": [
+          "1",
+          "2",
+          "Fizz",
+          "4",
+          "Buzz"
+        ]
+      },
+      {
+        "call": "fizzBuzz(15)[14]",
+        "expected": "FizzBuzz"
+      },
+      {
+        "call": "fizzBuzz(10)[8]",
+        "expected": "Fizz"
+      },
+      {
+        "call": "fizzBuzz(1)",
+        "expected": [
+          "1"
+        ]
+      },
+      {
+        "output": "1 2 Fizz 4 Buzz"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Create an empty array, go from 1 to `n` with a `for`, and `push` one text in each round. To check a multiple, use `%`: `i % 3 === 0`.",
+        "es": "Crea un array vacío, ve del 1 al `n` con un `for` y haz `push` de un texto en cada vuelta. Para saber si es múltiplo, usa `%`: `i % 3 === 0`."
+      },
+      {
+        "en": "Check «multiple of 3 and 5» first. If you check «multiple of 3» first, 15 stops there and never becomes `\"FizzBuzz\"`.",
+        "es": "Comprueba primero «múltiplo de 3 y de 5». Si compruebas antes «múltiplo de 3», el 15 se queda ahí y nunca llega a ser `\"FizzBuzz\"`."
+      },
+      {
+        "en": "For the other numbers, push `String(i)`: the test expects texts, not numbers.",
+        "es": "Para los demás números, añade `String(i)`: el test espera textos, no números."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "In an `if...else if` chain only the first true condition runs, so the case that includes the others (multiple of 3 and of 5) goes first. `String(i)` converts the number to text. The alternative builds the text in two separate `if`s, so 15 gets `\"Fizz\"` + `\"Buzz\"`.",
+      "es": "En una cadena `if...else if` solo se ejecuta la primera condición verdadera, así que el caso que incluye a los demás (múltiplo de 3 y de 5) va primero. `String(i)` convierte el número en texto. La alternativa construye el texto con dos `if` separados, así que el 15 recibe `\"Fizz\"` + `\"Buzz\"`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Checking `i % 3 === 0` first: 15 returns `\"Fizz\"` and `\"FizzBuzz\"` never appears.",
+        "es": "Comprobar primero `i % 3 === 0`: el 15 devuelve `\"Fizz\"` y `\"FizzBuzz\"` no aparece nunca."
+      },
+      {
+        "en": "Pushing `i` instead of `String(i)`: the array mixes numbers and texts and `[1, 2, \"Fizz\"…]` isn't equal to `[\"1\", \"2\", \"Fizz\"…]`.",
+        "es": "Añadir `i` en vez de `String(i)`: el array mezcla números y textos, y `[1, 2, \"Fizz\"…]` no es igual a `[\"1\", \"2\", \"Fizz\"…]`."
+      },
+      {
+        "en": "Starting the loop at `0` or using `i < n`: the array starts with `\"FizzBuzz\"` (0 is a multiple of everything) or misses the last number.",
+        "es": "Empezar el bucle en `0` o usar `i < n`: el array empieza por `\"FizzBuzz\"` (0 es múltiplo de todo) o le falta el último número."
+      }
+    ]
+  },
+  {
+    "id": "s4-e006",
+    "section": 4,
+    "difficulty": 2,
+    "tags": [
+      "for",
+      "break",
+      "arrays"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "First negative number",
+      "es": "Primer número negativo"
+    },
+    "statement": {
+      "en": "Write a function `firstNegative(numbers)` that returns the position (index) of the first negative number in the array, or `-1` if there isn't any. Stop looking as soon as you find it.\nExamples: `firstNegative([4, -2, 7, -9])` returns `1` and `firstNegative([1, 2, 3])` returns `-1`.",
+      "es": "Escribe una función `firstNegative(numbers)` que devuelva la posición (índice) del primer número negativo del array, o `-1` si no hay ninguno. Deja de buscar en cuanto lo encuentres.\nEjemplos: `firstNegative([4, -2, 7, -9])` devuelve `1` y `firstNegative([1, 2, 3])` devuelve `-1`."
+    },
+    "starter": "function firstNegative(numbers) {\n  // your code here\n}\n\nconsole.log(firstNegative([4, -2, 7, -9]));\n",
+    "solution": "function firstNegative(numbers) {\n  let position = -1; // -1 means \"not found yet\"\n  for (let i = 0; i < numbers.length; i++) {\n    if (numbers[i] < 0) {\n      position = i;\n      break; // stop at the first one: the later ones don't matter\n    }\n  }\n  return position;\n}\n\nconsole.log(firstNegative([4, -2, 7, -9]));\n",
+    "alternatives": [
+      "function firstNegative(numbers) {\n  for (let i = 0; i < numbers.length; i++) {\n    if (numbers[i] < 0) return i;\n  }\n  return -1;\n}\n\nconsole.log(firstNegative([4, -2, 7, -9]));\n"
+    ],
+    "tests": [
+      {
+        "call": "firstNegative([4, -2, 7, -9])",
+        "expected": 1
+      },
+      {
+        "call": "firstNegative([1, 2, 3])",
+        "expected": -1
+      },
+      {
+        "call": "firstNegative([-5, 3])",
+        "expected": 0
+      },
+      {
+        "call": "firstNegative([])",
+        "expected": -1
+      },
+      {
+        "call": "firstNegative([0, 8, -1])",
+        "expected": 2
+      },
+      {
+        "output": "1"
+      }
+    ],
+    "hints": [
+      {
+        "en": "You need the position, so use a classic `for` with an index `i` from `0` to `numbers.length - 1` (`i < numbers.length`).",
+        "es": "Necesitas la posición, así que usa un `for` clásico con un índice `i` desde `0` hasta `numbers.length - 1` (`i < numbers.length`)."
+      },
+      {
+        "en": "Keep the answer in a variable that starts at `-1`. When `numbers[i] < 0`, save `i` and stop the loop with `break` (or return `i` directly).",
+        "es": "Guarda la respuesta en una variable que empiece en `-1`. Cuando `numbers[i] < 0`, guarda `i` y para el bucle con `break` (o devuelve `i` directamente)."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`position` starts at `-1`, the answer when nothing is found. The loop goes through the indexes, and at the first negative number it saves the index and `break` ends the loop, so a later negative can't overwrite it. In the alternative, `return i` ends the loop and the function at once.",
+      "es": "`position` empieza en `-1`, que es la respuesta cuando no se encuentra nada. El bucle recorre los índices y, en el primer número negativo, guarda el índice y `break` termina el bucle, así que un negativo posterior no puede sobrescribirlo. En la alternativa, `return i` termina a la vez el bucle y la función."
+    },
+    "commonMistakes": [
+      {
+        "en": "Forgetting `break`: the loop goes on and returns the position of the last negative (`3` in the example).",
+        "es": "Olvidar el `break`: el bucle sigue y devuelve la posición del último negativo (`3` en el ejemplo)."
+      },
+      {
+        "en": "Writing `return -1` inside the loop, in an `else`: the function ends at the first positive number.",
+        "es": "Escribir `return -1` dentro del bucle, en un `else`: la función termina en el primer número positivo."
+      },
+      {
+        "en": "Using `numbers[i] <= 0`: `0` isn't negative, so `[0, 8, -1]` would wrongly return `0`.",
+        "es": "Usar `numbers[i] <= 0`: el `0` no es negativo, así que `[0, 8, -1]` devolvería `0` por error."
+      }
+    ]
+  },
+  {
+    "id": "s4-e007",
+    "section": 4,
+    "difficulty": 1,
+    "tags": [
+      "trap",
+      "for-in",
+      "objects"
+    ],
+    "courseRef": "10_Objetos",
+    "title": {
+      "en": "Shopping total",
+      "es": "Total de la compra"
+    },
+    "statement": {
+      "en": "Write a function `sumValues(prices)` that receives an object whose values are prices and returns the sum of all of them. Use `for...in`.\nExample: `sumValues({ bread: 2, milk: 1, cheese: 5 })` returns `8`. An empty object `{}` returns `0`.",
+      "es": "Escribe una función `sumValues(prices)` que reciba un objeto cuyos valores son precios y devuelva la suma de todos ellos. Usa `for...in`.\nEjemplo: `sumValues({ bread: 2, milk: 1, cheese: 5 })` devuelve `8`. Un objeto vacío `{}` devuelve `0`."
+    },
+    "starter": "function sumValues(prices) {\n  // your code here\n}\n\nconsole.log(sumValues({ bread: 2, milk: 1, cheese: 5 }));\n",
+    "solution": "function sumValues(prices) {\n  let total = 0;\n  for (let item in prices) {\n    // item is the key (\"bread\"...); prices[item] is its value.\n    total += prices[item];\n  }\n  return total;\n}\n\nconsole.log(sumValues({ bread: 2, milk: 1, cheese: 5 }));\n",
+    "tests": [
+      {
+        "call": "sumValues({ bread: 2, milk: 1, cheese: 5 })",
+        "expected": 8
+      },
+      {
+        "call": "sumValues({ tea: 3 })",
+        "expected": 3
+      },
+      {
+        "call": "sumValues({})",
+        "expected": 0
+      },
+      {
+        "call": "sumValues({ a: 10, b: 20, c: 30, d: 40 })",
+        "expected": 100
+      },
+      {
+        "output": "8"
+      }
+    ],
+    "hints": [
+      {
+        "en": "`for (let item in prices)` gives you each key: `\"bread\"`, `\"milk\"`…",
+        "es": "`for (let item in prices)` te da cada clave: `\"bread\"`, `\"milk\"`…"
+      },
+      {
+        "en": "To read the value of a key stored in a variable, use square brackets: `prices[item]`. `prices.item` looks for a property literally called `item`.",
+        "es": "Para leer el valor de una clave guardada en una variable, usa corchetes: `prices[item]`. `prices.item` busca una propiedad que se llame literalmente `item`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`for...in` goes through the keys of the object, and `prices[item]` gets the value of each one, which is added to `total`. With an empty object the loop doesn't run and `0` is returned.",
+      "es": "`for...in` recorre las claves del objeto, y `prices[item]` obtiene el valor de cada una, que se suma a `total`. Con un objeto vacío, el bucle no se ejecuta y se devuelve `0`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `prices.item`: it's always `undefined`, so the total becomes `NaN`.",
+        "es": "Escribir `prices.item`: siempre da `undefined`, así que el total pasa a ser `NaN`."
+      },
+      {
+        "en": "Adding `item` instead of `prices[item]`: you join the names of the products (`\"0breadmilkcheese\"`).",
+        "es": "Sumar `item` en vez de `prices[item]`: se unen los nombres de los productos (`\"0breadmilkcheese\"`)."
+      },
+      {
+        "en": "Using `for...of` with the object: a plain object isn't iterable and it throws a `TypeError`.",
+        "es": "Usar `for...of` con el objeto: un objeto normal no es iterable y lanza un `TypeError`."
+      }
+    ]
+  },
+  {
+    "id": "s4-e008",
+    "section": 4,
+    "difficulty": 3,
+    "tags": [
+      "while"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "Steps to reach 1",
+      "es": "Pasos hasta llegar a 1"
+    },
+    "statement": {
+      "en": "Write a function `collatzSteps(n)` that counts how many steps it takes to turn a positive whole number `n` into `1` with this rule: if the number is even, divide it by 2; if it's odd, multiply it by 3 and add 1. Use a `while` loop. If `n` is already `1`, the answer is `0`.\nExample: `collatzSteps(6)` returns `8` (6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1).",
+      "es": "Escribe una función `collatzSteps(n)` que cuente cuántos pasos hacen falta para convertir un número entero positivo `n` en `1` con esta regla: si el número es par, se divide entre 2; si es impar, se multiplica por 3 y se le suma 1. Usa un bucle `while`. Si `n` ya es `1`, la respuesta es `0`.\nEjemplo: `collatzSteps(6)` devuelve `8` (6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1)."
+    },
+    "starter": "function collatzSteps(n) {\n  // your code here\n}\n\nconsole.log(collatzSteps(6));\n",
+    "solution": "function collatzSteps(n) {\n  let steps = 0;\n  // We don't know in advance how many rounds we need: a while loop fits.\n  while (n !== 1) {\n    if (n % 2 === 0) {\n      n = n / 2;\n    } else {\n      n = n * 3 + 1;\n    }\n    steps++; // count every change; without it the answer is always 0\n  }\n  return steps;\n}\n\nconsole.log(collatzSteps(6));\n",
+    "alternatives": [
+      "function collatzSteps(n) {\n  let steps = 0;\n  while (n > 1) {\n    n = n % 2 === 0 ? n / 2 : 3 * n + 1;\n    steps++;\n  }\n  return steps;\n}\n\nconsole.log(collatzSteps(6));\n"
+    ],
+    "tests": [
+      {
+        "call": "collatzSteps(6)",
+        "expected": 8
+      },
+      {
+        "call": "collatzSteps(1)",
+        "expected": 0
+      },
+      {
+        "call": "collatzSteps(2)",
+        "expected": 1
+      },
+      {
+        "call": "collatzSteps(7)",
+        "expected": 16
+      },
+      {
+        "call": "collatzSteps(27)",
+        "expected": 111
+      },
+      {
+        "output": "8"
+      }
+    ],
+    "hints": [
+      {
+        "en": "Use a counter `steps` that starts at `0` and a loop `while (n !== 1)`: it repeats while the number hasn't reached 1.",
+        "es": "Usa un contador `steps` que empiece en `0` y un bucle `while (n !== 1)`: se repite mientras el número no haya llegado a 1."
+      },
+      {
+        "en": "Inside the loop, use `if (n % 2 === 0)` to choose between `n = n / 2` and `n = n * 3 + 1`, and then add 1 to `steps`.",
+        "es": "Dentro del bucle, usa `if (n % 2 === 0)` para elegir entre `n = n / 2` y `n = n * 3 + 1`, y después suma 1 a `steps`."
+      },
+      {
+        "en": "Make sure `n` changes in every round: if it doesn't, the condition never becomes false and the loop never ends.",
+        "es": "Asegúrate de que `n` cambia en cada vuelta: si no, la condición nunca pasa a ser falsa y el bucle no termina."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "`while` fits when you don't know how many rounds you need: here the loop repeats until `n` is `1`. In every round the `if` applies the rule and `steps` counts one more change. With `n = 1` the condition is false from the start and the function returns `0`.",
+      "es": "`while` encaja cuando no sabes cuántas vueltas harán falta: aquí el bucle se repite hasta que `n` vale `1`. En cada vuelta, el `if` aplica la regla y `steps` cuenta un cambio más. Con `n = 1`, la condición es falsa desde el principio y la función devuelve `0`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Writing `n / 2` or `n * 3 + 1` without saving it in `n`: `n` never changes and the loop never ends (the editor stops it after 2 seconds).",
+        "es": "Escribir `n / 2` o `n * 3 + 1` sin guardarlo en `n`: `n` no cambia nunca y el bucle no termina (el editor lo para a los 2 segundos)."
+      },
+      {
+        "en": "Using two separate `if`s (even, then odd): after halving, the new number can also be odd and gets changed twice in the same step.",
+        "es": "Usar dos `if` separados (par y después impar): después de dividir, el número nuevo puede ser impar y cambia dos veces en el mismo paso."
+      },
+      {
+        "en": "Using `do...while`: the block runs once even when `n` is `1`, so `collatzSteps(1)` gives `3` instead of `0`.",
+        "es": "Usar `do...while`: el bloque se ejecuta una vez aunque `n` valga `1`, así que `collatzSteps(1)` da `3` en vez de `0`."
+      }
+    ]
+  },
+  {
+    "id": "s4-e009",
+    "section": 4,
+    "difficulty": 2,
+    "tags": [
+      "for",
+      "nested",
+      "strings"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "Star triangle",
+      "es": "Triángulo de estrellas"
+    },
+    "statement": {
+      "en": "Write a function `stars(n)` that returns a text with `n` rows: the first row has one `*`, the second two, and so on until row `n`. The rows are separated by a line break (`\"\\n\"`), with no line break at the end. Use two nested `for` loops.\nExample: `console.log(stars(3))` prints:\n*\n**\n***",
+      "es": "Escribe una función `stars(n)` que devuelva un texto con `n` filas: la primera fila tiene un `*`, la segunda dos, y así hasta la fila `n`. Las filas van separadas por un salto de línea (`\"\\n\"`), sin salto de línea al final. Usa dos bucles `for` anidados.\nEjemplo: `console.log(stars(3))` muestra:\n*\n**\n***"
+    },
+    "starter": "function stars(n) {\n  // your code here\n}\n\nconsole.log(stars(3));\n",
+    "solution": "function stars(n) {\n  let result = \"\";\n  for (let row = 1; row <= n; row++) {\n    // The inner loop draws as many stars as the row number.\n    for (let i = 1; i <= row; i++) {\n      result += \"*\";\n    }\n    // Line break between rows, but not after the last one.\n    if (row < n) {\n      result += \"\\n\";\n    }\n  }\n  return result;\n}\n\nconsole.log(stars(3));\n",
+    "alternatives": [
+      "function stars(n) {\n  let rows = [];\n  let line = \"\";\n  for (let row = 1; row <= n; row++) {\n    line += \"*\";\n    rows.push(line);\n  }\n  return rows.join(\"\\n\");\n}\n\nconsole.log(stars(3));\n"
+    ],
+    "tests": [
+      {
+        "call": "stars(3)",
+        "expected": "*\n**\n***"
+      },
+      {
+        "call": "stars(1)",
+        "expected": "*"
+      },
+      {
+        "call": "stars(5)",
+        "expected": "*\n**\n***\n****\n*****"
+      },
+      {
+        "output": "*\n**\n***"
+      }
+    ],
+    "hints": [
+      {
+        "en": "The outer loop goes through the rows (`row` from 1 to `n`). The inner loop adds `\"*\"` as many times as the number of the row.",
+        "es": "El bucle de fuera recorre las filas (`row` del 1 al `n`). El de dentro añade `\"*\"` tantas veces como el número de la fila."
+      },
+      {
+        "en": "After each row, add `\"\\n\"` only if it isn't the last one: `if (row < n)`.",
+        "es": "Después de cada fila, añade `\"\\n\"` solo si no es la última: `if (row < n)`."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "The inner loop depends on the outer one: in row 1 it runs once, in row 2 twice, and so on. The `if (row < n)` adds the line break between rows but not after the last one. The alternative builds each row from the previous one and joins them with `join(\"\\n\")`, which only puts separators between elements.",
+      "es": "El bucle de dentro depende del de fuera: en la fila 1 da una vuelta; en la 2, dos, y así sucesivamente. El `if (row < n)` añade el salto de línea entre filas, pero no después de la última. La alternativa construye cada fila a partir de la anterior y las une con `join(\"\\n\")`, que solo pone separadores entre elementos."
+    },
+    "commonMistakes": [
+      {
+        "en": "Making the inner loop go up to `n` instead of `row`: every row has `n` stars and you get a square.",
+        "es": "Hacer que el bucle de dentro llegue hasta `n` en vez de hasta `row`: todas las filas tienen `n` estrellas y sale un cuadrado."
+      },
+      {
+        "en": "Adding `\"\\n\"` after every row: the text ends with an extra line break and doesn't match.",
+        "es": "Añadir `\"\\n\"` después de todas las filas: el texto termina con un salto de línea de más y no coincide."
+      },
+      {
+        "en": "Starting the inner loop at `0` and keeping `i <= row`: every row gets one star too many.",
+        "es": "Empezar el bucle de dentro en `0` y dejar `i <= row`: cada fila sale con una estrella de más."
+      }
+    ]
+  },
+  {
+    "id": "s4-e010",
+    "section": 4,
+    "difficulty": 2,
+    "tags": [
+      "trap",
+      "do-while"
+    ],
+    "courseRef": "05_Bucles",
+    "title": {
+      "en": "Count the digits",
+      "es": "Contar las cifras"
+    },
+    "statement": {
+      "en": "Write a function `countDigits(n)` that returns how many digits a whole number `n` (0 or greater) has. Do it with numbers, without converting to text: divide by 10 (dropping the decimals with `Math.floor`) until nothing is left. Careful: `0` has one digit. A `do...while` loop fits well here.\nExamples: `countDigits(305)` returns `3` and `countDigits(0)` returns `1`.",
+      "es": "Escribe una función `countDigits(n)` que devuelva cuántas cifras tiene un número entero `n` (0 o mayor). Hazlo con números, sin pasarlo a texto: divide entre 10 (quitando los decimales con `Math.floor`) hasta que no quede nada. Cuidado: el `0` tiene una cifra. Aquí encaja bien un bucle `do...while`.\nEjemplos: `countDigits(305)` devuelve `3` y `countDigits(0)` devuelve `1`."
+    },
+    "starter": "function countDigits(n) {\n  // your code here\n}\n\nconsole.log(countDigits(305));\n",
+    "solution": "function countDigits(n) {\n  let digits = 0;\n  // do...while runs at least once, so 0 counts as one digit.\n  do {\n    n = Math.floor(n / 10); // drop the last digit: 305 -> 30 -> 3 -> 0\n    digits++;\n  } while (n > 0);\n  return digits;\n}\n\nconsole.log(countDigits(305));\n",
+    "alternatives": [
+      "function countDigits(n) {\n  let digits = 1;\n  while (n >= 10) {\n    n = Math.floor(n / 10);\n    digits++;\n  }\n  return digits;\n}\n\nconsole.log(countDigits(305));\n"
+    ],
+    "tests": [
+      {
+        "call": "countDigits(305)",
+        "expected": 3
+      },
+      {
+        "call": "countDigits(0)",
+        "expected": 1
+      },
+      {
+        "call": "countDigits(7)",
+        "expected": 1
+      },
+      {
+        "call": "countDigits(1000)",
+        "expected": 4
+      },
+      {
+        "call": "countDigits(99)",
+        "expected": 2
+      },
+      {
+        "output": "3"
+      }
+    ],
+    "hints": [
+      {
+        "en": "`Math.floor(n / 10)` removes the last digit: `305` → `30` → `3` → `0`. Count how many times you can do it until you reach `0`.",
+        "es": "`Math.floor(n / 10)` quita la última cifra: `305` → `30` → `3` → `0`. Cuenta cuántas veces puedes hacerlo hasta llegar a `0`."
+      },
+      {
+        "en": "With `while (n > 0)` the number `0` would give `0` digits. A `do...while` runs the block once before checking, which solves it.",
+        "es": "Con `while (n > 0)`, el número `0` daría `0` cifras. Un `do...while` ejecuta el bloque una vez antes de comprobar, y así se resuelve."
+      }
+    ],
+    "solutionExplanation": {
+      "en": "Each round removes one digit and counts it. Because the condition is checked at the end, the block always runs at least once, so `0` returns `1`, which is correct. With a plain `while (n > 0)` you'd need a special case for 0; the alternative avoids it by starting the count at 1 and looping while `n >= 10`.",
+      "es": "Cada vuelta quita una cifra y la cuenta. Como la condición se comprueba al final, el bloque se ejecuta siempre al menos una vez, así que `0` devuelve `1`, que es lo correcto. Con un `while (n > 0)` normal haría falta un caso especial para el 0; la alternativa lo evita empezando la cuenta en 1 y repitiendo mientras `n >= 10`."
+    },
+    "commonMistakes": [
+      {
+        "en": "Using `while (n > 0)`: `countDigits(0)` returns `0`.",
+        "es": "Usar `while (n > 0)`: `countDigits(0)` devuelve `0`."
+      },
+      {
+        "en": "Writing `n = n / 10` without `Math.floor`: `n` becomes 30.5, 3.05… and it takes many more rounds to stop being greater than 0.",
+        "es": "Escribir `n = n / 10` sin `Math.floor`: `n` pasa a 30.5, 3.05… y tarda muchas más vueltas en dejar de ser mayor que 0."
+      },
+      {
+        "en": "Writing the condition at the start (`do while (n > 0) { }`): in `do...while` the condition goes at the end, after the block. Otherwise it's a `SyntaxError`.",
+        "es": "Escribir la condición al principio (`do while (n > 0) { }`): en `do...while` la condición va al final, después del bloque. Si no, da `SyntaxError`."
+      }
+    ]
+  }
+]

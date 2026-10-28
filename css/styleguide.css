@@ -1,0 +1,16 @@
+/* Maquetación de la página #/styleguide (solo ?debug). No contiene componentes de la app. */
+.sg-section { display: flex; flex-direction: column; gap: 14px; }
+.sg-section > h2 { margin-bottom: 0; }
+.sg-stack { display: flex; flex-direction: column; gap: 14px; }
+.sg-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.sg-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: start; }
+.sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+.sg-swatch { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.sg-swatch span { height: 44px; border-radius: var(--radius-m); border: 1px solid var(--line); }
+.sg-bars { margin-top: 8px; }
+.sg-project { display: grid; grid-template-columns: 250px minmax(0, 1fr) 230px; gap: 22px; align-items: start; }
+.sg-editor { border-radius: 0 12px 12px 12px; font-size: 14px; padding: 14px 20px; }
+@media (max-width: 1180px) {
+  .sg-cols { grid-template-columns: minmax(0, 1fr); }
+  .sg-project { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,156 @@
+{
+  "section": 6,
+  "title": {
+    "en": "Errors, exceptions, debugging and troubleshooting",
+    "es": "Errores, excepciones, depuración y resolución de problemas"
+  },
+  "readingMinutes": 5,
+  "intro": {
+    "en": "The key ideas of this section. Press “Run this code” on any example to try it.",
+    "es": "Las ideas clave de esta sección. Pulsa «Ejecutar este código» en cualquier ejemplo para probarlo."
+  },
+  "blocks": [
+    {
+      "heading": { "en": "Kinds of errors", "es": "Tipos de errores" },
+      "body": {
+        "en": "Syntax error: the code breaks the grammar of the language (a missing `)`, for example). JavaScript checks the whole script first, so no line runs.\nSemantic error: well-written code that makes no sense, such as calling a number as a function. In JavaScript it shows up when that line runs, as an exception (a runtime error); the previous lines have already run.\nLogic error: there's no message at all. The program runs, but does something different from what you meant.",
+        "es": "Error de sintaxis: el código rompe la gramática del lenguaje (por ejemplo, falta un `)`). JavaScript revisa primero el script entero, así que no se ejecuta ninguna línea.\nError semántico: código bien escrito pero sin sentido, como llamar a un número como si fuera una función. En JavaScript aparece al ejecutarse esa línea, como una excepción (un error en tiempo de ejecución); las líneas anteriores ya se han ejecutado.\nError lógico: no hay ningún mensaje. El programa se ejecuta, pero hace algo distinto de lo que querías."
+      },
+      "example": {
+        "code": "let celsius = 20;\n// Logic error: it should be + 32\nlet fahrenheit = celsius * 9 / 5 + 23;\nconsole.log(fahrenheit);",
+        "output": "59"
+      }
+    },
+    {
+      "heading": { "en": "JavaScript error types", "es": "Los tipos de error de JavaScript" },
+      "body": {
+        "en": "`SyntaxError`: badly written code.\n`ReferenceError`: a name that doesn't exist (never declared, a typo, or used before its `let`/`const`).\n`TypeError`: a value used in a way its type doesn't allow: calling something that isn't a function, reading a property of `undefined` or `null`, changing a `const`.\n`RangeError`: a value out of the allowed range, such as `toFixed(101)`.",
+        "es": "`SyntaxError`: código mal escrito.\n`ReferenceError`: un nombre que no existe (nunca se declaró, tiene una errata o se usa antes de su `let`/`const`).\n`TypeError`: un valor usado de una forma que su tipo no permite: llamar a algo que no es una función, leer una propiedad de `undefined` o `null`, cambiar una `const`.\n`RangeError`: un valor fuera del rango permitido, como `toFixed(101)`."
+      },
+      "example": {
+        "code": "try { total; } catch (e) { console.log(e.name); }\ntry { let n = 5; n(); } catch (e) { console.log(e.name); }\ntry { (1.5).toFixed(101); } catch (e) { console.log(e.name); }",
+        "output": "ReferenceError\nTypeError\nRangeError"
+      }
+    },
+    {
+      "heading": { "en": "`try...catch`", "es": "`try...catch`" },
+      "body": {
+        "en": "If a line inside `try` throws an error, the rest of the `try` is skipped and `catch` receives the error. Then the program carries on normally. If nothing is thrown, `catch` is skipped.\nThere's one `catch` per `try`, with just a name in brackets, `catch (e)`, or with no brackets at all if you don't need the error: `catch { … }`. A `try` without `catch` or `finally` is a `SyntaxError`.",
+        "es": "Si una línea del `try` lanza un error, se salta el resto del `try` y el `catch` recibe el error. Después el programa sigue con normalidad. Si no se lanza nada, el `catch` se salta.\nHay un solo `catch` por `try`, con solo un nombre entre paréntesis, `catch (e)`, o sin paréntesis si no necesitas el error: `catch { … }`. Un `try` sin `catch` ni `finally` es un `SyntaxError`."
+      },
+      "example": {
+        "code": "try {\n  missingFunction();\n  console.log(\"never printed\");\n} catch (error) {\n  console.log(\"Caught:\", error.name);\n}\nconsole.log(\"The program goes on\");",
+        "output": "Caught: ReferenceError\nThe program goes on"
+      }
+    },
+    {
+      "heading": { "en": "The error object", "es": "El objeto de error" },
+      "body": {
+        "en": "The error has a `name` (the type, such as `\"TypeError\"`) and a `message` (the description). To tell types apart, use `instanceof` or compare `e.name`. Every specific type is also an `Error`.",
+        "es": "El error tiene un `name` (el tipo, como `\"TypeError\"`) y un `message` (la descripción). Para distinguir los tipos, usa `instanceof` o compara `e.name`. Todos los tipos concretos son también `Error`."
+      },
+      "example": {
+        "code": "try { null.length; } catch (e) {\n  console.log(e.name, e instanceof Error);\n  console.log(e.message);\n}",
+        "output": "TypeError true\nCannot read properties of null (reading 'length')"
+      }
+    },
+    {
+      "heading": { "en": "`finally`", "es": "`finally`" },
+      "body": {
+        "en": "`finally` always runs at the end: with or without an error, and even after a `return`. Use it for whatever must always happen, such as hiding a “loading” message. `try...finally` without `catch` is valid: after `finally`, the error carries on.",
+        "es": "`finally` se ejecuta siempre al final: con error o sin él, e incluso después de un `return`. Úsalo para lo que tiene que pasar siempre, como ocultar un mensaje de «cargando». `try...finally` sin `catch` es válido: después del `finally`, el error sigue su camino."
+      },
+      "example": {
+        "code": "try {\n  throw new Error(\"failed\");\n} catch (e) {\n  console.log(\"error:\", e.message);\n} finally {\n  console.log(\"hide spinner\");\n}",
+        "output": "error: failed\nhide spinner"
+      }
+    },
+    {
+      "heading": { "en": "`throw`: your own errors", "es": "`throw`: tus propios errores" },
+      "body": {
+        "en": "`throw` stops the current block, and JavaScript looks for the nearest `catch`, also in the functions that made the call. If there's none, the program stops (`Uncaught`). You can throw any value, but throw an error object so that `name` and `message` work: `new Error(\"…\")` or a specific type such as `new RangeError(\"…\")`.",
+        "es": "`throw` para el bloque actual, y JavaScript busca el `catch` más cercano, también en las funciones que hicieron la llamada. Si no hay ninguno, el programa se para (`Uncaught`). Se puede lanzar cualquier valor, pero lanza un objeto de error para que funcionen `name` y `message`: `new Error(\"…\")` o un tipo concreto como `new RangeError(\"…\")`."
+      },
+      "example": {
+        "code": "function setLevel(n) {\n  if (n > 10) throw new RangeError(\"Max level is 10\");\n  return \"Level \" + n;\n}\ntry {\n  console.log(setLevel(3));\n  console.log(setLevel(12));\n} catch (e) {\n  console.log(String(e));\n}",
+        "output": "Level 3\nRangeError: Max level is 10"
+      }
+    },
+    {
+      "heading": { "en": "Debugging", "es": "Depuración" },
+      "body": {
+        "en": "Read the error message: type, description and line. For logic errors, print the intermediate values with `console.log`.\nA breakpoint (Sources tab) or `debugger;` pauses the program just before a line. There you can see the variables (Scope, Watch) and the Call Stack, and move on with Step over (next line), Step into (into the function called), Step out (finish the function) or Resume.\nTo measure time: `console.time(\"label\")` and `console.timeEnd(\"label\")` with the same label, or subtract two values of `performance.now()`.",
+        "es": "Lee el mensaje de error: tipo, descripción y línea. Para los errores lógicos, muestra los valores intermedios con `console.log`.\nUn punto de interrupción (pestaña Sources) o `debugger;` pausa el programa justo antes de una línea. Ahí puedes ver las variables (Scope, Watch) y la pila de llamadas (Call Stack), y avanzar con Step over (siguiente línea), Step into (entrar en la función que se llama), Step out (terminar la función) o Resume.\nPara medir tiempos: `console.time(\"label\")` y `console.timeEnd(\"label\")` con la misma etiqueta, o resta dos valores de `performance.now()`."
+      }
+    }
+  ],
+  "traps": [
+    {
+      "title": { "en": "`finally` runs even after `return`", "es": "`finally` se ejecuta incluso después de `return`" },
+      "body": {
+        "en": "And if `finally` has its own `return`, that one wins over the `return` of the `try`.",
+        "es": "Y si el `finally` tiene su propio `return`, gana al `return` del `try`."
+      },
+      "example": {
+        "code": "function pick() {\n  try { return \"try\"; }\n  finally { return \"finally\"; }\n}\nconsole.log(pick());",
+        "output": "finally"
+      }
+    },
+    {
+      "title": { "en": "A thrown string has no `message`", "es": "Un string lanzado no tiene `message`" },
+      "body": {
+        "en": "`catch` receives exactly what was thrown. With `throw \"Oops\"`, `e` is a string.",
+        "es": "`catch` recibe exactamente lo que se lanzó. Con `throw \"Oops\"`, `e` es un string."
+      },
+      "example": {
+        "code": "try { throw \"Oops\"; }\ncatch (e) { console.log(typeof e, e.message); }",
+        "output": "string undefined"
+      }
+    },
+    {
+      "title": { "en": "`try` can't catch a syntax error", "es": "`try` no captura un error de sintaxis" },
+      "body": {
+        "en": "With a syntax error nothing runs, not even the `try...catch` around it.",
+        "es": "Con un error de sintaxis no se ejecuta nada, ni siquiera el `try...catch` que lo rodea."
+      },
+      "example": {
+        "code": "try { let x = ; }\ncatch (e) { console.log(\"caught\"); }",
+        "errorType": "SyntaxError"
+      }
+    },
+    {
+      "title": { "en": "No error doesn't mean no bug", "es": "Sin error no quiere decir sin fallo" },
+      "body": {
+        "en": "Dividing by zero, reading outside an array (not a `RangeError`!) or a bad conversion throw nothing.",
+        "es": "Dividir entre cero, leer fuera de un array (¡no es un `RangeError`!) o una conversión imposible no lanzan nada."
+      },
+      "example": {
+        "code": "console.log(10 / 0, [1, 2][5], Number(\"abc\"));",
+        "output": "Infinity undefined NaN"
+      }
+    },
+    {
+      "title": { "en": "`try` doesn't catch later errors", "es": "`try` no captura errores posteriores" },
+      "body": {
+        "en": "A `setTimeout` function runs after the `try` has finished. Put the `try...catch` inside it.",
+        "es": "La función de un `setTimeout` se ejecuta cuando el `try` ya ha terminado. Pon el `try...catch` dentro de ella."
+      },
+      "example": {
+        "code": "try {\n  setTimeout(() => missingFunction(), 0);\n} catch (e) {\n  console.log(\"caught\");\n}\nconsole.log(\"End\");",
+        "output": "End",
+        "errorType": "ReferenceError"
+      }
+    },
+    {
+      "title": { "en": "`ReferenceError` or `TypeError`?", "es": "¿`ReferenceError` o `TypeError`?" },
+      "body": {
+        "en": "The name doesn't exist: `ReferenceError`. It exists, but its value can't be used like that: `TypeError`.",
+        "es": "El nombre no existe: `ReferenceError`. Existe, pero su valor no se puede usar así: `TypeError`."
+      },
+      "example": {
+        "code": "let user = {};\ntry { user.greet(); } catch (e) { console.log(e.name); }\ntry { greet(); } catch (e) { console.log(e.name); }",
+        "output": "TypeError\nReferenceError"
+      }
+    }
+  ]
+}

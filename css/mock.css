@@ -1,0 +1,163 @@
+/* Simulacros: portada, examen a pantalla completa (como ../maquetas/04_simulacro.png y
+   04b_simulacro_error.png) y resultados (05_resultados.png). Las opciones, chips y bloques de código son
+   los de base.css y practice.css. */
+
+/* ---------- Portada ---------- */
+.mock-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.mock-side { display: flex; flex-direction: column; gap: 20px; }
+.mock-rule-list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.mock-rule-list li { background: var(--purple-soft); border-radius: var(--radius-l); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.mock-rule-list b { font: 700 28px var(--head); color: var(--purple); }
+.mock-rule-list span { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.mock-rule-notes { margin: 18px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; line-height: 1.5; }
+.mock-start-error { margin-top: 6px; color: var(--ink); }
+
+.mock-history { list-style: none; margin: 0; padding: 0; }
+.mock-past { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.mock-history .mock-past:first-child { border-top: 0; padding-top: 0; }
+.mock-past-title { font-weight: 600; font-size: 14.5px; }
+.mock-past-title { white-space: nowrap; }
+.mock-past > div:first-child { min-width: 0; }
+.mock-past-end { display: flex; align-items: center; gap: 10px; flex: none; }
+.mock-past-end strong { font: 700 18px var(--head); }
+
+/* ---------- Examen (pantalla completa, sin barra lateral) ---------- */
+.main.bare { padding: 0; gap: 0; min-height: 100vh; }
+.mock-screen { display: flex; flex-direction: column; min-height: 100vh; }
+
+.mock-head { min-height: 72px; background: var(--purple); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 10px 32px; flex: none; flex-wrap: wrap; }
+.mock-head .brand { padding: 0; }
+.mock-head .mock-title { font: 700 16px var(--head); color: #fff; }
+.mock-head-end { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+.mock-count { font-size: 14px; color: #E3D3EC; white-space: nowrap; }
+.mock-timer { font: 600 22px var(--mono); font-variant-numeric: tabular-nums; background: var(--purple-dark); padding: 8px 14px; border-radius: var(--radius-s); letter-spacing: .02em; }
+.mock-timer.low { background: var(--lime); color: var(--purple-dark); }
+.mock-head .btn.lime:focus-visible { box-shadow: 0 0 0 3px var(--purple), 0 0 0 5px #fff; }
+/* EN/ES sobre el morado */
+.mock-head .lang { background: transparent; border-color: rgba(255, 255, 255, 0.4); }
+.mock-head .lang button { background: transparent; color: #fff; min-width: 48px; padding: 10px 12px; }
+.mock-head .lang button[aria-pressed="true"] { background: #fff; color: var(--purple); }
+.mock-head .lang button:focus-visible { box-shadow: inset 0 0 0 3px var(--lime); }
+.mock-head .lang button[aria-pressed="true"]:focus-visible { box-shadow: inset 0 0 0 3px var(--purple); }
+
+.mock-layout { flex: 1; display: flex; gap: 28px; padding: 32px; align-items: stretch; }
+.mock-q { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.mock-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.mock-q .q-prompt { font-size: 19px; line-height: 1.45; }
+.mock-q pre.code { font-size: 15px; }
+.mock-nofeedback { margin-top: 2px; }
+.mock-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 16px; }
+.mock-nav-end { display: flex; gap: 10px; margin-left: auto; }
+.mock-nav .btn { white-space: nowrap; }
+.mock-flag[aria-pressed="true"] { background: var(--lime-soft); border-color: #C9CF3A; color: var(--purple-dark); }
+
+/* Cuadrícula de navegación (casillas de 44 px de alto: zona táctil mínima) */
+.mock-grid-card { width: 300px; flex: none; display: flex; flex-direction: column; gap: 16px; align-self: stretch; }
+.mock-grid-card h2 { margin: 0; font-size: 18px; }
+.mock-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.mock-grid a { height: var(--touch); border-radius: var(--radius-s); display: flex; align-items: center; justify-content: center; font: 600 13px var(--body); border: 1px solid #D5D6D0; background: var(--surface); color: var(--ink); text-decoration: none; }
+.mock-grid a:hover { border-color: var(--purple); }
+.mock-grid a.done { background: var(--purple-soft); border-color: #CDB3DD; color: var(--purple); }
+.mock-grid a.flag { background: var(--lime-soft); border-color: #C9CF3A; color: var(--ink); }
+.mock-grid a.cur { background: var(--purple); border-color: var(--purple); color: #fff; }
+.mock-grid a:focus-visible { box-shadow: var(--focus); }
+.mock-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--muted); }
+.mock-legend li { display: flex; align-items: center; gap: 8px; }
+.mock-legend .chip { font-size: 10px; padding: 3px 9px; }
+.mock-legend .chip.flag { background: var(--lime-soft); }
+
+/* Aviso de «Finish exam» */
+.mock-dialog { border: 0; border-radius: var(--radius-xl); padding: 24px; max-width: 460px; width: calc(100% - 32px); color: var(--ink); box-shadow: 0 18px 50px rgba(30, 21, 39, 0.25); }
+.mock-dialog::backdrop { background: rgba(30, 21, 39, 0.5); }
+.mock-dialog h2 { font-size: 20px; margin-bottom: 12px; }
+.mock-dialog p { line-height: 1.5; }
+.mock-dialog-list { margin: 10px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.mock-dialog .small { margin-top: 10px; }
+.mock-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+/* ---------- Resultados (como ../maquetas/05_resultados.png) ---------- */
+.mock-timeup { margin: 0; }
+.mr-top { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.mr-score { display: flex; align-items: center; gap: 24px; }
+/* Anillo: verde si aprueba, morado si no (sin rojo: tono motivador). --p = porcentaje. */
+.mr-ring { --c: var(--purple); width: 130px; height: 130px; flex: none; border-radius: 50%; background: conic-gradient(var(--c) 0 var(--p), var(--track) 0); display: flex; align-items: center; justify-content: center; }
+.mr-ring.ok { --c: var(--green); }
+.mr-ring span { width: 100px; height: 100px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font: 700 28px var(--head); }
+.mr-score-text { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; min-width: 0; }
+.mr-chip { font-size: 14px; }
+.mr-chip.green { text-transform: uppercase; letter-spacing: .02em; }
+.mr-correct { font: 700 20px var(--head); }
+.mr-message { font-size: 14px; line-height: 1.5; color: var(--muted); }
+.mr-study { display: flex; flex-direction: column; gap: 10px; }
+.mr-study h2 { margin: 0; }
+.mr-study-text { font-size: 14px; line-height: 1.55; color: var(--muted); }
+.mr-study-text strong { color: var(--ink); }
+.mr-study-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
+.mr-compare { display: flex; gap: 10px; align-items: baseline; }
+.mr-compare-icon { color: var(--purple); font-size: 13px; }
+.mr-compare strong { font-weight: 700; }
+
+.mr-bars { list-style: none; margin: 0; padding: 0; }
+.mr-bars .lbl { gap: 12px; align-items: baseline; }
+.mr-row-end { display: flex; gap: 12px; align-items: baseline; flex: none; }
+.mr-row-stat { color: var(--muted); white-space: nowrap; }
+.bar-row.focus .mr-row-stat { color: var(--purple); font-weight: 600; }
+.bar i.focus { background: var(--purple); }
+.mr-focus-chip { font-size: 11px; padding: 2px 8px; margin-left: 6px; }
+.mr-up { color: var(--green); font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+
+/* Revisión pregunta a pregunta */
+.mr-review { display: flex; flex-direction: column; gap: 12px; }
+.mr-review-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.mr-review-head h2 { margin: 0; }
+.mr-review-head h2:focus-visible { box-shadow: var(--focus); border-radius: 4px; }
+.mr-filters { flex: none; max-width: 100%; flex-wrap: wrap; }
+.mr-filters button { flex: none; padding: 9px 14px; min-height: var(--touch); white-space: nowrap; }
+.mr-mistakes a { color: var(--purple); font-weight: 600; }
+.mr-list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.mr-item details { border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--surface); }
+.mr-item details[open] { border-color: var(--line-strong); }
+.mr-item summary { list-style: none; display: flex; align-items: center; gap: 14px; padding: 10px 14px; min-height: var(--touch); cursor: pointer; border-radius: var(--radius-l); }
+.mr-item summary::-webkit-details-marker { display: none; }
+.mr-item summary::after { content: "▾"; color: var(--muted); font-size: 14px; transition: transform .15s; }
+.mr-item details[open] > summary::after { transform: rotate(180deg); }
+.mr-item summary:hover { background: var(--ground); }
+.mr-item summary:focus-visible { box-shadow: var(--focus); }
+.mr-num { width: 32px; height: 32px; flex: none; border-radius: var(--radius-s); display: flex; align-items: center; justify-content: center; font: 700 13px var(--body); background: var(--track); color: var(--ink); }
+.mr-item.right .mr-num { background: var(--green-bg); color: var(--green); }
+.mr-item.wrong .mr-num { background: var(--purple-soft); color: var(--purple); }
+.mr-sum { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; row-gap: 2px; font-size: 14.5px; }
+.mr-sum-code { font-size: 12.5px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mr-sum-meta { flex-basis: 100%; }
+.mr-status { flex: none; }
+.mr-body { padding: 4px 16px 18px; display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--line); margin-top: 0; }
+.mr-body .q-prompt { font-size: 16.5px; line-height: 1.45; margin-top: 12px; }
+.mr-body .note { max-width: none; }
+.mr-empty { padding: 10px 14px; }
+.mr-course code { font-family: var(--mono); }
+/* Las opciones van dentro de un <li>: sin el fondo gris de «li code» de base.css. */
+.mr-body .opt code { background: none; padding: 0; font-size: inherit; }
+/* … salvo el código en línea del texto de la opción, que se ve igual que en la práctica (practice.css). */
+.mr-body .opt .opt-text code { background: rgba(30, 21, 39, 0.07); padding: 1px 5px; font-size: .95em; }
+.mr-end { margin-top: -4px; }
+
+@media (max-width: 1180px) {
+  .mock-layout { padding: 24px; gap: 20px; }
+  .mock-head { padding: 10px 24px; }
+  .mock-head-end { gap: 14px; }
+  .mock-cols { grid-template-columns: 1fr; }
+  .mr-score { gap: 18px; }
+}
+@media (max-width: 900px) {
+  .mock-layout { flex-direction: column; padding: 20px 16px; }
+  .mock-grid-card { width: auto; }
+  .mock-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+  .mock-rule-list { grid-template-columns: 1fr; }
+  .mr-top { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  /* Móvil: casillas de al menos 44 px de ancho y cabecera más compacta. */
+  .mock-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .mock-head { padding: 10px 12px; gap: 10px; }
+  .mock-head-end { gap: 10px; justify-content: flex-start; }
+}

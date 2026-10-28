@@ -1,0 +1,280 @@
+/* Estilos base y componentes comunes de JSE Practice.
+   Sacados de ../maquetas/html/estilos.css y proyecto.css, con estos cambios para la app real:
+   - el diseño ocupa la ventana (no 1280×800 fijos) y funciona desde 1024 px de ancho;
+   - los botones y enlaces tienen una zona táctil de al menos 44 px y un foco visible;
+   - las opciones de respuesta son <button> reales y los números de línea del código
+     se pintan con CSS (no se leen ni se copian).
+   Muestra de todo en #/styleguide (solo con ?debug). Usa los tokens de css/tokens.css. */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; font-variant-ligatures: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--head); line-height: 1.25; }
+h1 { font-size: 26px; }
+h2 { font-size: 17px; }
+h3 { font-size: 15px; }
+button { font: inherit; color: inherit; }
+button:not(:disabled) { cursor: pointer; }
+a { color: var(--purple); }
+code, kbd, pre { font-family: var(--mono); }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--radius-s); }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--lime); color: var(--purple-dark); font-weight: 700; padding: 12px 16px; border-radius: var(--radius-s); }
+.skip-link:focus { top: 12px; }
+
+/* Amplía la zona táctil hasta 44 px sin cambiar el aspecto (botones pequeños de las maquetas:
+   .mini, pestañas de archivo y control segmentado). Sirve también como utilidad: class="hit". */
+.hit, .mini, .tabs button, .seg button, .seg a { position: relative; }
+.hit::after, .mini::after, .tabs button::after, .seg button::after, .seg a::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: max(100%, var(--touch)); height: max(100%, var(--touch)); transform: translate(-50%, -50%);
+}
+
+/* ---------- Estructura: barra lateral + contenido ---------- */
+.app { display: flex; min-height: 100vh; }
+
+.side {
+  width: var(--side-width); flex: none; background: var(--purple); color: #fff;
+  display: flex; flex-direction: column; gap: 4px; padding: 24px 16px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 20px; }
+.logo { width: 38px; height: 38px; flex: none; background: var(--lime); color: var(--purple); border-radius: 10px; display: flex; align-items: center; justify-content: center; font: 700 14px var(--mono); }
+.brand b { display: block; font: 700 16px var(--head); }
+.brand small { display: block; font-size: 12px; color: #E3D3EC; }
+.group { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--side-muted); padding: 14px 12px 6px; font-weight: 600; font-family: var(--body); }
+.side ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.side a { display: flex; align-items: center; min-height: var(--touch); color: var(--side-text); text-decoration: none; padding: 10px 12px; border-radius: var(--radius-s); font-size: 14px; }
+.side a:hover { background: rgba(255, 255, 255, 0.1); }
+.side a[aria-current="page"], .side a.on { background: var(--lime); color: var(--purple-dark); font-weight: 700; }
+.side :focus-visible { box-shadow: 0 0 0 3px var(--lime); }
+/* El enlace activo ya es lima: anillo separado por un hueco morado para que se vea. */
+.side a[aria-current="page"]:focus-visible { box-shadow: 0 0 0 2px var(--purple), 0 0 0 5px var(--lime); }
+
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; padding: 28px 40px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.top h1 { font-size: 26px; }
+.sub { color: var(--muted); font-size: 15px; margin-top: 4px; }
+
+/* Interruptor EN/ES */
+.lang { display: flex; flex: none; border: 1px solid var(--line-strong); border-radius: var(--radius-s); overflow: hidden; background: var(--surface); }
+.lang button { border: 0; background: var(--surface); color: var(--ink); min-width: 52px; min-height: var(--touch); padding: 10px 16px; font: 600 13px var(--body); border-radius: 0; }
+.lang button[aria-pressed="true"], .lang button.on { background: var(--purple); color: #fff; }
+/* Anillo de foco con 3:1 frente al fondo del botón: morado sobre blanco, lima sobre morado. */
+.lang button:focus-visible { box-shadow: inset 0 0 0 3px var(--purple); }
+.lang button[aria-pressed="true"]:focus-visible { box-shadow: inset 0 0 0 3px var(--lime); }
+
+/* ---------- Tarjetas, estadísticas y barras ---------- */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 20px; }
+.card h2 { font-size: 17px; margin-bottom: 12px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.stat span { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.stat strong { font: 700 28px var(--head); }
+.stat small { font-size: 15px; color: var(--muted); font-weight: 500; }
+
+.bar-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 13px; }
+.bar-row .lbl { display: flex; justify-content: space-between; font-size: 14px; }
+.bar-row .lbl span:last-child { color: var(--muted); }
+.bar { height: 8px; background: var(--track); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 8px; background: var(--purple); border-radius: 4px; }
+.bar i.bad { background: var(--red); }
+.bar i.ok { background: var(--green); }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--touch); padding: 12px 18px; border-radius: var(--radius-m); border: 0;
+  font: 700 14px var(--head); text-decoration: none; line-height: 1.2;
+}
+.btn.primary { background: var(--purple); color: #fff; }
+.btn.primary:hover { background: var(--purple-dark); }
+.btn.lime { background: var(--lime); color: var(--purple-dark); }
+.btn.lime:hover { background: #C4CD00; }
+.btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+.btn.ghost:hover { border-color: var(--purple); color: var(--purple); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+
+/* Botón pequeño (navegación de pasos, «Show hint»). Zona táctil ampliada a 44 px (ver .hit) */
+.mini { border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--radius-s); padding: 6px 10px; font: 600 12px var(--body); color: var(--ink); }
+.mini:hover { border-color: var(--purple); color: var(--purple); }
+
+/* ---------- Chips ---------- */
+.chip { display: inline-block; white-space: nowrap; font-size: 12px; font-weight: 600; line-height: 1.4; padding: 4px 10px; border-radius: 999px; background: var(--track); color: var(--ink); font-family: var(--body); vertical-align: middle; }
+.chip.purple { background: var(--purple-soft); color: var(--purple); }
+.chip.green { background: var(--green-bg); color: var(--green); }
+.chip.red { background: var(--red-bg); color: var(--red); }
+.chip.lime { background: var(--lime); color: var(--purple-dark); }
+.chip.html { background: var(--html); color: var(--html-ink); }
+.chip.css { background: var(--css); color: var(--css-ink); }
+.chip.js { background: var(--js); color: var(--js-ink); }
+
+/* ---------- Bloque de código ---------- */
+pre.code {
+  margin: 0; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius-l);
+  padding: 18px 20px; font: 15px/1.7 var(--mono); overflow-x: auto; tab-size: 2;
+}
+/* Sin el fondo ni el relleno del «código dentro del texto» (p. ej. dentro de un <li>), que desplazaba la primera línea. */
+pre.code code { font: inherit; background: none; padding: 0; border-radius: 0; }
+/* Números de línea: cada línea va en <span class="line">; el número no se selecciona ni se lee. */
+pre.code.numbered { counter-reset: line; }
+pre.code.numbered .line { counter-increment: line; }
+pre.code.numbered .line::before { content: counter(line); display: inline-block; width: 26px; color: var(--code-line-no); user-select: none; }
+/* Las líneas largas se parten (en tablet o con la columna estrecha) en vez de cortarse: así no hace
+   falta scroll horizontal, al que no se llega con el teclado. La continuación queda sangrada tras el
+   número, y cada línea de código conserva un solo número (las preguntas citan «la línea N»). */
+pre.code { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre.code.numbered .line { display: inline-block; width: 100%; padding-left: 26px; text-indent: -26px; vertical-align: top; }
+pre.code.numbered .line::before, pre.code.numbered .line * { text-indent: 0; }
+/* Resaltado de sintaxis */
+.k { color: var(--code-keyword); } .s { color: var(--code-string); } .n { color: var(--code-number); }
+.f { color: var(--code-func); } .c { color: var(--code-comment); } .t { color: var(--code-tag); } .a { color: var(--code-attr); }
+.ln { color: var(--code-line-no); display: inline-block; width: 26px; user-select: none; }
+
+/* Código dentro del texto */
+.note code, p code, li code, .inline-code { font-family: var(--mono); font-size: 0.92em; background: rgba(30, 21, 39, 0.07); padding: 1px 5px; border-radius: 4px; }
+
+/* ---------- Opciones de respuesta ---------- */
+.options { display: flex; flex-direction: column; gap: 14px; }
+.opt {
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 58px;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-l);
+  background: var(--surface); color: var(--ink); font: 15px var(--body); text-align: left;
+}
+button.opt:not(:disabled):hover { border-color: var(--purple); }
+.opt:focus-visible { box-shadow: var(--focus); border-radius: var(--radius-l); }
+.opt .letter { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--ring); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; flex: none; }
+.opt code { font-family: var(--mono); }
+.opt .chip { margin-left: auto; }
+.opt.sel, .opt[aria-pressed="true"], .opt[aria-checked="true"] { border-color: var(--purple); background: var(--purple-soft); }
+.opt.sel .letter, .opt[aria-pressed="true"] .letter, .opt[aria-checked="true"] .letter { background: var(--purple); border-color: var(--purple); color: #fff; }
+.opt.right { border-color: var(--green); background: var(--green-bg); }
+.opt.right .letter { background: var(--green); border-color: var(--green); color: #fff; }
+.opt.wrong { border-color: var(--red); background: var(--red-bg); }
+.opt.wrong .letter { background: var(--red); border-color: var(--red); color: #fff; }
+.opt:disabled { cursor: default; }
+/* Preguntas «choose N»: la letra es un cuadrado en vez de un círculo. */
+.opt .letter.box, .opt .box { border-radius: 6px; }
+
+/* ---------- Notas (explicación, traducción, avisos) ---------- */
+.note { border-radius: var(--radius-l); padding: 16px 18px; font-size: 14.5px; line-height: 1.55; }
+.note.green { background: var(--green-bg); border: 1px solid var(--green-line); }
+.note.lime { background: var(--lime-soft); border: 1px solid var(--lime-line); }
+.note.purple { background: var(--purple-soft); border: 1px solid #DCC8E8; }
+.small { font-size: 13px; color: var(--muted); }
+
+/* ---------- Término del glosario con tooltip (js/engine/glossary.js) ----------
+   El término es un botón dentro del texto (subrayado discontinuo). El tooltip se abre al pasar
+   el ratón o al llegar con Tab, y Escape lo cierra (js/views/glossary-tips.js). */
+.term { position: relative; display: inline; }
+.term-btn {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0 1px; margin: 0; min-height: 0;
+  border-bottom: 1.5px dashed var(--purple); border-radius: 2px; cursor: help; text-align: inherit;
+  padding-block: 1px; /* zona de toque de al menos 24 px de alto (WCAG 2.5.8) sin mover el texto */
+}
+.term-btn:hover, .term-btn:focus-visible { background: var(--purple-soft); color: var(--purple-dark); }
+.term-tip {
+  display: none; position: absolute; z-index: 50; left: 0; bottom: calc(100% + 8px);
+  transform: translateX(var(--tip-shift, 0));
+  width: max-content; max-width: min(300px, calc(100vw - 16px));
+  padding: 10px 12px; border-radius: var(--radius-m); background: var(--purple-dark); color: #fff;
+  font: 400 13.5px/1.5 var(--body); text-align: left; white-space: normal; letter-spacing: 0;
+  box-shadow: 0 6px 18px rgba(30, 21, 39, 0.25);
+}
+/* Puente invisible entre el término y el tooltip: se puede pasar el ratón al tooltip sin que se cierre. */
+.term-tip::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 10px; }
+.term.tip-below .term-tip { bottom: auto; top: calc(100% + 8px); }
+.term.tip-below .term-tip::after { top: auto; bottom: 100%; }
+.term:hover .term-tip, .term:focus-within .term-tip, .term.tip-on .term-tip { display: block; }
+.term.tip-off .term-tip { display: none; }
+.term-head { display: block; font-weight: 700; margin-bottom: 4px; }
+.term-lang { font: 800 10.5px var(--head); letter-spacing: .06em; color: var(--lime); }
+.term-sep { color: var(--side-muted); }
+.term-def { display: block; }
+.term-tip code { font-family: var(--mono); font-size: .92em; background: rgba(255, 255, 255, 0.14); color: #fff; padding: 1px 5px; border-radius: 4px; }
+
+/* ---------- Componentes de proyectos (de proyecto.css) ---------- */
+.proj-head { min-height: 64px; background: var(--purple); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 24px; flex: none; }
+
+/* Control segmentado (Steps / Project brief) */
+.seg { display: flex; background: var(--track); border-radius: var(--radius-m); padding: 3px; }
+.seg button { flex: 1; border: 0; background: transparent; min-height: 38px; padding: 9px 8px; border-radius: var(--radius-s); font: 700 13px var(--head); color: var(--muted); }
+.seg button[aria-selected="true"], .seg button[aria-pressed="true"], .seg button.on { background: var(--surface); color: var(--purple); box-shadow: 0 1px 3px rgba(30, 21, 39, 0.12); }
+/* La sombra del botón elegido no puede tapar el anillo de foco (tiene más especificidad que :focus-visible). */
+.seg button:focus-visible, .seg button[aria-selected="true"]:focus-visible, .seg button[aria-pressed="true"]:focus-visible, .seg a:focus-visible { box-shadow: var(--focus); }
+
+/* Lista de pasos. Cada paso mide 44 px (zona táctil); en la maqueta son algo más bajos. */
+.phase { display: flex; align-items: center; justify-content: space-between; margin: 8px 0 2px; }
+.step { display: flex; gap: 10px; align-items: center; width: 100%; min-height: var(--touch); font: 12.5px var(--body); padding: 5px 8px; border: 0; border-radius: var(--radius-s); background: transparent; color: var(--ink); text-align: left; }
+.step .dot { width: 20px; height: 20px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; border: 1px solid var(--ring); color: var(--muted); }
+.step .chev { margin-left: auto; color: #A49BAE; font-size: 13px; }
+.step.done { color: var(--muted); }
+.step.done .dot { background: var(--green); border-color: var(--green); color: #fff; }
+.step.cur, .step[aria-current="step"] { background: var(--purple-soft); font-weight: 600; }
+.step.cur .dot, .step[aria-current="step"] .dot { background: var(--purple); border-color: var(--purple); color: #fff; }
+.step.cur .chev, .step[aria-current="step"] .chev { color: var(--purple); }
+button.step:not(:disabled):hover { background: var(--purple-soft); }
+
+/* Rótulo de bloque («What to do», «Must contain») y lista de requisitos */
+.label { font: 800 11px var(--head); letter-spacing: .08em; text-transform: uppercase; color: var(--purple); margin-bottom: 5px; }
+.must { display: flex; align-items: center; gap: 10px; font-size: 13.5px; padding: 4px 0; }
+.must .box { width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--ring); flex: none; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.must .box.ok { background: var(--green); border-color: var(--green); color: #fff; }
+.must .box.ko { background: var(--red); border-color: var(--red); color: #fff; }
+.must .chip { margin-left: auto; }
+
+/* Pestañas de archivo del editor */
+.tabs { display: flex; gap: 4px; }
+.tabs button, .tabs span { white-space: nowrap; font: 600 13px var(--mono); padding: 9px 14px; min-height: 38px; border: 0; border-radius: 8px 8px 0 0; background: #E4DEEA; color: var(--muted); }
+.tabs [aria-selected="true"], .tabs .on { background: var(--code-bg); color: #fff; box-shadow: inset 0 3px 0 var(--lime); }
+.tabs button:focus-visible { box-shadow: var(--focus); }
+.tabs button[aria-selected="true"]:focus-visible { box-shadow: inset 0 3px 0 var(--lime), var(--focus); }
+.here { font: 700 10px var(--body); font-style: normal; background: var(--lime); color: var(--purple-dark); padding: 2px 6px; border-radius: 999px; margin-left: 6px; vertical-align: 1px; }
+
+/* Ventana de navegador (vista previa) y consola */
+.browser { border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden; background: var(--surface); }
+.bar-top { background: #EFEAF4; padding: 6px 10px; display: flex; gap: 5px; }
+.bar-top i { width: 8px; height: 8px; border-radius: 50%; background: var(--ring); }
+.console { background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius-m); padding: 10px 12px; font: 13px/1.6 var(--mono); }
+.console .console-title { color: var(--code-comment); }
+.console .err { color: #FF8A80; }
+
+/* ---------- Diseño adaptable (desde 1024 px y tablet) ---------- */
+@media (max-width: 1180px) {
+  .main { padding: 24px 28px; }
+  .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  :root { --side-width: 200px; }
+  .main { padding: 20px 16px; }
+  .top { flex-wrap: wrap; }
+}
+
+/* Móvil (orientativo: la app es para ordenador y tablet, pero no debe romperse). La barra lateral
+   pasa a ser una cabecera con los enlaces en filas y el contenido ocupa todo el ancho. */
+@media (max-width: 700px) {
+  .app { flex-direction: column; }
+  .side { width: auto; height: auto; position: static; overflow: visible; padding: 12px 12px 10px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+  .brand { width: 100%; padding: 0 4px 6px; }
+  .side .group { display: none; }
+  .side ul { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+  .side a { padding: 8px 10px; font-size: 13.5px; }
+  .main { padding: 16px 12px; gap: 16px; }
+  .top h1 { font-size: 22px; }
+  .card { padding: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* Pantalla provisional y «página no encontrada» (secciones que llegan en tareas posteriores) */
+.placeholder { max-width: 640px; }
+.placeholder a, .progress-text a { color: var(--purple); font-weight: 600; }
+/* Contenedores que reciben el foco por código al navegar (no son controles): sin anillo de foco. */
+.main:focus-visible, [role="status"][tabindex="-1"]:focus-visible { box-shadow: none; }

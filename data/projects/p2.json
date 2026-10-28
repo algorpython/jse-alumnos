@@ -1,0 +1,1185 @@
+{
+  "id": "p2",
+  "number": 2,
+  "level": "beginner",
+  "minutes": 75,
+  "folder": "restaurant-landing",
+  "title": {
+    "en": "Restaurant landing page",
+    "es": "Landing de restaurante"
+  },
+  "summary": {
+    "en": "Responsive one-page site with menu, opening hours and map. JS opens the mobile menu.",
+    "es": "Web de una sola página adaptable al móvil, con carta, horario y mapa. El JS abre el menú en el móvil."
+  },
+  "basedOn": [
+    "Maquetación 1-4",
+    "18_Media_queries"
+  ],
+  "goal": {
+    "title": {
+      "en": "Build a restaurant website that looks good on computers and phones",
+      "es": "Crea la web de un restaurante que se vea bien en el ordenador y en el móvil"
+    },
+    "body": {
+      "en": "You will create a one-page website for a restaurant: a header with navigation links, a big welcome section, the menu with prices, the opening hours and a map. Then you'll lay it out with flexbox and add a media query so it adapts to phones, where the links hide behind a “☰ Menu” button. Finally, you'll make that button work with JavaScript.",
+      "es": "Vas a crear una web de una sola página para un restaurante: una cabecera con enlaces de navegación, una sección grande de bienvenida, la carta con precios, el horario y un mapa. Después la maquetarás con flexbox y le añadirás una media query para que se adapte al móvil, donde los enlaces se esconden tras un botón «☰ Menu». Para terminar, harás que ese botón funcione con JavaScript."
+    }
+  },
+  "result": {
+    "en": "On a computer, the links show in the header and the dishes sit side by side. On a phone, the dishes stack and the “☰ Menu” button opens and closes the links.",
+    "es": "En el ordenador, los enlaces se ven en la cabecera y los platos están uno al lado de otro. En el móvil, los platos se ponen uno debajo de otro y el botón «☰ Menu» abre y cierra los enlaces."
+  },
+  "starter": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Lima Bistro</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Step 1: header with the restaurant name, the menu button and the navigation -->\n\n\n\n  <!-- Step 2: hero section with a big title -->\n\n\n\n  <!-- Steps 3 and 4: the menu, the opening hours and the location go inside <main> -->\n\n\n\n  <!--\n    Map for step 4: copy this address into the src of your <img>\n    data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='300'%20viewBox='0%200%20300%20150'%3E%3Crect%20width='300'%20height='150'%20fill='%23EEF2E6'/%3E%3Crect%20x='18'%20y='14'%20width='84'%20height='46'%20rx='8'%20fill='%23CFE3B4'/%3E%3Crect%20x='196'%20y='92'%20width='84'%20height='44'%20rx='8'%20fill='%23CFE3B4'/%3E%3Cpath%20d='M0%20128C80%20104%20150%20146%20300%20116'%20fill='none'%20stroke='%239FD3F0'%20stroke-width='10'/%3E%3Cpath%20d='M0%2075H300M150%200V150M210%200L250%20150'%20fill='none'%20stroke='%23FFFFFF'%20stroke-width='8'/%3E%3Cpath%20d='M150%2075C138%2059%20132%2053%20132%2047A18%2018%200%200%201%20168%2047C168%2053%20162%2059%20150%2075Z'%20fill='%23602B7A'/%3E%3Ccircle%20cx='150'%20cy='47'%20r='7'%20fill='%23D4DE00'/%3E%3C/svg%3E\n  -->\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Lima Bistro · style.css */\n\n/* Steps 5 to 9: your styles go here */\n\n\n\n/* Step 10: the phone version (media query) goes at the end */\n\n",
+    "js": "// Lima Bistro · script.js\n\n// Steps 11 and 12: your JavaScript goes here\n"
+  },
+  "solution": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Lima Bistro</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <!-- Step 1: header with the restaurant name, the menu button and the navigation -->\n  <header>\n    <p class=\"logo\">Lima Bistro</p>\n    <button id=\"nav-btn\">☰ Menu</button>\n    <nav>\n      <ul>\n        <li><a href=\"#menu\">Menu</a></li>\n        <li><a href=\"#hours\">Opening hours</a></li>\n        <li><a href=\"#location\">Location</a></li>\n      </ul>\n    </nav>\n  </header>\n\n  <!-- Step 2: hero section with a big title -->\n  <section class=\"hero\">\n    <h1>Fresh Mediterranean food</h1>\n    <p>Homemade dishes with local ingredients, in the heart of the city.</p>\n    <a class=\"btn\" href=\"#menu\">See the menu</a>\n  </section>\n\n  <main>\n    <!-- Step 3: the menu -->\n    <section id=\"menu\">\n      <h2>Our menu</h2>\n      <div class=\"dishes\">\n        <article class=\"dish\">\n          <h3>Patatas bravas</h3>\n          <p>Crispy potatoes with a spicy tomato sauce.</p>\n          <p class=\"price\">€6.50</p>\n        </article>\n        <article class=\"dish\">\n          <h3>Vegetable paella</h3>\n          <p>Rice cooked slowly with seasonal vegetables.</p>\n          <p class=\"price\">€12.00</p>\n        </article>\n        <article class=\"dish\">\n          <h3>Cheesecake</h3>\n          <p>Creamy cheesecake with berry jam.</p>\n          <p class=\"price\">€5.00</p>\n        </article>\n      </div>\n    </section>\n\n    <!-- Step 4: opening hours and location -->\n    <section id=\"hours\">\n      <h2>Opening hours</h2>\n      <table>\n        <tr>\n          <td>Monday – Friday</td>\n          <td>13:00 – 23:00</td>\n        </tr>\n        <tr>\n          <td>Saturday – Sunday</td>\n          <td>12:00 – 00:00</td>\n        </tr>\n      </table>\n    </section>\n\n    <section id=\"location\">\n      <h2>Location</h2>\n      <address>Calle de la Lima 12, Madrid</address>\n      <img src=\"data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='300'%20viewBox='0%200%20300%20150'%3E%3Crect%20width='300'%20height='150'%20fill='%23EEF2E6'/%3E%3Crect%20x='18'%20y='14'%20width='84'%20height='46'%20rx='8'%20fill='%23CFE3B4'/%3E%3Crect%20x='196'%20y='92'%20width='84'%20height='44'%20rx='8'%20fill='%23CFE3B4'/%3E%3Cpath%20d='M0%20128C80%20104%20150%20146%20300%20116'%20fill='none'%20stroke='%239FD3F0'%20stroke-width='10'/%3E%3Cpath%20d='M0%2075H300M150%200V150M210%200L250%20150'%20fill='none'%20stroke='%23FFFFFF'%20stroke-width='8'/%3E%3Cpath%20d='M150%2075C138%2059%20132%2053%20132%2047A18%2018%200%200%201%20168%2047C168%2053%20162%2059%20150%2075Z'%20fill='%23602B7A'/%3E%3Ccircle%20cx='150'%20cy='47'%20r='7'%20fill='%23D4DE00'/%3E%3C/svg%3E\" alt=\"Map showing where Lima Bistro is\">\n    </section>\n  </main>\n\n  <footer>\n    <p>© 2026 Lima Bistro · Made with HTML, CSS and JavaScript</p>\n  </footer>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n",
+    "css": "/* Lima Bistro · style.css */\n\n/* Step 5: the whole page */\nbody {\n  margin: 0;\n  font-family: Arial, sans-serif;\n  background-color: #f7f5fb;\n  color: #222222;\n}\n\nimg {\n  max-width: 100%;\n}\n\n/* Step 6: the header bar */\nheader {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 16px 24px;\n  background-color: #602b7a;\n  color: #ffffff;\n}\n\n.logo {\n  margin: 0;\n  font-size: 24px;\n  font-weight: bold;\n}\n\n/* Step 7: the navigation links in a row */\nnav ul {\n  display: flex;\n  gap: 24px;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\nnav a {\n  color: #ffffff;\n  font-weight: bold;\n  text-decoration: none;\n}\n\n#nav-btn {\n  display: none;\n}\n\n/* Step 8: the hero */\n.hero {\n  padding: 80px 20px;\n  background-color: #43235f;\n  color: #ffffff;\n  text-align: center;\n}\n\n.btn {\n  display: inline-block;\n  padding: 12px 24px;\n  border-radius: 8px;\n  background-color: #d4de00;\n  color: #43235f;\n  font-weight: bold;\n  text-decoration: none;\n}\n\n/* Step 9: the content and the dish cards */\nmain {\n  max-width: 900px;\n  margin: 0 auto;\n  padding: 0 20px;\n}\n\n.dishes {\n  display: flex;\n  gap: 20px;\n}\n\n.dish {\n  flex: 1;\n  padding: 16px;\n  background-color: #ffffff;\n  border: 1px solid #e0d6ea;\n  border-radius: 12px;\n}\n\n.price {\n  color: #602b7a;\n  font-weight: bold;\n}\n\ntd {\n  padding: 6px 16px 6px 0;\n}\n\nfooter {\n  margin-top: 40px;\n  padding: 20px;\n  background-color: #43235f;\n  color: #ffffff;\n  text-align: center;\n}\n\n/* Step 10: the phone version (screens up to 600px wide) */\n@media (max-width: 600px) {\n  header {\n    flex-wrap: wrap;\n  }\n\n  #nav-btn {\n    display: block;\n    padding: 8px 14px;\n    border: 2px solid #ffffff;\n    border-radius: 8px;\n    background-color: transparent;\n    color: #ffffff;\n    font-size: 16px;\n    cursor: pointer;\n  }\n\n  nav {\n    display: none;\n    width: 100%;\n  }\n\n  nav.open {\n    display: block;\n  }\n\n  nav ul {\n    flex-direction: column;\n    gap: 12px;\n    padding-top: 16px;\n  }\n\n  .dishes {\n    flex-direction: column;\n  }\n}\n",
+    "js": "// Lima Bistro · script.js\n\n// Step 11: open and close the navigation on phones\nconst navBtn = document.querySelector(\"#nav-btn\");\nconst nav = document.querySelector(\"nav\");\n\nnavBtn.addEventListener(\"click\", () => {\n  nav.classList.toggle(\"open\");\n});\n\n// Step 12: close the navigation when a link is chosen\nconst links = document.querySelectorAll(\"nav a\");\n\nlinks.forEach((link) => {\n  link.addEventListener(\"click\", () => {\n    nav.classList.remove(\"open\");\n  });\n});\n"
+  },
+  "steps": [
+    {
+      "id": "html-1",
+      "lang": "html",
+      "title": {
+        "en": "Header and navigation",
+        "es": "Cabecera y navegación"
+      },
+      "requirement": {
+        "en": "A `<header>` with the restaurant name, a menu button and a `<nav>` with links to the 3 sections",
+        "es": "Una `<header>` con el nombre del restaurante, un botón de menú y una `<nav>` con enlaces a las 3 secciones"
+      },
+      "task": {
+        "en": "Inside `<body>`, where the step 1 comment is, add a `<header>`. Inside it, write the restaurant name in `<p class=\"logo\">Lima Bistro</p>` (or invent your own restaurant!), then a button `<button id=\"nav-btn\">☰ Menu</button>` and a `<nav>` with a `<ul>` of three links: `<a href=\"#menu\">Menu</a>`, `<a href=\"#hours\">Opening hours</a>` and `<a href=\"#location\">Location</a>`.",
+        "es": "Dentro de `<body>`, donde está el comentario del paso 1, añade una `<header>`. Dentro, escribe el nombre del restaurante en `<p class=\"logo\">Lima Bistro</p>` (¡o inventa el tuyo!), luego un botón `<button id=\"nav-btn\">☰ Menu</button>` y una `<nav>` con una `<ul>` de tres enlaces: `<a href=\"#menu\">Menu</a>`, `<a href=\"#hours\">Opening hours</a>` y `<a href=\"#location\">Location</a>`."
+      },
+      "hint": {
+        "en": "Each link goes inside its own `<li>`: `<li><a href=\"#menu\">Menu</a></li>`. An `href` that starts with `#` jumps to the element with that `id` on the same page: you'll create those sections in steps 3 and 4.",
+        "es": "Cada enlace va dentro de su propio `<li>`: `<li><a href=\"#menu\">Menu</a></li>`. Un `href` que empieza por `#` salta al elemento con ese `id` en la misma página: esas secciones las crearás en los pasos 3 y 4."
+      },
+      "note": {
+        "en": "No styles yet, so the page looks plain. The button doesn't do anything for now: in step 11 it will open the links on phones.",
+        "es": "Todavía no hay estilos, así que la página se ve sencilla. De momento, el botón no hace nada: en el paso 11 abrirá los enlaces en el móvil."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "header .logo",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "The restaurant name (`class=\"logo\"`) inside `<header>`",
+            "es": "El nombre del restaurante (`class=\"logo\"`) dentro de `<header>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "header button#nav-btn",
+          "count": 1,
+          "label": {
+            "en": "A `<button id=\"nav-btn\">` in the header",
+            "es": "Un `<button id=\"nav-btn\">` en la cabecera"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "header nav ul li a",
+          "min": 3,
+          "label": {
+            "en": "At least 3 links (`<a>`) in the `<li>` of a `<ul>` inside `<nav>`",
+            "es": "Al menos 3 enlaces (`<a>`) en los `<li>` de una `<ul>` dentro de `<nav>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "nav a[href=\"#menu\"], nav a[href=\"#hours\"], nav a[href=\"#location\"]",
+          "count": 3,
+          "label": {
+            "en": "Links to `#menu`, `#hours` and `#location`",
+            "es": "Enlaces a `#menu`, `#hours` y `#location`"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-2",
+      "lang": "html",
+      "title": {
+        "en": "Hero with a big title",
+        "es": "Portada con un título grande"
+      },
+      "requirement": {
+        "en": "A hero section (`class=\"hero\"`) with an `<h1>`, a `<p>` and a link to the menu",
+        "es": "Una sección de portada (`class=\"hero\"`) con un `<h1>`, un `<p>` y un enlace a la carta"
+      },
+      "task": {
+        "en": "After the `</header>`, add a `<section class=\"hero\">`. This is the big welcome area at the top of the page (web designers call it the “hero”). Inside it, write a title in an `<h1>` (for example “Fresh Mediterranean food”), a short sentence in a `<p>` and a link `<a class=\"btn\" href=\"#menu\">See the menu</a>`.",
+        "es": "Después de `</header>`, añade una `<section class=\"hero\">`. Es la zona grande de bienvenida de la parte de arriba de la página (en diseño web se le llama «hero»). Dentro, escribe un título en un `<h1>` (por ejemplo, «Fresh Mediterranean food»), una frase corta en un `<p>` y un enlace `<a class=\"btn\" href=\"#menu\">See the menu</a>`."
+      },
+      "hint": {
+        "en": "A page should have only one `<h1>`: the main title. The section titles of the next steps will be `<h2>`. The link gets the class `btn` because in step 8 you'll make it look like a button.",
+        "es": "Una página debería tener un solo `<h1>`: el título principal. Los títulos de las secciones de los pasos siguientes serán `<h2>`. El enlace lleva la clase `btn` porque en el paso 8 le darás aspecto de botón."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".hero",
+          "count": 1,
+          "label": {
+            "en": "One element with the class `hero`",
+            "es": "Un elemento con la clase `hero`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".hero h1",
+          "text": "\\S",
+          "count": 1,
+          "label": {
+            "en": "An `<h1>` with a title inside the hero",
+            "es": "Un `<h1>` con un título dentro de la portada"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".hero p",
+          "text": "\\S",
+          "label": {
+            "en": "A `<p>` with a sentence inside the hero",
+            "es": "Un `<p>` con una frase dentro de la portada"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": ".hero a[href=\"#menu\"]",
+          "label": {
+            "en": "A link to `#menu` in the hero",
+            "es": "Un enlace a `#menu` en la portada"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-3",
+      "lang": "html",
+      "title": {
+        "en": "The menu with dishes and prices",
+        "es": "La carta con platos y precios"
+      },
+      "requirement": {
+        "en": "A `<main>` with a `<section id=\"menu\">` of at least 3 dishes, each with its name and price",
+        "es": "Un `<main>` con una `<section id=\"menu\">` de al menos 3 platos, cada uno con su nombre y su precio"
+      },
+      "task": {
+        "en": "After the hero, add a `<main>`. Inside it, add a `<section id=\"menu\">` with the title `<h2>Our menu</h2>` and a `<div class=\"dishes\">`. Inside the div, add at least three `<article class=\"dish\">`. Each dish has its name in an `<h3>`, a description in a `<p>` and its price in `<p class=\"price\">€6.50</p>`.",
+        "es": "Después de la portada, añade un `<main>`. Dentro, añade una `<section id=\"menu\">` con el título `<h2>Our menu</h2>` y un `<div class=\"dishes\">`. Dentro del div, añade al menos tres `<article class=\"dish\">`. Cada plato lleva su nombre en un `<h3>`, una descripción en un `<p>` y su precio en `<p class=\"price\">€6.50</p>`."
+      },
+      "hint": {
+        "en": "Write the first `<article class=\"dish\"> … </article>` complete, then copy and paste it twice and change the texts. The `id=\"menu\"` is where the “Menu” link of the header jumps to.",
+        "es": "Escribe completo el primer `<article class=\"dish\"> … </article>`, cópialo y pégalo dos veces y cambia los textos. El `id=\"menu\"` es adonde salta el enlace «Menu» de la cabecera."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "main section#menu",
+          "count": 1,
+          "label": {
+            "en": "A `<section id=\"menu\">` inside `<main>`",
+            "es": "Una `<section id=\"menu\">` dentro de `<main>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#menu h2",
+          "text": "\\S",
+          "min": 1,
+          "label": {
+            "en": "An `<h2>` title for the menu",
+            "es": "Un título `<h2>` para la carta"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#menu .dish",
+          "min": 3,
+          "label": {
+            "en": "At least 3 dishes (`class=\"dish\"`)",
+            "es": "Al menos 3 platos (`class=\"dish\"`)"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#menu .dish h3",
+          "text": "\\S",
+          "min": 3,
+          "label": {
+            "en": "Every dish has its name in an `<h3>`",
+            "es": "Cada plato tiene su nombre en un `<h3>`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#menu .dish .price",
+          "text": "\\d",
+          "min": 3,
+          "label": {
+            "en": "Every dish has a price (`class=\"price\"`)",
+            "es": "Cada plato tiene un precio (`class=\"price\"`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "html-4",
+      "lang": "html",
+      "title": {
+        "en": "Opening hours, map and footer",
+        "es": "Horario, mapa y pie de página"
+      },
+      "requirement": {
+        "en": "A section with the opening hours in a table, another with the address and the map, and a `<footer>`",
+        "es": "Una sección con el horario en una tabla, otra con la dirección y el mapa, y un `<footer>`"
+      },
+      "task": {
+        "en": "Inside `<main>`, after the menu, add a `<section id=\"hours\">` with `<h2>Opening hours</h2>` and a `<table>` with at least two rows (`<tr>`): in each row, the days in one `<td>` and the times in another, for example `13:00 – 23:00`. Then add a `<section id=\"location\">` with an `<h2>`, the address in an `<address>` and the map in an `<img>`: paste in `src` the address from the comment at the end of `index.html` and describe the map in `alt`. Finally, after `</main>`, add a `<footer>` with a `<p>`.",
+        "es": "Dentro de `<main>`, después de la carta, añade una `<section id=\"hours\">` con `<h2>Opening hours</h2>` y una `<table>` con al menos dos filas (`<tr>`): en cada fila, los días en un `<td>` y el horario en otro, por ejemplo, `13:00 – 23:00`. Después, añade una `<section id=\"location\">` con un `<h2>`, la dirección en un `<address>` y el mapa en una `<img>`: pega en `src` la dirección del comentario del final de `index.html` y describe el mapa en `alt`. Por último, después de `</main>`, añade un `<footer>` con un `<p>`."
+      },
+      "hint": {
+        "en": "A table row: `<tr><td>Monday – Friday</td><td>13:00 – 23:00</td></tr>`. The map is a drawing (an SVG image written as text), so it works without internet. The map looks too big on narrow screens for now: you'll fix it in step 5.",
+        "es": "Una fila de la tabla: `<tr><td>Monday – Friday</td><td>13:00 – 23:00</td></tr>`. El mapa es un dibujo (una imagen SVG escrita como texto), así que funciona sin internet. De momento, el mapa se sale en las pantallas estrechas: lo arreglarás en el paso 5."
+      },
+      "note": {
+        "en": "Now every link of the header has a section to jump to. Try it: click a link in the preview and it scrolls down to that section.",
+        "es": "Ahora cada enlace de la cabecera tiene una sección a la que saltar. Pruébalo: pulsa un enlace en la vista previa y bajará hasta esa sección."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "main #hours tr, main #hours li",
+          "min": 2,
+          "label": {
+            "en": "At least 2 rows (`<tr>`) of opening hours in `<section id=\"hours\">`",
+            "es": "Al menos 2 filas (`<tr>`) de horario en `<section id=\"hours\">`"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#hours",
+          "text": "\\d{1,2}[:.]\\d{2}",
+          "count": 1,
+          "label": {
+            "en": "Times like `13:00`",
+            "es": "Horas como `13:00`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": "main #location img",
+          "attr": "src",
+          "pattern": "^\\s*(data:image/|https://)\\S",
+          "label": {
+            "en": "A map `<img>` in `<section id=\"location\">` with the address from the comment in `src`",
+            "es": "Una `<img>` del mapa en `<section id=\"location\">` con la dirección del comentario en `src`"
+          }
+        },
+        {
+          "kind": "attr",
+          "selector": "#location img",
+          "attr": "alt",
+          "label": {
+            "en": "An `alt` text that describes the map",
+            "es": "Un texto `alt` que describe el mapa"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "footer",
+          "text": "\\S",
+          "min": 1,
+          "label": {
+            "en": "A `<footer>` with some text",
+            "es": "Un `<footer>` con algo de texto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-1",
+      "lang": "css",
+      "title": {
+        "en": "Page basics",
+        "es": "Lo básico de la página"
+      },
+      "requirement": {
+        "en": "A font, a background colour and no outer margin for the page, and images that fit the screen",
+        "es": "Una fuente, un color de fondo y sin margen exterior en la página, e imágenes que caben en la pantalla"
+      },
+      "task": {
+        "en": "In `style.css`, add a `body` rule with `margin: 0` (so the header touches the edges of the window), a `font-family` (for example `Arial, sans-serif`) and a light `background-color` (for example `#f7f5fb`). Then add the rule `img { max-width: 100%; }`.",
+        "es": "En `style.css`, añade una regla `body` con `margin: 0` (para que la cabecera llegue a los bordes de la ventana), un `font-family` (por ejemplo, `Arial, sans-serif`) y un `background-color` claro (por ejemplo, `#f7f5fb`). Después, añade la regla `img { max-width: 100%; }`."
+      },
+      "hint": {
+        "en": "Browsers give `body` a margin of 8px by default: `margin: 0` removes it. `max-width: 100%` means “never wider than the box you're in”: the map then shrinks on narrow screens instead of sticking out.",
+        "es": "El navegador pone por defecto a `body` un margen de 8 px: `margin: 0` lo quita. `max-width: 100%` significa «nunca más ancha que la caja en la que está»: así el mapa se encoge en las pantallas estrechas en lugar de salirse."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "rule": "^body$",
+          "prop": "font-family",
+          "label": {
+            "en": "A `font-family` on `body`",
+            "es": "Un `font-family` en `body`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "margin-top",
+          "max": 0,
+          "label": {
+            "en": "No margin around the page (`margin: 0` on `body`)",
+            "es": "Sin margen alrededor de la página (`margin: 0` en `body`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "body",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on `body`",
+            "es": "Un `background-color` en `body`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "#location img",
+          "prop": "width",
+          "max": 400,
+          "width": 400,
+          "label": {
+            "en": "On a narrow screen, the map is not wider than the screen (`max-width: 100%`)",
+            "es": "En una pantalla estrecha, el mapa no es más ancho que la pantalla (`max-width: 100%`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-2",
+      "lang": "css",
+      "title": {
+        "en": "Header bar with flexbox",
+        "es": "Barra de cabecera con flexbox"
+      },
+      "requirement": {
+        "en": "A coloured header with the name on the left and the links on the right (`display: flex`)",
+        "es": "Una cabecera de color con el nombre a la izquierda y los enlaces a la derecha (`display: flex`)"
+      },
+      "task": {
+        "en": "Add a `header` rule with `display: flex`, `justify-content: space-between` (the name on the left, the links on the right), `align-items: center`, `padding: 16px 24px`, a dark `background-color` (for example `#602b7a`) and white text (`color: #ffffff`). If you like, give `.logo` a bigger `font-size` and `margin: 0`.",
+        "es": "Añade una regla `header` con `display: flex`, `justify-content: space-between` (el nombre a la izquierda y los enlaces a la derecha), `align-items: center`, `padding: 16px 24px`, un `background-color` oscuro (por ejemplo, `#602b7a`) y el texto blanco (`color: #ffffff`). Si quieres, pon a `.logo` un `font-size` más grande y `margin: 0`."
+      },
+      "hint": {
+        "en": "With `display: flex`, the children of `header` (the name, the button and the `<nav>`) stand in a row. `justify-content: space-between` pushes the first one to the left and the last one to the right.",
+        "es": "Con `display: flex`, los hijos de `header` (el nombre, el botón y la `<nav>`) se colocan en fila. `justify-content: space-between` lleva el primero a la izquierda y el último a la derecha."
+      },
+      "note": {
+        "en": "The preview is as narrow as a phone, so the header looks squeezed. Open “View my website” to see it on a computer screen: in step 10 you'll adapt it for phones.",
+        "es": "La vista previa es tan estrecha como un móvil, así que la cabecera se ve apretada. Abre «Ver mi web» para verla en una pantalla de ordenador: en el paso 10 la adaptarás al móvil."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "header",
+          "prop": "display",
+          "value": "flex",
+          "label": {
+            "en": "`display: flex` on `header`",
+            "es": "`display: flex` en `header`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "header",
+          "prop": "justify-content",
+          "value": "space-between",
+          "label": {
+            "en": "`justify-content: space-between`",
+            "es": "`justify-content: space-between`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "header",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on `header`",
+            "es": "Un `background-color` en `header`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "header",
+          "prop": "padding-top",
+          "min": 1,
+          "label": {
+            "en": "`padding` inside the header",
+            "es": "`padding` dentro de la cabecera"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-3",
+      "lang": "css",
+      "title": {
+        "en": "Navigation links in a row",
+        "es": "Enlaces de navegación en fila"
+      },
+      "requirement": {
+        "en": "The links in a row, without bullets or underline, and the menu button hidden on a computer",
+        "es": "Los enlaces en fila, sin viñetas ni subrayado, y el botón de menú oculto en el ordenador"
+      },
+      "task": {
+        "en": "Add a `nav ul` rule with `display: flex`, `gap: 24px`, `list-style: none`, `margin: 0` and `padding: 0`. Then a `nav a` rule with `color: #ffffff` and `text-decoration: none`. Finally, hide the menu button with `#nav-btn { display: none; }`: on a computer it isn't needed.",
+        "es": "Añade una regla `nav ul` con `display: flex`, `gap: 24px`, `list-style: none`, `margin: 0` y `padding: 0`. Después, una regla `nav a` con `color: #ffffff` y `text-decoration: none`. Por último, oculta el botón de menú con `#nav-btn { display: none; }`: en el ordenador no hace falta."
+      },
+      "hint": {
+        "en": "`gap` is the space between the items of a flex container. `list-style: none` removes the bullets of the list, and `text-decoration: none` removes the underline of the links.",
+        "es": "`gap` es el espacio entre los elementos de un contenedor flex. `list-style: none` quita las viñetas de la lista, y `text-decoration: none`, el subrayado de los enlaces."
+      },
+      "note": {
+        "en": "The menu button disappears for now. In step 10 it will come back, but only on phones.",
+        "es": "De momento, el botón de menú desaparece. En el paso 10 volverá, pero solo en el móvil."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "nav ul",
+          "prop": "display",
+          "value": "flex",
+          "label": {
+            "en": "`display: flex` on `nav ul`",
+            "es": "`display: flex` en `nav ul`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "nav li",
+          "prop": "list-style-type",
+          "value": "none",
+          "label": {
+            "en": "No bullets (`list-style: none`)",
+            "es": "Sin viñetas (`list-style: none`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "nav a",
+          "prop": "text-decoration-line",
+          "value": "none",
+          "label": {
+            "en": "No underline on the links (`text-decoration: none`)",
+            "es": "Enlaces sin subrayado (`text-decoration: none`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "nav a",
+          "prop": "color",
+          "not": "rgb(0, 0, 238)",
+          "label": {
+            "en": "A `color` for the links",
+            "es": "Un `color` para los enlaces"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "#nav-btn",
+          "visible": false,
+          "count": 1,
+          "label": {
+            "en": "The menu button is hidden on a computer (`display: none`)",
+            "es": "El botón de menú está oculto en el ordenador (`display: none`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-4",
+      "lang": "css",
+      "title": {
+        "en": "Hero and button-style link",
+        "es": "Portada y enlace con aspecto de botón"
+      },
+      "requirement": {
+        "en": "A coloured hero with centred text and a link that looks like a button",
+        "es": "Una portada de color con el texto centrado y un enlace con aspecto de botón"
+      },
+      "task": {
+        "en": "Add a `.hero` rule with `padding: 80px 20px`, a dark `background-color` (for example `#43235f`), white text and `text-align: center`. Then make the link look like a button: add a `.btn` rule with `display: inline-block`, `padding: 12px 24px`, `border-radius: 8px`, a bright `background-color` (for example `#d4de00`), a dark `color` and `text-decoration: none`.",
+        "es": "Añade una regla `.hero` con `padding: 80px 20px`, un `background-color` oscuro (por ejemplo, `#43235f`), el texto blanco y `text-align: center`. Después, haz que el enlace parezca un botón: añade una regla `.btn` con `display: inline-block`, `padding: 12px 24px`, `border-radius: 8px`, un `background-color` llamativo (por ejemplo, `#d4de00`), un `color` oscuro y `text-decoration: none`."
+      },
+      "hint": {
+        "en": "A link is an inline element: `display: inline-block` lets it take `padding` above and below like a box. Choose colours with good contrast: dark text on a light button, or white text on a dark one.",
+        "es": "Un enlace es un elemento en línea: `display: inline-block` hace que acepte `padding` arriba y abajo como una caja. Elige colores con buen contraste: texto oscuro sobre un botón claro, o texto blanco sobre uno oscuro."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".hero",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on `.hero`",
+            "es": "Un `background-color` en `.hero`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".hero",
+          "prop": "text-align",
+          "value": "center",
+          "label": {
+            "en": "Centred text (`text-align: center`)",
+            "es": "Texto centrado (`text-align: center`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".hero",
+          "prop": "padding-top",
+          "min": 30,
+          "label": {
+            "en": "Plenty of space inside the hero (`padding` of 30px or more)",
+            "es": "Mucho espacio dentro de la portada (`padding` de 30 px o más)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".hero a",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on the button-style link",
+            "es": "Un `background-color` en el enlace con aspecto de botón"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".hero a",
+          "prop": "padding-left",
+          "min": 8,
+          "label": {
+            "en": "`padding` in the button-style link",
+            "es": "`padding` en el enlace con aspecto de botón"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-5",
+      "lang": "css",
+      "title": {
+        "en": "Content width and dish cards",
+        "es": "Ancho del contenido y tarjetas de platos"
+      },
+      "requirement": {
+        "en": "The content centred with a limited width, and the dishes as cards side by side",
+        "es": "El contenido centrado y con un ancho limitado, y los platos como tarjetas una al lado de otra"
+      },
+      "task": {
+        "en": "Add a `main` rule with `max-width: 900px`, `margin: 0 auto` and `padding: 0 20px`. Then put the dishes side by side with `.dishes { display: flex; gap: 20px; }` and turn each `.dish` into a card: `flex: 1`, `padding: 16px`, a white `background-color`, a `border` and `border-radius`. If you like, colour the `.price` and style the `footer` too.",
+        "es": "Añade una regla `main` con `max-width: 900px`, `margin: 0 auto` y `padding: 0 20px`. Después, pon los platos uno al lado de otro con `.dishes { display: flex; gap: 20px; }` y convierte cada `.dish` en una tarjeta: `flex: 1`, `padding: 16px`, un `background-color` blanco, un `border` y `border-radius`. Si quieres, da color a `.price` y estilo al `footer`."
+      },
+      "hint": {
+        "en": "`margin: 0 auto` centres a box that has a limited width. `flex: 1` makes all the cards share the row equally.",
+        "es": "`margin: 0 auto` centra una caja que tiene un ancho limitado. `flex: 1` hace que todas las tarjetas se repartan la fila por igual."
+      },
+      "note": {
+        "en": "In the narrow preview the cards look squeezed: in step 10 you'll stack them on phones. Open “View my website” to see them side by side.",
+        "es": "En la vista previa, que es estrecha, las tarjetas se ven apretadas: en el paso 10 las pondrás una debajo de otra en el móvil. Abre «Ver mi web» para verlas una al lado de otra."
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "main",
+          "prop": "width",
+          "max": 960,
+          "label": {
+            "en": "A limited width for `main` (`max-width`)",
+            "es": "Un ancho limitado para `main` (`max-width`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": "main",
+          "prop": "margin-left",
+          "min": 20,
+          "label": {
+            "en": "`main` centred on the page (`margin: 0 auto`)",
+            "es": "`main` centrado en la página (`margin: 0 auto`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".dish",
+          "prop": "width",
+          "max": 450,
+          "label": {
+            "en": "Dish cards side by side (`display: flex` on `.dishes`)",
+            "es": "Tarjetas de platos una al lado de otra (`display: flex` en `.dishes`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".dish",
+          "prop": "background-color",
+          "not": "rgba(0, 0, 0, 0)",
+          "label": {
+            "en": "A `background-color` on `.dish`",
+            "es": "Un `background-color` en `.dish`"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".dish",
+          "prop": "padding-top",
+          "min": 1,
+          "label": {
+            "en": "`padding` inside every card",
+            "es": "`padding` dentro de cada tarjeta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-6",
+      "lang": "css",
+      "title": {
+        "en": "Phone version with a media query",
+        "es": "Versión para móvil con una media query"
+      },
+      "requirement": {
+        "en": "A `@media (max-width: 600px)` that hides the links behind the menu button and stacks the cards",
+        "es": "Una `@media (max-width: 600px)` que esconde los enlaces tras el botón de menú y pone las tarjetas una debajo de otra"
+      },
+      "task": {
+        "en": "At the end of `style.css`, add `@media (max-width: 600px) { … }`. Its rules only apply on screens up to 600px wide. Inside it: show the button with `#nav-btn { display: block; }`, hide the links with `nav { display: none; width: 100%; }` and add `nav.open { display: block; }` (JavaScript will add the class `open`). Also add `flex-wrap: wrap` to `header`, `flex-direction: column` to `nav ul` and `flex-direction: column` to `.dishes`.",
+        "es": "Al final de `style.css`, añade `@media (max-width: 600px) { … }`. Sus reglas solo se aplican en pantallas de hasta 600 px de ancho. Dentro: muestra el botón con `#nav-btn { display: block; }`, esconde los enlaces con `nav { display: none; width: 100%; }` y añade `nav.open { display: block; }` (la clase `open` la pondrá JavaScript). Añade también `flex-wrap: wrap` a `header`, `flex-direction: column` a `nav ul` y `flex-direction: column` a `.dishes`."
+      },
+      "hint": {
+        "en": "The rules inside the `@media` go between its braces, each one with its own braces: `@media (max-width: 600px) { nav { display: none; } }`. They must go at the end so they win over the rules above. The `<meta name=\"viewport\">` of `index.html` makes phones use their real width.",
+        "es": "Las reglas de la `@media` van entre sus llaves, cada una con sus propias llaves: `@media (max-width: 600px) { nav { display: none; } }`. Tienen que ir al final para que ganen a las reglas de arriba. La `<meta name=\"viewport\">` de `index.html` hace que el móvil use su ancho real."
+      },
+      "note": {
+        "en": "The preview is narrow like a phone, so now you see the phone version: the links hide and the menu button appears. The button doesn't open anything yet: that's the JavaScript steps.",
+        "es": "La vista previa es estrecha como un móvil, así que ahora ves la versión para móvil: los enlaces se esconden y aparece el botón de menú. El botón todavía no abre nada: eso es en los pasos de JavaScript."
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#nav-btn",
+          "visible": true,
+          "count": 1,
+          "width": 400,
+          "label": {
+            "en": "On a phone, the menu button shows",
+            "es": "En el móvil, el botón de menú se ve"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "nav",
+          "visible": false,
+          "count": 1,
+          "width": 400,
+          "label": {
+            "en": "On a phone, the links are hidden (`nav { display: none; }`)",
+            "es": "En el móvil, los enlaces están escondidos (`nav { display: none; }`)"
+          }
+        },
+        {
+          "kind": "selector",
+          "selector": "nav",
+          "visible": true,
+          "count": 1,
+          "label": {
+            "en": "On a computer, the links still show",
+            "es": "En el ordenador, los enlaces se siguen viendo"
+          }
+        },
+        {
+          "kind": "css",
+          "rule": "(^|\\s)nav\\.\\w|\\.open\\b",
+          "prop": "display",
+          "not": "none",
+          "label": {
+            "en": "A rule `nav.open` that shows the links (`display: block`)",
+            "es": "Una regla `nav.open` que muestra los enlaces (`display: block`)"
+          }
+        },
+        {
+          "kind": "css",
+          "selector": ".dish",
+          "prop": "width",
+          "min": 250,
+          "width": 400,
+          "label": {
+            "en": "On a phone, one card per row (`flex-direction: column`)",
+            "es": "En el móvil, una tarjeta por fila (`flex-direction: column`)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-1",
+      "lang": "js",
+      "title": {
+        "en": "Open and close the menu",
+        "es": "Abre y cierra el menú"
+      },
+      "requirement": {
+        "en": "The menu button adds and removes the class `open` on `<nav>`",
+        "es": "El botón de menú pone y quita la clase `open` en `<nav>`"
+      },
+      "task": {
+        "en": "In `script.js`, select the button with `document.querySelector(\"#nav-btn\")` and save it in a `const` called `navBtn`. Select the `<nav>` the same way and save it in `nav`. Then add a `click` listener to the button with `addEventListener` that runs `nav.classList.toggle(\"open\")`.",
+        "es": "En `script.js`, selecciona el botón con `document.querySelector(\"#nav-btn\")` y guárdalo en una `const` llamada `navBtn`. Selecciona la `<nav>` de la misma forma y guárdala en `nav`. Después, añade al botón un listener de `click` con `addEventListener` que ejecute `nav.classList.toggle(\"open\")`."
+      },
+      "hint": {
+        "en": "`toggle` adds the class if it isn't there and removes it if it is. The rule `nav.open` of step 10 does the rest: it shows the links when the class is there.",
+        "es": "`toggle` añade la clase si no está y la quita si está. La regla `nav.open` del paso 10 hace el resto: muestra los enlaces cuando la clase está puesta."
+      },
+      "note": {
+        "en": "Click “☰ Menu” in the preview: the links should open and close.",
+        "es": "Pulsa «☰ Menu» en la vista previa: los enlaces deberían abrirse y cerrarse."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "querySelector\\s*\\(|getElementById\\s*\\(",
+          "label": {
+            "en": "Select the elements (`querySelector`)",
+            "es": "Seleccionar los elementos (`querySelector`)"
+          }
+        },
+        {
+          "kind": "js-regex",
+          "pattern": "addEventListener\\s*\\(\\s*[\"'`]click[\"'`]",
+          "label": {
+            "en": "`addEventListener(\"click\", …)`",
+            "es": "`addEventListener(\"click\", …)`"
+          }
+        },
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": true,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "On a phone, one click shows the links",
+            "es": "En el móvil, un clic muestra los enlaces"
+          }
+        },
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            },
+            {
+              "click": "#nav-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": false,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "A second click hides them again",
+            "es": "Un segundo clic los vuelve a esconder"
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-2",
+      "lang": "js",
+      "title": {
+        "en": "Close the menu after choosing a link",
+        "es": "Cierra el menú al elegir un enlace"
+      },
+      "requirement": {
+        "en": "Clicking any link of the menu removes the class `open`",
+        "es": "Al pulsar cualquier enlace del menú, se quita la clase `open`"
+      },
+      "task": {
+        "en": "On a phone, after choosing a section the menu should close by itself. Select all the links with `document.querySelectorAll(\"nav a\")` and save them in `links`. Go through them with `links.forEach((link) => { … })` and give each `link` a `click` listener that runs `nav.classList.remove(\"open\")`.",
+        "es": "En el móvil, después de elegir una sección, el menú debería cerrarse solo. Selecciona todos los enlaces con `document.querySelectorAll(\"nav a\")` y guárdalos en `links`. Recórrelos con `links.forEach((link) => { … })` y pon a cada `link` un listener de `click` que ejecute `nav.classList.remove(\"open\")`."
+      },
+      "hint": {
+        "en": "`querySelectorAll` returns a list of elements, so you can't call `addEventListener` on the whole list: you need a loop (`forEach` or `for…of`) to add it to each link. Use `remove`, not `toggle`: a link should always close the menu.",
+        "es": "`querySelectorAll` devuelve una lista de elementos, así que no puedes llamar a `addEventListener` sobre toda la lista: necesitas un bucle (`forEach` o `for…of`) para ponérselo a cada enlace. Usa `remove`, no `toggle`: un enlace siempre debe cerrar el menú."
+      },
+      "note": {
+        "en": "Open the menu with “☰ Menu” in the preview and click a link: the preview scrolls to that section and the menu closes. “Check step” also chooses a link for you and checks that the menu closes.",
+        "es": "Abre el menú con «☰ Menu» en la vista previa y pulsa un enlace: la vista previa baja hasta esa sección y el menú se cierra. «Comprobar paso» también elige un enlace por ti y comprueba que el menú se cierra."
+      },
+      "checks": [
+        {
+          "kind": "js-regex",
+          "pattern": "querySelectorAll\\s*\\(",
+          "label": {
+            "en": "Select all the links (`querySelectorAll`)",
+            "es": "Seleccionar todos los enlaces (`querySelectorAll`)"
+          }
+        },
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            },
+            {
+              "click": "nav a",
+              "index": 0
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": false,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "On a phone, choosing the first link closes the menu",
+            "es": "En el móvil, al elegir el primer enlace, el menú se cierra"
+          }
+        },
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            },
+            {
+              "click": "nav a",
+              "index": 2
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": false,
+              "count": 1
+            }
+          ],
+          "label": {
+            "en": "Choosing the last link closes it too",
+            "es": "Al elegir el último enlace, también se cierra"
+          }
+        }
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "lang": "html",
+      "label": {
+        "en": "Header with the restaurant name and links to the 3 sections",
+        "es": "Cabecera con el nombre del restaurante y enlaces a las 3 secciones"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "header .logo",
+          "text": "\\S"
+        },
+        {
+          "kind": "selector",
+          "selector": "nav a[href=\"#menu\"], nav a[href=\"#hours\"], nav a[href=\"#location\"]",
+          "count": 3
+        },
+        {
+          "kind": "selector",
+          "selector": "#menu, #hours, #location",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "Hero with a big title and a link to the menu",
+        "es": "Portada con un título grande y un enlace a la carta"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": ".hero h1",
+          "text": "\\S",
+          "count": 1
+        },
+        {
+          "kind": "selector",
+          "selector": ".hero a[href=\"#menu\"]"
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "Menu with at least 3 dishes and their prices",
+        "es": "Carta con al menos 3 platos y sus precios"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#menu .dish",
+          "min": 3
+        },
+        {
+          "kind": "selector",
+          "selector": "#menu .dish .price",
+          "text": "\\d",
+          "min": 3
+        }
+      ]
+    },
+    {
+      "lang": "html",
+      "label": {
+        "en": "Opening hours and a map with alt text",
+        "es": "Horario y un mapa con texto alt"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "#hours",
+          "text": "\\d{1,2}[:.]\\d{2}",
+          "count": 1
+        },
+        {
+          "kind": "attr",
+          "selector": "#location img",
+          "attr": "src",
+          "pattern": "^\\s*(data:image/|https://)\\S"
+        },
+        {
+          "kind": "attr",
+          "selector": "img",
+          "attr": "alt"
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "On a computer: a header bar with the links in a row",
+        "es": "En el ordenador: una barra de cabecera con los enlaces en fila"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "header",
+          "prop": "display",
+          "value": "flex"
+        },
+        {
+          "kind": "css",
+          "selector": "nav ul",
+          "prop": "display",
+          "value": "flex"
+        },
+        {
+          "kind": "selector",
+          "selector": "nav",
+          "visible": true,
+          "count": 1
+        },
+        {
+          "kind": "selector",
+          "selector": "#nav-btn",
+          "visible": false,
+          "count": 1
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "On a computer: centred content and dish cards side by side",
+        "es": "En el ordenador: contenido centrado y tarjetas de platos una al lado de otra"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": "main",
+          "prop": "width",
+          "max": 960
+        },
+        {
+          "kind": "css",
+          "selector": "main",
+          "prop": "margin-left",
+          "min": 20
+        },
+        {
+          "kind": "css",
+          "selector": ".dish",
+          "prop": "width",
+          "max": 450
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "On a phone: the links hide and the menu button appears",
+        "es": "En el móvil: los enlaces se esconden y aparece el botón de menú"
+      },
+      "checks": [
+        {
+          "kind": "selector",
+          "selector": "nav",
+          "visible": false,
+          "count": 1,
+          "width": 400
+        },
+        {
+          "kind": "selector",
+          "selector": "#nav-btn",
+          "visible": true,
+          "count": 1,
+          "width": 400
+        }
+      ]
+    },
+    {
+      "lang": "css",
+      "label": {
+        "en": "On a phone: one card per row and the map fits the screen",
+        "es": "En el móvil: una tarjeta por fila y el mapa cabe en la pantalla"
+      },
+      "checks": [
+        {
+          "kind": "css",
+          "selector": ".dish",
+          "prop": "width",
+          "min": 250,
+          "width": 400
+        },
+        {
+          "kind": "css",
+          "selector": "#location img",
+          "prop": "width",
+          "max": 400,
+          "width": 400
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "The menu button opens and closes the links on a phone",
+        "es": "El botón de menú abre y cierra los enlaces en el móvil"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": true,
+              "count": 1
+            }
+          ]
+        },
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            },
+            {
+              "click": "#nav-btn"
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": false,
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "js",
+      "label": {
+        "en": "Choosing a link closes the menu",
+        "es": "Al elegir un enlace, el menú se cierra"
+      },
+      "checks": [
+        {
+          "kind": "behavior",
+          "width": 400,
+          "actions": [
+            {
+              "click": "#nav-btn"
+            },
+            {
+              "click": "nav a",
+              "index": 1
+            }
+          ],
+          "expect": [
+            {
+              "kind": "selector",
+              "selector": "nav",
+              "visible": false,
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

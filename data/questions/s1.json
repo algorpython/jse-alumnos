@@ -1,0 +1,432 @@
+[
+  {
+    "id": "s1-q001", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["compiler"], "courseRef": "01_Variables",
+    "prompt": { "en": "What does a compiler do?", "es": "¿Qué hace un compilador?" },
+    "options": [
+      { "id": "A", "text": { "en": "It runs the source code line by line, translating each instruction while the program is running.", "es": "Ejecuta el código fuente línea a línea y traduce cada instrucción mientras el programa se ejecuta." }, "why": { "en": "That describes an interpreter. A compiler does all the translation first, before the program starts.", "es": "Eso describe un intérprete. Un compilador hace toda la traducción antes, cuando el programa aún no ha empezado." } },
+      { "id": "B", "text": { "en": "It finds the bugs in your program and fixes them automatically.", "es": "Encuentra los fallos del programa y los corrige automáticamente." }, "why": { "en": "A compiler can report some mistakes (for example, bad syntax), but it never fixes your logic for you. Fixing bugs is your job, with help from tools like the debugger.", "es": "Un compilador puede avisar de algunos errores (por ejemplo, de sintaxis), pero nunca arregla tu lógica. Corregir los fallos es tarea tuya, con ayuda de herramientas como el depurador." } },
+      { "id": "C", "text": { "en": "It turns the HTML of a page into what you see in the browser window.", "es": "Convierte el HTML de una página en lo que ves en la ventana del navegador." }, "why": { "en": "That's the job of the browser's rendering engine. It has nothing to do with compiling a program.", "es": "Eso lo hace el motor de renderizado del navegador. No tiene nada que ver con compilar un programa." } },
+      { "id": "D", "text": { "en": "It translates the whole source code into another language (often machine code) before the program runs.", "es": "Traduce todo el código fuente a otro lenguaje (a menudo, código máquina) antes de que el programa se ejecute." } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "A compiler translates the whole program in advance, usually into machine code, and produces a file you can run later (C and C++ work like this). An interpreter, instead, reads the source code and runs it directly while the program is running. JavaScript is usually described as an interpreted language: you give the browser the source code and it runs it.", "es": "Un compilador traduce todo el programa por adelantado, normalmente a código máquina, y genera un archivo que se puede ejecutar después (así funcionan C y C++). Un intérprete, en cambio, lee el código fuente y lo ejecuta directamente mientras el programa está en marcha. De JavaScript se suele decir que es un lenguaje interpretado: le das al navegador el código fuente y él lo ejecuta." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q002", "section": 1, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["trap", "javascript"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which two statements about JavaScript are true? (Choose two.)", "es": "¿Qué dos afirmaciones sobre JavaScript son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "It is a lighter version of Java.", "es": "Es una versión más ligera de Java." }, "why": { "en": "It's a classic trap: the names look alike, but they are two different languages, with different rules and uses. The name «JavaScript» was chosen in the 90s for marketing reasons.", "es": "Es una trampa clásica: los nombres se parecen, pero son dos lenguajes distintos, con reglas y usos diferentes. El nombre «JavaScript» se eligió en los años 90 por marketing." } },
+      { "id": "B", "text": { "en": "Before running it, you must compile it into an `.exe` file.", "es": "Antes de ejecutarlo hay que compilarlo en un archivo `.exe`." }, "why": { "en": "JavaScript is shared as source code (`.js` files) and the browser or Node.js runs it directly. Nobody gives the browser an `.exe` file.", "es": "JavaScript se distribuye como código fuente (archivos `.js`) y el navegador o Node.js lo ejecutan directamente. Al navegador nunca se le da un archivo `.exe`." } },
+      { "id": "C", "text": { "en": "It runs in web browsers.", "es": "Se ejecuta en los navegadores web." } },
+      { "id": "D", "text": { "en": "It is only used to choose the colours and fonts of a page.", "es": "Solo sirve para elegir los colores y las fuentes de una página." }, "why": { "en": "That's the job of CSS. JavaScript adds behaviour: it reacts to the user, does calculations and can change the page while it's open.", "es": "Eso es tarea del CSS. JavaScript añade comportamiento: reacciona al usuario, hace cálculos y puede cambiar la página mientras está abierta." } },
+      { "id": "E", "text": { "en": "With Node.js it can also run outside the browser, for example on a server.", "es": "Con Node.js también se puede ejecutar fuera del navegador, por ejemplo en un servidor." } }
+    ],
+    "answer": ["C", "E"],
+    "explanation": { "en": "JavaScript was born to run inside web browsers, and every modern browser has a JavaScript engine. Thanks to Node.js, the same language also runs outside the browser: on servers, in the terminal or in tools. Despite the name, it has nothing to do with Java.", "es": "JavaScript nació para ejecutarse dentro de los navegadores web, y todos los navegadores modernos tienen un motor de JavaScript. Gracias a Node.js, el mismo lenguaje también se ejecuta fuera del navegador: en servidores, en la terminal o en herramientas. A pesar del nombre, no tiene nada que ver con Java." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q003", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["client-side"], "courseRef": "01_Variables",
+    "prompt": { "en": "A shop's web page uses JavaScript to check, in the visitor's browser, that the email field isn't empty before the form is sent. Where does this code run?", "es": "La página web de una tienda usa JavaScript para comprobar, en el navegador del visitante, que el campo del email no está vacío antes de enviar el formulario. ¿Dónde se ejecuta este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "On the server side", "es": "En el lado del servidor" }, "why": { "en": "The server only receives the form after it has been sent. This check happens before, on the visitor's computer.", "es": "El servidor solo recibe el formulario cuando ya se ha enviado. Esta comprobación ocurre antes, en el ordenador del visitante." } },
+      { "id": "B", "text": { "en": "On the client and on the server at the same time", "es": "En el cliente y en el servidor a la vez" }, "why": { "en": "Each piece of code runs in one place. A real shop may check the email again on the server, but that is different code.", "es": "Cada trozo de código se ejecuta en un sitio. Una tienda real puede volver a comprobar el email en el servidor, pero eso es otro código." } },
+      { "id": "C", "text": { "en": "On the client side", "es": "En el lado del cliente" } },
+      { "id": "D", "text": { "en": "Nowhere: JavaScript in a page only runs when the page is published", "es": "En ningún sitio: el JavaScript de una página solo se ejecuta al publicarla" }, "why": { "en": "Publishing just puts the files on a server. The code runs each time a visitor opens the page.", "es": "Publicar solo es subir los archivos a un servidor. El código se ejecuta cada vez que un visitante abre la página." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "The client is the visitor's device, with its browser. Client-side code is downloaded with the page and runs in the browser, so it can react instantly (like this check). Server-side code runs on the computer that hosts the website, and the visitor only receives its result.", "es": "El cliente es el dispositivo del visitante, con su navegador. El código del lado del cliente se descarga con la página y se ejecuta en el navegador, así que puede reaccionar al momento (como esta comprobación). El código del lado del servidor se ejecuta en el ordenador que aloja la web, y el visitante solo recibe su resultado." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q004", "section": 1, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["server-side"], "courseRef": "01_Variables",
+    "prompt": { "en": "In an online shop, which two tasks must be done on the server side? (Choose two.)", "es": "En una tienda online, ¿qué dos tareas hay que hacer en el lado del servidor? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "Checking a user's password against the accounts stored in the shop's database", "es": "Comprobar la contraseña de un usuario con las cuentas guardadas en la base de datos de la tienda" } },
+      { "id": "B", "text": { "en": "Saving a new order so that the shop can see it later", "es": "Guardar un pedido nuevo para que la tienda pueda verlo después" } },
+      { "id": "C", "text": { "en": "Showing a message when the visitor clicks a button", "es": "Mostrar un mensaje cuando el visitante pulsa un botón" }, "why": { "en": "This only affects what the visitor sees, so the browser can do it instantly with client-side JavaScript.", "es": "Esto solo afecta a lo que ve el visitante, así que el navegador lo puede hacer al momento con JavaScript del lado del cliente." } },
+      { "id": "D", "text": { "en": "Writing a message in the browser console with `console.log`", "es": "Escribir un mensaje en la consola del navegador con `console.log`" }, "why": { "en": "The browser console belongs to the visitor's browser: this is client-side code.", "es": "La consola del navegador es del navegador del visitante: esto es código del lado del cliente." } },
+      { "id": "E", "text": { "en": "Adding up the prices in the basket to show a provisional total on the page", "es": "Sumar los precios de la cesta para mostrar un total provisional en la página" }, "why": { "en": "A quick sum to show on the page can be done in the browser. (The shop will check the real price again on the server, but showing the total is client-side.)", "es": "Una suma rápida para enseñarla en la página se puede hacer en el navegador. (La tienda volverá a comprobar el precio real en el servidor, pero mostrar el total es del lado del cliente)." } }
+    ],
+    "answer": ["A", "B"],
+    "explanation": { "en": "The database with the accounts and the orders lives on the server, and the visitor must never get a copy of it. That's why checking passwords and saving orders is server-side work. Everything that only changes what this visitor sees (messages, the console, provisional calculations) can run on the client side, in the browser. JavaScript can be used on both sides: in the browser and, with Node.js, on the server.", "es": "La base de datos con las cuentas y los pedidos está en el servidor, y el visitante nunca debe recibir una copia. Por eso comprobar contraseñas y guardar pedidos es trabajo del lado del servidor. Todo lo que solo cambia lo que ve este visitante (mensajes, la consola, cálculos provisionales) se puede hacer en el lado del cliente, en el navegador. JavaScript sirve en los dos lados: en el navegador y, con Node.js, en el servidor." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q005", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["html", "javascript"], "courseRef": "01_Variables",
+    "prompt": { "en": "On a web page, what is JavaScript mainly used for?", "es": "En una página web, ¿para qué se usa principalmente JavaScript?" },
+    "options": [
+      { "id": "A", "text": { "en": "Describing the structure and the content: headings, paragraphs, images…", "es": "Describir la estructura y el contenido: títulos, párrafos, imágenes…" }, "why": { "en": "That's the job of HTML, the language of the tags.", "es": "Eso es tarea del HTML, el lenguaje de las etiquetas." } },
+      { "id": "B", "text": { "en": "Choosing colours, fonts and the layout", "es": "Elegir los colores, las fuentes y la distribución" }, "why": { "en": "That's the job of CSS, the style language.", "es": "Eso es tarea del CSS, el lenguaje de los estilos." } },
+      { "id": "C", "text": { "en": "Keeping the page files on the internet so that anyone can visit them", "es": "Guardar los archivos de la página en internet para que cualquiera pueda visitarlos" }, "why": { "en": "That's what a web server (the hosting) does. It isn't a programming language.", "es": "Eso lo hace un servidor web (el alojamiento). No es un lenguaje de programación." } },
+      { "id": "D", "text": { "en": "Adding behaviour: reacting to the user, doing calculations and changing the page while it's open", "es": "Añadir comportamiento: reaccionar al usuario, hacer cálculos y cambiar la página mientras está abierta" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "A web page is built with three languages that work together: HTML gives the structure and content, CSS gives the look, and JavaScript gives the behaviour. Of the three, only JavaScript is a programming language: it has variables, conditions, loops and functions.", "es": "Una página web se construye con tres lenguajes que trabajan juntos: el HTML da la estructura y el contenido, el CSS da el aspecto y JavaScript da el comportamiento. De los tres, solo JavaScript es un lenguaje de programación: tiene variables, condiciones, bucles y funciones." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q006", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["interpreter", "runtime-error"], "courseRef": "01_Variables",
+    "code": "console.log(\"Start\");\nlet total = 5;\nshowTotal(total);\nconsole.log(\"End\");",
+    "prompt": { "en": "The function `showTotal` doesn't exist anywhere. What happens when this code runs?", "es": "La función `showTotal` no existe en ningún sitio. ¿Qué pasa al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints Start and then stops with a `ReferenceError` on line 3.", "es": "Muestra Start y después se para con un `ReferenceError` en la línea 3." } },
+      { "id": "B", "text": { "en": "Nothing is printed: the engine finds the error before running any line.", "es": "No se muestra nada: el motor encuentra el error antes de ejecutar ninguna línea." }, "why": { "en": "The code is written correctly (there's no syntax error), so it starts running. The missing function is only detected when line 3 runs.", "es": "El código está bien escrito (no hay ningún error de sintaxis), así que empieza a ejecutarse. La función que falta solo se detecta cuando se ejecuta la línea 3." } },
+      { "id": "C", "text": { "en": "It prints Start and End: line 3 is skipped because it has an error.", "es": "Muestra Start y End: la línea 3 se salta porque tiene un error." }, "why": { "en": "JavaScript doesn't skip lines with errors. An error that isn't caught stops the script, so line 4 never runs.", "es": "JavaScript no se salta las líneas con errores. Un error que no se captura para el script, así que la línea 4 nunca se ejecuta." } },
+      { "id": "D", "text": { "en": "It prints Start and End, and shows the error at the end.", "es": "Muestra Start y End, y enseña el error al final." }, "why": { "en": "The lines run in order and the error happens on line 3, so the script stops there, before line 4.", "es": "Las líneas se ejecutan en orden y el error ocurre en la línea 3, así que el script se para ahí, antes de la línea 4." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The engine runs the lines in order. Line 1 prints Start and line 2 creates `total`. On line 3 it looks for `showTotal`, doesn't find it and throws `ReferenceError: showTotal is not defined`. An error that isn't handled stops the script, so End is never printed. This kind of error, which only appears when the line runs, is a runtime error.", "es": "El motor ejecuta las líneas en orden. La línea 1 muestra Start y la 2 crea `total`. En la línea 3 busca `showTotal`, no la encuentra y lanza `ReferenceError: showTotal is not defined`. Un error que no se gestiona para el script, así que End no llega a mostrarse. Este tipo de error, que solo aparece cuando se ejecuta la línea, es un error en tiempo de ejecución." },
+    "verify": { "kind": "error", "errorType": "ReferenceError", "line": 3 }
+  },
+  {
+    "id": "s1-q007", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap", "interpreter", "syntax-error"], "courseRef": "01_Variables",
+    "code": "console.log(\"Start\");\nconsole.log(\"Middle\";\nconsole.log(\"End\");",
+    "prompt": { "en": "Line 2 is missing a `)`. What appears in the console when this script runs?", "es": "En la línea 2 falta un `)`. ¿Qué aparece en la consola al ejecutar este script?" },
+    "options": [
+      { "id": "A", "text": { "en": "Start, and then a `SyntaxError`", "es": "Start y después un `SyntaxError`" }, "why": { "en": "This is the trap: it would be true for an error that only appears when a line runs. A syntax error is found while the engine reads the whole script, before running line 1.", "es": "Esta es la trampa: sería así con un error que solo aparece al ejecutar una línea. Un error de sintaxis se detecta cuando el motor lee el script entero, antes de ejecutar la línea 1." } },
+      { "id": "B", "text": { "en": "Start and End: line 2 is skipped", "es": "Start y End: la línea 2 se salta" }, "why": { "en": "The engine doesn't skip lines it can't understand. If the script isn't valid JavaScript, none of it runs.", "es": "El motor no se salta las líneas que no entiende. Si el script no es JavaScript válido, no se ejecuta nada de él." } },
+      { "id": "C", "text": { "en": "Start, Middle and End: the engine adds the missing `)`", "es": "Start, Middle y End: el motor añade el `)` que falta" }, "why": { "en": "JavaScript never fixes your syntax. A missing bracket is always an error.", "es": "JavaScript nunca corrige tu sintaxis. Un paréntesis que falta siempre es un error." } },
+      { "id": "D", "text": { "en": "Only a `SyntaxError`: nothing is printed", "es": "Solo un `SyntaxError`: no se muestra nada" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "Before running a script, the engine reads (parses) all of it to check that it's valid JavaScript. If it finds a syntax error, such as `console.log(\"Middle\";`, it throws a `SyntaxError` and runs no line at all, not even line 1. Compare it with a `ReferenceError`, which only happens when the line runs, after the previous lines have already done their work.", "es": "Antes de ejecutar un script, el motor lo lee (lo analiza) entero para comprobar que es JavaScript válido. Si encuentra un error de sintaxis, como `console.log(\"Middle\";`, lanza un `SyntaxError` y no ejecuta ninguna línea, ni siquiera la 1. Compáralo con un `ReferenceError`, que solo ocurre cuando se ejecuta la línea, después de que las anteriores ya hayan hecho su trabajo." },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 2 }
+  },
+  {
+    "id": "s1-q008", "section": 1, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap", "interpreter", "runtime-error"], "courseRef": "01_Variables",
+    "code": "console.log(\"A\");\nif (false) {\n  playSound();\n}\nconsole.log(\"B\");",
+    "prompt": { "en": "`playSound` doesn't exist anywhere. What is printed to the console?", "es": "`playSound` no existe en ningún sitio. ¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "A\nB", "es": "A\nB" } },
+      { "id": "B", "text": { "en": "A", "es": "A" }, "why": { "en": "The script would stop at a missing function only if that line ran. Line 3 is inside an `if (false)`, so it never runs and `B` is printed too.", "es": "El script se pararía por una función que no existe solo si esa línea se ejecutara. La línea 3 está dentro de un `if (false)`, así que nunca se ejecuta y también se muestra `B`." } },
+      { "id": "C", "text": { "en": "ReferenceError: playSound is not defined", "es": "ReferenceError: playSound is not defined" }, "why": { "en": "There's no syntax error, so nothing is detected in advance. JavaScript only looks for `playSound` when line 3 runs, and it never does.", "es": "No hay ningún error de sintaxis, así que no se detecta nada por adelantado. JavaScript solo busca `playSound` cuando se ejecuta la línea 3, y eso no llega a pasar." } },
+      { "id": "D", "text": { "en": "A\nReferenceError: playSound is not defined", "es": "A\nReferenceError: playSound is not defined" }, "why": { "en": "The condition is `false`, so the code inside the `if` is skipped. Without running line 3, there's no error.", "es": "La condición es `false`, así que el código del `if` se salta. Si la línea 3 no se ejecuta, no hay error." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "JavaScript checks the syntax of the whole script before running it, but it only checks that names like `playSound` exist when it reaches that line. Here line 3 is inside an `if (false)`, so it never runs and no error appears: it prints `A` and then `B`. A compiled language would usually complain before running. That's why, in JavaScript, a mistake can stay hidden until the day that line finally runs.", "es": "JavaScript comprueba la sintaxis del script entero antes de ejecutarlo, pero solo comprueba que existen nombres como `playSound` cuando llega a esa línea. Aquí la línea 3 está dentro de un `if (false)`, así que nunca se ejecuta y no aparece ningún error: se muestra `A` y después `B`. Un lenguaje compilado normalmente avisaría antes de ejecutar. Por eso, en JavaScript, un fallo puede quedar escondido hasta el día en que esa línea por fin se ejecuta." },
+    "verify": { "kind": "output", "expected": "A\nB" }
+  },
+  {
+    "id": "s1-q009", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["source-code"], "courseRef": "01_Variables",
+    "prompt": { "en": "What is source code?", "es": "¿Qué es el código fuente?" },
+    "options": [
+      { "id": "A", "text": { "en": "The 0s and 1s that the computer's processor runs directly", "es": "Los ceros y unos que el procesador del ordenador ejecuta directamente" }, "why": { "en": "That's machine code. Source code is what you write in the editor, for example the content of `app.js`.", "es": "Eso es el código máquina. El código fuente es lo que escribes en el editor, por ejemplo el contenido de `app.js`." } },
+      { "id": "B", "text": { "en": "What a program shows on the screen or in the console when it runs", "es": "Lo que un programa muestra en la pantalla o en la consola cuando se ejecuta" }, "why": { "en": "That's the output of the program, not its code.", "es": "Eso es la salida del programa, no su código." } },
+      { "id": "C", "text": { "en": "The instructions that a programmer writes in a programming language, as text that people can read", "es": "Las instrucciones que escribe un programador en un lenguaje de programación, como texto que las personas pueden leer" } },
+      { "id": "D", "text": { "en": "The web address where a page can be found", "es": "La dirección web donde se encuentra una página" }, "why": { "en": "That's a URL. It tells the browser where to find the files, but it isn't code.", "es": "Eso es una URL. Le dice al navegador dónde están los archivos, pero no es código." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "Source code is the program as people write and read it: text in a programming language, such as JavaScript. The processor can't run it as it is, so something has to translate it: a compiler (before running) or an interpreter (while running). With JavaScript, the browser's engine does this for you.", "es": "El código fuente es el programa tal como lo escriben y lo leen las personas: texto en un lenguaje de programación, como JavaScript. El procesador no puede ejecutarlo tal cual, así que algo tiene que traducirlo: un compilador (antes de ejecutar) o un intérprete (mientras se ejecuta). Con JavaScript, eso lo hace por ti el motor del navegador." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q010", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["engine"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which part of the browser runs the JavaScript code of a page?", "es": "¿Qué parte del navegador ejecuta el código JavaScript de una página?" },
+    "options": [
+      { "id": "A", "text": { "en": "The HTML parser, which turns the JavaScript into HTML first", "es": "El analizador de HTML, que primero convierte el JavaScript en HTML" }, "why": { "en": "JavaScript is never turned into HTML. The HTML parser reads the tags and, when it finds a `<script>`, hands its code to the JavaScript engine.", "es": "El JavaScript nunca se convierte en HTML. El analizador de HTML lee las etiquetas y, cuando encuentra un `<script>`, pasa su código al motor de JavaScript." } },
+      { "id": "B", "text": { "en": "The operating system, after the browser has compiled the code into an `.exe` file", "es": "El sistema operativo, después de que el navegador compile el código en un archivo `.exe`" }, "why": { "en": "The browser doesn't create executable files from your scripts. The code runs inside the browser itself.", "es": "El navegador no crea archivos ejecutables con tus scripts. El código se ejecuta dentro del propio navegador." } },
+      { "id": "C", "text": { "en": "Its JavaScript engine, for example V8 in Chrome and Edge or SpiderMonkey in Firefox", "es": "Su motor de JavaScript, por ejemplo V8 en Chrome y Edge o SpiderMonkey en Firefox" } },
+      { "id": "D", "text": { "en": "The web server that sent the page", "es": "El servidor web que envió la página" }, "why": { "en": "The server only sends the files. The JavaScript of the page runs on the client, in the visitor's browser.", "es": "El servidor solo envía los archivos. El JavaScript de la página se ejecuta en el cliente, en el navegador del visitante." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "Every browser has a JavaScript engine: the program that reads the source code and runs it. Chrome and Edge use V8, and Firefox uses SpiderMonkey. Node.js also uses V8, which is why the same JavaScript can run outside the browser.", "es": "Todos los navegadores tienen un motor de JavaScript: el programa que lee el código fuente y lo ejecuta. Chrome y Edge usan V8, y Firefox usa SpiderMonkey. Node.js también usa V8, y por eso el mismo JavaScript se puede ejecutar fuera del navegador." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q011", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["environment"], "courseRef": "01_Variables",
+    "prompt": { "en": "What do you need, at least, to write and try JavaScript for a web page on your own computer?", "es": "¿Qué necesitas, como mínimo, para escribir y probar JavaScript de una página web en tu ordenador?" },
+    "options": [
+      { "id": "A", "text": { "en": "A JavaScript compiler, to turn the code into a program before opening it", "es": "Un compilador de JavaScript, para convertir el código en un programa antes de abrirlo" }, "why": { "en": "You don't compile JavaScript yourself: the browser runs the source code directly.", "es": "JavaScript no lo compilas tú: el navegador ejecuta directamente el código fuente." } },
+      { "id": "B", "text": { "en": "A web server with a database", "es": "Un servidor web con una base de datos" }, "why": { "en": "A server is needed to publish a site or to run server-side code, but not to try client-side JavaScript: the browser can open your files directly.", "es": "Hace falta un servidor para publicar una web o ejecutar código del lado del servidor, pero no para probar JavaScript del lado del cliente: el navegador puede abrir tus archivos directamente." } },
+      { "id": "C", "text": { "en": "A paid licence for a professional development program", "es": "Una licencia de pago de un programa profesional de desarrollo" }, "why": { "en": "The usual tools (VS Code, Chrome, Firefox, Edge…) are free. Nothing has to be bought.", "es": "Las herramientas habituales (VS Code, Chrome, Firefox, Edge…) son gratuitas. No hay que comprar nada." } },
+      { "id": "D", "text": { "en": "A text or code editor and a web browser", "es": "Un editor de texto o de código y un navegador web" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "To start, an editor to write the files (for example `index.html` and `app.js`) and a browser to open them are enough. The browser runs the JavaScript and its developer tools let you see the console and debug. A code editor like VS Code makes it easier (colours, autocompletion), but even a plain text editor works.", "es": "Para empezar basta con un editor para escribir los archivos (por ejemplo, `index.html` y `app.js`) y un navegador para abrirlos. El navegador ejecuta el JavaScript, y sus herramientas para desarrolladores te dejan ver la consola y depurar. Un editor de código como VS Code lo hace más cómodo (colores, autocompletado), pero hasta un editor de texto sencillo funciona." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q012", "section": 1, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["environment", "editor"], "courseRef": "01_Variables",
+    "prompt": { "en": "Which two programs are suitable for writing JavaScript code? (Choose two.)", "es": "¿Qué dos programas sirven para escribir código JavaScript? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "Visual Studio Code", "es": "Visual Studio Code" } },
+      { "id": "B", "text": { "en": "Microsoft Word", "es": "Microsoft Word" }, "why": { "en": "A word processor saves documents with formatting (`.docx`) and changes straight quotes into curly ones (“ ”), which break the code. Code must be saved as plain text.", "es": "Un procesador de textos guarda documentos con formato (`.docx`) y cambia las comillas rectas por comillas tipográficas (“ ”), que rompen el código. El código se guarda como texto plano." } },
+      { "id": "C", "text": { "en": "Microsoft Excel", "es": "Microsoft Excel" }, "why": { "en": "Excel is a spreadsheet: it organises data in cells, not plain text files.", "es": "Excel es una hoja de cálculo: organiza datos en celdas, no archivos de texto plano." } },
+      { "id": "D", "text": { "en": "Sublime Text", "es": "Sublime Text" } },
+      { "id": "E", "text": { "en": "Paint", "es": "Paint" }, "why": { "en": "Paint is for drawing images. Code is text, so you need a text editor.", "es": "Paint sirve para dibujar imágenes. El código es texto, así que necesitas un editor de texto." } }
+    ],
+    "answer": ["A", "D"],
+    "explanation": { "en": "Code is plain text, so you write it in a code editor such as Visual Studio Code or Sublime Text. They colour the code, help you complete it and save it without any hidden formatting. A word processor like Word looks similar, but it adds formatting and changes the quotes, so the code stops working.", "es": "El código es texto plano, así que se escribe en un editor de código como Visual Studio Code o Sublime Text. Estos colorean el código, te ayudan a completarlo y lo guardan sin formato oculto. Un procesador de textos como Word parece parecido, pero añade formato y cambia las comillas, y el código deja de funcionar." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q013", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["environment", "online"], "courseRef": "01_Variables",
+    "prompt": { "en": "What is the main advantage of an online editor such as CodePen or JSFiddle when you are starting?", "es": "¿Cuál es la principal ventaja de un editor en línea como CodePen o JSFiddle cuando empiezas?" },
+    "options": [
+      { "id": "A", "text": { "en": "You can write and run code straight away in the browser, without installing anything", "es": "Puedes escribir y ejecutar código enseguida en el navegador, sin instalar nada" } },
+      { "id": "B", "text": { "en": "The code runs on the editor's servers, so it's faster than on your computer", "es": "El código se ejecuta en los servidores del editor, así que va más rápido que en tu ordenador" }, "why": { "en": "The JavaScript you try there still runs in your own browser, on the client side, just like a local file.", "es": "El JavaScript que pruebas ahí se sigue ejecutando en tu propio navegador, en el lado del cliente, igual que un archivo local." } },
+      { "id": "C", "text": { "en": "It compiles JavaScript, so your code never has errors", "es": "Compila JavaScript, así que tu código nunca tiene errores" }, "why": { "en": "No tool can guarantee code without errors. Online editors show the same errors as the browser console.", "es": "Ninguna herramienta garantiza un código sin errores. Los editores en línea enseñan los mismos errores que la consola del navegador." } },
+      { "id": "D", "text": { "en": "It's the only way to see `console.log` messages", "es": "Es la única forma de ver los mensajes de `console.log`" }, "why": { "en": "The browser's own console (F12) shows them too, and so does the terminal when you use Node.js.", "es": "La consola del propio navegador (F12) también los muestra, y la terminal también cuando usas Node.js." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "Online environments let you try code in seconds: you open a page, type HTML, CSS and JavaScript and see the result. That's great for quick tests and for sharing examples. For real projects you usually work locally, with a code editor and your files on your computer.", "es": "Los entornos en línea te dejan probar código en segundos: abres una página, escribes HTML, CSS y JavaScript y ves el resultado. Son geniales para pruebas rápidas y para compartir ejemplos. Para los proyectos de verdad se suele trabajar en local, con un editor de código y los archivos en tu ordenador." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q014", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["debugger", "breakpoint"], "courseRef": "01_Variables",
+    "prompt": { "en": "In the Sources tab of the browser's developer tools, you click on the number of line 7 of `app.js`. What have you done?", "es": "En la pestaña Sources (Fuentes) de las herramientas para desarrolladores, haces clic en el número de la línea 7 de `app.js`. ¿Qué has hecho?" },
+    "options": [
+      { "id": "A", "text": { "en": "Deleted line 7 from the file", "es": "Has borrado la línea 7 del archivo" }, "why": { "en": "The developer tools don't delete your code. And changes made there aren't saved to your file.", "es": "Las herramientas para desarrolladores no borran tu código. Y los cambios que hagas ahí no se guardan en tu archivo." } },
+      { "id": "B", "text": { "en": "Set a breakpoint: the program will pause just before line 7 runs", "es": "Has puesto un punto de interrupción: el programa se detendrá justo antes de ejecutar la línea 7" } },
+      { "id": "C", "text": { "en": "Turned line 7 into a comment, so it won't run", "es": "Has convertido la línea 7 en un comentario, para que no se ejecute" }, "why": { "en": "The line will still run. The program just stops before it so you can look around.", "es": "La línea se seguirá ejecutando. El programa solo se detiene antes para que puedas mirar." } },
+      { "id": "D", "text": { "en": "Marked line 7 as the line that has the error", "es": "Has marcado la línea 7 como la que tiene el error" }, "why": { "en": "You choose where to pause, but the debugger doesn't know or decide where the error is.", "es": "Tú eliges dónde parar, pero el depurador no sabe ni decide dónde está el error." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "A breakpoint is a mark that pauses the program at a line. When the code reaches it, it stops before running that line, and you can see the value of each variable, then continue step by step. It's one of the main tools of the debugger, together with the console.", "es": "Un punto de interrupción es una marca que detiene el programa en una línea. Cuando el código llega ahí, se para antes de ejecutar esa línea y puedes ver el valor de cada variable y seguir paso a paso. Es una de las herramientas principales del depurador, junto con la consola." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q015", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 3, "tags": ["debugger"], "courseRef": "01_Variables",
+    "prompt": { "en": "You add the line `debugger;` to your script and reload the page with the developer tools open. What happens?", "es": "Añades la línea `debugger;` a tu script y recargas la página con las herramientas para desarrolladores abiertas. ¿Qué pasa?" },
+    "options": [
+      { "id": "A", "text": { "en": "The word debugger is printed in the console", "es": "Se muestra la palabra debugger en la consola" }, "why": { "en": "`debugger` isn't a message: it's an instruction for the debugger. To print something you use `console.log`.", "es": "`debugger` no es un mensaje: es una instrucción para el depurador. Para mostrar algo se usa `console.log`." } },
+      { "id": "B", "text": { "en": "The program pauses on that line, as if there were a breakpoint", "es": "El programa se detiene en esa línea, como si hubiera un punto de interrupción" } },
+      { "id": "C", "text": { "en": "A `ReferenceError` is thrown because `debugger` is not defined", "es": "Se lanza un `ReferenceError` porque `debugger` no está definido" }, "why": { "en": "`debugger` is a JavaScript keyword, not a variable, so it never throws that error.", "es": "`debugger` es una palabra clave de JavaScript, no una variable, así que nunca lanza ese error." } },
+      { "id": "D", "text": { "en": "The browser fixes the errors of the script automatically", "es": "El navegador corrige automáticamente los errores del script" }, "why": { "en": "No tool fixes your code for you. The debugger helps you find where the problem is.", "es": "Ninguna herramienta corrige el código por ti. El depurador te ayuda a encontrar dónde está el problema." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "The `debugger` statement works like a breakpoint written in the code: if the developer tools are open, the program pauses there and you can inspect the variables. If they are closed, the line does nothing and the program continues normally. Remember to remove it when you finish debugging.", "es": "La sentencia `debugger` funciona como un punto de interrupción escrito en el código: si las herramientas para desarrolladores están abiertas, el programa se detiene ahí y puedes revisar las variables. Si están cerradas, la línea no hace nada y el programa sigue con normalidad. Acuérdate de quitarla cuando termines de depurar." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q016", "section": 1, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap", "console"], "courseRef": "01_Variables/03_console_log.html",
+    "code": "console.log(\"Hello\", \"world\");\nconsole.log(\"Hello\" + \"world\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Hello world\nHello world", "es": "Hello world\nHello world" }, "why": { "en": "`+` joins the two strings exactly as they are, without adding anything in between, so the second line has no space.", "es": "`+` une los dos strings tal cual, sin añadir nada entre ellos, así que la segunda línea no lleva espacio." } },
+      { "id": "B", "text": { "en": "Hello world\nHelloworld", "es": "Hello world\nHelloworld" } },
+      { "id": "C", "text": { "en": "Helloworld\nHelloworld", "es": "Helloworld\nHelloworld" }, "why": { "en": "When you pass several values separated by commas, `console.log` prints them with a space between them.", "es": "Cuando pasas varios valores separados por comas, `console.log` los muestra con un espacio entre ellos." } },
+      { "id": "D", "text": { "en": "Hello, world\nHelloworld", "es": "Hello, world\nHelloworld" }, "why": { "en": "The comma separates the values in the code; it isn't printed. The console puts a space instead.", "es": "La coma separa los valores en el código; no se muestra. La consola pone un espacio en su lugar." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`console.log` can receive several values separated by commas: it prints all of them on the same line, with a space between them. With `+`, instead, you build one single string first, and `+` doesn't add any space. That's why the first line shows Hello world and the second Helloworld.", "es": "`console.log` puede recibir varios valores separados por comas: los muestra todos en la misma línea, con un espacio entre ellos. Con `+`, en cambio, primero se construye un único string, y `+` no añade ningún espacio. Por eso la primera línea muestra Hello world y la segunda Helloworld." },
+    "verify": { "kind": "output", "expected": "Hello world\nHelloworld" }
+  },
+  {
+    "id": "s1-q017", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["trap", "console"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "In the browser console, you type `7 * 6` and press Enter. What happens?", "es": "En la consola del navegador escribes `7 * 6` y pulsas Intro. ¿Qué pasa?" },
+    "options": [
+      { "id": "A", "text": { "en": "Nothing: you must write `console.log(7 * 6)` to see the result", "es": "Nada: hay que escribir `console.log(7 * 6)` para ver el resultado" }, "why": { "en": "Inside a script you need `console.log`, but the console itself shows the value of whatever you type.", "es": "Dentro de un script sí hace falta `console.log`, pero la propia consola muestra el valor de lo que escribes." } },
+      { "id": "B", "text": { "en": "It shows an error, because code can only run from a `.js` file", "es": "Muestra un error, porque el código solo se puede ejecutar desde un archivo `.js`" }, "why": { "en": "The console runs any JavaScript you type, without a file.", "es": "La consola ejecuta cualquier JavaScript que escribas, sin archivo." } },
+      { "id": "C", "text": { "en": "It adds `7 * 6` to the code of the page and saves it", "es": "Añade `7 * 6` al código de la página y lo guarda" }, "why": { "en": "What you type in the console only runs at that moment. Your files don't change, and it's lost when you reload.", "es": "Lo que escribes en la consola solo se ejecuta en ese momento. Tus archivos no cambian, y se pierde al recargar." } },
+      { "id": "D", "text": { "en": "It shows 42 straight away", "es": "Muestra 42 al momento" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "The console is also an interactive place to try JavaScript: you type an expression, press Enter and it shows its value at once. It's perfect for quick tests, like `typeof \"5\"` or `10 / 3`. In a script, however, nothing appears in the console unless you use `console.log`.", "es": "La consola también es un sitio interactivo para probar JavaScript: escribes una expresión, pulsas Intro y te enseña su valor al momento. Es perfecta para pruebas rápidas, como `typeof \"5\"` o `10 / 3`. En un script, en cambio, no aparece nada en la consola si no usas `console.log`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q018", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["environment", "node"], "courseRef": "01_Variables",
+    "prompt": { "en": "You have Node.js installed and a file called `app.js`. Which command, typed in the terminal, runs it?", "es": "Tienes Node.js instalado y un archivo llamado `app.js`. ¿Qué orden, escrita en la terminal, lo ejecuta?" },
+    "options": [
+      { "id": "A", "text": { "en": "run app.js", "es": "run app.js" }, "why": { "en": "`run` isn't a command that comes with Node.js. The program that runs the file is called `node`.", "es": "`run` no es una orden que venga con Node.js. El programa que ejecuta el archivo se llama `node`." } },
+      { "id": "B", "text": { "en": "node app.js", "es": "node app.js" } },
+      { "id": "C", "text": { "en": "javascript app.js", "es": "javascript app.js" }, "why": { "en": "There's no `javascript` command. The language is JavaScript, but the program that runs it in the terminal is `node`.", "es": "No existe la orden `javascript`. El lenguaje es JavaScript, pero el programa que lo ejecuta en la terminal es `node`." } },
+      { "id": "D", "text": { "en": "npm app.js", "es": "npm app.js" }, "why": { "en": "`npm` is the package manager that comes with Node.js: it installs libraries, it doesn't run your file like that.", "es": "`npm` es el gestor de paquetes que viene con Node.js: instala librerías, no ejecuta tu archivo así." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "Node.js is a local environment that runs JavaScript outside the browser. You run a file with `node` followed by its name: `node app.js`. The messages of `console.log` then appear in the terminal instead of the browser console.", "es": "Node.js es un entorno local que ejecuta JavaScript fuera del navegador. Un archivo se ejecuta con `node` seguido de su nombre: `node app.js`. Los mensajes de `console.log` aparecen entonces en la terminal en lugar de en la consola del navegador." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q019", "section": 1, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["console"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "Apart from `console.log`, which two of these also write a message in the browser console? (Choose two.)", "es": "Además de `console.log`, ¿qué dos de estas también escriben un mensaje en la consola del navegador? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "alert(\"Oops\")", "es": "alert(\"Oops\")" }, "why": { "en": "`alert` opens a pop-up window in the page. Nothing is written in the console.", "es": "`alert` abre una ventana emergente en la página. No escribe nada en la consola." } },
+      { "id": "B", "text": { "en": "prompt(\"Oops\")", "es": "prompt(\"Oops\")" }, "why": { "en": "`prompt` opens a window that asks the user to type something. It doesn't write in the console.", "es": "`prompt` abre una ventana que pide al usuario que escriba algo. No escribe en la consola." } },
+      { "id": "C", "text": { "en": "confirm(\"Oops\")", "es": "confirm(\"Oops\")" }, "why": { "en": "`confirm` opens a window with OK and Cancel buttons. It doesn't write in the console.", "es": "`confirm` abre una ventana con los botones Aceptar y Cancelar. No escribe en la consola." } },
+      { "id": "D", "text": { "en": "console.error(\"Oops\")", "es": "console.error(\"Oops\")" } },
+      { "id": "E", "text": { "en": "console.warn(\"Oops\")", "es": "console.warn(\"Oops\")" } }
+    ],
+    "answer": ["D", "E"],
+    "explanation": { "en": "The `console` object has several methods to write messages: `console.log` for normal messages, `console.warn` for warnings (usually in yellow) and `console.error` for errors (usually in red). `alert`, `prompt` and `confirm` talk to the user with pop-up windows, not with the console.", "es": "El objeto `console` tiene varios métodos para escribir mensajes: `console.log` para los normales, `console.warn` para los avisos (normalmente en amarillo) y `console.error` para los errores (normalmente en rojo). `alert`, `prompt` y `confirm` hablan con el usuario mediante ventanas emergentes, no con la consola." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q020", "section": 1, "bank": "practice", "type": "error",
+    "difficulty": 1, "tags": ["console", "runtime-error"], "courseRef": "01_Variables/03_console_log.html",
+    "code": "let score = 10;\nconsole.log(scor);",
+    "prompt": { "en": "There's a typo on line 2. What happens when this code runs?", "es": "En la línea 2 hay una errata. ¿Qué pasa al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints undefined", "es": "Muestra undefined" }, "why": { "en": "`undefined` is the value of a variable that exists but has no value. `scor` has never been declared, so it doesn't exist at all.", "es": "`undefined` es el valor de una variable que existe pero no tiene valor. `scor` no se ha declarado nunca, así que no existe." } },
+      { "id": "B", "text": { "en": "`ReferenceError`: `scor` is not defined", "es": "`ReferenceError`: `scor` no está definido" } },
+      { "id": "C", "text": { "en": "`SyntaxError`: the code isn't valid JavaScript", "es": "`SyntaxError`: el código no es JavaScript válido" }, "why": { "en": "The grammar is correct: `console.log(scor)` is a valid instruction. The problem is the name, which is only checked when the line runs.", "es": "La gramática es correcta: `console.log(scor)` es una instrucción válida. El problema es el nombre, que solo se comprueba al ejecutar la línea." } },
+      { "id": "D", "text": { "en": "It prints 10, because JavaScript guesses the right name", "es": "Muestra 10, porque JavaScript adivina el nombre correcto" }, "why": { "en": "JavaScript never corrects names: `scor` and `score` are two different names.", "es": "JavaScript nunca corrige los nombres: `scor` y `score` son dos nombres distintos." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "When you use a name that was never declared, JavaScript throws a `ReferenceError`. In the browser console you'd read `Uncaught ReferenceError: scor is not defined`, and next to it the file and line (for example `app.js:2`). Reading that message is usually the fastest way to find a typo.", "es": "Cuando usas un nombre que nunca se ha declarado, JavaScript lanza un `ReferenceError`. En la consola del navegador leerías `Uncaught ReferenceError: scor is not defined` y, al lado, el archivo y la línea (por ejemplo, `app.js:2`). Leer ese mensaje suele ser la forma más rápida de encontrar una errata." },
+    "verify": { "kind": "error", "errorType": "ReferenceError", "line": 2 }
+  },
+  {
+    "id": "s1-q021", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "Why is the `<script>` tag often placed just before `</body>`?", "es": "¿Por qué la etiqueta `<script>` se suele poner justo antes de `</body>`?" },
+    "options": [
+      { "id": "A", "text": { "en": "So that the content of the page is already loaded when the script runs", "es": "Para que el contenido de la página ya esté cargado cuando se ejecute el script" } },
+      { "id": "B", "text": { "en": "Because a `<script>` inside `<head>` is not allowed", "es": "Porque no se puede poner un `<script>` dentro de `<head>`" }, "why": { "en": "It is allowed. A script in `<head>` works, but it runs before the content of the page has been read.", "es": "Sí se puede. Un script en `<head>` funciona, pero se ejecuta antes de que se haya leído el contenido de la página." } },
+      { "id": "C", "text": { "en": "Because the browser reads the HTML from the bottom up", "es": "Porque el navegador lee el HTML de abajo arriba" }, "why": { "en": "It's the other way round: the browser reads the HTML from top to bottom. That's precisely why the position of the script matters.", "es": "Es al revés: el navegador lee el HTML de arriba abajo. Precisamente por eso importa dónde va el script." } },
+      { "id": "D", "text": { "en": "Because scripts at the end of the page run faster", "es": "Porque los scripts al final de la página se ejecutan más rápido" }, "why": { "en": "The code runs at the same speed. What changes is when it runs and whether the page has to wait for it.", "es": "El código se ejecuta a la misma velocidad. Lo que cambia es cuándo se ejecuta y si la página tiene que esperarlo." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The browser reads the HTML from top to bottom. When it finds a normal `<script>`, it stops building the page, runs the script and then continues. If the script is at the end of `<body>`, all the content is already there when the code runs, and the visitor sees the page sooner.", "es": "El navegador lee el HTML de arriba abajo. Cuando encuentra un `<script>` normal, deja de construir la página, ejecuta el script y luego sigue. Si el script está al final del `<body>`, todo el contenido ya está ahí cuando se ejecuta el código, y el visitante ve antes la página." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q022", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap", "html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "A page has this tag:\n`<script src=\"app.js\">console.log(\"Hi\");</script>`\nWhat does the browser run?", "es": "Una página tiene esta etiqueta:\n`<script src=\"app.js\">console.log(\"Hi\");</script>`\n¿Qué ejecuta el navegador?" },
+    "options": [
+      { "id": "A", "text": { "en": "Only the code of `app.js`", "es": "Solo el código de `app.js`" } },
+      { "id": "B", "text": { "en": "First `app.js`, and then `console.log(\"Hi\")`", "es": "Primero `app.js` y después `console.log(\"Hi\")`" }, "why": { "en": "That's the trap: a `<script>` can load a file or contain code, not both. When it has `src`, the code between the tags is ignored.", "es": "Esa es la trampa: un `<script>` puede cargar un archivo o llevar código, no las dos cosas. Si tiene `src`, el código entre las etiquetas se ignora." } },
+      { "id": "C", "text": { "en": "Only `console.log(\"Hi\")`, because the inline code takes priority", "es": "Solo `console.log(\"Hi\")`, porque el código en línea tiene prioridad" }, "why": { "en": "It's the other way round: when there's a `src` attribute, the browser loads that file and skips the inline code.", "es": "Es al revés: si hay atributo `src`, el navegador carga ese archivo y se salta el código en línea." } },
+      { "id": "D", "text": { "en": "Nothing: the tag throws a `SyntaxError`", "es": "Nada: la etiqueta lanza un `SyntaxError`" }, "why": { "en": "There's no error: the tag is valid HTML. It simply ignores the code between the tags.", "es": "No hay error: la etiqueta es HTML válido. Simplemente ignora el código que hay entre las etiquetas." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "If a `<script>` has a `src` attribute, the browser runs the external file and ignores anything written between `<script>` and `</script>`. To have both, use two tags: `<script src=\"app.js\"></script>` and, after it, `<script>console.log(\"Hi\");</script>`.", "es": "Si un `<script>` tiene el atributo `src`, el navegador ejecuta el archivo externo e ignora lo que haya escrito entre `<script>` y `</script>`. Para tener las dos cosas, usa dos etiquetas: `<script src=\"app.js\"></script>` y, después, `<script>console.log(\"Hi\");</script>`." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q023", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 3, "tags": ["html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "What does the `defer` attribute do in `<script src=\"app.js\" defer></script>`, placed in `<head>`?", "es": "¿Qué hace el atributo `defer` en `<script src=\"app.js\" defer></script>`, colocado en `<head>`?" },
+    "options": [
+      { "id": "A", "text": { "en": "It runs `app.js` only when the user clicks somewhere on the page", "es": "Ejecuta `app.js` solo cuando el usuario hace clic en algún sitio de la página" }, "why": { "en": "`defer` doesn't depend on the user: the script runs on its own as soon as the HTML has been read.", "es": "`defer` no depende del usuario: el script se ejecuta solo en cuanto se ha leído el HTML." } },
+      { "id": "B", "text": { "en": "It skips `app.js` if the file has an error", "es": "Se salta `app.js` si el archivo tiene un error" }, "why": { "en": "`defer` only changes when the script runs. If the file has an error, it still appears in the console.", "es": "`defer` solo cambia cuándo se ejecuta el script. Si el archivo tiene un error, sigue apareciendo en la consola." } },
+      { "id": "C", "text": { "en": "It runs `app.js` only after the whole HTML has been read", "es": "Ejecuta `app.js` solo cuando se ha leído todo el HTML" } },
+      { "id": "D", "text": { "en": "It waits exactly one second before running `app.js`", "es": "Espera exactamente un segundo antes de ejecutar `app.js`" }, "why": { "en": "`defer` doesn't use a fixed time. It waits until the HTML has been read, however long that takes.", "es": "`defer` no usa un tiempo fijo. Espera a que se haya leído el HTML, tarde lo que tarde." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "A normal `<script>` stops the reading of the page while it downloads and runs. With `defer`, the file downloads in the background and runs when the whole HTML has been read, as if it were at the end of `<body>`. `defer` only works on external scripts (with `src`), and several deferred scripts run in the order in which they appear.", "es": "Un `<script>` normal detiene la lectura de la página mientras se descarga y se ejecuta. Con `defer`, el archivo se descarga en segundo plano y se ejecuta cuando ya se ha leído todo el HTML, como si estuviera al final del `<body>`. `defer` solo funciona con scripts externos (con `src`), y si hay varios scripts diferidos, se ejecutan en el orden en que aparecen." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q024", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "A page has these two scripts, one after the other, inside `<body>`:\n`<script>let city = \"Rome\";</script>`\n`<script>console.log(city);</script>`\nWhat appears in the console?", "es": "Una página tiene estos dos scripts, uno detrás de otro, dentro del `<body>`:\n`<script>let city = \"Rome\";</script>`\n`<script>console.log(city);</script>`\n¿Qué aparece en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "`ReferenceError`: `city` is not defined", "es": "`ReferenceError`: `city` no está definido" }, "why": { "en": "The two `<script>` tags of a page aren't separate programs: they share the same global variables. The first one has already created `city`.", "es": "Los `<script>` de una página no son programas separados: comparten las mismas variables globales. El primero ya ha creado `city`." } },
+      { "id": "B", "text": { "en": "undefined", "es": "undefined" }, "why": { "en": "`city` was created with a value in the first script, which has already run, so it isn't `undefined`.", "es": "`city` se creó con un valor en el primer script, que ya se ha ejecutado, así que no vale `undefined`." } },
+      { "id": "C", "text": { "en": "Rome", "es": "Rome" } },
+      { "id": "D", "text": { "en": "Nothing, because a page can only have one `<script>`", "es": "Nada, porque una página solo puede tener un `<script>`" }, "why": { "en": "A page can have as many `<script>` tags as you need. They run one after the other, in order.", "es": "Una página puede tener todos los `<script>` que necesites. Se ejecutan uno detrás de otro, en orden." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "All the classic `<script>` tags of a page run in order and share the same global scope. The first script creates the variable `city`, and when the second one runs, the variable is already there, so it prints Rome.", "es": "Todos los `<script>` clásicos de una página se ejecutan en orden y comparten el mismo ámbito global. El primer script crea la variable `city` y, cuando se ejecuta el segundo, la variable ya existe, así que se muestra Rome." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q025", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 3, "tags": ["trap", "html", "script", "runtime-error"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "A page has these two scripts, one after the other, inside `<body>`:\n`<script>console.log(price);</script>`\n`<script>let price = 5; console.log(price);</script>`\nWhat appears in the console?", "es": "Una página tiene estos dos scripts, uno detrás de otro, dentro del `<body>`:\n`<script>console.log(price);</script>`\n`<script>let price = 5; console.log(price);</script>`\n¿Qué aparece en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "5 and 5", "es": "5 y 5" }, "why": { "en": "When the first script runs, the second one hasn't even been read yet, so `price` doesn't exist.", "es": "Cuando se ejecuta el primer script, el segundo ni siquiera se ha leído, así que `price` no existe." } },
+      { "id": "B", "text": { "en": "Only a `ReferenceError`: the error stops the whole page", "es": "Solo un `ReferenceError`: el error para toda la página" }, "why": { "en": "This is the trap: an error only stops its own `<script>`. The next scripts of the page still run.", "es": "Esta es la trampa: un error solo para su propio `<script>`. Los siguientes scripts de la página se siguen ejecutando." } },
+      { "id": "C", "text": { "en": "A `ReferenceError` from the first script, and then 5 from the second", "es": "Un `ReferenceError` del primer script y después 5 del segundo" } },
+      { "id": "D", "text": { "en": "undefined and 5", "es": "undefined y 5" }, "why": { "en": "`price` isn't a variable without a value: when the first script runs it doesn't exist at all, and using it throws an error.", "es": "`price` no es una variable sin valor: cuando se ejecuta el primer script no existe en absoluto, y usarla lanza un error." } }
+    ],
+    "answer": ["C"],
+    "explanation": { "en": "The browser runs each `<script>` in order, one at a time. The first one uses `price`, which doesn't exist yet: `ReferenceError: price is not defined`, and that script stops. But an error only stops its own script: the browser carries on with the page, runs the second script and prints 5.", "es": "El navegador ejecuta cada `<script>` en orden, de uno en uno. El primero usa `price`, que todavía no existe: `ReferenceError: price is not defined`, y ese script se para. Pero un error solo para su propio script: el navegador sigue con la página, ejecuta el segundo script y muestra 5." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q026", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap", "html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "Your page is `index.html`, and next to it there is a folder `scripts` with the file `main.js`. Which tag loads that file correctly?", "es": "Tu página es `index.html` y a su lado hay una carpeta `scripts` con el archivo `main.js`. ¿Qué etiqueta carga bien ese archivo?" },
+    "options": [
+      { "id": "A", "text": { "en": "<script src=\"scripts/main.js\"></script>", "es": "<script src=\"scripts/main.js\"></script>" } },
+      { "id": "B", "text": { "en": "<script src=\"main.js\"></script>", "es": "<script src=\"main.js\"></script>" }, "why": { "en": "This looks for `main.js` in the same folder as `index.html`, but the file is inside `scripts`.", "es": "Así se busca `main.js` en la misma carpeta que `index.html`, pero el archivo está dentro de `scripts`." } },
+      { "id": "C", "text": { "en": "<script src=\"scripts/main.js\" />", "es": "<script src=\"scripts/main.js\" />" }, "why": { "en": "`<script>` isn't a self-closing tag: it always needs `</script>`. Without it, the browser takes the rest of the page as part of the script.", "es": "`<script>` no es una etiqueta que se cierre sola: siempre necesita `</script>`. Sin ella, el navegador toma el resto de la página como parte del script." } },
+      { "id": "D", "text": { "en": "<script file=\"scripts/main.js\"></script>", "es": "<script file=\"scripts/main.js\"></script>" }, "why": { "en": "`<script>` has no `file` attribute: the browser ignores it and loads nothing. The path always goes in `src`.", "es": "`<script>` no tiene ningún atributo `file`: el navegador lo ignora y no carga nada. La ruta siempre va en `src`." } }
+    ],
+    "answer": ["A"],
+    "explanation": { "en": "The `src` attribute gives the path of the file, starting from the folder of the HTML page: `scripts/main.js` means «the file `main.js` inside the folder `scripts`». And `<script>` always needs its closing tag `</script>`, even when it's empty.", "es": "El atributo `src` indica la ruta del archivo, desde la carpeta de la página HTML: `scripts/main.js` quiere decir «el archivo `main.js` dentro de la carpeta `scripts`». Y `<script>` siempre necesita su etiqueta de cierre `</script>`, aunque esté vacía." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q027", "section": 1, "bank": "practice", "type": "multiple",
+    "difficulty": 1, "tags": ["html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "Where can you place a `<script>` tag with your JavaScript code? (Choose two.)", "es": "¿Dónde puedes poner una etiqueta `<script>` con tu código JavaScript? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "Inside `<title>`", "es": "Dentro de `<title>`" }, "why": { "en": "`<title>` can only contain text: the name shown in the browser tab. A `<script>` there would just appear as text in the tab.", "es": "`<title>` solo puede tener texto: el nombre que sale en la pestaña del navegador. Un `<script>` ahí aparecería como texto en la pestaña." } },
+      { "id": "B", "text": { "en": "Inside `<head>`", "es": "Dentro de `<head>`" } },
+      { "id": "C", "text": { "en": "Inside `<body>`", "es": "Dentro de `<body>`" } },
+      { "id": "D", "text": { "en": "Inside the `style.css` file", "es": "Dentro del archivo `style.css`" }, "why": { "en": "A CSS file can only contain style rules. HTML tags and JavaScript code don't work there.", "es": "Un archivo CSS solo puede tener reglas de estilo. Las etiquetas HTML y el código JavaScript no funcionan ahí." } }
+    ],
+    "answer": ["B", "C"],
+    "explanation": { "en": "A `<script>` can go in `<head>` or in `<body>`. The most common place is at the end of `<body>`, so the content is already loaded when the code runs. In `<head>` it's usually combined with `defer` and an external file.", "es": "Un `<script>` puede ir en `<head>` o en `<body>`. Lo más habitual es ponerlo al final del `<body>`, para que el contenido ya esté cargado cuando se ejecute el código. En `<head>` se suele combinar con `defer` y un archivo externo." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q028", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["html"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "In an HTML document, which element holds the content that the visitor sees in the browser window?", "es": "En un documento HTML, ¿qué elemento contiene lo que el visitante ve en la ventana del navegador?" },
+    "options": [
+      { "id": "A", "text": { "en": "<head>", "es": "<head>" }, "why": { "en": "`<head>` holds information about the page (title, character set, links to CSS…), which isn't shown as content.", "es": "`<head>` tiene información sobre la página (título, juego de caracteres, enlaces al CSS…), que no se muestra como contenido." } },
+      { "id": "B", "text": { "en": "<title>", "es": "<title>" }, "why": { "en": "`<title>` is the text of the browser tab, not the content of the page.", "es": "`<title>` es el texto de la pestaña del navegador, no el contenido de la página." } },
+      { "id": "C", "text": { "en": "<meta>", "es": "<meta>" }, "why": { "en": "`<meta>` gives data about the page, such as the character set, and is never shown.", "es": "`<meta>` da datos sobre la página, como el juego de caracteres, y nunca se muestra." } },
+      { "id": "D", "text": { "en": "<body>", "es": "<body>" } }
+    ],
+    "answer": ["D"],
+    "explanation": { "en": "An HTML document has two parts inside `<html>`: `<head>`, with information about the page (title, character set, CSS), and `<body>`, with everything the visitor sees: headings, paragraphs, images, buttons… Scripts can go in either part.", "es": "Un documento HTML tiene dos partes dentro de `<html>`: `<head>`, con información sobre la página (título, juego de caracteres, CSS), y `<body>`, con todo lo que ve el visitante: títulos, párrafos, imágenes, botones… Los scripts pueden ir en cualquiera de las dos." },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s1-q029", "section": 1, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["console"], "courseRef": "01_Variables/03_console_log.html",
+    "code": "console.___(\"Ready\");",
+    "prompt": { "en": "Which word completes the gap so that Ready is written in the console?", "es": "¿Qué palabra completa el hueco para que se escriba Ready en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "print", "es": "print" }, "why": { "en": "`console` has no `print` method: it throws a `TypeError` (`console.print is not a function`).", "es": "`console` no tiene ningún método `print`: lanza un `TypeError` (`console.print is not a function`)." } },
+      { "id": "B", "text": { "en": "log", "es": "log" } },
+      { "id": "C", "text": { "en": "write", "es": "write" }, "why": { "en": "`console.write` doesn't exist, so it throws a `TypeError`.", "es": "`console.write` no existe, así que lanza un `TypeError`." } },
+      { "id": "D", "text": { "en": "show", "es": "show" }, "why": { "en": "`console.show` doesn't exist, so it throws a `TypeError`.", "es": "`console.show` no existe, así que lanza un `TypeError`." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "`console.log()` writes a message in the console. Calling a method that doesn't exist, such as `console.print()`, throws a `TypeError`, because `console.print` is `undefined` and `undefined` can't be called like a function.", "es": "`console.log()` escribe un mensaje en la consola. Llamar a un método que no existe, como `console.print()`, lanza un `TypeError`, porque `console.print` vale `undefined` y `undefined` no se puede llamar como una función." },
+    "verify": { "kind": "output", "expected": "Ready" }
+  },
+  {
+    "id": "s1-q030", "section": 1, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["html", "script"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "Why is it usually better to keep your JavaScript in an external file (`<script src=\"app.js\"></script>`) than to write it inside the HTML?", "es": "¿Por qué suele ser mejor tener el JavaScript en un archivo externo (`<script src=\"app.js\"></script>`) que escribirlo dentro del HTML?" },
+    "options": [
+      { "id": "A", "text": { "en": "Because external scripts can use more JavaScript features", "es": "Porque los scripts externos pueden usar más funciones de JavaScript" }, "why": { "en": "The language is exactly the same in both cases. Only the place where the code is written changes.", "es": "El lenguaje es exactamente el mismo en los dos casos. Solo cambia dónde está escrito el código." } },
+      { "id": "B", "text": { "en": "Because the HTML and the JavaScript stay separate, and several pages can use the same file", "es": "Porque el HTML y el JavaScript quedan separados, y varias páginas pueden usar el mismo archivo" } },
+      { "id": "C", "text": { "en": "Because modern browsers don't run code written inside the HTML", "es": "Porque los navegadores modernos no ejecutan el código escrito dentro del HTML" }, "why": { "en": "Inline scripts work perfectly in every browser; they're just harder to maintain in big projects.", "es": "Los scripts en línea funcionan perfectamente en todos los navegadores; solo son más difíciles de mantener en proyectos grandes." } },
+      { "id": "D", "text": { "en": "Because an external file is compiled, so it has no errors", "es": "Porque un archivo externo se compila, así que no tiene errores" }, "why": { "en": "An external `.js` file is still source code that the browser runs; it can have the same errors as inline code.", "es": "Un archivo `.js` externo sigue siendo código fuente que ejecuta el navegador; puede tener los mismos errores que el código en línea." } }
+    ],
+    "answer": ["B"],
+    "explanation": { "en": "With an external file, each language lives in its own file: HTML in `index.html` and JavaScript in `app.js`. The code is easier to read and maintain, several pages can load the same file, and the browser can keep it saved (cached) so it doesn't download it again. Inline scripts are fine for very small examples.", "es": "Con un archivo externo, cada lenguaje va en su propio archivo: el HTML en `index.html` y el JavaScript en `app.js`. El código es más fácil de leer y de mantener, varias páginas pueden cargar el mismo archivo y el navegador lo puede guardar (en caché) para no descargarlo otra vez. Los scripts en línea están bien para ejemplos muy pequeños." },
+    "verify": { "kind": "none" }
+  }
+]

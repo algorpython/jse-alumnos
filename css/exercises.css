@@ -1,0 +1,84 @@
+/* Pantalla «Coding exercises» (js/views/exercises.js), como ../maquetas/03_ejercicio_codigo.png:
+   enunciado, tests y pistas a la izquierda; editor (css/editor.css), consola y botones a la
+   derecha. La lista de secciones usa .topics de css/practice.css. */
+
+.ex-screen { display: flex; flex-direction: column; gap: 18px; }
+.top .ex-title { font-size: 22px; margin-top: 4px; }
+
+.ex-layout { display: flex; gap: 22px; align-items: stretch; }
+.ex-left { flex: 0.8; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.ex-right { flex: 1.2; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+
+.ex-task h2, .ex-tests h2 { margin-bottom: 10px; }
+.ex-statement { font-size: 15px; line-height: 1.6; }
+
+/* Tests */
+.ex-test-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ex-test-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ex-test-row .chip { flex: none; font-family: var(--mono); font-weight: 500; white-space: normal; max-width: 55%; overflow-wrap: anywhere; }
+.ex-test-call { font: 14px/1.6 var(--mono); overflow-wrap: break-word; min-width: 0; background: none; padding: 0; }
+.ex-test-out, .ex-test-detail { min-width: 0; font-size: 13px; color: var(--muted); }
+.ex-test-out pre, .ex-test-detail pre {
+  margin: 4px 0 0; font: 14px/1.5 var(--mono); color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.ex-test-detail { margin-top: 4px; padding: 8px 10px; border-radius: var(--radius-s); background: var(--red-bg); }
+.ex-test-detail pre { color: var(--red); margin: 0; }
+.ex-test-detail span + pre { margin-top: 2px; }
+
+/* Pistas */
+.ex-hints { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.ex-hint { width: 100%; }
+.ex-hint p { margin-top: 4px; }
+.ex-hint:focus-visible { box-shadow: var(--focus); border-radius: var(--radius-l); }
+
+/* Editor */
+.ex-file-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ex-file { font: 13px var(--mono); color: var(--muted); }
+.ex-file-tools { display: flex; align-items: center; gap: 12px; }
+.ex-editor { flex: 1; }
+.ex-editor .editor-input { min-height: 340px; }
+.ex-right .editor-help { margin-top: -4px; }
+
+/* Consola (blanca, como en la maqueta) */
+.ex-console {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-m);
+  padding: 10px 16px 12px; min-height: 62px; font: 14px/1.6 var(--mono);
+}
+.ex-console-title { margin: 0 0 2px; font: 13px var(--body); color: var(--muted); }
+.ex-out .cl { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ex-out .cl + .cl { border-top: 1px solid var(--line); }
+.ex-out .msg { font-family: var(--body); font-size: 13.5px; }
+.ex-out .muted { color: var(--muted); }
+.ex-out .warn { color: #7A4B00; }
+.ex-out .err, .ex-out .cl-line { color: var(--red); }
+.ex-out .cl-line { font-weight: 600; }
+.ex-out .dialog { color: var(--purple); }
+
+.ex-result { margin: 0; }
+.ex-result a { font-weight: 700; color: var(--green); white-space: nowrap; }
+#ex-result:empty { display: none; }
+
+.ex-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+
+/* Solución */
+.ex-solution { display: flex; flex-direction: column; gap: 12px; }
+.ex-solution h2 { margin: 0; }
+.ex-solution h3 { margin-top: 6px; }
+.ex-solution-text { font-size: 15px; line-height: 1.6; }
+.ex-solution pre.code { font-size: 14px; }
+.ex-mistakes { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; line-height: 1.5; }
+.ex-solution:focus-visible { box-shadow: var(--focus); }
+
+.ex-nav { margin-top: 4px; }
+
+@media (max-width: 1180px) {
+  .ex-layout { gap: 16px; }
+  .ex-left { flex: 0.9; }
+}
+@media (max-width: 900px) {
+  .ex-layout { flex-direction: column; }
+}
+
+/* Sección de conceptos sin ejercicios (tarea 9.1): #/exercises/1. */
+.ex-concepts-page h2 { margin-bottom: 8px; }
+.ex-concepts-page .done-actions { margin-top: 20px; }

@@ -1,0 +1,716 @@
+[
+  {
+    "id": "s6-q001", "section": 6, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["error-kinds","logic-error"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "Which two of these mistakes are logic errors? (Choose two.)", "es": "¿Cuáles de estos fallos son errores lógicos? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "A loop that should show the numbers 1 to 10 uses `i < 10`, so 10 is never shown", "es": "Un bucle que debería mostrar los números del 1 al 10 usa `i < 10`, así que el 10 no sale nunca" } },
+      { "id": "B", "text": { "en": "A check for adults uses `age > 18`, so someone who is exactly 18 is not counted as an adult", "es": "Una comprobación de mayoría de edad usa `age > 18`, así que alguien que tiene justo 18 años no cuenta como adulto" } },
+      { "id": "C", "text": { "en": "A script writes `consol.log(\"Hi\")` instead of `console.log(\"Hi\")`", "es": "Un script pone `consol.log(\"Hi\")` en lugar de `console.log(\"Hi\")`" }, "why": { "en": "When that line runs, JavaScript can't find `consol` and throws `ReferenceError: consol is not defined`. A logic error never shows an error message.", "es": "Al ejecutarse esa línea, JavaScript no encuentra `consol` y lanza `ReferenceError: consol is not defined`. Un error lógico nunca muestra un mensaje de error." } },
+      { "id": "D", "text": { "en": "A line is missing its closing parenthesis: `console.log(\"Hi\"`", "es": "A una línea le falta el paréntesis de cierre: `console.log(\"Hi\"`" }, "why": { "en": "That breaks the rules of the language: it's a syntax error, and JavaScript finds it before running anything.", "es": "Eso rompe las reglas del lenguaje: es un error de sintaxis, y JavaScript lo detecta antes de ejecutar nada." } },
+      { "id": "E", "text": { "en": "A program calls `total.toUpperCase()` when `total` is a number", "es": "Un programa llama a `total.toUpperCase()` cuando `total` es un número" }, "why": { "en": "Numbers don't have that method, so the line throws `TypeError: total.toUpperCase is not a function` when it runs. That's an exception, not a silent logic error.", "es": "Los números no tienen ese método, así que la línea lanza `TypeError: total.toUpperCase is not a function` al ejecutarse. Es una excepción, no un error lógico silencioso." } }
+    ],
+    "answer": ["A","B"],
+    "explanation": {
+      "en": "In a logic error the code is valid and runs without any message, but it does something different from what you meant. JavaScript can't spot it, because it doesn't know what you wanted: you find it by checking the results. The loop that leaves out the 10 and the adult check with `>` instead of `>=` are logic errors. `consol.log(\"Hi\")` and `total.toUpperCase()` throw exceptions when they run (`ReferenceError` and `TypeError`), and the missing parenthesis is a syntax error.",
+      "es": "En un error lógico el código es válido y se ejecuta sin ningún mensaje, pero hace algo distinto de lo que querías. JavaScript no puede detectarlo, porque no sabe qué pretendías: lo descubres al comprobar los resultados. El bucle que deja fuera el 10 y la comprobación de mayoría de edad con `>` en vez de `>=` son errores lógicos. `consol.log(\"Hi\")` y `total.toUpperCase()` lanzan excepciones al ejecutarse (`ReferenceError` y `TypeError`), y el paréntesis que falta es un error de sintaxis."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q002", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap","syntax-error"], "courseRef": "17_Excepciones",
+    "code": "console.log(\"A\");\nfunction later() {\n  let x = ;\n}\nconsole.log(\"B\");",
+    "prompt": { "en": "The function `later` is never called. What happens when this script runs?", "es": "La función `later` no se llama nunca. ¿Qué ocurre al ejecutar este script?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `A` and `B`: the function is never called, so its mistake doesn't matter", "es": "Muestra `A` y `B`: la función no se llama nunca, así que su fallo da igual" }, "why": { "en": "JavaScript reads the whole script before running it. A syntax mistake anywhere, even inside a function that nobody calls, stops everything.", "es": "JavaScript lee el script entero antes de ejecutarlo. Un fallo de sintaxis en cualquier sitio, aunque esté dentro de una función que nadie llama, lo para todo." } },
+      { "id": "B", "text": { "en": "It prints `A` and then stops with an error on line 3", "es": "Muestra `A` y después se para con un error en la línea 3" }, "why": { "en": "Syntax mistakes are found before the first line runs, so not even `A` is printed.", "es": "Los fallos de sintaxis se detectan antes de ejecutar la primera línea, así que ni siquiera se muestra `A`." } },
+      { "id": "C", "text": { "en": "A `SyntaxError` on line 3, and nothing is printed", "es": "Un `SyntaxError` en la línea 3, y no se muestra nada" } },
+      { "id": "D", "text": { "en": "It prints `A`, `undefined` and `B`", "es": "Muestra `A`, `undefined` y `B`" }, "why": { "en": "`let x = ;` is not valid code: the value after `=` is missing. JavaScript doesn't fill it in with `undefined`.", "es": "`let x = ;` no es código válido: falta el valor después del `=`. JavaScript no lo rellena con `undefined`." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "Before running a script, the JavaScript engine reads all of it to check that it's valid. `let x = ;` breaks the grammar of the language (there's no value after `=`), so you get `SyntaxError: Unexpected token ';'` and no line runs, not even line 1. It doesn't matter that `later()` is never called: a syntax error is about how the code is written, not about what it does.",
+      "es": "Antes de ejecutar un script, el motor de JavaScript lo lee entero para comprobar que es válido. `let x = ;` rompe la gramática del lenguaje (no hay valor después del `=`), así que sale `SyntaxError: Unexpected token ';'` y no se ejecuta ninguna línea, ni siquiera la 1. Da igual que `later()` no se llame nunca: un error de sintaxis tiene que ver con cómo está escrito el código, no con lo que hace."
+    },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 3 }
+  },
+  {
+    "id": "s6-q003", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["error-kinds","semantic-error"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "Which description fits a semantic error best?", "es": "¿Qué descripción encaja mejor con un error semántico?" },
+    "options": [
+      { "id": "A", "text": { "en": "The code follows the rules, but an instruction makes no sense, such as calling a number: `let n = 5; n();`", "es": "El código cumple las reglas, pero una instrucción no tiene sentido, como llamar a un número: `let n = 5; n();`" } },
+      { "id": "B", "text": { "en": "A word or a symbol breaks the rules of the language, such as a missing `}`", "es": "Una palabra o un símbolo rompe las reglas del lenguaje, como un `}` que falta" }, "why": { "en": "That's a syntax error: the code is badly written, and JavaScript rejects it before running anything.", "es": "Eso es un error de sintaxis: el código está mal escrito, y JavaScript lo rechaza antes de ejecutar nada." } },
+      { "id": "C", "text": { "en": "The program runs without any error message, but a formula gives the wrong result", "es": "El programa se ejecuta sin ningún mensaje de error, pero una fórmula da un resultado equivocado" }, "why": { "en": "That's a logic error: everything makes sense to JavaScript, the result just isn't what you wanted.", "es": "Eso es un error lógico: para JavaScript todo tiene sentido, simplemente el resultado no es el que querías." } },
+      { "id": "D", "text": { "en": "A warning that only the code editor shows, which never appears when the program runs", "es": "Un aviso que solo muestra el editor de código y que nunca aparece al ejecutar el programa" }, "why": { "en": "Editors can warn you, but a semantic error is a real problem: in JavaScript it appears when the line runs, as an exception.", "es": "Los editores pueden avisarte, pero un error semántico es un problema real: en JavaScript aparece al ejecutarse la línea, como una excepción." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "Syntax is the grammar of the language; semantics is the meaning. In a semantic error the code is well written, but an instruction doesn't make sense: calling a number as a function, or using a name that doesn't exist. In JavaScript these errors show up when the line runs, as exceptions (`TypeError`, `ReferenceError`). In a logic error, instead, everything makes sense to JavaScript: the program just does something different from what you meant.",
+      "es": "La sintaxis es la gramática del lenguaje, y la semántica, el significado. En un error semántico el código está bien escrito, pero una instrucción no tiene sentido: llamar a un número como si fuera una función o usar un nombre que no existe. En JavaScript estos errores aparecen al ejecutarse la línea, como excepciones (`TypeError`, `ReferenceError`). En un error lógico, en cambio, para JavaScript todo tiene sentido: el programa simplemente hace algo distinto de lo que querías."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q004", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 1, "tags": ["trap","logic-error"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "Which kind of error will JavaScript never warn you about with an error message?", "es": "¿De qué tipo de error no te avisará nunca JavaScript con un mensaje de error?" },
+    "options": [
+      { "id": "A", "text": { "en": "`SyntaxError`", "es": "`SyntaxError`" }, "why": { "en": "JavaScript reports syntax errors before running the code, with a message that says the line.", "es": "JavaScript avisa de los errores de sintaxis antes de ejecutar el código, con un mensaje que indica la línea." } },
+      { "id": "B", "text": { "en": "`ReferenceError`", "es": "`ReferenceError`" }, "why": { "en": "It's reported when the line runs, with a message such as `total is not defined`.", "es": "Se avisa al ejecutarse la línea, con un mensaje como `total is not defined`." } },
+      { "id": "C", "text": { "en": "A logic error", "es": "Un error lógico" } },
+      { "id": "D", "text": { "en": "`RangeError`", "es": "`RangeError`" }, "why": { "en": "It's reported when a value is out of the allowed range, for example with `\"ab\".repeat(-1)`.", "es": "Se avisa cuando un valor está fuera del rango permitido, por ejemplo con `\"ab\".repeat(-1)`." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "JavaScript can only complain about what breaks its rules: code that is badly written (`SyntaxError`) or an instruction that can't be done while running (`ReferenceError`, `TypeError`, `RangeError`…). A logic error breaks none of those rules: the program does what you wrote, not what you meant. That's why you have to check the results, and use `console.log` or the debugger to see where the values go wrong.",
+      "es": "JavaScript solo puede quejarse de lo que rompe sus reglas: código mal escrito (`SyntaxError`) o una instrucción que no se puede hacer al ejecutarse (`ReferenceError`, `TypeError`, `RangeError`…). Un error lógico no rompe ninguna de esas reglas: el programa hace lo que escribiste, no lo que querías. Por eso hay que comprobar los resultados y usar `console.log` o el depurador para ver dónde se tuercen los valores."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q005", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap","logic-error"], "courseRef": "17_Excepciones",
+    "code": "let count = 0;\nfor (let i = 1; i <= 7; i++) {\n  if (i % 2 === 1) {\n    count++;\n  }\n}\nconsole.log(\"Even numbers:\", count);",
+    "prompt": { "en": "This code should count the even numbers from 1 to 7. What is printed to the console?", "es": "Este código debería contar los números pares del 1 al 7. ¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Even numbers: 3", "es": "Even numbers: 3" }, "why": { "en": "That's what the code should print, but `i % 2 === 1` is true for the odd numbers (1, 3, 5 and 7), so it counts 4.", "es": "Eso es lo que debería mostrar, pero `i % 2 === 1` se cumple con los impares (1, 3, 5 y 7), así que cuenta 4." } },
+      { "id": "B", "text": { "en": "Even numbers: 4", "es": "Even numbers: 4" } },
+      { "id": "C", "text": { "en": "Even numbers: 7", "es": "Even numbers: 7" }, "why": { "en": "`count++` only runs when the condition of the `if` is true, not on every turn of the loop.", "es": "`count++` solo se ejecuta cuando la condición del `if` se cumple, no en cada vuelta del bucle." } },
+      { "id": "D", "text": { "en": "Even numbers: 0", "es": "Even numbers: 0" }, "why": { "en": "The condition is true 4 times (with the odd numbers), so `count++` does run.", "es": "La condición se cumple 4 veces (con los impares), así que `count++` sí se ejecuta." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "The condition is wrong: `i % 2 === 1` picks the odd numbers, so the code counts 1, 3, 5 and 7 and prints `Even numbers: 4`. JavaScript doesn't show any error, because the code is valid and does exactly what it says. That's a logic error. The fix is `i % 2 === 0`.",
+      "es": "La condición está mal: `i % 2 === 1` elige los impares, así que el código cuenta el 1, el 3, el 5 y el 7 y muestra `Even numbers: 4`. JavaScript no muestra ningún error, porque el código es válido y hace exactamente lo que dice. Es un error lógico. Se arregla con `i % 2 === 0`."
+    },
+    "verify": { "kind": "output", "expected": "Even numbers: 4" }
+  },
+  {
+    "id": "s6-q006", "section": 6, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["error-kinds","runtime-error"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "Which two lines are valid JavaScript but throw an error when they run? (Choose two.)", "es": "¿Qué dos líneas son JavaScript válido pero lanzan un error al ejecutarse? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`let total = 10 total = 20;`", "es": "`let total = 10 total = 20;`" }, "why": { "en": "Two statements on the same line need a `;` between them. Without it the line isn't valid: it's a `SyntaxError`, found before anything runs.", "es": "Dos instrucciones en la misma línea necesitan un `;` entre ellas. Sin él la línea no es válida: es un `SyntaxError`, que se detecta antes de ejecutar nada." } },
+      { "id": "B", "text": { "en": "`let price = 10; console.log(price * 2);`", "es": "`let price = 10; console.log(price * 2);`" }, "why": { "en": "This line works without any problem: it prints `20`.", "es": "Esta línea funciona sin problemas: muestra `20`." } },
+      { "id": "C", "text": { "en": "`if (price > 5 { }`", "es": "`if (price > 5 { }`" }, "why": { "en": "The `)` of the condition is missing, so the line isn't valid: `SyntaxError` before running.", "es": "Falta el `)` de la condición, así que la línea no es válida: `SyntaxError` antes de ejecutar." } },
+      { "id": "D", "text": { "en": "`let n = 5; n();`", "es": "`let n = 5; n();`" } },
+      { "id": "E", "text": { "en": "`let city; console.log(city.length);`", "es": "`let city; console.log(city.length);`" } }
+    ],
+    "answer": ["D","E"],
+    "explanation": {
+      "en": "A runtime error (an exception) appears while the code is running, on a line that is well written. In `n();`, `n` is a number and you can't call a number: `TypeError: n is not a function`. In `city.length`, `city` is `undefined`, which has no properties: `TypeError: Cannot read properties of undefined`. The line without `;` between two statements and the `if` without its `)` break the grammar of the language, so they're syntax errors, and `price * 2` just works.",
+      "es": "Un error en tiempo de ejecución (una excepción) aparece mientras el código se ejecuta, en una línea que está bien escrita. En `n();`, `n` es un número y a un número no se le puede llamar: `TypeError: n is not a function`. En `city.length`, `city` es `undefined`, que no tiene propiedades: `TypeError: Cannot read properties of undefined`. La línea sin `;` entre dos instrucciones y el `if` sin su `)` rompen la gramática del lenguaje, así que son errores de sintaxis, y `price * 2` funciona sin problema."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q007", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap","typeerror","rangeerror"], "courseRef": "17_Excepciones",
+    "code": "let items = [\"pen\", \"book\"];\nconsole.log(items.length);\nlet first = items[5];\nconsole.log(first.toUpperCase());\nconsole.log(\"done\");",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `2`, then a `RangeError` on line 3, because there is no position 5", "es": "Muestra `2` y después un `RangeError` en la línea 3, porque no existe la posición 5" }, "why": { "en": "Reading a position that doesn't exist isn't an error in JavaScript: `items[5]` just gives `undefined`. The problem comes on the next line.", "es": "Leer una posición que no existe no es un error en JavaScript: `items[5]` simplemente da `undefined`. El problema llega en la línea siguiente." } },
+      { "id": "B", "text": { "en": "It prints `2`, then a `TypeError` on line 4", "es": "Muestra `2` y después un `TypeError` en la línea 4" } },
+      { "id": "C", "text": { "en": "It prints `2`, `undefined` and `done`", "es": "Muestra `2`, `undefined` y `done`" }, "why": { "en": "`first` is `undefined`, and `undefined` has no methods: calling `first.toUpperCase()` throws an error, so `done` is never printed.", "es": "`first` vale `undefined`, y `undefined` no tiene métodos: llamar a `first.toUpperCase()` lanza un error, así que `done` no se muestra nunca." } },
+      { "id": "D", "text": { "en": "A `SyntaxError`, and nothing is printed", "es": "Un `SyntaxError`, y no se muestra nada" }, "why": { "en": "All the lines are well written, so the code starts running: the problem only appears on line 4.", "es": "Todas las líneas están bien escritas, así que el código empieza a ejecutarse: el problema solo aparece en la línea 4." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "`items[5]` doesn't exist, so `first` is `undefined` (still no error). On line 4, `first.toUpperCase()` tries to use a method on `undefined`: `TypeError: Cannot read properties of undefined (reading 'toUpperCase')`. A `TypeError` means you used a value in a way its type doesn't allow. The program stops there, so `done` isn't printed.",
+      "es": "`items[5]` no existe, así que `first` vale `undefined` (todavía sin error). En la línea 4, `first.toUpperCase()` intenta usar un método sobre `undefined`: `TypeError: Cannot read properties of undefined (reading 'toUpperCase')`. Un `TypeError` significa que has usado un valor de una forma que su tipo no permite. El programa se para ahí, así que `done` no se muestra."
+    },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 4, "match": "both" }
+  },
+  {
+    "id": "s6-q008", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["rangeerror"], "courseRef": "17_Excepciones",
+    "code": "let price = 9.99;\nconsole.log(price.toFixed(1));\nconsole.log(price.toFixed(120));",
+    "prompt": { "en": "Line 2 prints `10.0`. What happens on line 3?", "es": "La línea 2 muestra `10.0`. ¿Qué ocurre en la línea 3?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `9.99` followed by many zeros", "es": "Muestra `9.99` seguido de muchos ceros" }, "why": { "en": "`toFixed()` only accepts between 0 and 100 decimals. 120 is out of that range, so nothing is printed: an error is thrown.", "es": "`toFixed()` solo admite entre 0 y 100 decimales. 120 está fuera de ese rango, así que no se muestra nada: se lanza un error." } },
+      { "id": "B", "text": { "en": "A `TypeError`, because `toFixed` only works with strings", "es": "Un `TypeError`, porque `toFixed` solo funciona con strings" }, "why": { "en": "`toFixed` is a number method and `price` is a number, so the type is right. What's wrong is the value of the argument.", "es": "`toFixed` es un método de los números y `price` es un número, así que el tipo es correcto. Lo que falla es el valor del argumento." } },
+      { "id": "C", "text": { "en": "A `RangeError`, because 120 decimals is more than allowed", "es": "Un `RangeError`, porque 120 decimales son más de los permitidos" } },
+      { "id": "D", "text": { "en": "A `SyntaxError`, because the number is too big", "es": "Un `SyntaxError`, porque el número es demasiado grande" }, "why": { "en": "The code is well written (line 2 even runs): the problem only appears when line 3 runs with that value.", "es": "El código está bien escrito (la línea 2 llega a ejecutarse): el problema solo aparece cuando la línea 3 se ejecuta con ese valor." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "A `RangeError` is thrown when a value has the right type but is outside the range that's allowed. `toFixed(n)` rounds to `n` decimals and only accepts `n` from 0 to 100, so `price.toFixed(120)` throws `RangeError: toFixed() digits argument must be between 0 and 100`. Another example: `\"ab\".repeat(-1)` (you can't repeat a text a negative number of times).",
+      "es": "Se lanza un `RangeError` cuando un valor tiene el tipo correcto pero está fuera del rango permitido. `toFixed(n)` redondea a `n` decimales y solo admite `n` entre 0 y 100, así que `price.toFixed(120)` lanza `RangeError: toFixed() digits argument must be between 0 and 100`. Otro ejemplo: `\"ab\".repeat(-1)` (no se puede repetir un texto un número negativo de veces)."
+    },
+    "verify": { "kind": "error", "errorType": "RangeError", "line": 3 }
+  },
+  {
+    "id": "s6-q009", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap","typeerror","referenceerror"], "courseRef": "17_Excepciones",
+    "code": "let user = { name: \"Ana\" };\nconsole.log(user.name);\nuser.greet();",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `Ana`, then a `ReferenceError`: `greet` is not defined", "es": "Muestra `Ana` y después un `ReferenceError`: `greet` is not defined" }, "why": { "en": "A `ReferenceError` is for names (variables) that don't exist. Here `user` exists, and reading `user.greet` just gives `undefined`. The error comes from trying to call that `undefined`.", "es": "Un `ReferenceError` es para nombres (variables) que no existen. Aquí `user` existe, y leer `user.greet` solo da `undefined`. El error viene de intentar llamar a ese `undefined`." } },
+      { "id": "B", "text": { "en": "It prints `Ana` and `undefined`", "es": "Muestra `Ana` y `undefined`" }, "why": { "en": "Reading a property that doesn't exist gives `undefined`, but here you also call it with `()`, and `undefined` can't be called.", "es": "Leer una propiedad que no existe da `undefined`, pero aquí además se llama con `()`, y a `undefined` no se le puede llamar." } },
+      { "id": "C", "text": { "en": "Nothing is printed: it's a `SyntaxError`", "es": "No se muestra nada: es un `SyntaxError`" }, "why": { "en": "The three lines are valid JavaScript. The problem only appears when line 3 runs.", "es": "Las tres líneas son JavaScript válido. El problema solo aparece cuando se ejecuta la línea 3." } },
+      { "id": "D", "text": { "en": "It prints `Ana`, then a `TypeError`: `user.greet` is not a function", "es": "Muestra `Ana` y después un `TypeError`: `user.greet` is not a function" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "The object `user` exists but has no `greet` property, so `user.greet` is `undefined`. Adding `()` tries to call `undefined` as if it were a function, and that's not allowed with that type of value: `TypeError: user.greet is not a function`. Remember the difference: `ReferenceError` = the name doesn't exist; `TypeError` = the name exists, but its value can't be used like that.",
+      "es": "El objeto `user` existe pero no tiene la propiedad `greet`, así que `user.greet` vale `undefined`. Al poner `()` se intenta llamar a `undefined` como si fuera una función, y eso no se puede hacer con ese tipo de valor: `TypeError: user.greet is not a function`. Recuerda la diferencia: `ReferenceError` = el nombre no existe; `TypeError` = el nombre existe, pero su valor no se puede usar así."
+    },
+    "verify": { "kind": "error", "errorType": "TypeError", "line": 3 }
+  },
+  {
+    "id": "s6-q010", "section": 6, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["trap","referenceerror","typeerror"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "In a new, empty script, which two lines throw a `ReferenceError`? (Choose two.)", "es": "En un script nuevo y vacío, ¿qué dos líneas lanzan un `ReferenceError`? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "`const max = 10; max = 20;`", "es": "`const max = 10; max = 20;`" }, "why": { "en": "`max` exists, so it isn't a `ReferenceError`: changing a constant throws `TypeError: Assignment to constant variable.`", "es": "`max` existe, así que no es un `ReferenceError`: cambiar una constante lanza `TypeError: Assignment to constant variable.`" } },
+      { "id": "B", "text": { "en": "`let colors = []; console.log(colors[3]);`", "es": "`let colors = []; console.log(colors[3]);`" }, "why": { "en": "No error at all: a position that doesn't exist gives `undefined`.", "es": "Ningún error: una posición que no existe da `undefined`." } },
+      { "id": "C", "text": { "en": "`console.log(username);`", "es": "`console.log(username);`" } },
+      { "id": "D", "text": { "en": "`let n = 5; n.push(6);`", "es": "`let n = 5; n.push(6);`" }, "why": { "en": "`n` exists, but numbers don't have `push`: `TypeError: n.push is not a function`.", "es": "`n` existe, pero los números no tienen `push`: `TypeError: n.push is not a function`." } },
+      { "id": "E", "text": { "en": "`counter++;`", "es": "`counter++;`" } }
+    ],
+    "answer": ["C","E"],
+    "explanation": {
+      "en": "A `ReferenceError` means JavaScript can't find a name: it was never declared (or you use it before its `let` or `const`). In an empty script, `username` and `counter` don't exist, so reading `username` or doing `counter++` throws `ReferenceError: … is not defined`. In `max = 20` and `n.push(6)` the names do exist, but the operation isn't allowed with that value: those are `TypeError`.",
+      "es": "Un `ReferenceError` significa que JavaScript no encuentra un nombre: nunca se declaró (o se usa antes de su `let` o `const`). En un script vacío no existen ni `username` ni `counter`, así que leer `username` o hacer `counter++` lanza `ReferenceError: … is not defined`. En `max = 20` y `n.push(6)` los nombres sí existen, pero la operación no está permitida con ese valor: son `TypeError`."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q011", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["error-types","error-object"], "courseRef": "17_Excepciones",
+    "code": "try {\n  null.length;\n} catch (e) {\n  console.log(e.name);\n}\ntry {\n  missingFunction();\n} catch (e) {\n  console.log(e.name);\n}\ntry {\n  \"ha\".repeat(-1);\n} catch (e) {\n  console.log(e.name);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "TypeError\nReferenceError\nRangeError", "es": "TypeError\nReferenceError\nRangeError" } },
+      { "id": "B", "text": { "en": "ReferenceError\nReferenceError\nRangeError", "es": "ReferenceError\nReferenceError\nRangeError" }, "why": { "en": "`null` is a value, not a missing name. Reading a property of `null` is a `TypeError`.", "es": "`null` es un valor, no un nombre que falte. Leer una propiedad de `null` es un `TypeError`." } },
+      { "id": "C", "text": { "en": "TypeError\nTypeError\nRangeError", "es": "TypeError\nTypeError\nRangeError" }, "why": { "en": "`missingFunction` was never declared, so JavaScript can't find the name: `ReferenceError`. It would be a `TypeError` if the name existed but wasn't a function.", "es": "`missingFunction` no se declaró nunca, así que JavaScript no encuentra el nombre: `ReferenceError`. Sería un `TypeError` si el nombre existiera pero no fuera una función." } },
+      { "id": "D", "text": { "en": "TypeError\nReferenceError\nTypeError", "es": "TypeError\nReferenceError\nTypeError" }, "why": { "en": "`repeat` gets a value of the right type (a number) but out of the allowed range (it's negative): `RangeError`.", "es": "`repeat` recibe un valor del tipo correcto (un número) pero fuera del rango permitido (es negativo): `RangeError`." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "Each `catch` prints `e.name`, the type of error. Reading a property of `null` → `TypeError` (the value can't be used like that). Calling a name that doesn't exist → `ReferenceError`. Repeating a text −1 times → `RangeError` (a number out of the allowed range). As each error is caught by its own `try...catch`, the three blocks run.",
+      "es": "Cada `catch` muestra `e.name`, el tipo de error. Leer una propiedad de `null` → `TypeError` (el valor no se puede usar así). Llamar a un nombre que no existe → `ReferenceError`. Repetir un texto −1 veces → `RangeError` (un número fuera del rango permitido). Como cada error lo captura su propio `try...catch`, se ejecutan los tres bloques."
+    },
+    "verify": { "kind": "output", "expected": "TypeError\nReferenceError\nRangeError" }
+  },
+  {
+    "id": "s6-q012", "section": 6, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["trap","error-types"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "Which two statements are true? (Choose two.)", "es": "¿Qué dos afirmaciones son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "Reading `list[10]` in an array with 3 items throws a `RangeError`", "es": "Leer `list[10]` en un array de 3 elementos lanza un `RangeError`" }, "why": { "en": "It doesn't throw anything: a position that doesn't exist gives `undefined`.", "es": "No lanza nada: una posición que no existe da `undefined`." } },
+      { "id": "B", "text": { "en": "`console.log(\"5\" * 2)` throws a `TypeError`, because you can't multiply a string", "es": "`console.log(\"5\" * 2)` lanza un `TypeError`, porque no se puede multiplicar un string" }, "why": { "en": "JavaScript converts `\"5\"` to a number to multiply, so it prints `10`.", "es": "JavaScript convierte `\"5\"` en número para multiplicar, así que muestra `10`." } },
+      { "id": "C", "text": { "en": "A syntax mistake in a script stops the whole script before any of its lines runs", "es": "Un fallo de sintaxis en un script impide que se ejecute cualquiera de sus líneas" } },
+      { "id": "D", "text": { "en": "A `TypeError` appears when you use a value in a way its type doesn't allow, such as calling a number as a function", "es": "Un `TypeError` aparece cuando usas un valor de una forma que su tipo no permite, como llamar a un número como si fuera una función" } },
+      { "id": "E", "text": { "en": "Using a variable that was never declared throws a `TypeError`", "es": "Usar una variable que nunca se declaró lanza un `TypeError`" }, "why": { "en": "A name that doesn't exist gives a `ReferenceError`.", "es": "Un nombre que no existe da un `ReferenceError`." } }
+    ],
+    "answer": ["C","D"],
+    "explanation": {
+      "en": "Two are true. The engine checks the whole script before running it, so a syntax mistake means no line runs. And using a value in a way its type doesn't allow is exactly what a `TypeError` is (calling something that isn't a function, reading a property of `undefined` or `null`…). The other three are common traps: a missing array position gives `undefined`, `*` converts strings to numbers, and an undeclared name is a `ReferenceError`.",
+      "es": "Dos son ciertas. El motor revisa el script entero antes de ejecutarlo, así que con un fallo de sintaxis no se ejecuta ninguna línea. Y usar un valor de una forma que su tipo no permite es justo lo que define un `TypeError` (llamar a algo que no es una función, leer una propiedad de `undefined` o `null`…). Las otras tres son trampas habituales: una posición que no existe da `undefined`, `*` convierte los strings en números y un nombre sin declarar es un `ReferenceError`."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q013", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap","try-catch"], "courseRef": "17_Excepciones",
+    "code": "try {\n  let result = 10 / 0;\n  console.log(result);\n} catch (e) {\n  console.log(\"Error: \" + e.name);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Error: RangeError", "es": "Error: RangeError" }, "why": { "en": "Dividing by zero isn't an error in JavaScript: the result is the special number `Infinity`, so `catch` never runs.", "es": "Dividir entre cero no es un error en JavaScript: el resultado es el número especial `Infinity`, así que `catch` no se ejecuta nunca." } },
+      { "id": "B", "text": { "en": "Infinity", "es": "Infinity" } },
+      { "id": "C", "text": { "en": "Error: TypeError", "es": "Error: TypeError" }, "why": { "en": "Both values are numbers, so there's no type problem. And dividing by zero doesn't throw any error: it gives `Infinity`.", "es": "Los dos valores son números, así que no hay ningún problema de tipo. Y dividir entre cero no lanza ningún error: da `Infinity`." } },
+      { "id": "D", "text": { "en": "NaN", "es": "NaN" }, "why": { "en": "`NaN` comes out of `0 / 0`; a positive number divided by 0 gives `Infinity`.", "es": "`NaN` sale de `0 / 0`; un número positivo dividido entre 0 da `Infinity`." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "In many languages dividing by zero is an error, but not in JavaScript: `10 / 0` is `Infinity` (and `-10 / 0` is `-Infinity`). As nothing is thrown, the `catch` block doesn't run. If in your program dividing by zero should be an error, you have to check it yourself and use `throw`.",
+      "es": "En muchos lenguajes dividir entre cero es un error, pero no en JavaScript: `10 / 0` da `Infinity` (y `-10 / 0`, `-Infinity`). Como no se lanza nada, el bloque `catch` no se ejecuta. Si en tu programa dividir entre cero debe ser un error, tienes que comprobarlo tú y usar `throw`."
+    },
+    "verify": { "kind": "output", "expected": "Infinity" }
+  },
+  {
+    "id": "s6-q014", "section": 6, "bank": "practice", "type": "gap",
+    "difficulty": 2, "tags": ["catch","instanceof"], "courseRef": "17_Excepciones",
+    "code": "try {\n  let total = price * 2;\n} catch (e) {\n  if (e ___ ReferenceError) {\n    console.log(\"Missing variable\");\n  } else {\n    console.log(\"Other error\");\n  }\n}",
+    "prompt": { "en": "Which operator fills the gap so that the code prints `Missing variable`?", "es": "¿Qué operador completa el hueco para que el código muestre `Missing variable`?" },
+    "options": [
+      { "id": "A", "text": { "en": "instanceof", "es": "instanceof" } },
+      { "id": "B", "text": { "en": "typeof", "es": "typeof" }, "why": { "en": "`typeof` goes in front of a single value (`typeof e`) and gives a string such as `\"object\"`. `e typeof ReferenceError` isn't valid code: `SyntaxError`.", "es": "`typeof` va delante de un solo valor (`typeof e`) y da un string como `\"object\"`. `e typeof ReferenceError` no es código válido: `SyntaxError`." } },
+      { "id": "C", "text": { "en": "==", "es": "==" }, "why": { "en": "`e` is an error object and `ReferenceError` is the function that creates them: they're never equal, so it prints `Other error`.", "es": "`e` es un objeto de error y `ReferenceError` es la función que los crea: nunca son iguales, así que se muestra `Other error`." } },
+      { "id": "D", "text": { "en": "in", "es": "in" }, "why": { "en": "`in` checks whether an object has a property with a certain name; it doesn't check the type of error. The condition is `false` and it prints `Other error`.", "es": "`in` comprueba si un objeto tiene una propiedad con cierto nombre; no comprueba el tipo de error. La condición da `false` y se muestra `Other error`." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "`price` was never declared, so line 2 throws a `ReferenceError`. In the `catch`, `e instanceof ReferenceError` checks what type of error it is and gives `true`. This lets a single `catch` react differently to each type of error. You could also compare the name: `e.name === \"ReferenceError\"`.",
+      "es": "`price` no se declaró nunca, así que la línea 2 lanza un `ReferenceError`. En el `catch`, `e instanceof ReferenceError` comprueba de qué tipo es el error y da `true`. Así un solo `catch` puede reaccionar de forma distinta a cada tipo de error. También podrías comparar el nombre: `e.name === \"ReferenceError\"`."
+    },
+    "verify": { "kind": "output", "expected": "Missing variable" }
+  },
+  {
+    "id": "s6-q015", "section": 6, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["error-object","catch"], "courseRef": "17_Excepciones",
+    "code": "try {\n  console.log(userName);\n} catch (e) {\n  console.log(e.___);\n}",
+    "prompt": { "en": "What completes the gap so that the code prints `userName is not defined`?", "es": "¿Qué completa el hueco para que el código muestre `userName is not defined`?" },
+    "options": [
+      { "id": "A", "text": { "en": "name", "es": "name" }, "why": { "en": "`e.name` is the type of error: it would print `ReferenceError`.", "es": "`e.name` es el tipo de error: se mostraría `ReferenceError`." } },
+      { "id": "B", "text": { "en": "message", "es": "message" } },
+      { "id": "C", "text": { "en": "text", "es": "text" }, "why": { "en": "Error objects don't have a `text` property: it would print `undefined`.", "es": "Los objetos de error no tienen la propiedad `text`: se mostraría `undefined`." } },
+      { "id": "D", "text": { "en": "error", "es": "error" }, "why": { "en": "Error objects don't have an `error` property: it would print `undefined`.", "es": "Los objetos de error no tienen la propiedad `error`: se mostraría `undefined`." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "Every error object has two key properties: `name`, the type of error (`\"ReferenceError\"`), and `message`, the description (`\"userName is not defined\"`). They're what you normally show or write to the console inside a `catch`.",
+      "es": "Todo objeto de error tiene dos propiedades clave: `name`, el tipo de error (`\"ReferenceError\"`), y `message`, la descripción (`\"userName is not defined\"`). Son las que normalmente se muestran o se escriben en la consola dentro de un `catch`."
+    },
+    "verify": { "kind": "output", "expected": "userName is not defined" }
+  },
+  {
+    "id": "s6-q016", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["try-catch"], "courseRef": "17_Excepciones",
+    "code": "try {\n  console.log(\"1\");\n  let x = y + 1;\n  console.log(\"2\");\n} catch (e) {\n  console.log(\"3\");\n}\nconsole.log(\"4\");",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "1\n2\n3\n4", "es": "1\n2\n3\n4" }, "why": { "en": "When line 3 throws an error, the rest of the `try` is skipped: `2` is never printed.", "es": "Cuando la línea 3 lanza un error, se salta el resto del `try`: `2` no se muestra nunca." } },
+      { "id": "B", "text": { "en": "1\n3", "es": "1\n3" }, "why": { "en": "Once the `catch` has handled the error, the program carries on normally, so `4` is printed.", "es": "Cuando el `catch` ha tratado el error, el programa sigue con normalidad, así que se muestra `4`." } },
+      { "id": "C", "text": { "en": "1\n2\n4", "es": "1\n2\n4" }, "why": { "en": "Line 3 does throw an error (`y` doesn't exist), so the `catch` runs and the line after it in the `try` doesn't.", "es": "La línea 3 sí lanza un error (`y` no existe), así que se ejecuta el `catch` y no la línea que la sigue dentro del `try`." } },
+      { "id": "D", "text": { "en": "1\n3\n4", "es": "1\n3\n4" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "`try` runs line by line until something throws an error. `y` doesn't exist, so line 3 throws a `ReferenceError` and JavaScript jumps straight to `catch`: the rest of the `try` (`console.log(\"2\")`) is skipped. Once the `catch` has handled the error, the program continues normally after the whole `try...catch`, so `4` is printed.",
+      "es": "`try` ejecuta línea a línea hasta que algo lanza un error. `y` no existe, así que la línea 3 lanza un `ReferenceError` y JavaScript salta directamente al `catch`: el resto del `try` (`console.log(\"2\")`) se salta. Cuando el `catch` ha tratado el error, el programa sigue con normalidad después de todo el `try...catch`, así que se muestra `4`."
+    },
+    "verify": { "kind": "output", "expected": "1\n3\n4" }
+  },
+  {
+    "id": "s6-q017", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 1, "tags": ["try-catch","finally"], "courseRef": "17_Excepciones",
+    "code": "try {\n  console.log(\"A\");\n} catch (e) {\n  console.log(\"B\");\n} finally {\n  console.log(\"C\");\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "A\nB\nC", "es": "A\nB\nC" }, "why": { "en": "`catch` only runs if something in the `try` throws an error, and nothing does here.", "es": "`catch` solo se ejecuta si algo del `try` lanza un error, y aquí no lo lanza nada." } },
+      { "id": "B", "text": { "en": "A", "es": "A" }, "why": { "en": "`finally` always runs, whether there was an error or not.", "es": "`finally` se ejecuta siempre, haya habido error o no." } },
+      { "id": "C", "text": { "en": "A\nC", "es": "A\nC" } },
+      { "id": "D", "text": { "en": "C\nA", "es": "C\nA" }, "why": { "en": "`finally` runs at the end, after the `try` (and after the `catch`, when there is an error).", "es": "`finally` se ejecuta al final, después del `try` (y después del `catch`, cuando hay error)." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "The `try` runs without errors and prints `A`. As nothing has been thrown, the `catch` block is skipped. `finally` runs in every case, with or without an error, so `C` is printed at the end.",
+      "es": "El `try` se ejecuta sin errores y muestra `A`. Como no se ha lanzado nada, el bloque `catch` se salta. `finally` se ejecuta en todos los casos, con error o sin él, así que al final se muestra `C`."
+    },
+    "verify": { "kind": "output", "expected": "A\nC" }
+  },
+  {
+    "id": "s6-q018", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap","finally","return"], "courseRef": "17_Excepciones",
+    "code": "function getCount() {\n  let count = 1;\n  try {\n    return count;\n  } finally {\n    count = 99;\n    console.log(\"finally:\", count);\n  }\n}\nconsole.log(getCount());",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "finally: 99\n1", "es": "finally: 99\n1" } },
+      { "id": "B", "text": { "en": "finally: 99\n99", "es": "finally: 99\n99" }, "why": { "en": "The value to return was decided when `return count;` ran (1). Changing `count` afterwards in `finally` doesn't change it.", "es": "El valor que se devuelve quedó decidido al ejecutarse `return count;` (1). Cambiar `count` después en `finally` no lo cambia." } },
+      { "id": "C", "text": { "en": "1", "es": "1" }, "why": { "en": "`return` doesn't skip `finally`: it always runs before the function really ends.", "es": "`return` no se salta el `finally`: se ejecuta siempre antes de que la función termine de verdad." } },
+      { "id": "D", "text": { "en": "1\nfinally: 99", "es": "1\nfinally: 99" }, "why": { "en": "`finally` runs before the function hands back its value, so its message comes first.", "es": "`finally` se ejecuta antes de que la función entregue su valor, así que su mensaje sale primero." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "When `return count;` runs, the value to return (1) is kept, but before leaving the function JavaScript runs `finally`. It changes `count` to 99 and prints `finally: 99`, but the value already kept doesn't change, so the function returns `1`. Only a `return` written inside `finally` could replace it (and that's a bad idea).",
+      "es": "Cuando se ejecuta `return count;`, se guarda el valor que hay que devolver (1), pero antes de salir de la función JavaScript ejecuta el `finally`. Este cambia `count` a 99 y muestra `finally: 99`, pero el valor ya guardado no cambia, así que la función devuelve `1`. Solo un `return` escrito dentro del `finally` podría sustituirlo (y no es buena idea)."
+    },
+    "verify": { "kind": "output", "expected": "finally: 99\n1" }
+  },
+  {
+    "id": "s6-q019", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap","finally","return"], "courseRef": "17_Excepciones",
+    "code": "function getStatus() {\n  try {\n    return \"ok\";\n  } finally {\n    return \"finished\";\n  }\n}\nconsole.log(getStatus());",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "ok", "es": "ok" }, "why": { "en": "`finally` runs before the function ends, and its `return` replaces the `\"ok\"` of the `try`.", "es": "`finally` se ejecuta antes de que termine la función, y su `return` sustituye al `\"ok\"` del `try`." } },
+      { "id": "B", "text": { "en": "ok\nfinished", "es": "ok\nfinished" }, "why": { "en": "A function returns a single value, and there's only one `console.log`, so only one line is printed.", "es": "Una función devuelve un solo valor, y solo hay un `console.log`, así que se muestra una sola línea." } },
+      { "id": "C", "text": { "en": "undefined", "es": "undefined" }, "why": { "en": "Both blocks return a string, so the result is never `undefined`.", "es": "Los dos bloques devuelven un string, así que el resultado nunca es `undefined`." } },
+      { "id": "D", "text": { "en": "finished", "es": "finished" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "`return \"ok\"` prepares the value, but before leaving, `finally` runs. As `finally` has its own `return`, that one wins: the function returns `\"finished\"`. A `return` in `finally` also hides any error thrown in the `try`, so it's better not to use it: keep `finally` for tidying up (closing something, hiding a loading message…).",
+      "es": "`return \"ok\"` prepara el valor, pero antes de salir se ejecuta el `finally`. Como el `finally` tiene su propio `return`, gana ese: la función devuelve `\"finished\"`. Un `return` en `finally` también oculta cualquier error lanzado en el `try`, así que es mejor no usarlo: deja el `finally` para recoger (cerrar algo, ocultar un mensaje de «cargando»…)."
+    },
+    "verify": { "kind": "output", "expected": "finished" }
+  },
+  {
+    "id": "s6-q020", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap","throw","try-catch"], "courseRef": "17_Excepciones",
+    "code": "function withdraw(balance, amount) {\n  if (amount > balance) {\n    throw new Error(\"Not enough money\");\n  }\n  return balance - amount;\n}\ntry {\n  console.log(withdraw(50, 20));\n  console.log(withdraw(50, 80));\n  console.log(withdraw(50, 10));\n} catch (e) {\n  console.log(e.message);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "30\nNot enough money\n40", "es": "30\nNot enough money\n40" }, "why": { "en": "When the second call throws, JavaScript jumps to `catch`: the third line of the `try` never runs.", "es": "Cuando la segunda llamada lanza el error, JavaScript salta al `catch`: la tercera línea del `try` no llega a ejecutarse." } },
+      { "id": "B", "text": { "en": "30\n-30\n40", "es": "30\n-30\n40" }, "why": { "en": "With `80 > 50` the `if` is true, and `throw` stops the function before the `return`.", "es": "Con `80 > 50` el `if` se cumple, y `throw` para la función antes del `return`." } },
+      { "id": "C", "text": { "en": "30\nNot enough money", "es": "30\nNot enough money" } },
+      { "id": "D", "text": { "en": "30\nError: Not enough money", "es": "30\nError: Not enough money" }, "why": { "en": "`e.message` is only the text you passed to `new Error()`. With the name in front (`Error: …`) is how the whole error object is shown, for example with `String(e)`.", "es": "`e.message` es solo el texto que se pasó a `new Error()`. Con el nombre delante (`Error: …`) es como se muestra el objeto de error entero, por ejemplo con `String(e)`." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "`withdraw(50, 20)` returns `30`. In `withdraw(50, 80)` the amount is bigger than the balance, so `throw new Error(\"Not enough money\")` stops the function and the error goes out to the `try` that called it. JavaScript jumps to the `catch` and prints `e.message`. The third call never happens, because the rest of the `try` is skipped.",
+      "es": "`withdraw(50, 20)` devuelve `30`. En `withdraw(50, 80)` la cantidad es mayor que el saldo, así que `throw new Error(\"Not enough money\")` para la función y el error sale hacia el `try` que la llamó. JavaScript salta al `catch` y muestra `e.message`. La tercera llamada no llega a hacerse, porque el resto del `try` se salta."
+    },
+    "verify": { "kind": "output", "expected": "30\nNot enough money" }
+  },
+  {
+    "id": "s6-q021", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap","throw","error-object"], "courseRef": "17_Excepciones",
+    "code": "try {\n  throw \"Invalid age\";\n} catch (e) {\n  console.log(e);\n  console.log(e.message);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Invalid age\nInvalid age", "es": "Invalid age\nInvalid age" }, "why": { "en": "`e` is exactly what was thrown: here a string, not an error object. Strings don't have a `message` property, so `e.message` is `undefined`.", "es": "`e` es exactamente lo que se lanzó: aquí un string, no un objeto de error. Los strings no tienen la propiedad `message`, así que `e.message` es `undefined`." } },
+      { "id": "B", "text": { "en": "Error: Invalid age\nInvalid age", "es": "Error: Invalid age\nInvalid age" }, "why": { "en": "`throw` doesn't turn the string into an `Error`: `e` is the plain string.", "es": "`throw` no convierte el string en un `Error`: `e` es el string tal cual." } },
+      { "id": "C", "text": { "en": "undefined\nInvalid age", "es": "undefined\nInvalid age" }, "why": { "en": "It's the other way round: `e` is the string itself, and the one that is `undefined` is `e.message`.", "es": "Es al revés: `e` es el propio string, y lo que vale `undefined` es `e.message`." } },
+      { "id": "D", "text": { "en": "Invalid age\nundefined", "es": "Invalid age\nundefined" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "`throw` can throw any value, and `catch` receives exactly that value. Here `e` is the string `\"Invalid age\"`, so `console.log(e)` prints it, but strings don't have `message` (or `name`), so `e.message` is `undefined`. That's why it's better to throw `new Error(\"Invalid age\")`: then `e.message` and `e.name` always work.",
+      "es": "`throw` puede lanzar cualquier valor, y `catch` recibe exactamente ese valor. Aquí `e` es el string `\"Invalid age\"`, así que `console.log(e)` lo muestra, pero los strings no tienen `message` (ni `name`), así que `e.message` es `undefined`. Por eso es mejor lanzar `new Error(\"Invalid age\")`: así `e.message` y `e.name` funcionan siempre."
+    },
+    "verify": { "kind": "output", "expected": "Invalid age\nundefined" }
+  },
+  {
+    "id": "s6-q022", "section": 6, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["throw"], "courseRef": "17_Excepciones",
+    "prompt": { "en": "Which two statements about `throw` are true? (Choose two.)", "es": "¿Qué dos afirmaciones sobre `throw` son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "You can throw any value: an `Error`, but also a string, a number or an object", "es": "Se puede lanzar cualquier valor: un `Error`, pero también un string, un número o un objeto" } },
+      { "id": "B", "text": { "en": "You can only throw objects created with `new Error()`", "es": "Solo se pueden lanzar objetos creados con `new Error()`" }, "why": { "en": "JavaScript lets you throw any value. Throwing an `Error` is recommended (it has `name` and `message`), but it isn't compulsory.", "es": "JavaScript deja lanzar cualquier valor. Se recomienda lanzar un `Error` (tiene `name` y `message`), pero no es obligatorio." } },
+      { "id": "C", "text": { "en": "`throw` writes the message in the console and the program carries on with the next line", "es": "`throw` escribe el mensaje en la consola y el programa sigue con la línea siguiente" }, "why": { "en": "`throw` stops the normal flow: JavaScript jumps to the nearest `catch` and, if there isn't one, the program stops.", "es": "`throw` corta el flujo normal: JavaScript salta al `catch` más cercano y, si no hay ninguno, el programa se para." } },
+      { "id": "D", "text": { "en": "`throw` can only be used inside a function", "es": "`throw` solo se puede usar dentro de una función" }, "why": { "en": "It can go anywhere, for example directly inside a `try` block, outside any function.", "es": "Puede ir en cualquier sitio, por ejemplo directamente dentro de un bloque `try`, fuera de cualquier función." } },
+      { "id": "E", "text": { "en": "The lines after a `throw` in the same block don't run", "es": "Las líneas que hay después de un `throw` en el mismo bloque no se ejecutan" } }
+    ],
+    "answer": ["A","E"],
+    "explanation": {
+      "en": "`throw` throws an exception with the value that follows it, whatever it is (`throw new Error(\"…\")`, `throw \"oops\"`, `throw 404`…). From that point, the rest of the block doesn't run: JavaScript looks for the nearest `catch`, first in the current function and then in the ones that called it. If it doesn't find one, the program stops with an `Uncaught` error.",
+      "es": "`throw` lanza una excepción con el valor que lo sigue, sea cual sea (`throw new Error(\"…\")`, `throw \"oops\"`, `throw 404`…). A partir de ahí, el resto del bloque no se ejecuta: JavaScript busca el `catch` más cercano, primero en la función actual y después en las que la llamaron. Si no lo encuentra, el programa se para con un error `Uncaught`."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q023", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap","throw","uncaught"], "courseRef": "17_Excepciones",
+    "code": "function setAge(age) {\n  if (age < 0) {\n    throw new RangeError(\"Age can't be negative\");\n  }\n  return age;\n}\nconsole.log(setAge(20));\nconsole.log(setAge(-3));\nconsole.log(\"end\");",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `20`, then the program stops with `RangeError: Age can't be negative`", "es": "Muestra `20` y después el programa se para con `RangeError: Age can't be negative`" } },
+      { "id": "B", "text": { "en": "It prints `20`, `-3` and `end`", "es": "Muestra `20`, `-3` y `end`" }, "why": { "en": "`-3 < 0`, so `throw` runs and the function never gets to the `return`.", "es": "`-3 < 0`, así que se ejecuta `throw` y la función no llega al `return`." } },
+      { "id": "C", "text": { "en": "It prints `20` and `end`: without a `catch`, the thrown error is ignored", "es": "Muestra `20` y `end`: sin `catch`, el error lanzado se ignora" }, "why": { "en": "It's the other way round: if nothing catches an error, it stops the program. `end` is never printed.", "es": "Es al revés: si nada captura un error, este para el programa. `end` no se muestra nunca." } },
+      { "id": "D", "text": { "en": "Nothing is printed: it's a `SyntaxError`, because the message has an apostrophe", "es": "No se muestra nada: es un `SyntaxError`, porque el mensaje lleva un apóstrofo" }, "why": { "en": "The apostrophe is inside a string written with double quotes, so it's fine.", "es": "El apóstrofo está dentro de un string escrito con comillas dobles, así que no da problemas." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "You can use the built-in error types for your own errors: `new RangeError(\"…\")` fits when a value is out of the allowed range. The first call returns `20`. In the second one, `throw` stops the function and, as there's no `try...catch` anywhere, the error stops the whole program: the console shows `Uncaught RangeError: Age can't be negative` and `end` is never printed.",
+      "es": "Puedes usar los tipos de error de JavaScript para tus propios errores: `new RangeError(\"…\")` encaja cuando un valor está fuera del rango permitido. La primera llamada devuelve `20`. En la segunda, `throw` para la función y, como no hay ningún `try...catch`, el error para todo el programa: la consola muestra `Uncaught RangeError: Age can't be negative` y `end` no se muestra nunca."
+    },
+    "verify": { "kind": "error", "errorType": "RangeError", "line": 3 }
+  },
+  {
+    "id": "s6-q024", "section": 6, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["throw"], "courseRef": "17_Excepciones",
+    "code": "function divide(a, b) {\n  if (b === 0) {\n    ___ new Error(\"Division by zero\");\n  }\n  return a / b;\n}\ntry {\n  console.log(divide(4, 0));\n} catch (e) {\n  console.log(\"Caught: \" + e.message);\n}",
+    "prompt": { "en": "Which keyword fills the gap so that the code prints `Caught: Division by zero`?", "es": "¿Qué palabra clave completa el hueco para que el código muestre `Caught: Division by zero`?" },
+    "options": [
+      { "id": "A", "text": { "en": "return", "es": "return" }, "why": { "en": "`return` would hand back the error object as a normal result: nothing is thrown, so the `catch` doesn't run and the error object itself is printed.", "es": "`return` devolvería el objeto de error como un resultado normal: no se lanza nada, así que el `catch` no se ejecuta y se muestra el propio objeto de error." } },
+      { "id": "B", "text": { "en": "throw", "es": "throw" } },
+      { "id": "C", "text": { "en": "raise", "es": "raise" }, "why": { "en": "`raise` is used in other languages, such as Python. In JavaScript it isn't a keyword, so the line isn't valid: `SyntaxError`.", "es": "`raise` se usa en otros lenguajes, como Python. En JavaScript no es una palabra clave, así que la línea no es válida: `SyntaxError`." } },
+      { "id": "D", "text": { "en": "catch", "es": "catch" }, "why": { "en": "`catch` goes after a `try` block to handle errors; it can't throw them. Here it gives a `SyntaxError`.", "es": "`catch` va después de un bloque `try` para tratar errores; no sirve para lanzarlos. Aquí da un `SyntaxError`." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "`throw` throws an exception: the function stops at that line and the error travels to the `try` that called it. JavaScript doesn't throw an error by itself when dividing by zero (it gives `Infinity`), so if you want to treat it as an error you have to check it and throw it yourself. The `catch` receives the error object and prints its `message`.",
+      "es": "`throw` lanza una excepción: la función se para en esa línea y el error viaja hasta el `try` que la llamó. JavaScript no lanza ningún error por sí solo al dividir entre cero (da `Infinity`), así que, si quieres tratarlo como un error, tienes que comprobarlo y lanzarlo tú. El `catch` recibe el objeto de error y muestra su `message`."
+    },
+    "verify": { "kind": "output", "expected": "Caught: Division by zero" }
+  },
+  {
+    "id": "s6-q025", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap","finally","nested"], "courseRef": "17_Excepciones",
+    "code": "try {\n  try {\n    throw new Error(\"inner\");\n  } catch (e) {\n    console.log(\"caught \" + e.message);\n    throw new Error(\"outer\");\n  } finally {\n    console.log(\"finally 1\");\n  }\n} catch (e) {\n  console.log(\"caught \" + e.message);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "caught inner\ncaught outer\nfinally 1", "es": "caught inner\ncaught outer\nfinally 1" }, "why": { "en": "The inner `finally` runs as soon as the inner `try...catch` ends, before the new error leaves it and reaches the outer `catch`.", "es": "El `finally` de dentro se ejecuta en cuanto termina el `try...catch` interior, antes de que el error nuevo salga y llegue al `catch` de fuera." } },
+      { "id": "B", "text": { "en": "caught inner\nfinally 1", "es": "caught inner\nfinally 1" }, "why": { "en": "The new error thrown in the inner `catch` isn't lost: it goes out to the outer `try`, whose `catch` handles it.", "es": "El error nuevo que se lanza en el `catch` de dentro no se pierde: sale al `try` de fuera, y su `catch` lo trata." } },
+      { "id": "C", "text": { "en": "caught inner\ncaught inner\nfinally 1", "es": "caught inner\ncaught inner\nfinally 1" }, "why": { "en": "The outer `catch` receives the new error, whose message is `outer`, and it comes after `finally 1`.", "es": "El `catch` de fuera recibe el error nuevo, cuyo mensaje es `outer`, y llega después de `finally 1`." } },
+      { "id": "D", "text": { "en": "caught inner\nfinally 1\ncaught outer", "es": "caught inner\nfinally 1\ncaught outer" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "The inner `try` throws `inner`, and the inner `catch` prints `caught inner`. That `catch` throws a new error (`outer`). Before it leaves the inner block, its `finally` runs (`finally 1`). Then the error reaches the outer `try`, and its `catch` prints `caught outer`. Remember: `finally` always runs when its block ends, even if an error is on its way out.",
+      "es": "El `try` de dentro lanza `inner`, y el `catch` de dentro muestra `caught inner`. Ese `catch` lanza un error nuevo (`outer`). Antes de que salga del bloque interior, se ejecuta su `finally` (`finally 1`). Después el error llega al `try` de fuera, y su `catch` muestra `caught outer`. Recuerda: `finally` se ejecuta siempre al terminar su bloque, aunque haya un error saliendo."
+    },
+    "verify": { "kind": "output", "expected": "caught inner\nfinally 1\ncaught outer" }
+  },
+  {
+    "id": "s6-q026", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap","syntax-error","try-catch"], "courseRef": "17_Excepciones",
+    "code": "try {\n  console.log(\"Start\");\n}\nconsole.log(\"End\");",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `Start` and `End`", "es": "Muestra `Start` y `End`" }, "why": { "en": "`try` can't go alone: it needs a `catch`, a `finally` or both. Without them the code isn't valid and nothing runs.", "es": "`try` no puede ir solo: necesita un `catch`, un `finally` o los dos. Sin ellos el código no es válido y no se ejecuta nada." } },
+      { "id": "B", "text": { "en": "It prints `Start` and then stops", "es": "Muestra `Start` y después se para" }, "why": { "en": "Nothing runs: the mistake is in how the code is written, so it's found before line 1.", "es": "No se ejecuta nada: el fallo está en cómo está escrito el código, así que se detecta antes de la línea 1." } },
+      { "id": "C", "text": { "en": "A `SyntaxError`: `try` needs a `catch` or a `finally`", "es": "Un `SyntaxError`: `try` necesita un `catch` o un `finally`" } },
+      { "id": "D", "text": { "en": "A `ReferenceError`, because `catch` is not defined", "es": "Un `ReferenceError`, porque `catch` no está definido" }, "why": { "en": "`catch` is a keyword, not a variable. The problem is the grammar of the code.", "es": "`catch` es una palabra clave, no una variable. El problema está en la gramática del código." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "A `try` block must be followed by `catch`, by `finally` or by both. On its own it isn't valid JavaScript: `SyntaxError: Missing catch or finally after try`. As it's a syntax error, nothing runs, not even `console.log(\"Start\")`.",
+      "es": "Un bloque `try` tiene que ir seguido de `catch`, de `finally` o de los dos. Solo no es JavaScript válido: `SyntaxError: Missing catch or finally after try`. Como es un error de sintaxis, no se ejecuta nada, ni siquiera `console.log(\"Start\")`."
+    },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 3 }
+  },
+  {
+    "id": "s6-q027", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap","catch"], "courseRef": "17_Excepciones",
+    "code": "let n;\ntry {\n  n = Number(\"abc\");\n  if (isNaN(n)) throw new Error(\"Not a number\");\n} catch {\n  n = 0;\n}\nconsole.log(n);",
+    "prompt": { "en": "What happens when this code runs?", "es": "¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `0`", "es": "Muestra `0`" } },
+      { "id": "B", "text": { "en": "It prints `NaN`", "es": "Muestra `NaN`" }, "why": { "en": "`Number(\"abc\")` is `NaN`, but then `throw` jumps to the `catch`, which changes `n` to `0`.", "es": "`Number(\"abc\")` da `NaN`, pero después `throw` salta al `catch`, que cambia `n` a `0`." } },
+      { "id": "C", "text": { "en": "A `SyntaxError`, because `catch` must always have `(e)`", "es": "Un `SyntaxError`, porque `catch` siempre tiene que llevar `(e)`" }, "why": { "en": "The parentheses are optional: if you don't need the error object, you can write `catch {` directly.", "es": "Los paréntesis son opcionales: si no necesitas el objeto de error, puedes escribir `catch {` directamente." } },
+      { "id": "D", "text": { "en": "It prints `Not a number`", "es": "Muestra `Not a number`" }, "why": { "en": "Nobody prints the message: this `catch` doesn't even receive the error object, it just sets `n` to `0`.", "es": "Nadie muestra el mensaje: este `catch` ni siquiera recibe el objeto de error, solo pone `n` a `0`." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "When you don't need the error object, you can write `catch` without the parentheses (it has been valid since 2019). `Number(\"abc\")` gives `NaN`, `isNaN(n)` is `true`, so `throw` jumps to the `catch`, which sets `n` to `0`. Then `console.log(n)` prints `0`.",
+      "es": "Cuando no necesitas el objeto de error, puedes escribir `catch` sin paréntesis (es válido desde 2019). `Number(\"abc\")` da `NaN`, `isNaN(n)` es `true`, así que `throw` salta al `catch`, que pone `n` a `0`. Después `console.log(n)` muestra `0`."
+    },
+    "verify": { "kind": "output", "expected": "0" }
+  },
+  {
+    "id": "s6-q028", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 3, "tags": ["trap","try-catch","settimeout"], "courseRef": "17_Excepciones",
+    "code": "try {\n  setTimeout(() => {\n    console.log(points.total);\n  }, 100);\n} catch (e) {\n  console.log(\"Caught!\");\n}\nconsole.log(\"End\");",
+    "prompt": { "en": "`points` doesn't exist anywhere. What happens when this code runs?", "es": "`points` no existe en ningún sitio. ¿Qué ocurre al ejecutar este código?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `Caught!` and `End`", "es": "Muestra `Caught!` y `End`" }, "why": { "en": "When the function inside `setTimeout` runs (100 ms later), the `try...catch` has already finished. It can't catch an error that happens later.", "es": "Cuando se ejecuta la función de dentro de `setTimeout` (100 ms después), el `try...catch` ya ha terminado. No puede capturar un error que ocurre más tarde." } },
+      { "id": "B", "text": { "en": "It prints `End` and then `Caught!`", "es": "Muestra `End` y después `Caught!`" }, "why": { "en": "The `catch` belongs to code that has already finished; it isn't waiting for the timer.", "es": "El `catch` pertenece a un código que ya ha terminado; no se queda esperando al temporizador." } },
+      { "id": "C", "text": { "en": "It prints `End`, and 100 ms later there is an uncaught `ReferenceError`", "es": "Muestra `End` y, 100 ms después, salta un `ReferenceError` sin capturar" } },
+      { "id": "D", "text": { "en": "Nothing is printed: `points` doesn't exist, so the error happens straight away", "es": "No se muestra nada: `points` no existe, así que el error salta en el acto" }, "why": { "en": "The line with `points` is inside a function that only runs after 100 ms. Until then, nothing reads `points`.", "es": "La línea de `points` está dentro de una función que solo se ejecuta pasados 100 ms. Hasta entonces, nadie lee `points`." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "`try` only protects the code that runs while it's executing. `setTimeout` just schedules the function and returns at once, so the `try` ends without errors and `End` is printed. 100 ms later the function runs, `points` doesn't exist, and nobody catches the `ReferenceError`. To catch it, the `try...catch` would have to go inside the function passed to `setTimeout`.",
+      "es": "`try` solo protege el código que se ejecuta mientras él está en marcha. `setTimeout` solo programa la función y termina enseguida, así que el `try` acaba sin errores y se muestra `End`. 100 ms después se ejecuta la función, `points` no existe y nadie captura el `ReferenceError`. Para capturarlo, el `try...catch` tendría que ir dentro de la función que se pasa a `setTimeout`."
+    },
+    "verify": { "kind": "error", "errorType": "ReferenceError", "line": 3 }
+  },
+  {
+    "id": "s6-q029", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 3, "tags": ["trap","finally","propagation"], "courseRef": "17_Excepciones",
+    "code": "function load() {\n  try {\n    console.log(\"loading\");\n    throw new TypeError(\"bad data\");\n  } finally {\n    console.log(\"cleanup\");\n  }\n}\ntry {\n  load();\n  console.log(\"after load\");\n} catch (e) {\n  console.log(\"caught \" + e.name);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "loading\ncaught TypeError", "es": "loading\ncaught TypeError" }, "why": { "en": "`finally` runs even when there's no `catch`: before the error leaves `load`, `cleanup` is printed.", "es": "`finally` se ejecuta aunque no haya `catch`: antes de que el error salga de `load`, se muestra `cleanup`." } },
+      { "id": "B", "text": { "en": "loading\ncleanup\nafter load", "es": "loading\ncleanup\nafter load" }, "why": { "en": "`finally` doesn't handle the error: once it ends, the error goes on to the code that called `load`, so `after load` is skipped.", "es": "`finally` no trata el error: cuando termina, el error sigue hacia el código que llamó a `load`, así que `after load` se salta." } },
+      { "id": "C", "text": { "en": "loading\ncleanup\nafter load\ncaught TypeError", "es": "loading\ncleanup\nafter load\ncaught TypeError" }, "why": { "en": "When `load()` throws, the rest of that `try` doesn't run: JavaScript jumps straight to its `catch`.", "es": "Cuando `load()` lanza el error, el resto de ese `try` no se ejecuta: JavaScript salta directamente a su `catch`." } },
+      { "id": "D", "text": { "en": "loading\ncleanup\ncaught TypeError", "es": "loading\ncleanup\ncaught TypeError" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "`try...finally` without `catch` is valid. The `TypeError` isn't caught inside `load`, but its `finally` still runs (`cleanup`). Then the error travels up to the code that called the function (it propagates). There the call is inside a `try`, so the rest of that `try` (`after load`) is skipped and its `catch` prints `caught TypeError`.",
+      "es": "`try...finally` sin `catch` es válido. El `TypeError` no se captura dentro de `load`, pero su `finally` se ejecuta igualmente (`cleanup`). Después el error sube hasta el código que llamó a la función (se propaga). Allí la llamada está dentro de un `try`, así que el resto de ese `try` (`after load`) se salta y su `catch` muestra `caught TypeError`."
+    },
+    "verify": { "kind": "output", "expected": "loading\ncleanup\ncaught TypeError" }
+  },
+  {
+    "id": "s6-q030", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["error-object"], "courseRef": "17_Excepciones",
+    "code": "const err = new Error(\"Card expired\");\nconsole.log(err.name);\nconsole.log(String(err));\nerr.name = \"PaymentError\";\nconsole.log(String(err));",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "Card expired\nError: Card expired\nPaymentError: Card expired", "es": "Card expired\nError: Card expired\nPaymentError: Card expired" }, "why": { "en": "`name` is the type of error, not the text: for `new Error()` it's `\"Error\"`. The text is in `message`.", "es": "`name` es el tipo de error, no el texto: con `new Error()` es `\"Error\"`. El texto está en `message`." } },
+      { "id": "B", "text": { "en": "Error\nCard expired\nCard expired", "es": "Error\nCard expired\nCard expired" }, "why": { "en": "Converting an error to a string joins both properties: `name: message`.", "es": "Al convertir un error en string se unen las dos propiedades: `name: message`." } },
+      { "id": "C", "text": { "en": "Error\nError: Card expired\nError: Card expired", "es": "Error\nError: Card expired\nError: Card expired" }, "why": { "en": "`name` is a normal property: after changing it, the text uses the new name.", "es": "`name` es una propiedad normal: después de cambiarla, el texto usa el nombre nuevo." } },
+      { "id": "D", "text": { "en": "Error\nError: Card expired\nPaymentError: Card expired", "es": "Error\nError: Card expired\nPaymentError: Card expired" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "`new Error(\"Card expired\")` creates an error object with `name` = `\"Error\"` and `message` = `\"Card expired\"`. When it's converted to a string, you get `name: message`, which is what you also see in the console when an error isn't caught. `name` can be changed like any property, which is a simple way to give your own errors a clearer name.",
+      "es": "`new Error(\"Card expired\")` crea un objeto de error con `name` = `\"Error\"` y `message` = `\"Card expired\"`. Al convertirlo en string se obtiene `name: message`, que es también lo que ves en la consola cuando un error no se captura. `name` se puede cambiar como cualquier propiedad, y es una forma sencilla de dar a tus propios errores un nombre más claro."
+    },
+    "verify": { "kind": "output", "expected": "Error\nError: Card expired\nPaymentError: Card expired" }
+  },
+  {
+    "id": "s6-q031", "section": 6, "bank": "practice", "type": "gap",
+    "difficulty": 1, "tags": ["finally"], "courseRef": "17_Excepciones",
+    "code": "function readFile(ok) {\n  try {\n    if (!ok) throw new Error(\"Can't read\");\n    console.log(\"Reading\");\n  } catch (e) {\n    console.log(e.message);\n  } ___ {\n    console.log(\"Closing\");\n  }\n}\nreadFile(true);\nreadFile(false);",
+    "prompt": { "en": "Which keyword fills the gap so that `Closing` is printed in both calls, with or without an error?", "es": "¿Qué palabra clave completa el hueco para que `Closing` se muestre en las dos llamadas, haya error o no?" },
+    "options": [
+      { "id": "A", "text": { "en": "else", "es": "else" }, "why": { "en": "`else` goes with `if`, not with `try...catch`: the code isn't valid (`SyntaxError`).", "es": "`else` va con `if`, no con `try...catch`: el código no es válido (`SyntaxError`)." } },
+      { "id": "B", "text": { "en": "catch", "es": "catch" }, "why": { "en": "A `try` can only have one `catch`: a second one is a `SyntaxError`.", "es": "Un `try` solo puede tener un `catch`: un segundo da `SyntaxError`." } },
+      { "id": "C", "text": { "en": "finally", "es": "finally" } },
+      { "id": "D", "text": { "en": "always", "es": "always" }, "why": { "en": "`always` isn't a JavaScript keyword, so the line isn't valid code (`SyntaxError`).", "es": "`always` no es una palabra clave de JavaScript, así que la línea no es código válido (`SyntaxError`)." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "`finally` runs at the end of `try...catch` in every case: if all goes well (`Reading`, `Closing`) and if there's an error (`Can't read`, `Closing`). That's why it's used for things that must always happen, such as closing a file or hiding a “loading” message.",
+      "es": "`finally` se ejecuta al final del `try...catch` en todos los casos: si todo va bien (`Reading`, `Closing`) y si hay un error (`Can't read`, `Closing`). Por eso se usa para lo que tiene que pasar siempre, como cerrar un archivo u ocultar un mensaje de «cargando»."
+    },
+    "verify": { "kind": "output", "expected": "Reading\nClosing\nCan't read\nClosing" }
+  },
+  {
+    "id": "s6-q032", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["trap","instanceof","error-object"], "courseRef": "17_Excepciones",
+    "code": "try {\n  let box;\n  box.size;\n} catch (e) {\n  console.log(e instanceof TypeError);\n  console.log(e instanceof Error);\n  console.log(e instanceof ReferenceError);\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "true\nfalse\nfalse", "es": "true\nfalse\nfalse" }, "why": { "en": "`TypeError` is a more specific kind of `Error`: every `TypeError` is also an `Error`.", "es": "`TypeError` es un tipo más concreto de `Error`: todo `TypeError` es también un `Error`." } },
+      { "id": "B", "text": { "en": "true\ntrue\nfalse", "es": "true\ntrue\nfalse" } },
+      { "id": "C", "text": { "en": "false\ntrue\ntrue", "es": "false\ntrue\ntrue" }, "why": { "en": "`box` exists (it's declared with `let`), so it isn't a `ReferenceError`: reading a property of `undefined` is a `TypeError`.", "es": "`box` existe (está declarada con `let`), así que no es un `ReferenceError`: leer una propiedad de `undefined` es un `TypeError`." } },
+      { "id": "D", "text": { "en": "true\ntrue\ntrue", "es": "true\ntrue\ntrue" }, "why": { "en": "An error has one specific type. This one is a `TypeError` (and therefore an `Error`), but not a `ReferenceError`.", "es": "Un error tiene un tipo concreto. Este es un `TypeError` (y por tanto un `Error`), pero no un `ReferenceError`." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "`box` is declared but has no value, so it's `undefined`, and reading `box.size` throws a `TypeError`. `TypeError`, `ReferenceError`, `RangeError` and `SyntaxError` are all special kinds of `Error`, so `e instanceof Error` is `true` for any of them. That's why, when you check types in a `catch`, you ask about the specific ones first and leave `Error` for the end.",
+      "es": "`box` está declarada pero no tiene valor, así que vale `undefined`, y leer `box.size` lanza un `TypeError`. `TypeError`, `ReferenceError`, `RangeError` y `SyntaxError` son todos tipos especiales de `Error`, así que `e instanceof Error` da `true` con cualquiera de ellos. Por eso, al comprobar tipos en un `catch`, se pregunta primero por los concretos y se deja `Error` para el final."
+    },
+    "verify": { "kind": "output", "expected": "true\ntrue\nfalse" }
+  },
+  {
+    "id": "s6-q033", "section": 6, "bank": "practice", "type": "error",
+    "difficulty": 2, "tags": ["trap","syntax-error","catch"], "courseRef": "17_Excepciones",
+    "code": "try {\n  let n = null;\n  n.toString();\n} catch (TypeError e) {\n  console.log(\"Type problem\");\n}",
+    "prompt": { "en": "A student who knows Java writes this code. What happens when it runs?", "es": "Un alumno que sabe Java escribe este código. ¿Qué ocurre al ejecutarlo?" },
+    "options": [
+      { "id": "A", "text": { "en": "It prints `Type problem`", "es": "Muestra `Type problem`" }, "why": { "en": "In JavaScript you can't write the error type in `catch`. You write `catch (e)` and check the type inside with `instanceof`.", "es": "En JavaScript no se puede poner el tipo de error en el `catch`. Se escribe `catch (e)` y el tipo se comprueba dentro con `instanceof`." } },
+      { "id": "B", "text": { "en": "A `SyntaxError`: in JavaScript, `catch` only takes a name, not a type", "es": "Un `SyntaxError`: en JavaScript, `catch` solo lleva un nombre, no un tipo" } },
+      { "id": "C", "text": { "en": "A `TypeError` on line 3 that isn't caught, because of the type written in `catch`", "es": "Un `TypeError` en la línea 3 que no se captura, por el tipo escrito en el `catch`" }, "why": { "en": "No line runs: `catch (TypeError e)` isn't valid JavaScript, so the whole script is rejected before it starts.", "es": "No se ejecuta ninguna línea: `catch (TypeError e)` no es JavaScript válido, así que todo el script se rechaza antes de empezar." } },
+      { "id": "D", "text": { "en": "Nothing: the error on line 3 is ignored", "es": "Nada: el error de la línea 3 se ignora" }, "why": { "en": "Errors are never ignored silently. Here, besides, the code doesn't even start, because line 4 isn't valid.", "es": "Los errores nunca se ignoran sin más. Aquí, además, el código ni siquiera empieza, porque la línea 4 no es válida." } }
+    ],
+    "answer": ["B"],
+    "explanation": {
+      "en": "In Java or C# you write the type in `catch`, but in JavaScript there's only one `catch` per `try`, and in its parentheses goes just the name of the variable that receives the error: `catch (e)`. `catch (TypeError e)` is a `SyntaxError` on line 4, so nothing runs. To react to a specific type: `if (e instanceof TypeError) { … }` inside the `catch`.",
+      "es": "En Java o C# el tipo se escribe en el `catch`, pero en JavaScript hay un solo `catch` por `try`, y entre sus paréntesis solo va el nombre de la variable que recibe el error: `catch (e)`. `catch (TypeError e)` es un `SyntaxError` en la línea 4, así que no se ejecuta nada. Para reaccionar a un tipo concreto: `if (e instanceof TypeError) { … }` dentro del `catch`."
+    },
+    "verify": { "kind": "error", "errorType": "SyntaxError", "line": 4 }
+  },
+  {
+    "id": "s6-q034", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["try-catch","throw","rangeerror"], "courseRef": "17_Excepciones",
+    "code": "const ages = [25, -4, 31];\nfor (const age of ages) {\n  try {\n    if (age < 0) throw new RangeError(\"negative: \" + age);\n    console.log(\"ok \" + age);\n  } catch (e) {\n    console.log(e.name + \" - \" + e.message);\n  }\n}",
+    "prompt": { "en": "What is printed to the console?", "es": "¿Qué se muestra en la consola?" },
+    "options": [
+      { "id": "A", "text": { "en": "ok 25\nRangeError - negative: -4", "es": "ok 25\nRangeError - negative: -4" }, "why": { "en": "The `try...catch` is inside the loop: the error only interrupts that turn, and the loop goes on with `31`.", "es": "El `try...catch` está dentro del bucle: el error solo corta esa vuelta, y el bucle sigue con `31`." } },
+      { "id": "B", "text": { "en": "ok 25\nok -4\nok 31", "es": "ok 25\nok -4\nok 31" }, "why": { "en": "`-4 < 0`, so `throw` runs and `console.log(\"ok \" + age)` is skipped for that value.", "es": "`-4 < 0`, así que se ejecuta `throw` y `console.log(\"ok \" + age)` se salta con ese valor." } },
+      { "id": "C", "text": { "en": "ok 25\nError - negative: -4\nok 31", "es": "ok 25\nError - negative: -4\nok 31" }, "why": { "en": "`e.name` is the type of the error that was thrown: `RangeError`.", "es": "`e.name` es el tipo del error que se lanzó: `RangeError`." } },
+      { "id": "D", "text": { "en": "ok 25\nRangeError - negative: -4\nok 31", "es": "ok 25\nRangeError - negative: -4\nok 31" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "On each turn of the loop there's a new `try`. With `25` all goes well. With `-4`, `throw` jumps to the `catch`, which prints `RangeError - negative: -4`; after the `catch` the turn ends normally and the loop continues. With `31` all goes well again. If the `try...catch` were outside the loop, the first error would end the whole loop.",
+      "es": "En cada vuelta del bucle hay un `try` nuevo. Con `25` todo va bien. Con `-4`, `throw` salta al `catch`, que muestra `RangeError - negative: -4`; después del `catch` la vuelta termina con normalidad y el bucle continúa. Con `31` todo vuelve a ir bien. Si el `try...catch` estuviera fuera del bucle, el primer error acabaría con todo el bucle."
+    },
+    "verify": { "kind": "output", "expected": "ok 25\nRangeError - negative: -4\nok 31" }
+  },
+  {
+    "id": "s6-q035", "section": 6, "bank": "practice", "type": "output",
+    "difficulty": 2, "tags": ["debugging","console","logic-error"], "courseRef": "01_Variables/03_console_log.html",
+    "code": "function applyDiscount(price, percent) {\n  const discount = price * percent;\n  console.log(\"discount:\", discount);\n  return price - discount;\n}\nconsole.log(applyDiscount(80, 25));",
+    "prompt": { "en": "`applyDiscount(80, 25)` should take 25 % off 80. To find out why the result is wrong, a student adds the `console.log` on line 3. What is printed?", "es": "`applyDiscount(80, 25)` debería descontar un 25 % a 80. Para averiguar por qué sale mal, un alumno añade el `console.log` de la línea 3. ¿Qué se muestra?" },
+    "options": [
+      { "id": "A", "text": { "en": "discount: 2000\n-1920", "es": "discount: 2000\n-1920" } },
+      { "id": "B", "text": { "en": "discount: 20\n60", "es": "discount: 20\n60" }, "why": { "en": "That's the result you'd want, but `80 * 25` is `2000`: the percentage isn't divided by 100 anywhere.", "es": "Ese es el resultado que querrías, pero `80 * 25` da `2000`: el porcentaje no se divide entre 100 en ningún sitio." } },
+      { "id": "C", "text": { "en": "discount: 0.25\n79.75", "es": "discount: 0.25\n79.75" }, "why": { "en": "`percent` is `25`, not `0.25`: nothing in the code divides it by 100.", "es": "`percent` vale `25`, no `0.25`: nada en el código lo divide entre 100." } },
+      { "id": "D", "text": { "en": "-1920", "es": "-1920" }, "why": { "en": "The `console.log` inside the function also runs, and it runs first, before the result is printed.", "es": "El `console.log` de dentro de la función también se ejecuta, y lo hace antes, antes de que se muestre el resultado." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "Line 3 shows the bug straight away: `discount` is `2000`, not `20`. It's a logic error (there's no error message), and printing an intermediate value with `console.log` is the quickest way to see where the numbers go wrong. The fix is `price * percent / 100`. Once it works, remove the debugging `console.log`.",
+      "es": "La línea 3 deja ver el fallo enseguida: `discount` vale `2000`, no `20`. Es un error lógico (no hay mensaje de error), y mostrar un valor intermedio con `console.log` es la forma más rápida de ver dónde se tuercen los números. Se arregla con `price * percent / 100`. Cuando funcione, quita el `console.log` de depuración."
+    },
+    "verify": { "kind": "output", "expected": "discount: 2000\n-1920" }
+  },
+  {
+    "id": "s6-q036", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["debugging","stepping"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "The program is paused at a breakpoint on the line `let total = calcTotal(cart);`. You want to go inside `calcTotal` and run its lines one by one. Which debugger button do you press?", "es": "El programa está en pausa en un punto de interrupción, en la línea `let total = calcTotal(cart);`. Quieres entrar en `calcTotal` y ejecutar sus líneas una a una. ¿Qué botón del depurador pulsas?" },
+    "options": [
+      { "id": "A", "text": { "en": "Step over", "es": "Step over (pasar a la siguiente línea)" }, "why": { "en": "Step over runs the whole line, including the call to `calcTotal`, and pauses on the next line: you don't see what happens inside the function.", "es": "Step over ejecuta la línea entera, llamada a `calcTotal` incluida, y se para en la línea siguiente: no ves lo que pasa dentro de la función." } },
+      { "id": "B", "text": { "en": "Step out", "es": "Step out (salir de la función)" }, "why": { "en": "Step out is for when you're already inside a function: it runs the rest of it and pauses back where it was called.", "es": "Step out sirve cuando ya estás dentro de una función: ejecuta lo que queda de ella y se para de vuelta donde se llamó." } },
+      { "id": "C", "text": { "en": "Step into", "es": "Step into (entrar en la función)" } },
+      { "id": "D", "text": { "en": "Resume", "es": "Resume (reanudar)" }, "why": { "en": "Resume carries on running normally until the next breakpoint (or the end), without stopping on each line.", "es": "Resume sigue ejecutando con normalidad hasta el siguiente punto de interrupción (o hasta el final), sin pararse en cada línea." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "While the program is paused, the debugger lets you move forward step by step. Step into goes inside the function called on the current line and pauses on its first line. Step over runs the current line in one go and stops on the next one. Step out finishes the current function and goes back to whoever called it. Resume carries on until the next breakpoint.",
+      "es": "Mientras el programa está en pausa, el depurador te deja avanzar paso a paso. Step into entra en la función que se llama en la línea actual y se para en su primera línea. Step over ejecuta la línea actual de una vez y se para en la siguiente. Step out termina la función actual y vuelve a quien la llamó. Resume sigue hasta el siguiente punto de interrupción."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q037", "section": 6, "bank": "practice", "type": "multiple",
+    "difficulty": 2, "tags": ["trap","debugging","breakpoint"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "Your program is paused at a breakpoint inside a function. Which two statements are true? (Choose two.)", "es": "Tu programa está en pausa en un punto de interrupción dentro de una función. ¿Qué dos afirmaciones son ciertas? (Elige dos.)" },
+    "options": [
+      { "id": "A", "text": { "en": "You can see the values the variables will have when the program ends", "es": "Puedes ver los valores que tendrán las variables cuando termine el programa" }, "why": { "en": "The debugger only shows the values at the moment of the pause; to see later values you have to step forward or resume.", "es": "El depurador solo muestra los valores del momento de la pausa; para ver valores posteriores tienes que avanzar o reanudar." } },
+      { "id": "B", "text": { "en": "You can see the current values of the variables, for example in the Scope panel or by hovering the mouse over them", "es": "Puedes ver los valores actuales de las variables, por ejemplo en el panel Scope o pasando el ratón por encima" } },
+      { "id": "C", "text": { "en": "You can type an expression such as `total * 2` in the console, and it's calculated with the current values", "es": "Puedes escribir una expresión como `total * 2` en la consola, y se calcula con los valores actuales" } },
+      { "id": "D", "text": { "en": "You have to delete the breakpoint from your file before publishing the page, because it's saved in the code", "es": "Tienes que borrar el punto de interrupción de tu archivo antes de publicar la página, porque se guarda en el código" }, "why": { "en": "Breakpoints live in the developer tools, not in your code. (The `debugger;` statement is the one that does go in the code.)", "es": "Los puntos de interrupción viven en las herramientas para desarrolladores, no en tu código. (La sentencia `debugger;` es la que sí va en el código.)" } },
+      { "id": "E", "text": { "en": "You can keep using the page normally, because the rest of the JavaScript keeps running in the background", "es": "Puedes seguir usando la página con normalidad, porque el resto del JavaScript sigue ejecutándose por detrás" }, "why": { "en": "While paused, the JavaScript of the page is completely stopped; nothing runs until you step forward or resume.", "es": "En pausa, el JavaScript de la página está completamente parado; no se ejecuta nada hasta que avanzas o reanudas." } }
+    ],
+    "answer": ["B","C"],
+    "explanation": {
+      "en": "A breakpoint freezes the program at one moment so that you can look at it calmly. You can check the values of the variables (Scope panel, hovering over them, or the Watch panel for expressions you want to follow), and the console works with those current values. When you've seen enough, you move on step by step or resume.",
+      "es": "Un punto de interrupción congela el programa en un momento concreto para que puedas mirarlo con calma. Puedes consultar los valores de las variables (panel Scope, pasando el ratón por encima, o el panel Watch para las expresiones que quieras seguir), y la consola trabaja con esos valores actuales. Cuando hayas visto lo que necesitas, avanzas paso a paso o reanudas."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q038", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["debugging","call-stack"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "In your code, `start()` calls `loadData()`, and `loadData()` calls `parseItem()`. The program is paused at a breakpoint inside `parseItem()`. What does the Call Stack panel show?", "es": "En tu código, `start()` llama a `loadData()`, y `loadData()` llama a `parseItem()`. El programa está en pausa en un punto de interrupción dentro de `parseItem()`. ¿Qué muestra el panel Call Stack?" },
+    "options": [
+      { "id": "A", "text": { "en": "`parseItem`, `loadData`, `start`: the current function on top, then its callers", "es": "`parseItem`, `loadData`, `start`: arriba la función actual y, debajo, las que la llamaron" } },
+      { "id": "B", "text": { "en": "Only `parseItem`, because it's the function that's running", "es": "Solo `parseItem`, porque es la función que se está ejecutando" }, "why": { "en": "It shows the whole chain of calls that led to that point, not just the current function.", "es": "Muestra toda la cadena de llamadas que ha llevado hasta ese punto, no solo la función actual." } },
+      { "id": "C", "text": { "en": "The values of all the variables of the three functions", "es": "Los valores de todas las variables de las tres funciones" }, "why": { "en": "The values of the variables are in the Scope panel. Call Stack shows which functions are running and who called whom.", "es": "Los valores de las variables están en el panel Scope. Call Stack muestra qué funciones están en marcha y quién llamó a quién." } },
+      { "id": "D", "text": { "en": "Every line that has already run, from the first to the last", "es": "Todas las líneas que ya se han ejecutado, de la primera a la última" }, "why": { "en": "The debugger doesn't keep a history of lines: the call stack only lists the functions that haven't finished yet.", "es": "El depurador no guarda un historial de líneas: la pila de llamadas solo enumera las funciones que aún no han terminado." } }
+    ],
+    "answer": ["A"],
+    "explanation": {
+      "en": "The call stack is the list of functions that are running and haven't finished yet. Each call goes on top of the previous one, so the panel shows `parseItem` (where you are), then `loadData` (which called it) and then `start`. Clicking on one of them shows you the line where it's waiting. When an error isn't caught, the console shows this same list (the stack trace) to tell you how the program got there.",
+      "es": "La pila de llamadas es la lista de funciones que se están ejecutando y aún no han terminado. Cada llamada se pone encima de la anterior, así que el panel muestra `parseItem` (donde estás), después `loadData` (que la llamó) y después `start`. Si haces clic en una de ellas, ves la línea en la que está esperando. Cuando un error no se captura, la consola muestra esta misma lista (la traza de la pila) para decirte cómo llegó ahí el programa."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q039", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["trap","debugging","timing"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "You want to know how long a loop takes to run. What do you write before and after the loop?", "es": "Quieres saber cuánto tarda en ejecutarse un bucle. ¿Qué escribes antes y después del bucle?" },
+    "options": [
+      { "id": "A", "text": { "en": "`console.time(\"loop\")` before and `console.timeEnd(\"Loop\")` after", "es": "`console.time(\"loop\")` antes y `console.timeEnd(\"Loop\")` después" }, "why": { "en": "The label must be exactly the same in both calls, including upper and lower case. `\"Loop\"` isn't `\"loop\"`, so the console warns that there's no timer called `Loop` and doesn't show the time.", "es": "La etiqueta tiene que ser exactamente la misma en las dos llamadas, también en mayúsculas y minúsculas. `\"Loop\"` no es `\"loop\"`, así que la consola avisa de que no hay ningún temporizador llamado `Loop` y no muestra el tiempo." } },
+      { "id": "B", "text": { "en": "`console.time(\"loop\")` both before and after", "es": "`console.time(\"loop\")` antes y también después" }, "why": { "en": "Calling `console.time` again with the same label doesn't stop the timer (the console warns that it already exists). To stop it and see the time you need `console.timeEnd`.", "es": "Volver a llamar a `console.time` con la misma etiqueta no para el temporizador (la consola avisa de que ya existe). Para pararlo y ver el tiempo hace falta `console.timeEnd`." } },
+      { "id": "C", "text": { "en": "`console.start()` before and `console.stop()` after", "es": "`console.start()` antes y `console.stop()` después" }, "why": { "en": "Those methods don't exist: calling them throws `TypeError: console.start is not a function`.", "es": "Esos métodos no existen: llamarlos lanza `TypeError: console.start is not a function`." } },
+      { "id": "D", "text": { "en": "`console.time(\"loop\")` before and `console.timeEnd(\"loop\")` after", "es": "`console.time(\"loop\")` antes y `console.timeEnd(\"loop\")` después" } }
+    ],
+    "answer": ["D"],
+    "explanation": {
+      "en": "`console.time(\"loop\")` starts a timer, and `console.timeEnd(\"loop\")` stops it and prints how long it took, for example `loop: 3.52 ms`. The label joins the two calls, so it must be exactly the same; you can have several timers at once with different labels. It's handy to compare two ways of solving the same problem.",
+      "es": "`console.time(\"loop\")` pone en marcha un temporizador, y `console.timeEnd(\"loop\")` lo para y muestra cuánto ha tardado, por ejemplo `loop: 3.52 ms`. La etiqueta une las dos llamadas, así que tiene que ser exactamente la misma; puedes tener varios temporizadores a la vez con etiquetas distintas. Va muy bien para comparar dos formas de resolver el mismo problema."
+    },
+    "verify": { "kind": "none" }
+  },
+  {
+    "id": "s6-q040", "section": 6, "bank": "practice", "type": "single",
+    "difficulty": 2, "tags": ["debugging","timing"], "courseRef": "01_Variables/03_console_log.html",
+    "prompt": { "en": "What does the last line of this code print?\n`const start = performance.now();`\n`// … the code you want to measure …`\n`console.log(performance.now() - start);`", "es": "¿Qué muestra la última línea de este código?\n`const start = performance.now();`\n`// … the code you want to measure …`\n`console.log(performance.now() - start);`" },
+    "options": [
+      { "id": "A", "text": { "en": "The current time of day, such as 10:42", "es": "La hora actual, como 10:42" }, "why": { "en": "Each `performance.now()` gives a number of milliseconds; subtracting the two gives the time in between, not a clock time.", "es": "Cada `performance.now()` da un número de milisegundos; al restarlos se obtiene el tiempo que ha pasado entre los dos, no una hora del reloj." } },
+      { "id": "B", "text": { "en": "How many lines the measured code has", "es": "Cuántas líneas tiene el código medido" }, "why": { "en": "`performance.now()` measures time, not code. The subtraction gives milliseconds.", "es": "`performance.now()` mide tiempo, no código. La resta da milisegundos." } },
+      { "id": "C", "text": { "en": "The milliseconds that passed between the two calls to `performance.now()`", "es": "Los milisegundos que han pasado entre las dos llamadas a `performance.now()`" } },
+      { "id": "D", "text": { "en": "Always `0`, because both lines run at the same moment", "es": "Siempre `0`, porque las dos líneas se ejecutan en el mismo instante" }, "why": { "en": "The code between them takes some time, however little. If it's very fast the result can be close to 0, but it measures that time.", "es": "El código que hay entre ellas tarda algo, aunque sea poco. Si es muy rápido el resultado puede estar cerca de 0, pero mide ese tiempo." } }
+    ],
+    "answer": ["C"],
+    "explanation": {
+      "en": "`performance.now()` returns a time in milliseconds (with decimals). Saving it before the code and subtracting it afterwards gives how long the code in between took. It's the same idea as `console.time` and `console.timeEnd`, but you get the number in a variable, so you can compare it or show it as you like. `Date.now()` works in the same way, with less precision.",
+      "es": "`performance.now()` devuelve un tiempo en milisegundos (con decimales). Guardarlo antes del código y restarlo después da lo que ha tardado el código de en medio. Es la misma idea que `console.time` y `console.timeEnd`, pero el número queda en una variable, así que puedes compararlo o mostrarlo como quieras. `Date.now()` funciona igual, con menos precisión."
+    },
+    "verify": { "kind": "none" }
+  }
+]

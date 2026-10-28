@@ -1,0 +1,45 @@
+/* Editor de código común (js/views/code-editor.js): «Run this code» y ejercicios de código.
+   Números de línea + textarea transparente encima del código resaltado (.editor-hl). Las dos
+   capas tienen exactamente la misma letra, tamaño, interlineado y relleno, así el texto coincide. */
+
+.editor {
+  display: flex; background: var(--code-bg); border-radius: var(--radius-l); overflow: hidden;
+  font: 14px/1.7 var(--mono); border: 2px solid transparent; min-height: 0;
+}
+.editor:focus-within { border-color: var(--lime); }
+/* Tras pulsar Esc (el siguiente Tab sale del editor): borde de puntos */
+.editor[data-leaving] { border-style: dashed; }
+
+.editor-gutter {
+  margin: 0; padding: 12px 8px 40px 14px; min-width: 40px; text-align: right; color: var(--code-line-no);
+  font: inherit; overflow: hidden; user-select: none; flex: none; white-space: pre;
+}
+.editor-area { position: relative; flex: 1; min-width: 0; display: flex; }
+.editor-hl, .editor-input {
+  margin: 0; padding: 12px 14px 12px 6px; border: 0; font: inherit; letter-spacing: 0;
+  tab-size: 2; white-space: pre; word-spacing: 0;
+}
+.editor-hl {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; color: var(--code-ink);
+  padding-bottom: 40px;
+}
+.editor-hl code { font: inherit; }
+.editor-input {
+  display: block; flex: 1; width: 100%; min-width: 0; resize: vertical; overflow: auto;
+  background: transparent; color: transparent; caret-color: var(--lime);
+  -webkit-text-fill-color: transparent;
+}
+.editor-input::selection { background: rgba(212, 222, 0, 0.32); }
+.editor-input:focus, .editor-input:focus-visible { outline: none; box-shadow: none; }
+/* Modo de alto contraste de Windows: se ve el texto del propio textarea (sin resaltado). */
+@media (forced-colors: active) {
+  .editor-input { color: CanvasText; -webkit-text-fill-color: CanvasText; }
+  .editor-hl { visibility: hidden; }
+}
+
+.editor-help { line-height: 1.45; }
+.editor-help kbd {
+  font: 600 11.5px var(--mono); background: var(--surface); border: 1px solid var(--line-strong);
+  border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; color: var(--ink);
+}
+.editor-help.editor-help-on { color: var(--purple); font-weight: 600; }

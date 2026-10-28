@@ -1,0 +1,481 @@
+[
+  { "id": "interpreter", "en": "interpreter", "es": "intérprete", "sections": [1],
+    "aliases": { "en": ["interpreted"], "es": ["interpretado", "interpretada"] },
+    "definition": {
+      "en": "A program that runs source code directly, translating it while the program is running. JavaScript is usually described as an interpreted language (modern engines also compile it on the fly to make it faster).",
+      "es": "Un programa que ejecuta el código fuente directamente y lo va traduciendo mientras el programa se ejecuta. De JavaScript se suele decir que es un lenguaje interpretado (los motores actuales también lo compilan sobre la marcha para que vaya más rápido)."
+    } },
+  { "id": "compiler", "en": "compiler", "es": "compilador", "sections": [1],
+    "aliases": { "en": ["compiled"], "es": ["compilado", "compilada"] },
+    "definition": {
+      "en": "A program that translates all the source code into another language (often machine code) before it runs. C and C++ are compiled languages.",
+      "es": "Un programa que traduce todo el código fuente a otro lenguaje (a menudo, código máquina) antes de ejecutarlo. C y C++ son lenguajes compilados."
+    } },
+  { "id": "console", "en": "console", "es": "consola", "sections": [1],
+    "definition": {
+      "en": "The panel where the messages written with `console.log()` appear, together with the errors. In the browser you open it from the developer tools (F12).",
+      "es": "El panel donde aparecen los mensajes escritos con `console.log()` y también los errores. En el navegador se abre desde las herramientas para desarrolladores (F12)."
+    } },
+  { "id": "keyword", "en": "keyword", "es": "palabra clave", "sections": [1, 2],
+    "aliases": { "en": ["reserved word"], "es": ["palabra reservada", "palabras clave", "palabras reservadas"] },
+    "definition": {
+      "en": "A word that JavaScript uses for its own syntax, such as `if`, `for` or `return`. Most keywords are reserved, so you can't use them as variable names.",
+      "es": "Una palabra que JavaScript usa para su propia sintaxis, como `if`, `for` o `return`. Casi todas están reservadas, así que no se pueden usar como nombre de variable."
+    } },
+  { "id": "statement", "en": "statement", "es": "sentencia", "sections": [1],
+    "aliases": { "es": ["instrucción", "instrucciones"] },
+    "notIn": { "en": ["which two statements", "which statements about", "which statement about", "which statement is", "which statement best"] },
+    "definition": {
+      "en": "In code, an instruction that tells JavaScript to do something, such as declaring a variable or running a loop. Statements often end with a semicolon.",
+      "es": "En el código, una instrucción que le dice a JavaScript que haga algo, como declarar una variable o repetir un bucle. Muchas veces termina en punto y coma."
+    } },
+  { "id": "expression", "en": "expression", "es": "expresión", "sections": [1, 3],
+    "aliases": { "es": ["expresiones"] },
+    "definition": {
+      "en": "A piece of code that produces a value, such as `2 + 3`, `x > 5` or `\"Hi\"`.",
+      "es": "Un trozo de código que produce un valor, como `2 + 3`, `x > 5` o `\"Hi\"`."
+    } },
+  { "id": "variable", "en": "variable", "es": "variable", "sections": [2],
+    "definition": {
+      "en": "A named container that stores a value so you can use it later. You create one with `let`, `const` or `var`.",
+      "es": "Un contenedor con nombre que guarda un valor para usarlo más tarde. Se crea con `let`, `const` o `var`."
+    } },
+  { "id": "constant", "en": "constant", "es": "constante", "sections": [2],
+    "definition": {
+      "en": "A variable declared with `const`. Once it has its value, it can't be reassigned (if it holds an object or an array, its contents can still change).",
+      "es": "Una variable declarada con `const`. Cuando ya tiene su valor, no se puede reasignar (si guarda un objeto o un array, su contenido sí puede cambiar)."
+    } },
+  { "id": "declaration", "en": "declaration", "es": "declaración", "sections": [2, 5],
+    "aliases": { "es": ["declaraciones"] },
+    "definition": {
+      "en": "The code that creates a variable or a function, such as `let total;` or `function add(a, b) { … }`.",
+      "es": "El código que crea una variable o una función, como `let total;` o `function add(a, b) { … }`."
+    } },
+  { "id": "assignment", "en": "assignment", "es": "asignación", "sections": [2, 3],
+    "aliases": { "es": ["asignaciones"] },
+    "definition": {
+      "en": "Giving a variable a value with the `=` operator, as in `total = 10;`.",
+      "es": "Dar un valor a una variable con el operador `=`, como en `total = 10;`."
+    } },
+  { "id": "primitive", "en": "primitive", "es": "tipo primitivo", "sections": [2],
+    "aliases": { "en": ["primitive type"], "es": ["primitivo", "primitiva"] },
+    "definition": {
+      "en": "A basic value that isn't an object. JavaScript has seven primitive types: string, number, bigint, boolean, `undefined`, `null` and symbol.",
+      "es": "Un valor básico que no es un objeto. JavaScript tiene siete tipos primitivos: string, number, bigint, boolean, `undefined`, `null` y symbol."
+    } },
+  { "id": "string", "en": "string", "es": "cadena de texto", "sections": [2],
+    "aliases": { "es": ["string", "cadenas de texto"] },
+    "definition": {
+      "en": "A text value, written between quotes: `\"hello\"` or `'hello'`. Template literals use backticks instead.",
+      "es": "Un valor de texto, escrito entre comillas: `\"hello\"` o `'hello'`. Las plantillas literales usan comillas invertidas."
+    } },
+  { "id": "boolean", "en": "boolean", "es": "booleano", "sections": [2],
+    "aliases": { "es": ["boolean", "booleana"] },
+    "definition": {
+      "en": "A value that can only be `true` or `false`. Comparisons such as `5 > 3` give a boolean.",
+      "es": "Un valor que solo puede ser `true` o `false`. Las comparaciones como `5 > 3` dan un booleano."
+    } },
+  { "id": "template-literal", "en": "template literal", "es": "plantilla literal", "sections": [2],
+    "aliases": { "en": ["template string"], "es": ["template literal", "plantillas literales"] },
+    "definition": {
+      "en": "A string written between backticks that can include variables with `${…}`, for example: `Hi ${name}!`.",
+      "es": "Un string escrito entre comillas invertidas que puede incluir variables con `${…}`, por ejemplo: `Hi ${name}!`."
+    } },
+  { "id": "type-conversion", "en": "type conversion", "es": "conversión de tipos", "sections": [2],
+    "aliases": { "en": ["type coercion", "coercion", "casting"], "es": ["coerción", "conversión implícita"] },
+    "definition": {
+      "en": "Changing a value from one type to another. It can be explicit, like `Number(\"5\")`, or implicit, when JavaScript does it for you: `\"5\" * 2` gives `10`.",
+      "es": "Cambiar un valor de un tipo a otro. Puede ser explícita, como `Number(\"5\")`, o implícita, cuando JavaScript la hace por ti: `\"5\" * 2` da `10`."
+    } },
+  { "id": "truthy", "en": "truthy", "es": "truthy", "sections": [2, 4],
+    "definition": {
+      "en": "A value that counts as `true` in a condition. Every value is truthy except the falsy ones, so `\"0\"`, `[]` and `{}` are truthy.",
+      "es": "Un valor que cuenta como `true` en una condición. Todos los valores son truthy menos los falsy, así que `\"0\"`, `[]` y `{}` son truthy."
+    } },
+  { "id": "falsy", "en": "falsy", "es": "falsy", "sections": [2, 4],
+    "definition": {
+      "en": "A value that counts as `false` in a condition: `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined` and `NaN`. Every other value is truthy.",
+      "es": "Un valor que cuenta como `false` en una condición: `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined` y `NaN`. Todos los demás valores son truthy."
+    } },
+  { "id": "array", "en": "array", "es": "array", "sections": [2],
+    "aliases": { "es": ["arreglo"] },
+    "definition": {
+      "en": "An ordered list of values, written between square brackets: `[10, 20, 30]`. Each value has a position (its index), starting at 0.",
+      "es": "Una lista ordenada de valores, escrita entre corchetes: `[10, 20, 30]`. Cada valor tiene una posición (su índice), que empieza en 0."
+    } },
+  { "id": "index", "en": "index", "es": "índice", "sections": [2],
+    "aliases": { "en": ["indices"] },
+    "definition": {
+      "en": "The position of an element in an array or of a character in a string. It starts at 0, so the first element of `list` is `list[0]`.",
+      "es": "La posición de un elemento en un array o de un carácter en un string. Empieza en 0, así que el primer elemento de `list` es `list[0]`."
+    } },
+  { "id": "object", "en": "object", "es": "objeto", "sections": [2],
+    "definition": {
+      "en": "A group of related values stored as key–value pairs (properties), written between curly braces: `{ name: \"Ana\", age: 24 }`.",
+      "es": "Un grupo de valores relacionados que se guardan como pares clave–valor (propiedades), escrito entre llaves: `{ name: \"Ana\", age: 24 }`."
+    } },
+  { "id": "property", "en": "property", "es": "propiedad", "sections": [2],
+    "aliases": { "en": ["properties"] },
+    "definition": {
+      "en": "A key–value pair inside an object. In `user.name`, `name` is a property of `user`. Strings and arrays also have properties, such as `length`.",
+      "es": "Un par clave–valor dentro de un objeto. En `user.name`, `name` es una propiedad de `user`. Los strings y los arrays también tienen propiedades, como `length`."
+    } },
+  { "id": "method", "en": "method", "es": "método", "sections": [2, 5],
+    "definition": {
+      "en": "A function that belongs to an object. You call it with a dot and parentheses: `\"hi\".toUpperCase()` or `list.push(4)`.",
+      "es": "Una función que pertenece a un objeto. Se llama con un punto y paréntesis: `\"hi\".toUpperCase()` o `list.push(4)`."
+    } },
+  { "id": "operator", "en": "operator", "es": "operador", "sections": [3],
+    "definition": {
+      "en": "A symbol or word that works with values to produce a new value, such as `+`, `===`, `&&` or `typeof`.",
+      "es": "Un símbolo o una palabra que trabaja con valores para producir un valor nuevo, como `+`, `===`, `&&` o `typeof`."
+    } },
+  { "id": "operand", "en": "operand", "es": "operando", "sections": [3],
+    "definition": {
+      "en": "A value that an operator works with. In `4 + x`, the operands are `4` and `x`.",
+      "es": "Un valor con el que trabaja un operador. En `4 + x`, los operandos son `4` y `x`."
+    } },
+  { "id": "concatenation", "en": "concatenation", "es": "concatenación", "sections": [2, 3],
+    "aliases": { "en": ["concatenate", "concatenates"], "es": ["concatenar", "concatena"] },
+    "definition": {
+      "en": "Joining strings together, usually with `+`: `\"Hi \" + \"Ana\"` gives `\"Hi Ana\"`. If one side of `+` is a string, `+` concatenates instead of adding.",
+      "es": "Unir strings, normalmente con `+`: `\"Hi \" + \"Ana\"` da `\"Hi Ana\"`. Si uno de los lados de `+` es un string, `+` concatena en vez de sumar."
+    } },
+  { "id": "strict-equality", "en": "strict equality", "es": "igualdad estricta", "sections": [3],
+    "definition": {
+      "en": "Comparing with `===`: the value and the type must both be the same, so `5 === \"5\"` is `false`.",
+      "es": "Comparar con `===`: tienen que coincidir el valor y el tipo, así que `5 === \"5\"` es `false`."
+    } },
+  { "id": "loose-equality", "en": "loose equality", "es": "igualdad no estricta", "sections": [3],
+    "aliases": { "es": ["igualdad débil"] },
+    "definition": {
+      "en": "Comparing with `==`: if the types are different, JavaScript converts them first, so `5 == \"5\"` is `true`.",
+      "es": "Comparar con `==`: si los tipos son distintos, JavaScript los convierte antes, así que `5 == \"5\"` es `true`."
+    } },
+  { "id": "ternary-operator", "en": "ternary operator", "es": "operador ternario", "sections": [3],
+    "aliases": { "en": ["conditional operator"], "es": ["operador condicional"] },
+    "definition": {
+      "en": "A short `if…else` that gives back a value: `condition ? valueIfTrue : valueIfFalse`.",
+      "es": "Un `if…else` abreviado que devuelve un valor: `condition ? valueIfTrue : valueIfFalse`."
+    } },
+  { "id": "precedence", "en": "precedence", "es": "precedencia", "sections": [3],
+    "aliases": { "en": ["operator precedence"], "es": ["precedencia de operadores"] },
+    "definition": {
+      "en": "The order in which operators are worked out. For example, `*` goes before `+`, so `2 + 3 * 4` is `14`. Parentheses change the order.",
+      "es": "El orden en que se calculan los operadores. Por ejemplo, `*` va antes que `+`, así que `2 + 3 * 4` da `14`. Los paréntesis cambian el orden."
+    } },
+  { "id": "increment", "en": "increment", "es": "incremento", "sections": [3],
+    "definition": {
+      "en": "Adding 1 to a variable, usually with `++`. `x++` gives back the old value and then adds 1; `++x` adds 1 first and gives back the new value.",
+      "es": "Sumar 1 a una variable, normalmente con `++`. `x++` devuelve el valor anterior y luego suma 1; `++x` suma 1 primero y devuelve el valor nuevo."
+    } },
+  { "id": "loop", "en": "loop", "es": "bucle", "sections": [4],
+    "definition": {
+      "en": "A structure that repeats a block of code: `for`, `while`, `do…while`, `for…in` and `for…of`.",
+      "es": "Una estructura que repite un bloque de código: `for`, `while`, `do…while`, `for…in` y `for…of`."
+    } },
+  { "id": "iteration", "en": "iteration", "es": "iteración", "sections": [4],
+    "aliases": { "es": ["iteraciones"] },
+    "definition": {
+      "en": "Each single run of a loop's block. A loop that repeats its block 3 times does 3 iterations.",
+      "es": "Cada vez que se ejecuta el bloque de un bucle. Un bucle que repite su bloque 3 veces hace 3 iteraciones."
+    } },
+  { "id": "function", "en": "function", "es": "función", "sections": [5],
+    "aliases": { "es": ["funciones"] },
+    "definition": {
+      "en": "A reusable block of code that runs when you call it. It can receive parameters and give back a value with `return`.",
+      "es": "Un bloque de código reutilizable que se ejecuta cuando lo llamas. Puede recibir parámetros y devolver un valor con `return`."
+    } },
+  { "id": "arrow-function", "en": "arrow function", "es": "función flecha", "sections": [5],
+    "aliases": { "es": ["funciones flecha", "arrow function"] },
+    "definition": {
+      "en": "A shorter way to write a function, with `=>`: `const double = (n) => n * 2;`",
+      "es": "Una forma más corta de escribir una función, con `=>`: `const double = (n) => n * 2;`"
+    } },
+  { "id": "parameter", "en": "parameter", "es": "parámetro", "sections": [5],
+    "definition": {
+      "en": "A name in a function's definition that receives a value when the function is called. In `function greet(name)`, `name` is a parameter.",
+      "es": "Un nombre en la definición de una función que recibe un valor cuando se llama a la función. En `function greet(name)`, `name` es un parámetro."
+    } },
+  { "id": "argument", "en": "argument", "es": "argumento", "sections": [5],
+    "definition": {
+      "en": "The actual value you pass to a function when you call it. In `greet(\"Ana\")`, `\"Ana\"` is the argument.",
+      "es": "El valor concreto que le pasas a una función al llamarla. En `greet(\"Ana\")`, `\"Ana\"` es el argumento."
+    } },
+  { "id": "return-value", "en": "return value", "es": "valor de retorno", "sections": [5],
+    "aliases": { "es": ["valores de retorno", "valor devuelto"] },
+    "definition": {
+      "en": "The value a function gives back with `return`. A function without `return` gives back `undefined`.",
+      "es": "El valor que devuelve una función con `return`. Una función sin `return` devuelve `undefined`."
+    } },
+  { "id": "scope", "en": "scope", "es": "ámbito", "sections": [2, 5],
+    "aliases": { "es": ["alcance"] },
+    "definition": {
+      "en": "The part of the code where a variable exists and can be used. A variable declared with `let` or `const` inside `{ }` only exists inside that block.",
+      "es": "La parte del código donde una variable existe y se puede usar. Una variable declarada con `let` o `const` dentro de `{ }` solo existe dentro de ese bloque."
+    } },
+  { "id": "hoisting", "en": "hoisting", "es": "hoisting", "sections": [2, 5],
+    "aliases": { "es": ["elevación"] },
+    "definition": {
+      "en": "JavaScript handles declarations before running the code. A `var` variable can be used before its line (its value is `undefined`), but using a `let` or `const` variable before its line throws a `ReferenceError`. Function declarations can be called before they appear.",
+      "es": "JavaScript procesa las declaraciones antes de ejecutar el código. Una variable `var` se puede usar antes de su línea (vale `undefined`), pero usar una `let` o una `const` antes de su línea lanza un `ReferenceError`. Las declaraciones de función se pueden llamar antes de que aparezcan."
+    } },
+  { "id": "callback", "en": "callback", "es": "callback", "sections": [5],
+    "aliases": { "es": ["función de callback"] },
+    "definition": {
+      "en": "A function that you pass to another function so that it calls it later, as in `[1, 2].forEach((n) => console.log(n));`.",
+      "es": "Una función que le pasas a otra función para que la llame después, como en `[1, 2].forEach((n) => console.log(n));`."
+    } },
+  { "id": "recursion", "en": "recursion", "es": "recursividad", "sections": [5],
+    "aliases": { "en": ["recursive"], "es": ["recursión", "recursiva", "recursivo"] },
+    "definition": {
+      "en": "When a function calls itself. It needs a stopping condition (the base case); without one it keeps calling itself until JavaScript stops it with an error (a `RangeError` in Chrome and Node.js).",
+      "es": "Cuando una función se llama a sí misma. Necesita una condición para parar (el caso base); sin ella, se sigue llamando hasta que JavaScript la detiene con un error (un `RangeError` en Chrome y Node.js)."
+    } },
+  { "id": "exception", "en": "exception", "es": "excepción", "sections": [6],
+    "aliases": { "es": ["excepciones"] },
+    "definition": {
+      "en": "An error raised while the program is running. If nothing catches it with `try…catch`, the program stops at that point.",
+      "es": "Un error que se produce mientras el programa se ejecuta. Si nada lo captura con `try…catch`, el programa se detiene en ese punto."
+    } },
+  { "id": "debugging", "en": "debugging", "es": "depuración", "sections": [6],
+    "aliases": { "en": ["debug"], "es": ["depurar"] },
+    "definition": {
+      "en": "Finding and fixing mistakes (bugs) in your code, for example with `console.log()`, breakpoints or the `debugger` statement.",
+      "es": "Encontrar y corregir los fallos (bugs) del código, por ejemplo con `console.log()`, puntos de interrupción o la sentencia `debugger`."
+    } },
+  { "id": "breakpoint", "en": "breakpoint", "es": "punto de interrupción", "sections": [6],
+    "aliases": { "es": ["puntos de interrupción"] },
+    "definition": {
+      "en": "A mark on a line of code that pauses the program there, so that you can look at the values of the variables in the developer tools.",
+      "es": "Una marca en una línea de código que pausa el programa en ese punto, para que puedas ver los valores de las variables en las herramientas para desarrolladores."
+    } },
+  { "id": "bigint", "en": "BigInt", "es": "BigInt", "sections": [2],
+    "definition": {
+      "en": "A primitive type for whole numbers of any size. It's written with an `n` at the end (`10n`) or with `BigInt(10)`, and it can't be mixed with normal numbers in arithmetic.",
+      "es": "Un tipo primitivo para números enteros de cualquier tamaño. Se escribe con una `n` al final (`10n`) o con `BigInt(10)`, y no se puede mezclar con los números normales en una operación aritmética."
+    } },
+  { "id": "nan", "en": "NaN", "es": "NaN", "sections": [2],
+    "definition": {
+      "en": "«Not a Number»: the result of a numeric operation that makes no sense, such as `Number(\"abc\")`. Its type is still `number`, and any operation with `NaN` gives `NaN`.",
+      "es": "«Not a Number» (no es un número): el resultado de una operación numérica que no tiene sentido, como `Number(\"abc\")`. Su tipo sigue siendo `number`, y cualquier operación con `NaN` da `NaN`."
+    } },
+  { "id": "shadowing", "en": "shadowing", "es": "sombreado", "sections": [2,5],
+    "aliases": { "en": ["shadows", "shadow"],  "es": ["sombrea", "sombrear"] },
+    "definition": {
+      "en": "When a variable declared inside a block or a function has the same name as an outer one, the inner one hides the outer one inside that block. Outside the block, the outer variable keeps its value.",
+      "es": "Cuando una variable declarada dentro de un bloque o de una función tiene el mismo nombre que otra de fuera, la de dentro tapa a la de fuera dentro de ese bloque. Fuera del bloque, la variable de fuera conserva su valor."
+    } },
+  { "id": "escape-sequence", "en": "escape sequence", "es": "secuencia de escape", "sections": [2],
+    "aliases": { "es": ["secuencias de escape"] },
+    "definition": {
+      "en": "A backslash followed by a character that stands for a special character inside a string: `\\n` is a line break, `\\t` a tab and `\\\"` a double quote. Each one counts as a single character.",
+      "es": "Una barra invertida seguida de un carácter que representa un carácter especial dentro de un string: `\\n` es un salto de línea, `\\t` un tabulador y `\\\"` una comilla doble. Cada una cuenta como un solo carácter."
+    } },
+  { "id": "reference", "en": "reference", "es": "referencia", "sections": [2],
+    "definition": {
+      "en": "What a variable really holds when its value is an object or an array: the «address» of that object, not a copy of it. After `let b = a`, both variables point to the same object.",
+      "es": "Lo que guarda en realidad una variable cuando su valor es un objeto o un array: la «dirección» de ese objeto, no una copia. Después de `let b = a`, las dos variables apuntan al mismo objeto."
+    } },
+  { "id": "mutate", "en": "mutate", "es": "mutar", "sections": [2],
+    "aliases": { "en": ["mutates", "mutation"],  "es": ["muta", "mutan"] },
+    "definition": {
+      "en": "To change a value in place instead of creating a new one. `push`, `pop`, `shift`, `unshift` and `reverse` mutate the array; `slice` and `concat` return a new array.",
+      "es": "Cambiar un valor en el mismo sitio en lugar de crear uno nuevo. `push`, `pop`, `shift`, `unshift` y `reverse` mutan el array; `slice` y `concat` devuelven un array nuevo."
+    } },
+  { "id": "immutable", "en": "immutable", "es": "inmutable", "sections": [2],
+    "definition": {
+      "en": "That can't be changed once created. Strings are immutable: `word[0] = \"b\"` does nothing, and string methods return new strings.",
+      "es": "Que no se puede cambiar una vez creado. Los strings son inmutables: `word[0] = \"b\"` no hace nada, y los métodos de los strings devuelven strings nuevos."
+    } },
+  { "id": "source-code", "en": "source code", "es": "código fuente", "sections": [1],
+    "definition": {
+      "en": "The instructions a programmer writes in a programming language, as text that people can read. A `.js` file contains JavaScript source code.",
+      "es": "Las instrucciones que escribe un programador en un lenguaje de programación, como texto que las personas pueden leer. Un archivo `.js` contiene código fuente de JavaScript."
+    } },
+  { "id": "machine-code", "en": "machine code", "es": "código máquina", "sections": [1],
+    "definition": {
+      "en": "The instructions, made of 0s and 1s, that the computer's processor runs directly. Source code has to be translated into it by a compiler or an interpreter.",
+      "es": "Las instrucciones, hechas de ceros y unos, que el procesador del ordenador ejecuta directamente. El código fuente se tiene que traducir a código máquina con un compilador o un intérprete."
+    } },
+  { "id": "javascript-engine", "en": "JavaScript engine", "es": "motor de JavaScript", "sections": [1],
+    "aliases": { "en": ["engine"], "es": ["motor"] },
+    "definition": {
+      "en": "The program that reads JavaScript source code and runs it. Every browser has one (V8 in Chrome and Edge, SpiderMonkey in Firefox), and Node.js uses V8.",
+      "es": "El programa que lee el código fuente de JavaScript y lo ejecuta. Todos los navegadores tienen uno (V8 en Chrome y Edge, SpiderMonkey en Firefox), y Node.js usa V8."
+    } },
+  { "id": "client-side", "en": "client side", "es": "lado del cliente", "sections": [1],
+    "aliases": { "en": ["client-side"] },
+    "definition": {
+      "en": "The visitor's device and its browser. Client-side code is downloaded with the page and runs in the browser, like the JavaScript in a `<script>` tag.",
+      "es": "El dispositivo del visitante y su navegador. El código del lado del cliente se descarga con la página y se ejecuta en el navegador, como el JavaScript de una etiqueta `<script>`."
+    } },
+  { "id": "server-side", "en": "server side", "es": "lado del servidor", "sections": [1],
+    "aliases": { "en": ["server-side"] },
+    "definition": {
+      "en": "The computer that hosts the website. Server-side code runs there (for example with Node.js) and the visitor only receives its result: logins, databases, orders…",
+      "es": "El ordenador que aloja la web. El código del lado del servidor se ejecuta allí (por ejemplo, con Node.js) y el visitante solo recibe su resultado: inicios de sesión, bases de datos, pedidos…"
+    } },
+  { "id": "developer-tools", "en": "developer tools", "es": "herramientas para desarrolladores", "sections": [1],
+    "aliases": { "en": ["DevTools"] },
+    "definition": {
+      "en": "The tools built into the browser for programmers. They open with F12 and include the console, the debugger (Sources) and the inspector of the page.",
+      "es": "Las herramientas del navegador pensadas para programadores. Se abren con F12 e incluyen la consola, el depurador (Sources) y el inspector de la página."
+    } },
+  { "id": "code-editor", "en": "code editor", "es": "editor de código", "sections": [1],
+    "definition": {
+      "en": "A program for writing code as plain text, with colours and autocompletion, such as Visual Studio Code or Sublime Text. A word processor like Word is not suitable.",
+      "es": "Un programa para escribir código como texto plano, con colores y autocompletado, como Visual Studio Code o Sublime Text. Un procesador de textos como Word no sirve."
+    } },
+  { "id": "runtime-error", "en": "runtime error", "es": "error en tiempo de ejecución", "sections": [1,6],
+    "definition": {
+      "en": "An error that only appears when the line that causes it runs, such as a `ReferenceError` for a name that doesn't exist. The previous lines have already run. A `SyntaxError`, instead, is found before anything runs.",
+      "es": "Un error que solo aparece cuando se ejecuta la línea que lo provoca, como un `ReferenceError` por un nombre que no existe. Las líneas anteriores ya se han ejecutado. Un `SyntaxError`, en cambio, se detecta antes de ejecutar nada."
+    } },
+  { "id": "remainder-operator", "en": "remainder operator", "es": "operador de resto", "sections": [3],
+    "aliases": { "en": ["remainder"] },
+    "definition": {
+      "en": "`%`: divides two numbers and gives back what is left over. `17 % 5` is `2`, and `n % 2 === 0` tells you if `n` is even.",
+      "es": "`%`: divide dos números y devuelve lo que sobra. `17 % 5` da `2`, y `n % 2 === 0` te dice si `n` es par."
+    } },
+  { "id": "compound-assignment", "en": "compound assignment", "es": "asignación compuesta", "sections": [3],
+    "aliases": { "es": ["asignaciones compuestas"] },
+    "definition": {
+      "en": "An operator that does an operation and stores the result in the same variable: `x += 2` is `x = x + 2`. There are also `-=`, `*=`, `/=`, `%=` and `**=`.",
+      "es": "Un operador que hace una operación y guarda el resultado en la misma variable: `x += 2` es `x = x + 2`. También existen `-=`, `*=`, `/=`, `%=` y `**=`."
+    } },
+  { "id": "short-circuit", "en": "short-circuit evaluation", "es": "evaluación en cortocircuito", "sections": [3],
+    "aliases": { "en": ["short-circuit"], "es": ["cortocircuito"] },
+    "definition": {
+      "en": "`&&` and `||` stop as soon as the left side decides the result, so the right side doesn't run. In `false && f()`, `f` is never called.",
+      "es": "`&&` y `||` se detienen en cuanto la parte izquierda decide el resultado, así que la parte derecha no se ejecuta. En `false && f()`, `f` no llega a llamarse."
+    } },
+  { "id": "associativity", "en": "associativity", "es": "asociatividad", "sections": [3],
+    "definition": {
+      "en": "The order used when several operators have the same precedence. Most go from left to right (`10 - 4 - 3` is `3`), but `**` and `=` go from right to left.",
+      "es": "El orden que se sigue cuando varios operadores tienen la misma precedencia. La mayoría van de izquierda a derecha (`10 - 4 - 3` da `3`), pero `**` y `=` van de derecha a izquierda."
+    } },
+  { "id": "logical-operator", "en": "logical operator", "es": "operador lógico", "sections": [3,4],
+    "aliases": { "es": ["operadores lógicos"] },
+    "definition": {
+      "en": "`&&` (and), `||` (or) and `!` (not). They combine or flip conditions; `&&` and `||` return one of their values, not always a boolean.",
+      "es": "`&&` (y), `||` (o) y `!` (no). Combinan condiciones o les dan la vuelta; `&&` y `||` devuelven uno de sus valores, no siempre un booleano."
+    } },
+  { "id": "comparison-operator", "en": "comparison operator", "es": "operador de comparación", "sections": [3,4],
+    "aliases": { "es": ["operadores de comparación"] },
+    "definition": {
+      "en": "An operator that compares two values and gives `true` or `false`: `<`, `>`, `<=`, `>=`, `==`, `!=`, `===` and `!==`.",
+      "es": "Un operador que compara dos valores y da `true` o `false`: `<`, `>`, `<=`, `>=`, `==`, `!=`, `===` y `!==`."
+    } },
+  { "id": "unary-operator", "en": "unary operator", "es": "operador unario", "sections": [3],
+    "aliases": { "en": ["unary plus"], "es": ["operadores unarios", "más unario"] },
+    "definition": {
+      "en": "An operator that works with a single value, such as `!x`, `-x`, `typeof x` or `++x`. The unary plus, `+x`, converts `x` into a number.",
+      "es": "Un operador que trabaja con un solo valor, como `!x`, `-x`, `typeof x` o `++x`. El más unario, `+x`, convierte `x` en número."
+    } },
+  { "id": "condition", "en": "condition", "es": "condición", "sections": [4],
+    "aliases": { "es": ["condiciones"] },
+    "definition": {
+      "en": "The expression in parentheses that decides what happens next in an `if`, `while` or `for`. It's converted to `true` or `false`, so it doesn't have to be a boolean.",
+      "es": "La expresión entre paréntesis que decide qué pasa a continuación en un `if`, un `while` o un `for`. Se convierte en `true` o `false`, así que no tiene por qué ser un booleano."
+    } },
+  { "id": "fallthrough", "en": "fallthrough", "es": "fallthrough", "sections": [4],
+    "aliases": { "en": ["fall through", "falls through", "falling through"] },
+    "definition": {
+      "en": "In a `switch`, when a `case` has no `break`, execution goes on into the next `case` (or `default`) without checking it.",
+      "es": "En un `switch`, cuando un `case` no tiene `break`, la ejecución sigue en el `case` siguiente (o en `default`) sin comprobarlo."
+    } },
+  { "id": "nested-loop", "en": "nested loop", "es": "bucle anidado", "sections": [4],
+    "aliases": { "es": ["bucles anidados"] },
+    "definition": {
+      "en": "A loop written inside another loop. The inner loop runs completely in each iteration of the outer one, and `break` or `continue` only affect the loop they're written in.",
+      "es": "Un bucle escrito dentro de otro bucle. El bucle de dentro se ejecuta entero en cada iteración del de fuera, y `break` o `continue` solo afectan al bucle en el que están escritos."
+    } },
+  { "id": "infinite-loop", "en": "infinite loop", "es": "bucle infinito", "sections": [4],
+    "aliases": { "es": ["bucles infinitos"] },
+    "definition": {
+      "en": "A loop whose condition never becomes false, so it never ends. It usually happens when the block doesn't change the variable used in the condition.",
+      "es": "Un bucle cuya condición nunca pasa a ser falsa, así que no termina nunca. Suele pasar cuando el bloque no cambia la variable que se usa en la condición."
+    } },
+  { "id": "iterable", "en": "iterable", "es": "iterable", "sections": [4],
+    "definition": {
+      "en": "A value that `for...of` can go through element by element, such as an array or a string. Plain objects aren't iterable.",
+      "es": "Un valor que `for...of` puede recorrer elemento a elemento, como un array o un string. Los objetos normales no son iterables."
+    } },
+  { "id": "off-by-one", "en": "off-by-one error", "es": "error por uno", "sections": [4],
+    "aliases": { "en": ["off-by-one"], "es": ["errores por uno"] },
+    "definition": {
+      "en": "A loop that runs one time too many or too few, usually because of `<=` instead of `<` or a counter that starts at 1 instead of 0.",
+      "es": "Un bucle que da una vuelta de más o de menos, normalmente por usar `<=` en vez de `<` o por empezar a contar en 1 en vez de en 0."
+    } },
+  { "id": "function-expression", "en": "function expression", "es": "expresión de función", "sections": [5],
+    "aliases": { "es": ["expresiones de función"] },
+    "definition": {
+      "en": "A function written where a value is expected, usually stored in a variable: `const f = function () { … };`. Unlike a declaration, it can't be used before its line.",
+      "es": "Una función escrita donde se espera un valor, normalmente guardada en una variable: `const f = function () { … };`. A diferencia de una declaración, no se puede usar antes de su línea."
+    } },
+  { "id": "first-class-function", "en": "first-class function", "es": "función de primera clase", "sections": [5],
+    "aliases": { "en": ["first-class"], "es": ["funciones de primera clase", "de primera clase"] },
+    "definition": {
+      "en": "In JavaScript, functions are values: they can be stored in variables, passed as arguments and returned from other functions.",
+      "es": "En JavaScript, las funciones son valores: se pueden guardar en variables, pasar como argumentos y devolver desde otras funciones."
+    } },
+  { "id": "base-case", "en": "base case", "es": "caso base", "sections": [5],
+    "aliases": { "es": ["casos base"] },
+    "definition": {
+      "en": "The condition that stops a recursive function: it returns a value without calling the function again, as in `if (n === 0) return 0;`.",
+      "es": "La condición que detiene una función recursiva: devuelve un valor sin volver a llamar a la función, como en `if (n === 0) return 0;`."
+    } },
+  { "id": "local-variable", "en": "local variable", "es": "variable local", "sections": [5],
+    "aliases": { "es": ["variables locales"] },
+    "definition": {
+      "en": "A variable declared inside a function. It only exists while the function runs and can't be used outside it.",
+      "es": "Una variable declarada dentro de una función. Solo existe mientras se ejecuta la función y no se puede usar fuera de ella."
+    } },
+  { "id": "global-variable", "en": "global variable", "es": "variable global", "sections": [5],
+    "aliases": { "es": ["variables globales"] },
+    "definition": {
+      "en": "A variable declared outside any function or block. Every function can read it and, unless it is a `const`, change it.",
+      "es": "Una variable declarada fuera de cualquier función o bloque. Todas las funciones pueden leerla y, si no es una `const`, cambiarla."
+    } },
+  { "id": "default-parameter", "en": "default parameter", "es": "parámetro por defecto", "sections": [5],
+    "aliases": { "es": ["parámetros por defecto"] },
+    "definition": {
+      "en": "A value given to a parameter in the definition, as in `function greet(name = \"friend\")`. It's used when the argument is missing or is `undefined`.",
+      "es": "Un valor que se le da a un parámetro en la definición, como en `function greet(name = \"friend\")`. Se usa cuando falta el argumento o vale `undefined`."
+    } },
+  { "id": "timer", "en": "timer", "es": "temporizador", "sections": [5],
+    "definition": {
+      "en": "Something that counts time. Usually it's a callback scheduled to run later with `setTimeout` (once) or `setInterval` (again and again), cancelled with `clearTimeout` or `clearInterval`. `console.time()` also starts a timer, to measure how long some code takes.",
+      "es": "Algo que cuenta el tiempo. Normalmente es un callback programado para ejecutarse más tarde con `setTimeout` (una vez) o `setInterval` (una y otra vez), que se cancela con `clearTimeout` o `clearInterval`. `console.time()` también pone en marcha un temporizador, para medir cuánto tarda un código."
+    } },
+  { "id": "call-stack", "en": "call stack", "es": "pila de llamadas", "sections": [5,6],
+    "definition": {
+      "en": "The list of function calls that haven't finished yet. When the debugger pauses the program, the Call Stack panel shows it, with the current function on top. If it gets too big, for example in a recursion without a base case, JavaScript throws an error (a `RangeError` in Chrome and Node.js).",
+      "es": "La lista de llamadas a funciones que aún no han terminado. Cuando el depurador pausa el programa, el panel Call Stack la muestra, con la función actual arriba del todo. Si crece demasiado, por ejemplo en una recursividad sin caso base, JavaScript lanza un error (un `RangeError` en Chrome y Node.js)."
+    } },
+  { "id": "syntax-error", "en": "syntax error", "es": "error de sintaxis", "sections": [6],
+    "aliases": { "es": ["errores de sintaxis"] },
+    "definition": {
+      "en": "A mistake in how the code is written, such as a missing `)`. JavaScript checks the whole script before running it, so with a syntax error no line runs (`SyntaxError`).",
+      "es": "Un fallo en cómo está escrito el código, como un `)` que falta. JavaScript revisa el script entero antes de ejecutarlo, así que con un error de sintaxis no se ejecuta ninguna línea (`SyntaxError`)."
+    } },
+  { "id": "semantic-error", "en": "semantic error", "es": "error semántico", "sections": [6],
+    "aliases": { "es": ["errores semánticos"] },
+    "definition": {
+      "en": "Code that is well written but makes no sense, such as calling a number as if it were a function. In JavaScript it appears when that line runs, as an exception (`TypeError`, `ReferenceError`…).",
+      "es": "Código bien escrito pero sin sentido, como llamar a un número como si fuera una función. En JavaScript aparece al ejecutarse esa línea, como una excepción (`TypeError`, `ReferenceError`…)."
+    } },
+  { "id": "logic-error", "en": "logic error", "es": "error lógico", "sections": [6],
+    "aliases": { "en": ["logical error"], "es": ["errores lógicos"] },
+    "definition": {
+      "en": "A mistake that doesn't produce any error message: the program runs, but does something different from what you wanted. You find it by checking the results, for example with `console.log` or the debugger.",
+      "es": "Un fallo que no produce ningún mensaje de error: el programa se ejecuta, pero hace algo distinto de lo que querías. Se descubre al comprobar los resultados, por ejemplo con `console.log` o con el depurador."
+    } },
+  { "id": "error-object", "en": "error object", "es": "objeto de error", "sections": [6],
+    "aliases": { "es": ["objetos de error"] },
+    "definition": {
+      "en": "The object that represents an error, such as the one `catch` receives or the one created with `new Error(\"…\")`. Its `name` is the type of error and its `message`, the description.",
+      "es": "El objeto que representa un error, como el que recibe `catch` o el que se crea con `new Error(\"…\")`. Su `name` es el tipo de error y su `message`, la descripción."
+    } }
+]

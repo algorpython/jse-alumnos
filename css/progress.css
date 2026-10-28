@@ -1,0 +1,13 @@
+/* Pantalla «Progress»: resumen, copia de seguridad y reinicio. Usa las tarjetas y botones de base.css.
+   El espacio vertical entre bloques lo pone .main (flex con gap). */
+.progress-status { outline: none; }
+.progress-status:empty { display: none; }
+.progress-status .note, .progress-note { max-width: 720px; }
+.progress-hint { margin-top: -10px; }
+.progress-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.progress-text { font-size: 14.5px; line-height: 1.55; color: var(--muted); margin-bottom: 16px; }
+.progress-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.progress-confirm { flex-basis: 100%; font-size: 14.5px; }
+@media (max-width: 900px) {
+  .progress-cols { grid-template-columns: 1fr; }
+}

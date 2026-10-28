@@ -1,0 +1,142 @@
+[
+  {
+    "id": "s6-e001", "section": 6, "difficulty": 1, "tags": ["try-catch", "error-object"], "courseRef": "17_Excepciones",
+    "title": { "en": "Safe division", "es": "División segura" },
+    "statement": {
+      "en": "The function `divide(a, b)` is already written: it returns `a / b`, but when `b` is `0` it throws an error with the message `\"Can't divide by zero\"`.\nWrite a function `safeDivide(a, b)` that calls `divide(a, b)` and returns its result. If `divide` throws an error, `safeDivide` must not crash: it returns the message of the error instead.\nExample: `safeDivide(10, 2)` returns `5` and `safeDivide(1, 0)` returns `\"Can't divide by zero\"`.",
+      "es": "La función `divide(a, b)` ya está escrita: devuelve `a / b`, pero cuando `b` es `0` lanza un error con el mensaje `\"Can't divide by zero\"`.\nEscribe una función `safeDivide(a, b)` que llame a `divide(a, b)` y devuelva su resultado. Si `divide` lanza un error, `safeDivide` no debe romperse: en su lugar devuelve el mensaje del error.\nEjemplo: `safeDivide(10, 2)` devuelve `5` y `safeDivide(1, 0)` devuelve `\"Can't divide by zero\"`."
+    },
+    "starter": "function divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Can't divide by zero\");\n  }\n  return a / b;\n}\n\nfunction safeDivide(a, b) {\n  // your code here\n}\n\nconsole.log(safeDivide(10, 2));\nconsole.log(safeDivide(1, 0));\n",
+    "solution": "function divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Can't divide by zero\");\n  }\n  return a / b;\n}\n\nfunction safeDivide(a, b) {\n  try {\n    // If divide throws, JavaScript jumps straight to catch.\n    return divide(a, b);\n  } catch (e) {\n    // e is the Error object: its text is in e.message.\n    return e.message;\n  }\n}\n\nconsole.log(safeDivide(10, 2));\nconsole.log(safeDivide(1, 0));\n",
+    "alternatives": [
+      "function divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Can't divide by zero\");\n  }\n  return a / b;\n}\n\nfunction safeDivide(a, b) {\n  let result;\n  try {\n    result = divide(a, b);\n  } catch (error) {\n    result = error.message;\n  }\n  return result;\n}\n\nconsole.log(safeDivide(10, 2));\nconsole.log(safeDivide(1, 0));\n"
+    ],
+    "tests": [
+      { "call": "safeDivide(10, 2)", "expected": 5 },
+      { "call": "safeDivide(9, 3)", "expected": 3 },
+      { "call": "safeDivide(1, 0)", "expected": "Can't divide by zero" },
+      { "call": "safeDivide(0, 5)", "expected": 0 },
+      { "output": "5\nCan't divide by zero" }
+    ],
+    "hints": [
+      { "en": "Put the call to `divide(a, b)` inside a `try` block, and add a `catch (e)` after it.", "es": "Pon la llamada a `divide(a, b)` dentro de un bloque `try` y añade un `catch (e)` detrás." },
+      { "en": "In the `try`, return the result: `return divide(a, b);`. If it throws, that `return` never happens and the `catch` runs.", "es": "En el `try`, devuelve el resultado: `return divide(a, b);`. Si lanza un error, ese `return` no llega a hacerse y se ejecuta el `catch`." },
+      { "en": "In the `catch`, `e` is the error object. Its text is in `e.message`: `return e.message;`.", "es": "En el `catch`, `e` es el objeto de error. Su texto está en `e.message`: `return e.message;`." }
+    ],
+    "solutionExplanation": {
+      "en": "`try` runs `divide(a, b)`. If everything goes well, its result is returned at once and the `catch` is skipped. If `divide` throws (when `b` is `0`), the `return` of the `try` doesn't happen: JavaScript jumps to the `catch`, where `e` is the `Error` object created with `new Error(\"Can't divide by zero\")`, and `e.message` is its text. That way the program doesn't stop, and whoever calls `safeDivide` always gets a value back.",
+      "es": "`try` ejecuta `divide(a, b)`. Si todo va bien, su resultado se devuelve enseguida y el `catch` se salta. Si `divide` lanza un error (cuando `b` es `0`), el `return` del `try` no llega a hacerse: JavaScript salta al `catch`, donde `e` es el objeto `Error` creado con `new Error(\"Can't divide by zero\")`, y `e.message` es su texto. Así el programa no se para, y quien llama a `safeDivide` siempre recibe un valor."
+    },
+    "commonMistakes": [
+      { "en": "Returning `e` instead of `e.message`: you'd return the whole error object, not the text.", "es": "Devolver `e` en vez de `e.message`: devolverías el objeto de error entero, no el texto." },
+      { "en": "Calling `divide(a, b)` outside the `try` (for example, saving it in a variable before the `try`): the error is thrown there and nothing catches it.", "es": "Llamar a `divide(a, b)` fuera del `try` (por ejemplo, guardándolo en una variable antes del `try`): el error salta ahí y nadie lo captura." },
+      { "en": "Changing `divide` so that it doesn't throw: the exercise is about handling the error that it throws, not about removing it.", "es": "Cambiar `divide` para que no lance el error: el ejercicio va de tratar el error que lanza, no de quitarlo." }
+    ]
+  },
+  {
+    "id": "s6-e002", "section": 6, "difficulty": 2, "tags": ["trap", "throw", "rangeerror", "typeerror"], "courseRef": "17_Excepciones",
+    "title": { "en": "Validate an age", "es": "Validar una edad" },
+    "statement": {
+      "en": "Write a function `checkAge(age)` that:\n- throws a `TypeError` with the message `\"Age must be a number\"` if `age` is not a number;\n- throws a `RangeError` with the message `\"Age must be between 0 and 120\"` if `age` is less than 0 or greater than 120;\n- otherwise, returns `\"Valid age\"`.\nThe starter code has a function `test(age)` that calls `checkAge` and returns its result or, if it throws, `e.name + \": \" + e.message`. Don't change it: the tests use it.\nExample: `test(-1)` returns `\"RangeError: Age must be between 0 and 120\"`.",
+      "es": "Escribe una función `checkAge(age)` que:\n- lance un `TypeError` con el mensaje `\"Age must be a number\"` si `age` no es un número;\n- lance un `RangeError` con el mensaje `\"Age must be between 0 and 120\"` si `age` es menor que 0 o mayor que 120;\n- en otro caso, devuelva `\"Valid age\"`.\nEl código de partida trae una función `test(age)` que llama a `checkAge` y devuelve su resultado o, si lanza un error, `e.name + \": \" + e.message`. No la cambies: los tests la usan.\nEjemplo: `test(-1)` devuelve `\"RangeError: Age must be between 0 and 120\"`."
+    },
+    "starter": "function checkAge(age) {\n  // your code here\n}\n\n// Don't change this function: the tests use it.\nfunction test(age) {\n  try {\n    return checkAge(age);\n  } catch (e) {\n    return e.name + \": \" + e.message;\n  }\n}\n\nconsole.log(test(30));\nconsole.log(test(-1));\n",
+    "solution": "function checkAge(age) {\n  // Check the type first: \"200\" > 120 is true,\n  // so a text would otherwise give a RangeError.\n  if (typeof age !== \"number\") {\n    throw new TypeError(\"Age must be a number\");\n  }\n  if (age < 0 || age > 120) {\n    throw new RangeError(\"Age must be between 0 and 120\");\n  }\n  return \"Valid age\";\n}\n\n// Don't change this function: the tests use it.\nfunction test(age) {\n  try {\n    return checkAge(age);\n  } catch (e) {\n    return e.name + \": \" + e.message;\n  }\n}\n\nconsole.log(test(30));\nconsole.log(test(-1));\n",
+    "alternatives": [
+      "function checkAge(age) {\n  if (typeof age !== \"number\") throw new TypeError(\"Age must be a number\");\n  if (age >= 0 && age <= 120) return \"Valid age\";\n  throw new RangeError(\"Age must be between 0 and 120\");\n}\n\n// Don't change this function: the tests use it.\nfunction test(age) {\n  try {\n    return checkAge(age);\n  } catch (e) {\n    return e.name + \": \" + e.message;\n  }\n}\n\nconsole.log(test(30));\nconsole.log(test(-1));\n"
+    ],
+    "tests": [
+      { "call": "test(30)", "expected": "Valid age" },
+      { "call": "test(0)", "expected": "Valid age" },
+      { "call": "test(120)", "expected": "Valid age" },
+      { "call": "test(-1)", "expected": "RangeError: Age must be between 0 and 120" },
+      { "call": "test(150)", "expected": "RangeError: Age must be between 0 and 120" },
+      { "call": "test(\"thirty\")", "expected": "TypeError: Age must be a number" },
+      { "call": "test(\"200\")", "expected": "TypeError: Age must be a number" },
+      { "output": "Valid age\nRangeError: Age must be between 0 and 120" }
+    ],
+    "hints": [
+      { "en": "To throw an error of a specific type: `throw new RangeError(\"…\");`. The function stops at that line.", "es": "Para lanzar un error de un tipo concreto: `throw new RangeError(\"…\");`. La función se para en esa línea." },
+      { "en": "`typeof age !== \"number\"` tells you that `age` is not a number.", "es": "`typeof age !== \"number\"` te dice que `age` no es un número." },
+      { "en": "Check the type before the range. `\"200\" > 120` is `true` (the text is converted), so with the range first, `\"200\"` would give a `RangeError` instead of a `TypeError`.", "es": "Comprueba el tipo antes que el rango. `\"200\" > 120` da `true` (el texto se convierte), así que con el rango primero, `\"200\"` daría un `RangeError` en vez de un `TypeError`." }
+    ],
+    "solutionExplanation": {
+      "en": "`throw new TypeError(\"…\")` and `throw new RangeError(\"…\")` create errors of the built-in types, each with its own `name` and the `message` you choose, and stop the function there. The order matters: the type is checked first, because comparisons convert texts to numbers (`\"200\" > 120` is `true`). Then `age < 0 || age > 120` catches both ends of the range, and 0 and 120 are still valid. If no `throw` runs, the function gets to `return \"Valid age\"`.",
+      "es": "`throw new TypeError(\"…\")` y `throw new RangeError(\"…\")` crean errores de los tipos de JavaScript, cada uno con su `name` y el `message` que elijas, y paran la función ahí. El orden importa: primero se comprueba el tipo, porque las comparaciones convierten los textos en números (`\"200\" > 120` da `true`). Después, `age < 0 || age > 120` atrapa los dos extremos del rango, y el 0 y el 120 siguen siendo válidos. Si no se ejecuta ningún `throw`, la función llega a `return \"Valid age\"`."
+    },
+    "commonMistakes": [
+      { "en": "Checking the range before the type: `test(\"200\")` gives a `RangeError` instead of a `TypeError`.", "es": "Comprobar el rango antes que el tipo: `test(\"200\")` da un `RangeError` en vez de un `TypeError`." },
+      { "en": "Using `return new RangeError(…)` instead of `throw`: the error object is returned as a normal value, nothing is thrown and `test` returns the object.", "es": "Usar `return new RangeError(…)` en lugar de `throw`: el objeto de error se devuelve como un valor normal, no se lanza nada y `test` devuelve el objeto." },
+      { "en": "Writing `age <= 0 || age >= 120`: then 0 and 120, which are valid, would throw an error.", "es": "Escribir `age <= 0 || age >= 120`: así el 0 y el 120, que son válidos, lanzarían un error." }
+    ]
+  },
+  {
+    "id": "s6-e003", "section": 6, "difficulty": 2, "tags": ["try-catch", "typeerror"], "courseRef": "17_Excepciones",
+    "title": { "en": "City in capitals", "es": "Ciudad en mayúsculas" },
+    "statement": {
+      "en": "Users are objects such as `{ name: \"Ana\", address: { city: \"Madrid\" } }`, but some arrive with data missing.\nWrite a function `getCity(user)` that returns the city of the user in capital letters. If any part is missing (no user, no `address` or no `city`), reading it throws a `TypeError`: in that case, return `\"Unknown\"` instead of letting the program crash.\nExample: `getCity({ address: { city: \"Madrid\" } })` returns `\"MADRID\"` and `getCity({ name: \"Ana\" })` returns `\"Unknown\"`.",
+      "es": "Los usuarios son objetos como `{ name: \"Ana\", address: { city: \"Madrid\" } }`, pero algunos llegan con datos que faltan.\nEscribe una función `getCity(user)` que devuelva la ciudad del usuario en mayúsculas. Si falta alguna parte (no hay usuario, no hay `address` o no hay `city`), al leerla salta un `TypeError`: en ese caso, devuelve `\"Unknown\"` en lugar de dejar que el programa se rompa.\nEjemplo: `getCity({ address: { city: \"Madrid\" } })` devuelve `\"MADRID\"` y `getCity({ name: \"Ana\" })` devuelve `\"Unknown\"`."
+    },
+    "starter": "function getCity(user) {\n  // This line crashes when some data is missing. Protect it.\n  return user.address.city.toUpperCase();\n}\n\nconsole.log(getCity({ address: { city: \"Madrid\" } }));\nconsole.log(getCity({ name: \"Ana\" }));\n",
+    "solution": "function getCity(user) {\n  try {\n    // If user, address or city is missing, this line\n    // throws a TypeError and we jump to catch.\n    return user.address.city.toUpperCase();\n  } catch (e) {\n    return \"Unknown\";\n  }\n}\n\nconsole.log(getCity({ address: { city: \"Madrid\" } }));\nconsole.log(getCity({ name: \"Ana\" }));\n",
+    "alternatives": [
+      "function getCity(user) {\n  if (!user || !user.address || !user.address.city) {\n    return \"Unknown\";\n  }\n  return user.address.city.toUpperCase();\n}\n\nconsole.log(getCity({ address: { city: \"Madrid\" } }));\nconsole.log(getCity({ name: \"Ana\" }));\n",
+      "function getCity(user) {\n  try {\n    return user.address.city.toUpperCase();\n  } catch {\n    return \"Unknown\";\n  }\n}\n\nconsole.log(getCity({ address: { city: \"Madrid\" } }));\nconsole.log(getCity({ name: \"Ana\" }));\n"
+    ],
+    "tests": [
+      { "call": "getCity({ address: { city: \"Madrid\" } })", "expected": "MADRID" },
+      { "call": "getCity({ address: { city: \"Lugo\" } })", "expected": "LUGO" },
+      { "call": "getCity({ name: \"Ana\" })", "expected": "Unknown" },
+      { "call": "getCity({ address: {} })", "expected": "Unknown" },
+      { "call": "getCity(null)", "expected": "Unknown" },
+      { "output": "MADRID\nUnknown" }
+    ],
+    "hints": [
+      { "en": "Run the starter code: the second call crashes with `TypeError: Cannot read properties of undefined`. That's the error you have to catch.", "es": "Ejecuta el código de partida: la segunda llamada se rompe con `TypeError: Cannot read properties of undefined`. Ese es el error que tienes que capturar." },
+      { "en": "Wrap the `return` line in a `try` block and return `\"Unknown\"` from the `catch`.", "es": "Mete la línea del `return` en un bloque `try` y devuelve `\"Unknown\"` desde el `catch`." }
+    ],
+    "solutionExplanation": {
+      "en": "Reading a property of `undefined` or `null` throws a `TypeError`: with `{ name: \"Ana\" }`, `user.address` is `undefined`, so `.city` can't be read. With `{ address: {} }` the city is `undefined`, and calling `.toUpperCase()` on it also throws. Putting the line in a `try` catches all those cases with a single `catch`, which returns `\"Unknown\"`. The alternative without `try` checks each part with `if` before using it; both are valid.",
+      "es": "Leer una propiedad de `undefined` o de `null` lanza un `TypeError`: con `{ name: \"Ana\" }`, `user.address` vale `undefined`, así que no se puede leer `.city`. Con `{ address: {} }` la ciudad es `undefined`, y llamar a `.toUpperCase()` sobre ella también lanza un error. Al meter la línea en un `try`, un solo `catch` atrapa todos esos casos y devuelve `\"Unknown\"`. La alternativa sin `try` comprueba cada parte con `if` antes de usarla; las dos son válidas."
+    },
+    "commonMistakes": [
+      { "en": "Only checking `if (!user.address)`: with `null` the error happens before, when reading `user.address`.", "es": "Comprobar solo `if (!user.address)`: con `null` el error salta antes, al leer `user.address`." },
+      { "en": "Returning `e.message` from the `catch`: the exercise asks for the text `\"Unknown\"`.", "es": "Devolver `e.message` desde el `catch`: el ejercicio pide el texto `\"Unknown\"`." },
+      { "en": "Forgetting the `return` in the `try`: the function would return `undefined` even when the city exists.", "es": "Olvidar el `return` dentro del `try`: la función devolvería `undefined` aunque la ciudad exista." }
+    ]
+  },
+  {
+    "id": "s6-e004", "section": 6, "difficulty": 2, "tags": ["trap", "debugging", "logic-error"], "courseRef": "01_Variables/03_console_log.html",
+    "title": { "en": "Find the bug", "es": "Encuentra el fallo" },
+    "statement": {
+      "en": "The function `totalPrice(prices)` should add up all the prices of a shopping cart, but `totalPrice([5, 10, 3])` returns `3` instead of `18`. There's no error message: it's a logic error.\nAdd `console.log(\"i:\", i, \"total:\", total);` inside the loop, run the code and look at how `total` changes on each turn. Find the bug and fix it so that the function returns the right sum (`0` for an empty cart). When it works, remove the debugging `console.log`.",
+      "es": "La función `totalPrice(prices)` debería sumar todos los precios de un carrito de la compra, pero `totalPrice([5, 10, 3])` devuelve `3` en vez de `18`. No sale ningún mensaje de error: es un error lógico.\nAñade `console.log(\"i:\", i, \"total:\", total);` dentro del bucle, ejecuta el código y fíjate en cómo cambia `total` en cada vuelta. Encuentra el fallo y corrígelo para que la función devuelva la suma correcta (`0` con un carrito vacío). Cuando funcione, quita el `console.log` de depuración."
+    },
+    "starter": "function totalPrice(prices) {\n  let total = 0;\n  for (let i = 0; i < prices.length; i++) {\n    total = prices[i];\n  }\n  return total;\n}\n\nconsole.log(totalPrice([5, 10, 3]));\n",
+    "solution": "function totalPrice(prices) {\n  let total = 0;\n  for (let i = 0; i < prices.length; i++) {\n    // The bug was total = prices[i]: it replaced the total\n    // on each turn instead of adding the new price to it.\n    total += prices[i];\n  }\n  return total;\n}\n\nconsole.log(totalPrice([5, 10, 3]));\n",
+    "alternatives": [
+      "function totalPrice(prices) {\n  let total = 0;\n  for (const price of prices) {\n    total = total + price;\n  }\n  return total;\n}\n\nconsole.log(totalPrice([5, 10, 3]));\n"
+    ],
+    "tests": [
+      { "call": "totalPrice([5, 10, 3])", "expected": 18 },
+      { "call": "totalPrice([7])", "expected": 7 },
+      { "call": "totalPrice([2.5, 2.5, 1])", "expected": 6 },
+      { "call": "totalPrice([])", "expected": 0 },
+      { "output": "18" }
+    ],
+    "hints": [
+      { "en": "With the `console.log` you'll see `total: 5`, `total: 10`, `total: 3`. Does `total` grow, or is it replaced?", "es": "Con el `console.log` verás `total: 5`, `total: 10`, `total: 3`. ¿`total` va creciendo o se sustituye?" },
+      { "en": "`total = prices[i]` stores only the current price. You need to add it to what you already had.", "es": "`total = prices[i]` guarda solo el precio actual. Tienes que sumarlo a lo que ya tenías." },
+      { "en": "Use `total += prices[i];` (the same as `total = total + prices[i];`).", "es": "Usa `total += prices[i];` (lo mismo que `total = total + prices[i];`)." }
+    ],
+    "solutionExplanation": {
+      "en": "The loop goes through every price, but `total = prices[i]` replaces the total on each turn, so at the end only the last price is left (`3`). Printing `i` and `total` on each turn shows it at once: the total never grows. `total += prices[i]` adds each price to the total. This is how you deal with logic errors: JavaScript doesn't complain, so you look at the intermediate values until you find the line where they stop making sense.",
+      "es": "El bucle recorre todos los precios, pero `total = prices[i]` sustituye el total en cada vuelta, así que al final solo queda el último precio (`3`). Mostrar `i` y `total` en cada vuelta lo deja ver enseguida: el total nunca crece. `total += prices[i]` suma cada precio al total. Así se tratan los errores lógicos: JavaScript no se queja, así que miras los valores intermedios hasta encontrar la línea en la que dejan de tener sentido."
+    },
+    "commonMistakes": [
+      { "en": "Leaving the debugging `console.log` in the loop: the function works, but the console fills up with extra lines (and the output test fails).", "es": "Dejar el `console.log` de depuración en el bucle: la función funciona, pero la consola se llena de líneas de más (y falla el test de la salida)." },
+      { "en": "Writing `total =+ prices[i]`: that's `total = +prices[i]`, which still replaces the total.", "es": "Escribir `total =+ prices[i]`: eso es `total = +prices[i]`, que sigue sustituyendo el total." },
+      { "en": "Changing the loop to `i <= prices.length`: the last turn adds `undefined` and the result becomes `NaN`.", "es": "Cambiar el bucle a `i <= prices.length`: la última vuelta suma `undefined` y el resultado pasa a ser `NaN`." }
+    ]
+  }
+]
