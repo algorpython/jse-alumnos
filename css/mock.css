@@ -12,14 +12,19 @@
 .mock-rule-notes { margin: 18px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; line-height: 1.5; }
 .mock-start-error { margin-top: 6px; color: var(--ink); }
 
-.mock-history { list-style: none; margin: 0; padding: 0; }
+.mock-history, .mock-fixed-list { list-style: none; margin: 0; padding: 0; }
 .mock-past { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
-.mock-history .mock-past:first-child { border-top: 0; padding-top: 0; }
+.mock-history .mock-past:first-child, .mock-fixed-list .mock-past:first-child { border-top: 0; padding-top: 0; }
 .mock-past-title { font-weight: 600; font-size: 14.5px; }
 .mock-past-title { white-space: nowrap; }
 .mock-past > div:first-child { min-width: 0; }
 .mock-past-end { display: flex; align-items: center; gap: 10px; flex: none; }
 .mock-past-end strong { font: 700 18px var(--head); }
+
+/* Exámenes fijos (tarea 9.2): la misma lista que el historial, con el botón de cada examen. */
+.mock-fixed-text { margin: -2px 0 12px; line-height: 1.5; }
+.mock-fixed-item { min-height: 56px; }
+.mock-fixed-busy { margin-top: 10px; }
 
 /* ---------- Examen (pantalla completa, sin barra lateral) ---------- */
 .main.bare { padding: 0; gap: 0; min-height: 100vh; }

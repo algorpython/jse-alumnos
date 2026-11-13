@@ -242,7 +242,8 @@ export function summarize(state) {
     accuracy: answered ? Math.round((correct / answered) * 100) : null,
     exercises: Object.values(state.exercises || {}).filter((e) => e && e.solved).length,
     // El simulacro en curso (status "active", js/engine/mock.js) no cuenta hasta que se termina.
-    mocks: (state.mocks || []).filter((m) => m && m.status !== "active").length,
+    // Los intentos de los exámenes fijos (`fixed`, tarea 9.2) se ven aparte, en su tarjeta.
+    mocks: (state.mocks || []).filter((m) => m && m.status !== "active" && !m.fixed).length,
     projects: Object.values(state.projects || {}).filter((p) => p && p.done).length,
   };
 }

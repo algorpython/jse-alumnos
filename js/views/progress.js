@@ -4,8 +4,9 @@
 
 import { pageHeader, bindLangSwitch } from "./shell.js";
 import { summarize } from "../store.js";
-import { loadSummary } from "../data.js";
+import { loadSummary, loadFixedExams } from "../data.js";
 import { dashboardData } from "../engine/dashboard.js";
+import { fixedSummary } from "../engine/mock.js";
 import { t } from "../i18n.js";
 
 // Código de error de store.importJSON → clave del mensaje.
@@ -41,6 +42,7 @@ export function renderProgress(main, store, flash = null) {
     <section class="grid4" id="progress-stats" aria-label="${t("progress.summary")}">${stats(s)}
     </section>
     <p class="small progress-hint">${t(s.answered ? "progress.hintStarted" : "progress.hintEmpty")}</p>
+    <div id="progress-fixed"></div>
 
     <div class="progress-cols">
       <section class="card" aria-labelledby="backup-title">
@@ -65,6 +67,7 @@ export function renderProgress(main, store, flash = null) {
 
   bindLangSwitch(main);
   fillTotals(main, store);
+  fillFixed(main, store);
 
   const fileInput = main.querySelector("#import-file");
 
@@ -128,6 +131,42 @@ async function fillTotals(main, store) {
   } catch {
     // Sin datos: se quedan las cifras sin total.
   }
+}
+
+// Exámenes fijos (tarea 9.2): «Exam 1» y «Exam 2» con los intentos, la mejor nota y el enlace al
+// último resultado. Si aún no hay exámenes fijos en los datos (o no cargan), no sale nada.
+async function fillFixed(main, store) {
+  let exams = [];
+  try {
+    exams = await loadFixedExams();
+  } catch {
+    return;
+  }
+  const box = main.querySelector("#progress-fixed");
+  if (!box || !box.isConnected || !exams.length) return;
+  const items = fixedSummary(store.get(), exams).map((x) => {
+    const stat = x.attempts === 0
+      ? t("mock.fixedNotTaken")
+      : x.attempts === 1 ? t("mock.fixedAttemptsOne", { percent: x.best.percent }) : t("mock.fixedAttempts", { count: x.attempts, percent: x.best.percent });
+    const link = x.last
+      ? `<a class="mini" href="#/mock/result/${x.last}" aria-label="${t("progress.fixedLastLabel", { n: x.id })}">${t("progress.fixedLast")}</a>`
+      : "";
+    return `
+        <li class="progress-fixed-item">
+          <div>
+            <p class="progress-fixed-name">${t("mock.fixedName", { n: x.id })}</p>
+            <p class="small">${stat}${x.best?.passed ? ` <span class="chip green">${t("mock.passedChip")}</span>` : ""}</p>
+          </div>
+          ${link}
+        </li>`;
+  }).join("");
+  box.innerHTML = `
+    <section class="card progress-fixed" aria-labelledby="progress-fixed-title">
+      <h2 id="progress-fixed-title">${t("progress.fixedTitle")}</h2>
+      <p class="progress-text">${t("progress.fixedText")}</p>
+      <ul class="progress-fixed-list">${items}</ul>
+      <a class="btn ghost" href="#/mock">${t("progress.fixedToMocks")}</a>
+    </section>`;
 }
 
 function stat(label, value, total = "") {

@@ -133,9 +133,10 @@ function mockCard(mock) {
   let text;
   let action;
   if (mock.active && !mock.expired) {
-    title = t("dashboard.mockActiveTitle");
-    text = t("dashboard.mockActiveText");
-    action = `<a class="btn lime" href="#/mock/exam?n=${mock.next}">${t("mock.resume")}</a>`;
+    // Un examen fijo en curso (tarea 9.2) se llama por su nombre: «You have Exam 1 in progress».
+    title = mock.fixed ? t("mock.fixedActiveTitle", { n: mock.fixed }) : t("dashboard.mockActiveTitle");
+    text = mock.fixed ? t("dashboard.fixedActiveText") : t("dashboard.mockActiveText");
+    action = `<a class="btn lime" href="#/mock/exam?n=${mock.next}">${mock.fixed ? t("mock.fixedResumeLabel", { n: mock.fixed }) : t("mock.resume")}</a>`;
   } else {
     title = t("dashboard.mockCardTitle", { questions: MOCK_SIZE, minutes: MOCK_MINUTES });
     text = t("dashboard.mockCardText");

@@ -79,7 +79,8 @@
     "projectsSoonTitle": "Projects are on their way",
     "projectsSoonText": "Guided HTML, CSS and JavaScript projects are coming soon.",
     "projectsSee": "See projects",
-    "chipLang": "{lang} {passed}/{total}"
+    "chipLang": "{lang} {passed}/{total}",
+    "fixedActiveText": "The timer is still running. Pick up where you left off."
   },
   "notFound": {
     "text": "This page doesn't exist, but there's plenty to practise. <a href=\"#/\">Go to the Dashboard</a>."
@@ -112,7 +113,12 @@
     "errorJson": "That file couldn't be read. Choose the .json file you exported from JSE Practice.",
     "errorFormat": "That file isn't a JSE Practice progress file. Choose the .json file you exported from this app.",
     "errorInvalid": "That progress file looks damaged, so nothing was changed. Try another copy.",
-    "errorNewer": "That file comes from a newer version of JSE Practice. Reload the page and try again."
+    "errorNewer": "That file comes from a newer version of JSE Practice. Reload the page and try again.",
+    "fixedTitle": "Fixed exams",
+    "fixedText": "The same exams for the whole class. Here are your attempts:",
+    "fixedLast": "See last result",
+    "fixedLastLabel": "See the last result of Exam {n}",
+    "fixedToMocks": "Go to the exams"
   },
   "practice": {
     "sub": "Pick a section and practise at your own pace. After every answer you'll see why it's right or wrong.",
@@ -467,7 +473,35 @@
     "noneRight": "No correct answers this time. Open the ones to review: every explanation brings you closer.",
     "noneToReview": "Nothing to review: you got every question right!",
     "typeError": "Find the error · single choice",
-    "percent": "{percent}%"
+    "percent": "{percent}%",
+    "fixedTitle": "Fixed exams",
+    "fixedText": "The same 30 questions, in the same order, for the whole class. They come from the practice questions you've worked on, in real exam conditions. Retake them as often as you like.",
+    "fixedName": "Exam {n}",
+    "fixedNotTaken": "Not taken yet. You've got this!",
+    "fixedAttempts": "{count} attempts · best {percent}%",
+    "fixedAttemptsOne": "1 attempt · {percent}%",
+    "fixedStart": "Start",
+    "fixedStartLabel": "Start Exam {n}",
+    "fixedRetake": "Retake",
+    "fixedRetakeLabel": "Retake Exam {n}",
+    "fixedResume": "Resume",
+    "fixedResumeLabel": "Resume Exam {n}",
+    "fixedBusy": "Finish the exam in progress first.",
+    "fixedStartError": "The exam couldn't be prepared. Reload the page and try again.",
+    "fixedActiveTitle": "You have Exam {n} in progress",
+    "fixedHeadSub": "Fixed exam · JSE-40-01 conditions · Algorithmics",
+    "fixedHistoryItem": "Exam {exam} · attempt {n}",
+    "fixedSeeResultLabel": "See the result of Exam {exam}, attempt {n}",
+    "fixedKicker": "Exam {exam} · attempt {n} · {date}",
+    "fixedResultsTitle": "Exam {n} results",
+    "fixedCompareFirst": "This is your first attempt at Exam {exam}, so now you have a score to beat. Take it again later to see how much you've improved.",
+    "fixedCompareUp": "{count} more correct answers than in attempt {n} ({from}% → {to}%). You're improving!",
+    "fixedCompareUpOne": "1 more correct answer than in attempt {n} ({from}% → {to}%). You're improving!",
+    "fixedCompareUpPercent": "Up from {from}% in attempt {n} to {to}% now. You're improving!",
+    "fixedCompareSame": "Same score as in attempt {n} ({to}%). Steady results are a great base, and reviewing today's mistakes is your next step up.",
+    "fixedCompareDownImproved": "You improved in <strong>{sections}</strong> compared with attempt {n}. Overall, last time went a little better ({from}%): reviewing today's mistakes is the quickest way to bounce back.",
+    "fixedCompareDown": "Attempt {n} went a little better ({from}%). Reviewing today's mistakes is the quickest way to bounce back.",
+    "fixedInProgress": "In progress"
   },
   "projects": {
     "heading": "Course review projects",

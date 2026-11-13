@@ -46,7 +46,7 @@ export function dashboardData({ sections, questionBanks = [], exerciseBanks = []
   // Simulacro en curso. Si ya se le acabó el tiempo, la portada (#/mock) lo cierra al abrirla.
   const active = activeMock(state);
   const mock = active
-    ? { active: true, expired: isExpired(active, now), number: active.number, next: (active.questions.findIndex((id) => !isAnswered(active, id)) + 1) || 1 }
+    ? { active: true, expired: isExpired(active, now), number: active.number, fixed: active.fixed || null, next: (active.questions.findIndex((id) => !isAnswered(active, id)) + 1) || 1 }
     : { active: false };
 
   // Repaso de hoy: solo las tarjetas cuya pregunta existe (como en «My mistakes»).

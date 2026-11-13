@@ -7,7 +7,7 @@
 // Tono (decisión del cliente, CLAUDE.md): siempre motivador. Por eso la comparación solo
 // destaca lo que ha mejorado y las secciones flojas se presentan como «Focus next on…».
 
-import { PASS_PERCENT, finishedMocks } from "./mock.js";
+import { PASS_PERCENT, finishedMocks, isFixed } from "./mock.js";
 import { grade } from "./questions.js";
 
 // Tiempo empleado en ms: de `startedAt` a `finishedAt`, sin pasar de la duración del simulacro
@@ -57,8 +57,11 @@ export function lowestSection(rows) {
 }
 
 // Simulacro terminado justo antes de `mock` (el de número mayor por debajo del suyo), o null.
+// Se compara con los de su tipo: un simulacro libre con el simulacro libre anterior y un intento
+// de un examen fijo con el intento anterior del mismo examen (tarea 9.2).
 export function previousMock(state, mock) {
-  const before = finishedMocks(state).filter((m) => m.number < mock.number && m.score?.total > 0);
+  const kind = (m) => (isFixed(m) ? m.fixed : 0);
+  const before = finishedMocks(state).filter((m) => m.number < mock.number && m.score?.total > 0 && kind(m) === kind(mock));
   return before.reduce((best, m) => (!best || m.number > best.number ? m : best), null);
 }
 

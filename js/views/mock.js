@@ -1,7 +1,7 @@
 // Simulacros de examen (como ../maquetas/04_simulacro.png y 04b_simulacro_error.png).
 // Las reglas (reparto, código, opción C, tiempo) están en js/engine/mock.js.
-// - #/mock: portada con las normas, el botón para empezar (o seguir el simulacro en curso) y los
-//   simulacros ya hechos.
+// - #/mock: portada con las normas, el botón para empezar (o seguir el simulacro en curso), los
+//   exámenes fijos (tarea 9.2: «Exam 1» y «Exam 2», iguales para toda la clase) y los ya hechos.
 // - #/mock/exam?n=12: pregunta 12 del simulacro en curso, a pantalla completa (sin barra lateral):
 //   temporizador, «Finish exam», marcar para revisar y cuadrícula de navegación. Sin feedback:
 //   lo elegido se guarda en el progreso al momento (sobrevive a recargar la página) y no se dice
@@ -13,12 +13,12 @@
 
 import { pageHeader, bindLangSwitch, langSwitch } from "./shell.js";
 import { questionStem, optionList, typeLabel } from "./question.js";
-import { loadSections, loadQuestions, loadMockBank, loadSummary, loadQuestionsById } from "../data.js";
+import { loadSections, loadQuestions, loadMockBank, loadSummary, loadQuestionsById, loadFixedExams } from "../data.js";
 import { toggleOption, chooseCount, isMultiple } from "../engine/questions.js";
 import {
   MOCK_SIZE, MOCK_MINUTES, PASS_PERCENT, planMock, startMock, activeMock, finishedMocks,
   timeLeft, isExpired, formatClock, setMockAnswer, toggleFlag, navStats, isAnswered, finishMock,
-  closeExpired, seededRandom,
+  closeExpired, seededRandom, fixedExamPlan, fixedSummary, mockLabel, isFixed,
 } from "../engine/mock.js";
 import { now, setClock } from "../clock.js";
 import { t, getLang } from "../i18n.js";
@@ -102,7 +102,7 @@ export function renderMockHome(main, store, query) {
     // depende solo de cuántas hay de cada sección y de cuáles han salido, así que le basta el
     // índice ligero. Las preguntas enteras se cargan al pulsar «Start» (y, si el simulacro en curso
     // se ha quedado sin tiempo, las suyas para corregirlo).
-    const summary = await loadSummary();
+    const [summary, fixedExams] = await Promise.all([loadSummary(), loadFixedExams()]);
     applyDebugClock(store, query);
     const pending = activeMock(store.get());
     if (pending && isExpired(pending, now())) expireIfNeeded(store, (await loadMockQuestions(pending)).byId);
@@ -116,54 +116,113 @@ export function renderMockHome(main, store, query) {
     main.querySelector('[role="status"]')?.remove();
     main.insertAdjacentHTML("beforeend", `
       <div class="mock-cols">
-        <section class="card mock-rules" aria-labelledby="mock-rules-title">
-          <h2 id="mock-rules-title">${t("mock.rulesTitle")}</h2>
-          <ul class="mock-rule-list">
-            <li><b>${MOCK_SIZE}</b><span>${t("mock.ruleQuestions")}</span></li>
-            <li><b>${MOCK_MINUTES}</b><span>${t("mock.ruleTime")}</span></li>
-            <li><b>${PASS_PERCENT}%</b><span>${t("mock.rulePass")}</span></li>
-          </ul>
-          <ul class="mock-rule-notes">
-            <li>${t("mock.ruleFeedback")}</li>
-            <li>${t("mock.ruleFlag")}</li>
-            <li>${t("mock.ruleTimer")}</li>
-          </ul>
-        </section>
+        <div class="mock-side">
+          <section class="card mock-rules" aria-labelledby="mock-rules-title">
+            <h2 id="mock-rules-title">${t("mock.rulesTitle")}</h2>
+            <ul class="mock-rule-list">
+              <li><b>${MOCK_SIZE}</b><span>${t("mock.ruleQuestions")}</span></li>
+              <li><b>${MOCK_MINUTES}</b><span>${t("mock.ruleTime")}</span></li>
+              <li><b>${PASS_PERCENT}%</b><span>${t("mock.rulePass")}</span></li>
+            </ul>
+            <ul class="mock-rule-notes">
+              <li>${t("mock.ruleFeedback")}</li>
+              <li>${t("mock.ruleFlag")}</li>
+              <li>${t("mock.ruleTimer")}</li>
+            </ul>
+          </section>
+          ${fixedCard(fixedSummary(state, fixedExams), active)}
+        </div>
         <div class="mock-side">
           ${callToAction(active, canStart)}
-          ${history(finishedMocks(state))}
+          ${history(state)}
         </div>
       </div>`);
 
-    main.querySelector('[data-action="start"]')?.addEventListener("click", async (e) => {
-      const btn = e.currentTarget;
-      // Mientras se cargan las preguntas, un segundo clic no hace nada (no empieza dos simulacros).
-      if (btn.getAttribute("aria-disabled") === "true") return;
-      btn.setAttribute("aria-disabled", "true");
-      // Con una conexión lenta, las preguntas tardan unos segundos: el botón lo dice mientras tanto.
-      const label = btn.textContent;
-      btn.textContent = t("practice.loading");
-      try {
-        const pool = await loadPool();
-        // Otra pestaña puede haber empezado uno mientras tanto: se sigue ese.
-        if (!activeMock(store.get())) {
-          const seed = DEBUG && query.has("seed") ? Number(query.get("seed")) : null;
-          const plan = planMock({ ...pool, history: store.get().mocks, rng: seed === null ? Math.random : seededRandom(seed) });
-          if (!plan.ok) throw new Error(`Not enough questions for a mock exam (${plan.available})`);
-          const seconds = DEBUG && query.has("duration") ? Number(query.get("duration")) : null;
-          const durationMs = seconds > 0 ? seconds * 1000 : MOCK_MINUTES * 60000;
-          store.update((s) => { startMock(s, plan, now(), { durationMs }); });
-        }
-        location.hash = "#/mock/exam?n=1";
-      } catch (err) {
-        btn.textContent = label;
-        btn.removeAttribute("aria-disabled");
-        main.querySelector(".mock-start-error")?.remove();
-        btn.insertAdjacentHTML("afterend", `<p class="note purple mock-start-error" role="alert">${t("mock.startError")}</p>`);
-        if (DEBUG) throw err;
-      }
+    // Simulacro libre: planMock elige entre todas las preguntas (opción C).
+    bindStart(main, store, query, main.querySelector('[data-action="start"]'), "mock.startError", async () => {
+      const pool = await loadPool();
+      const seed = DEBUG && query.has("seed") ? Number(query.get("seed")) : null;
+      const plan = planMock({ ...pool, history: store.get().mocks, rng: seed === null ? Math.random : seededRandom(seed) });
+      if (!plan.ok) throw new Error(`Not enough questions for a mock exam (${plan.available})`);
+      return plan;
+    });
+    // Exámenes fijos: siempre las mismas preguntas en el mismo orden (data/mock/fixed-exams.json).
+    main.querySelectorAll("button[data-fixed]").forEach((btn) => {
+      bindStart(main, store, query, btn, "mock.fixedStartError", async () => {
+        const exam = fixedExams.find((x) => x.id === Number(btn.dataset.fixed));
+        if (!exam) throw new Error(`Unknown fixed exam ${btn.dataset.fixed}`);
+        return fixedExamPlan(exam, await loadQuestionsById(exam.questions));
+      });
     });
   })().catch(() => loadError(main));
+}
+
+// Botón que empieza un examen: `makePlan` prepara el plan (planMock o fixedExamPlan) y se abre la
+// pregunta 1. Solo con ?debug, `duration=5` (segundos) acorta el tiempo.
+function bindStart(main, store, query, btn, errorKey, makePlan) {
+  btn?.addEventListener("click", async () => {
+    // Mientras se cargan las preguntas, un segundo clic no hace nada (no empieza dos simulacros).
+    if (btn.getAttribute("aria-disabled") === "true") return;
+    btn.setAttribute("aria-disabled", "true");
+    // Con una conexión lenta, las preguntas tardan unos segundos: el botón lo dice mientras tanto.
+    const label = btn.textContent;
+    btn.textContent = t("practice.loading");
+    try {
+      // Otra pestaña puede haber empezado uno mientras tanto: se sigue ese.
+      if (!activeMock(store.get())) {
+        const plan = await makePlan();
+        const seconds = DEBUG && query.has("duration") ? Number(query.get("duration")) : null;
+        const durationMs = seconds > 0 ? seconds * 1000 : MOCK_MINUTES * 60000;
+        store.update((s) => { if (!activeMock(s)) startMock(s, plan, now(), { durationMs }); });
+      }
+      location.hash = "#/mock/exam?n=1";
+    } catch (err) {
+      btn.textContent = label;
+      btn.removeAttribute("aria-disabled");
+      main.querySelector(".mock-start-error")?.remove();
+      btn.insertAdjacentHTML("afterend", `<p class="note purple mock-start-error" role="alert">${t(errorKey)}</p>`);
+      if (DEBUG) throw err;
+    }
+  });
+}
+
+// Exámenes fijos: «Exam 1» y «Exam 2» con sus intentos y el botón para empezar, repetir o seguir.
+// Mientras haya otro examen en curso (simulacro o examen fijo), primero hay que terminarlo.
+function fixedCard(list, active) {
+  if (!list.length) return "";
+  const items = list.map((x) => {
+    const stat = x.active && x.attempts === 0
+      ? t("mock.fixedInProgress")
+      : x.attempts === 0
+      ? t("mock.fixedNotTaken")
+      : x.attempts === 1 ? t("mock.fixedAttemptsOne", { percent: x.best.percent }) : t("mock.fixedAttempts", { count: x.attempts, percent: x.best.percent });
+    let action = "";
+    if (x.active) {
+      const next = active.questions.findIndex((id) => !isAnswered(active, id)) + 1 || 1;
+      action = `<a class="btn lime" href="#/mock/exam?n=${next}" aria-label="${t("mock.fixedResumeLabel", { n: x.id })}">${t("mock.fixedResume")}</a>`;
+    } else if (!active) {
+      const again = x.attempts > 0;
+      action = `<button type="button" class="btn ${again ? "ghost" : "primary"}" data-fixed="${x.id}" aria-label="${t(again ? "mock.fixedRetakeLabel" : "mock.fixedStartLabel", { n: x.id })}">${t(again ? "mock.fixedRetake" : "mock.fixedStart")}</button>`;
+    }
+    return `
+      <li class="mock-past mock-fixed-item">
+        <div>
+          <p class="mock-past-title">${t("mock.fixedName", { n: x.id })}</p>
+          <p class="small">${stat}${x.best?.passed ? ` <span class="chip green">${t("mock.passedChip")}</span>` : ""}</p>
+        </div>
+        ${action ? `<div class="mock-past-end">${action}</div>` : ""}
+      </li>`;
+  }).join("");
+  // Con un examen en curso que no es de esta lista (o con el otro examen fijo), se explica por qué
+  // no hay botón de empezar.
+  const busy = active && list.some((x) => !x.active);
+  return `
+    <section class="card mock-fixed" aria-labelledby="mock-fixed-title">
+      <h2 id="mock-fixed-title">${t("mock.fixedTitle")}</h2>
+      <p class="small mock-fixed-text">${t("mock.fixedText")}</p>
+      <ul class="mock-fixed-list">${items}</ul>
+      ${busy ? `<p class="small mock-fixed-busy">${t("mock.fixedBusy")}</p>` : ""}
+    </section>`;
 }
 
 // Tarjeta morada: empezar, seguir el simulacro en curso o «próximamente» si aún no hay preguntas.
@@ -172,11 +231,11 @@ function callToAction(active, canStart) {
   let text;
   let action;
   if (active) {
-    title = t("mock.activeTitle");
+    title = isFixed(active) ? t("mock.fixedActiveTitle", { n: active.fixed }) : t("mock.activeTitle");
     text = t("mock.activeText", { time: formatClock(timeLeft(active, now())) });
     // Se sigue por la primera pregunta sin responder (o por la 1 si están todas).
     const next = active.questions.findIndex((id) => !isAnswered(active, id)) + 1 || 1;
-    action = `<a class="btn lime" href="#/mock/exam?n=${next}">${t("mock.resume")}</a>`;
+    action = `<a class="btn lime" href="#/mock/exam?n=${next}">${isFixed(active) ? t("mock.fixedResumeLabel", { n: active.fixed }) : t("mock.resume")}</a>`;
   } else if (canStart) {
     title = t("mock.readyTitle");
     text = t("mock.readyText", { minutes: MOCK_MINUTES });
@@ -195,22 +254,28 @@ function callToAction(active, canStart) {
     </section>`;
 }
 
-// Simulacros terminados, el más reciente primero.
-function history(done) {
+// Simulacros terminados (y los intentos de los exámenes fijos), el más reciente primero.
+function history(state) {
+  const done = finishedMocks(state);
   if (!done.length) return "";
   const lang = getLang();
   const date = (iso) => new Date(iso).toLocaleDateString(lang === "es" ? "es-ES" : "en-GB", { day: "numeric", month: "short" });
-  const items = [...done].reverse().map((m) => `
+  const items = [...done].reverse().map((m) => {
+    const lbl = mockLabel(state, m);
+    const title = lbl.fixed ? t("mock.fixedHistoryItem", { exam: lbl.fixed, n: lbl.n }) : t("mock.historyItem", { n: lbl.n });
+    const aria = lbl.fixed ? t("mock.fixedSeeResultLabel", { exam: lbl.fixed, n: lbl.n }) : t("mock.seeResultLabel", { n: lbl.n });
+    return `
     <li class="mock-past">
       <div>
-        <p class="mock-past-title">${t("mock.historyItem", { n: m.number })} <span class="small">· ${date(m.finishedAt)}</span></p>
+        <p class="mock-past-title">${title} <span class="small">· ${date(m.finishedAt)}</span></p>
         <p class="small">${t("mock.score", { correct: m.score.correct, total: m.score.total })}${m.score.passed ? ` <span class="chip green">${t("mock.passedChip")}</span>` : ""}</p>
       </div>
       <div class="mock-past-end">
         <strong>${m.score.percent}%</strong>
-        <a class="mini" href="#/mock/result/${m.number}" aria-label="${t("mock.seeResultLabel", { n: m.number })}">${t("mock.seeResult")}</a>
+        <a class="mini" href="#/mock/result/${m.number}" aria-label="${aria}">${t("mock.seeResult")}</a>
       </div>
-    </li>`).join("");
+    </li>`;
+  }).join("");
   return `
     <section class="card" aria-labelledby="mock-history-title">
       <h2 id="mock-history-title">${t("mock.historyTitle")}</h2>
@@ -281,7 +346,7 @@ function paintExam(main, store, pool, view, focus = null) {
   // Todo va dentro de .mock-screen, que es nuevo en cada repintado (así los eventos no se duplican).
   main.innerHTML = `<div class="mock-screen">
     <header class="mock-head">
-      <div class="brand"><div class="logo" aria-hidden="true">&lt;/&gt;</div><div><h1 class="mock-title">${t("mock.headTitle")}</h1><small>${t("mock.headSub")}</small></div></div>
+      <div class="brand"><div class="logo" aria-hidden="true">&lt;/&gt;</div><div><h1 class="mock-title">${isFixed(mock) ? t("mock.fixedName", { n: mock.fixed }) : t("mock.headTitle")}</h1><small>${isFixed(mock) ? t("mock.fixedHeadSub") : t("mock.headSub")}</small></div></div>
       <div class="mock-head-end">
         <p class="mock-count">${t("mock.questionOf", { n: index + 1, total })}</p>
         <p class="mock-timer${left <= WARNINGS[0].ms ? " low" : ""}" role="timer" aria-label="${t("mock.timerLabel")}"><span id="mock-clock">${formatClock(left)}</span></p>

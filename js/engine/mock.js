@@ -15,7 +15,16 @@
 // Cada simulacro es un registro de `state.mocks`:
 // { number, status: "active" | "done", startedAt, endsAt, durationMs, questions: [ids],
 //   quotas: { sección: n }, provisional, phase, answers: { id: [opciones] }, flagged: [ids],
-//   finishedAt?, reason?: "submitted" | "timeout", score?, toReview? }
+//   fixed?: 1 | 2, finishedAt?, reason?: "submitted" | "timeout", score?, toReview? }
+//
+// Exámenes fijos (tarea 9.2): los mismos 30 ids, en el mismo orden, para toda la clase
+// (data/mock/fixed-exams.json, generado una sola vez con tools/examenes-fijos.mjs). Cada intento es
+// un registro más de `state.mocks` con `fixed` (el número del examen) y phase "fixed", así que el
+// examen, el temporizador, la corrección y los resultados son los mismos que los de un simulacro.
+// No cuentan para la opción C (planMock solo mira los simulacros libres) ni para la numeración que
+// ve el alumno (mockLabel): `number` sigue siendo único entre todos los registros porque es el de
+// la ruta #/mock/result/N. Los registros antiguos no llevan `fixed`: son simulacros libres, así
+// que el progreso ya guardado no necesita migración.
 
 import { grade } from "./questions.js";
 import { reviewAnswer } from "../srs.js";
@@ -138,6 +147,8 @@ function interleave(a, b) {
 //    sección una sin código por una con código (o al revés), la que menos empeore la prioridad.
 // 4. Desordena las 30 preguntas.
 export function planMock({ sections, mockBank = [], practiceBank = [], history = [], rng = Math.random, size = MOCK_SIZE }) {
+  // Los intentos de los exámenes fijos no cuentan: ni para la fase ni para lo que ya ha salido.
+  history = freeMocks(history);
   const uses = mockUsage(history);
   const phase = history.length < EXCLUSIVE_MOCKS ? "exclusive" : "mixed";
   const sectionIds = new Set(sections.map((s) => s.id));
@@ -216,6 +227,136 @@ export function planMock({ sections, mockBank = [], practiceBank = [], history =
 }
 
 // ---------------------------------------------------------------------------
+// Exámenes fijos (tarea 9.2)
+// ---------------------------------------------------------------------------
+
+export const FIXED_EXAMS = 2;
+
+// ¿Es el intento de un examen fijo?
+export function isFixed(mock) {
+  return Number.isInteger(mock?.fixed) && mock.fixed > 0;
+}
+
+// Solo los simulacros libres (sin los intentos de los exámenes fijos).
+export function freeMocks(list = []) {
+  return (list || []).filter((m) => m && !isFixed(m));
+}
+
+// Reparto oficial por secciones de un examen de `size` preguntas: Map(sección → n).
+export function officialQuotas(sections, size = MOCK_SIZE) {
+  return allocate(sectionWeights(sections).weights, size);
+}
+
+// Prepara los exámenes fijos una sola vez (tools/examenes-fijos.mjs): `count` exámenes de `size`
+// preguntas del banco de práctica, sin preguntas compartidas, con el reparto por secciones y la
+// proporción de código de un simulacro (planMock sin banco exclusivo ni historial). Con la misma
+// semilla y el mismo banco sale siempre lo mismo. Devuelve [{ id, questions: [ids] }] o lanza un
+// Error si no hay preguntas suficientes.
+export function planFixedExams({ sections, practiceBank, seed, count = FIXED_EXAMS, size = MOCK_SIZE }) {
+  const rng = seededRandom(seed);
+  const used = new Set();
+  const exams = [];
+  for (let id = 1; id <= count; id++) {
+    const plan = planMock({ sections, practiceBank: practiceBank.filter((q) => !used.has(q.id)), rng, size });
+    if (!plan.ok) throw new Error(`No hay preguntas suficientes para el examen ${id} (${plan.available})`);
+    if (!plan.codeOk) throw new Error(`El examen ${id} no queda entre el ${CODE_SHARE.min} y el ${CODE_SHARE.max} % de código`);
+    plan.questions.forEach((q) => used.add(q));
+    exams.push({ id, questions: plan.questions });
+  }
+  return exams;
+}
+
+// Comprueba data/mock/fixed-exams.json. `practice`: Map(id → pregunta) del banco de práctica.
+// Devuelve una lista de errores (vacía si está bien): ids 1, 2… en orden; `size` preguntas por
+// examen que existen y son de práctica, sin repetidas ni compartidas entre exámenes, con el reparto
+// oficial por secciones y entre el 60 y el 70 % con código.
+export function validateFixedExams(exams, { sections, practice, size = MOCK_SIZE }) {
+  if (!Array.isArray(exams)) return ["debe ser una lista de exámenes [{ id, questions }]"];
+  const errors = [];
+  const quotas = officialQuotas(sections, size);
+  const { min, max } = codeRange(size);
+  const owner = new Map();
+  exams.forEach((exam, i) => {
+    const name = `examen ${exam?.id ?? i + 1}`;
+    if (!exam || typeof exam !== "object" || exam.id !== i + 1) errors.push(`${name}: los ids van del 1 en adelante y en orden (se esperaba ${i + 1})`);
+    const list = Array.isArray(exam?.questions) ? exam.questions : null;
+    if (!list) {
+      errors.push(`${name}: falta la lista questions`);
+      return;
+    }
+    if (list.length !== size) errors.push(`${name}: tiene ${list.length} preguntas y deben ser ${size}`);
+    const seen = new Set();
+    const bySection = new Map();
+    let code = 0;
+    for (const id of list) {
+      if (seen.has(id)) {
+        errors.push(`${name}: ${id} está repetida`);
+        continue;
+      }
+      seen.add(id);
+      if (owner.has(id)) errors.push(`${name}: ${id} ya está en el examen ${owner.get(id)} (no pueden compartir preguntas)`);
+      else owner.set(id, exam.id);
+      const q = practice.get(id);
+      if (!q) {
+        errors.push(`${name}: ${id} no existe en el banco de práctica (data/questions)`);
+        continue;
+      }
+      bySection.set(q.section, (bySection.get(q.section) || 0) + 1);
+      if (hasCode(q)) code++;
+    }
+    for (const [section, n] of quotas) {
+      const got = bySection.get(section) || 0;
+      if (got !== n) errors.push(`${name}: la sección ${section} tiene ${got} pregunta(s) y le tocan ${n}`);
+    }
+    if (code < min || code > max) errors.push(`${name}: ${code} preguntas con código; deben ser entre ${min} y ${max}`);
+  });
+  return errors;
+}
+
+// Plan para empezar un intento del examen fijo `exam` ({ id, questions }) con startMock.
+// `byId`: Map(id → pregunta) con sus preguntas (para el reparto por secciones que se guarda).
+export function fixedExamPlan(exam, byId = new Map()) {
+  const quotas = {};
+  for (const id of exam.questions) {
+    const q = byId.get(id);
+    if (q) quotas[q.section] = (quotas[q.section] || 0) + 1;
+  }
+  return { ok: true, questions: [...exam.questions], quotas, provisional: false, phase: "fixed", fixed: exam.id };
+}
+
+// Cómo se llama un registro para el alumno: { fixed: null, n } («Mock exam n», contando solo los
+// simulacros libres) o { fixed: 1, n } («Exam 1», intento n).
+export function mockLabel(state, mock) {
+  const upTo = (state?.mocks || []).filter((m) => m && m.number <= mock.number);
+  if (isFixed(mock)) return { fixed: mock.fixed, n: upTo.filter((m) => m.fixed === mock.fixed).length };
+  return { fixed: null, n: freeMocks(upTo).length };
+}
+
+// Resumen de cada examen fijo para la portada y Progress:
+// [{ id, size, attempts, best: { number, percent, passed } | null, last: number | null, active }].
+// `attempts`: intentos terminados; `last`: número (ruta) del último terminado; `active`: hay un
+// intento en curso.
+export function fixedSummary(state, exams = []) {
+  const mocks = (state?.mocks || []).filter(Boolean);
+  return exams.map((exam) => {
+    const mine = mocks.filter((m) => m.fixed === exam.id);
+    const done = mine.filter((m) => m.status === "done" && m.score);
+    let best = null;
+    for (const m of done) {
+      if (!best || m.score.percent >= best.percent) best = { number: m.number, percent: m.score.percent, passed: Boolean(m.score.passed) };
+    }
+    return {
+      id: exam.id,
+      size: exam.questions.length,
+      attempts: done.length,
+      best,
+      last: done.length ? done[done.length - 1].number : null,
+      active: mine.some((m) => m.status === "active"),
+    };
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Simulacro en curso
 // ---------------------------------------------------------------------------
 
@@ -233,6 +374,7 @@ export function startMock(state, plan, now = new Date(), { durationMs = MOCK_MIN
     quotas: { ...plan.quotas },
     provisional: Boolean(plan.provisional),
     phase: plan.phase,
+    ...(Number.isInteger(plan.fixed) ? { fixed: plan.fixed } : {}),
     answers: {},
     flagged: [],
   };

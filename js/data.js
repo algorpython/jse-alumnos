@@ -65,6 +65,12 @@ export async function loadMockBank() {
   return getJson("mock/mock-bank.json", { optional: true, fallback: [] });
 }
 
+// Exámenes fijos (data/mock/fixed-exams.json, tarea 9.2): [{ id, questions: [ids] }]. [] si no hay.
+export async function loadFixedExams() {
+  const list = await getJson("mock/fixed-exams.json", { optional: true, fallback: [] });
+  return Array.isArray(list) ? list : [];
+}
+
 // Proyectos de «Course review» (data/projects/p1.json … p6.json). Los que aún no existen no se
 // incluyen: el contenido llega por tareas (5.2 y 7.7–7.11).
 export const PROJECT_COUNT = 6;

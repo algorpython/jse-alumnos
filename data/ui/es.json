@@ -79,7 +79,8 @@
     "projectsSoonTitle": "Los proyectos están en camino",
     "projectsSoonText": "Muy pronto tendrás proyectos guiados de HTML, CSS y JavaScript.",
     "projectsSee": "Ver los proyectos",
-    "chipLang": "{lang} {passed}/{total}"
+    "chipLang": "{lang} {passed}/{total}",
+    "fixedActiveText": "El tiempo sigue corriendo. Sigue donde lo dejaste."
   },
   "notFound": {
     "text": "Esta página no existe, pero hay mucho que practicar. <a href=\"#/\">Ir al inicio</a>."
@@ -112,7 +113,12 @@
     "errorJson": "No se ha podido leer ese archivo. Elige el archivo .json que exportaste desde JSE Practice.",
     "errorFormat": "Ese archivo no es un archivo de progreso de JSE Practice. Elige el archivo .json que exportaste desde esta app.",
     "errorInvalid": "Parece que ese archivo de progreso está dañado, así que no se ha cambiado nada. Prueba con otra copia.",
-    "errorNewer": "Ese archivo es de una versión más reciente de JSE Practice. Recarga la página y vuelve a intentarlo."
+    "errorNewer": "Ese archivo es de una versión más reciente de JSE Practice. Recarga la página y vuelve a intentarlo.",
+    "fixedTitle": "Exámenes fijos",
+    "fixedText": "Los mismos exámenes para toda la clase. Estos son tus intentos:",
+    "fixedLast": "Ver el último resultado",
+    "fixedLastLabel": "Ver el último resultado del examen {n}",
+    "fixedToMocks": "Ir a los exámenes"
   },
   "practice": {
     "sub": "Elige una sección y practica a tu ritmo. Después de cada respuesta verás por qué es correcta o no.",
@@ -467,7 +473,35 @@
     "noneRight": "Esta vez no hay acertadas. Abre las que tienes para repasar: cada explicación te acerca un poco más.",
     "noneToReview": "Nada que repasar: ¡has acertado todas!",
     "typeError": "Encuentra el error · respuesta única",
-    "percent": "{percent} %"
+    "percent": "{percent} %",
+    "fixedTitle": "Exámenes fijos",
+    "fixedText": "Las mismas 30 preguntas, en el mismo orden, para toda la clase. Salen de las preguntas de práctica que ya has trabajado y se hacen en condiciones de examen real. Puedes repetirlos todas las veces que quieras.",
+    "fixedName": "Examen {n}",
+    "fixedNotTaken": "Aún sin hacer. ¡Tú puedes!",
+    "fixedAttempts": "{count} intentos · mejor nota {percent} %",
+    "fixedAttemptsOne": "1 intento · {percent} %",
+    "fixedStart": "Empezar",
+    "fixedStartLabel": "Empezar el examen {n}",
+    "fixedRetake": "Repetir",
+    "fixedRetakeLabel": "Repetir el examen {n}",
+    "fixedResume": "Seguir",
+    "fixedResumeLabel": "Seguir con el examen {n}",
+    "fixedBusy": "Termina antes el examen que tienes en curso.",
+    "fixedStartError": "No se ha podido preparar el examen. Recarga la página y vuelve a intentarlo.",
+    "fixedActiveTitle": "Tienes el examen {n} a medias",
+    "fixedHeadSub": "Examen fijo · condiciones del JSE-40-01 · Algorithmics",
+    "fixedHistoryItem": "Examen {exam} · intento {n}",
+    "fixedSeeResultLabel": "Ver el resultado del examen {exam}, intento {n}",
+    "fixedKicker": "Examen {exam} · intento {n} · {date}",
+    "fixedResultsTitle": "Resultados del examen {n}",
+    "fixedCompareFirst": "Es tu primer intento del examen {exam}: ya tienes una nota que superar. Repítelo más adelante y verás cuánto has mejorado.",
+    "fixedCompareUp": "{count} aciertos más que en el intento {n} ({from} % → {to} %). ¡Vas mejorando!",
+    "fixedCompareUpOne": "1 acierto más que en el intento {n} ({from} % → {to} %). ¡Vas mejorando!",
+    "fixedCompareUpPercent": "Del {from} % del intento {n} al {to} % de ahora. ¡Vas mejorando!",
+    "fixedCompareSame": "La misma nota que en el intento {n} ({to} %). Ser constante es una gran base, y repasar los fallos de hoy es tu siguiente paso.",
+    "fixedCompareDownImproved": "Has mejorado en <strong>{sections}</strong> respecto al intento {n}. En conjunto, la última vez fue algo mejor ({from} %): repasar los fallos de hoy es la forma más rápida de remontar.",
+    "fixedCompareDown": "El intento {n} fue algo mejor ({from} %). Repasar los fallos de hoy es la forma más rápida de remontar.",
+    "fixedInProgress": "En curso"
   },
   "projects": {
     "heading": "Proyectos de repaso del curso",

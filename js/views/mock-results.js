@@ -8,6 +8,8 @@
 // - Revisión pregunta a pregunta: filtros (todas, a repasar, acertadas) y cada pregunta en un
 //   <details> con lo elegido, la corrección, el porqué de cada opción incorrecta, la explicación,
 //   «Run this code» y la referencia al curso.
+// - Exámenes fijos (tarea 9.2): la misma pantalla, como «Exam 1 results» y comparando con el intento
+//   anterior del mismo examen.
 // Solo con ?debug (capturas): `filter=review|right`, `open=3,7` (números de pregunta abiertos)
 // y `run=3` (abre «Run this code» en la pregunta 3).
 
@@ -15,7 +17,7 @@ import { pageHeader, bindLangSwitch } from "./shell.js";
 import { questionStem, optionList, pick } from "./question.js";
 import { runnerToggle, runnerPanel, bindRunner, runState, openRunner, closeRunner } from "./runner-panel.js";
 import { loadMockQuestions, stopTicker, mockTypeLabel } from "./mock.js";
-import { PASS_PERCENT, findMock, toPass } from "../engine/mock.js";
+import { PASS_PERCENT, findMock, toPass, mockLabel } from "../engine/mock.js";
 import {
   timeTaken, splitDuration, sectionRows, focusSections, lowestSection, compareWithPrevious,
   reviewItems, reviewCounts,
@@ -52,7 +54,7 @@ export function renderMockResult(main, store, params, query) {
   const number = Number(params.number);
   const mock = findMock(store.get(), number);
   if (!mock || mock.status !== "done" || !mock.score) return missing(main);
-  main.innerHTML = pageHeader({ title: t("mock.resultsTitle") });
+  main.innerHTML = pageHeader({ title: resultsTitle(mockLabel(store.get(), mock)) });
   bindLangSwitch(main);
   main.insertAdjacentHTML("beforeend", `<p class="small" role="status">${t("practice.loading")}</p>`);
   (async () => {
@@ -79,6 +81,11 @@ function applyDebug(view, query, mock) {
   for (const n of nums("open")) view.open.add(mock.questions[n - 1]);
   const [runN] = nums("run");
   if (runN) view.runFor = mock.questions[runN - 1];
+}
+
+// «Mock exam results» o, en un examen fijo (tarea 9.2), «Exam 1 results».
+function resultsTitle(label) {
+  return label.fixed ? t("mock.fixedResultsTitle", { n: label.fixed }) : t("mock.resultsTitle");
 }
 
 // «34 min 12 s» (o «45 s» si no llega al minuto).
@@ -158,23 +165,39 @@ function studyCard(rows, sections, lang, missed) {
     </section>`;
 }
 
-// Comparación con el simulacro anterior (o el aviso de que es el primero).
-function compareNote(cmp, sections, lang) {
+// Textos de la comparación: con el simulacro libre anterior o, en un examen fijo (tarea 9.2), con
+// el intento anterior del mismo examen.
+const COMPARE = {
+  free: {
+    first: "mock.compareFirst", up: "mock.compareUp", upOne: "mock.compareUpOne", upPercent: "mock.compareUpPercent",
+    same: "mock.compareSame", downImproved: "mock.compareDownImproved", down: "mock.compareDown",
+  },
+  fixed: {
+    first: "mock.fixedCompareFirst", up: "mock.fixedCompareUp", upOne: "mock.fixedCompareUpOne", upPercent: "mock.fixedCompareUpPercent",
+    same: "mock.fixedCompareSame", downImproved: "mock.fixedCompareDownImproved", down: "mock.fixedCompareDown",
+  },
+};
+
+// Comparación con el simulacro anterior (o el aviso de que es el primero). `label`: mockLabel del
+// simulacro; `prevN`: número que ve el alumno del anterior (simulacro n o intento n).
+function compareNote(cmp, sections, lang, label, prevN) {
+  const k = label.fixed ? COMPARE.fixed : COMPARE.free;
+  const exam = label.fixed;
   let text;
   if (!cmp) {
-    text = t("mock.compareFirst");
+    text = t(k.first, { exam });
   } else if (cmp.trend === "up") {
     const n = cmp.deltaCorrect;
     text = n > 0
-      ? t(n === 1 ? "mock.compareUpOne" : "mock.compareUp", { count: n, n: cmp.previous, from: cmp.from, to: cmp.to })
-      : t("mock.compareUpPercent", { n: cmp.previous, from: cmp.from, to: cmp.to });
+      ? t(n === 1 ? k.upOne : k.up, { count: n, n: prevN, from: cmp.from, to: cmp.to })
+      : t(k.upPercent, { n: prevN, from: cmp.from, to: cmp.to });
   } else if (cmp.trend === "same") {
-    text = t("mock.compareSame", { n: cmp.previous, to: cmp.to });
+    text = t(k.same, { n: prevN, to: cmp.to });
   } else if (cmp.improved.length) {
     const names = cmp.improved.slice(0, 2).map((r) => sectionTitle(sections, r.id, lang)).reduce(joinNames(lang), "");
-    text = t("mock.compareDownImproved", { n: cmp.previous, from: cmp.from, sections: names });
+    text = t(k.downImproved, { n: prevN, from: cmp.from, sections: names });
   } else {
-    text = t("mock.compareDown", { n: cmp.previous, from: cmp.from });
+    text = t(k.down, { n: prevN, from: cmp.from });
   }
   const icon = cmp?.trend === "up" ? "▲" : "★";
   return `<p class="note lime mr-compare"><span class="mr-compare-icon" aria-hidden="true">${icon}</span><span>${text}</span></p>`;
@@ -278,6 +301,10 @@ function paint(main, store, pool, number, view, focus = null) {
   const s = mock.score;
   const rows = sectionRows(s, pool.sections);
   const cmp = compareWithPrevious(state, mock);
+  // Lo que ve el alumno: «Mock exam 3» cuenta solo los simulacros libres; «Exam 1 · attempt 2».
+  const label = mockLabel(state, mock);
+  const prev = cmp ? findMock(state, cmp.previous) : null;
+  const prevN = prev ? mockLabel(state, prev).n : null;
   const missed = reviewCounts(mock, pool.byId).review;
   // «Run this code» abierto desde ?debug&run=N (cuando la pregunta ya está pintada).
   if (view.runFor) {
@@ -294,13 +321,17 @@ function paint(main, store, pool, number, view, focus = null) {
     : t("mock.completedIn", { time: duration(timeTaken(mock)) });
 
   main.innerHTML = `
-    ${pageHeader({ kicker: t("mock.resultKicker", { n: mock.number, date }), title: t("mock.resultsTitle"), sub })}
+    ${pageHeader({
+      kicker: label.fixed ? t("mock.fixedKicker", { exam: label.fixed, n: label.n, date }) : t("mock.resultKicker", { n: label.n, date }),
+      title: resultsTitle(label),
+      sub,
+    })}
     ${mock.reason === "timeout" ? `<p class="note lime mock-timeup">${t("mock.timeUp")}</p>` : ""}
     <div class="mr-top">
       ${scoreCard(s)}
       ${studyCard(rows, pool.sections, lang, missed)}
     </div>
-    ${compareNote(cmp, pool.sections, lang)}
+    ${compareNote(cmp, pool.sections, lang, label, prevN)}
     ${sectionCard(rows, pool.sections, lang, cmp)}
     ${reviewCard(mock, pool, view, lang)}
     <div class="done-actions mr-end">
